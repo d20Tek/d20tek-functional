@@ -4,14 +4,14 @@ namespace TempConverter;
 
 internal static class TemperatureConverter
 {
-    public static decimal CelciusToFahrenheitImp(decimal tempC)
+    public static decimal CelsiusToFahrenheitImp(decimal tempC)
     {
         decimal tempF = (tempC * 9 / 5) + 32;
         var result = Math.Round(tempF, 2);
         return result;
     }
 
-    public static decimal CelciusToFahrenheit(decimal tempC)
+    public static decimal CelsiusToFahrenheit(decimal tempC)
     {
         var result = 
             tempC.Map(x => x * 9)
@@ -22,7 +22,7 @@ internal static class TemperatureConverter
         return result;
     }
 
-    public static decimal FahrenheitToCelcius(decimal tempF)
+    public static decimal FahrenheitToCelsius(decimal tempF)
     {
         var result = 
             tempF.Map(x => x - 32)

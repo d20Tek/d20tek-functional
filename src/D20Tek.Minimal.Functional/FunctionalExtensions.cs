@@ -13,5 +13,21 @@ public static partial class FunctionalExtensions
         action(instance);
         return instance;
     }
+
+    public static T IterateUntil<T>(this T instance, Func<T, T> updateFunction, Func<T, bool> endCondition)
+    {
+        var currentThis = instance;
+
+        while (!endCondition(currentThis))
+        {
+            currentThis = updateFunction(currentThis);
+        }
+
+        return currentThis;
+    }
+
+    public static TState UpdateState<TState>(this TState currentState, Func<TState, TState> func)
+        where TState : State =>
+        func(currentState);
 }
 

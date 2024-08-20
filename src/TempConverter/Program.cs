@@ -14,19 +14,19 @@ static Func<string> Run(string command, IAnsiConsole console) =>
     {
         "ctof" => () => HandleCtoF(console),
         "ftoc" => () => HandleFtoC(console),
-        _ => () => $"[red]Error:[/] '{command}' is an invalid command. Either use ftoc (Fahrenheit To Celcius) or ctof (Celcius to Fahrenheit)"
+        _ => () => $"[red]Error:[/] '{command}' is an invalid command. Either use ftoc (Fahrenheit To Celsius) or ctof (Celsius to Fahrenheit)"
     };
 
 static string HandleCtoF(IAnsiConsole console)
 {
-    var tempC = console.Ask<decimal>($"Enter degrees in Celcius:");
-    var tempF = TemperatureConverter.CelciusToFahrenheit(tempC);
+    var tempC = console.Ask<decimal>($"Enter degrees in Celsius:");
+    var tempF = TemperatureConverter.CelsiusToFahrenheit(tempC);
     return $"{tempC}°C => {tempF}°F";
 }
 
 static string HandleFtoC(IAnsiConsole console)
 {
     var tempF = console.Ask<decimal>($"Enter degrees in Fahreneheit:");
-    var tempC = TemperatureConverter.FahrenheitToCelcius(tempF);
+    var tempC = TemperatureConverter.FahrenheitToCelsius(tempF);
     return $"{tempF}°F => {tempC}°C";
 }
