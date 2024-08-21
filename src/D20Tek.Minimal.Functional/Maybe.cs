@@ -34,7 +34,10 @@ public class Error<T> : Maybe<T>
 
 public static class MaybeExtensions
 {
-    public static Maybe<T> ToMaybe<T>(this T @this) => new Something<T>(@this);
+    public static Maybe<T> ToMaybe<T>(this T source) => new Something<T>(source);
+
+    public static Maybe<T> ToMaybeIfNull<T>(this T? source) =>
+        source is null ? new Nothing<T>() :  new Something<T>(source);
 
     public static Maybe<TToType> Bind<TFromType, TToType>(this Maybe<TFromType> maybe, Func<TFromType, TToType> f)
     {

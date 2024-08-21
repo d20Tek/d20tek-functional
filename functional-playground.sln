@@ -5,9 +5,11 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitConverter", "src\UnitConverter\UnitConverter.csproj", "{7F4AF11A-49F1-4843-A064-50C76D21E8CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.Minimal.Functional", "src\D20Tek.Minimal.Functional\D20Tek.Minimal.Functional.csproj", "{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Minimal.Functional", "src\D20Tek.Minimal.Functional\D20Tek.Minimal.Functional.csproj", "{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempConverter", "src\TempConverter\TempConverter.csproj", "{F1EA0E58-B146-4A32-BCFF-40492A9690DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempConverter", "src\TempConverter\TempConverter.csproj", "{F1EA0E58-B146-4A32-BCFF-40492A9690DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChutesAndLadders", "src\ChutesAndLadders\ChutesAndLadders.csproj", "{0A7BF725-1E12-4C10-9479-6B9140665A72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
