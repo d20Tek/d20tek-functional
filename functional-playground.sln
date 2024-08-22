@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempConverter", "src\TempCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChutesAndLadders", "src\ChutesAndLadders\ChutesAndLadders.csproj", "{0A7BF725-1E12-4C10-9479-6B9140665A72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianTrail", "src\MartianTrail\MartianTrail.csproj", "{DCA3A273-612C-4152-933E-DC16907144BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A7BF725-1E12-4C10-9479-6B9140665A72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA3A273-612C-4152-933E-DC16907144BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA3A273-612C-4152-933E-DC16907144BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA3A273-612C-4152-933E-DC16907144BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA3A273-612C-4152-933E-DC16907144BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

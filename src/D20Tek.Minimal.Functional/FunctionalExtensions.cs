@@ -14,6 +14,11 @@ public static partial class FunctionalExtensions
         return instance;
     }
 
+    public static void IfTrue(this bool condition, Action action)
+    {
+        if (condition) action();
+    }
+
     public static T IterateUntil<T>(this T instance, Func<T, T> updateFunction, Func<T, bool> endCondition)
     {
         var currentThis = instance;
