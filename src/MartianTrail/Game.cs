@@ -1,15 +1,18 @@
 ﻿using D20Tek.Minimal.Functional;
 using MartianTrail.Common;
 using MartianTrail.Inventory;
+using MartianTrail.MiniGame;
 using Spectre.Console;
 
 namespace MartianTrail;
 
 internal static class Game
 {
-    public static void Run(IAnsiConsole console)
+    public static void Run(IAnsiConsole console, Func<int, int> rollFunc)
     {
         var initialState = InitializeGame(console);
+        var miniGame = new MiniGameCommand(console, rollFunc, new TimeService());
+        console.WriteLine($"Ran mini-game, success-factor: {miniGame.Play()}!");
         /*var finalState = initialState
             .IterateUntil(
                 x => StateMachine.NextState(x, rollFunc)
