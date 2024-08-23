@@ -18,4 +18,16 @@ internal static partial class Constants
                   $"\tMax Temp: {sol.MaxTemp}{Environment.NewLine}" +
                   $"\tUV Irradiance Index: {sol.UltraViolet}{Environment.NewLine}";
     }
+
+    public static class UpdateProgress
+    {
+        public static string[] Display(GameState state) =>
+        [
+            $"End of Sol {state.CurrentSol}",
+            $"You have traveled {state.DistanceThisTurn} this Sol.",
+            $"That's a total distance of {state.DistanceTraveled}.",
+            $"You have " + state.Inventory.Batteries + " batteries remaining",
+            $"You have " + state.Inventory.Food + " food remaining"
+        ];
+    }
 }

@@ -4,6 +4,7 @@ namespace MartianTrail.GamePhases;
 
 internal sealed record GameState(
     int DistanceTraveled,
+    int DistanceThisTurn,
     bool ReachedDestination,
     bool PlayerIsDead,
     int CurrentSol,

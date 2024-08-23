@@ -10,6 +10,7 @@ internal static class StateMachine
 {
     public static GameState InitialState(InventoryState initialInventory) => new(
         DistanceTraveled: 0,
+        DistanceThisTurn: 0,
         ReachedDestination: false,
         PlayerIsDead: false,
         CurrentSol: 0,
