@@ -2,4 +2,5 @@
 using MartianTrail.Common;
 using Spectre.Console;
 
-Game.Run(AnsiConsole.Console, RandomGenerator.Roll);
+var webApiClient = new WebApiClient(new HttpClient());
+Game.Play(AnsiConsole.Console, webApiClient, RandomGenerator.Roll);

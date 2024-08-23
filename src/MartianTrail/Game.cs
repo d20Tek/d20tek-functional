@@ -1,5 +1,6 @@
 ﻿using D20Tek.Minimal.Functional;
 using MartianTrail.Common;
+using MartianTrail.GamePhases;
 using MartianTrail.Inventory;
 using MartianTrail.MiniGame;
 using Spectre.Console;
@@ -8,17 +9,17 @@ namespace MartianTrail;
 
 internal static class Game
 {
-    public static void Run(IAnsiConsole console, Func<int, int> rollFunc)
+    public static void Play(IAnsiConsole console, WebApiClient webApiClient, Func<int, int> rollFunc)
     {
         var initialState = InitializeGame(console);
         var miniGame = new MiniGameCommand(console, rollFunc, new TimeService());
-        console.WriteLine($"Ran mini-game, success-factor: {miniGame.Play()}!");
-        /*var finalState = initialState
-            .IterateUntil(
-                x => StateMachine.NextState(x, rollFunc)
-                        .Tap(y => AnsiConsole.MarkupLine($"[{x.GetCurrentPlayer().Color}]{y.LatestMove}[/]")),
-                x => x.Players.Any(y => y.IsWinner()))
-            .Tap(x => DisplayWinner(console, x));*/
+        //console.WriteLine($"Ran mini-game, success-factor: {miniGame.Play()}!");
+
+        var gamePhases = GetGamePhases(webApiClient);
+        initialState.IterateUntil(
+            x => StateMachine.NextTurn(x, console, gamePhases),
+            x => x.PlayerIsDead || x.ReachedDestination)
+               .Tap(x => DisplayGameEnding(console, x));
     }
 
     private static GameState InitializeGame(IAnsiConsole console) =>
@@ -28,12 +29,25 @@ internal static class Game
                .Map(i => StateMachine.InitialState(i));
 
     private static void DisplayTitle(IAnsiConsole console) =>
-        new FigletText("Martian Trail")
+        new FigletText(Constants.GameTitle)
             .Centered()
             .Color(Color.Green)
             .Tap(x => console.Write(x));
 
     private static void DisplayInstructions(IAnsiConsole console) =>
-        console.Confirm("Would you like the game instructions?")
+        console.Confirm(Constants.ShowInstructionsLabel)
             .Tap(x => console.WriteMessageConditional(x, Constants.Instructions));
+
+    private static IGamePhase[] GetGamePhases(WebApiClient webApiClient) =>  // todo: configure the different game phases.
+    [
+        new DisplayMartianWeather(webApiClient)
+    ];
+
+    private static void DisplayGameEnding(IAnsiConsole console, GameState finalState) =>
+        console.MarkupLine(finalState switch
+        {
+            { ReachedDestination: true } => Constants.FinalDestinationMsg,
+            { PlayerIsDead: true } => Constants.FinalPlayerDeadMsg,
+            _ => Constants.FinalUnexpectedMsg
+        });
 }

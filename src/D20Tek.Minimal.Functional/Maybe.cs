@@ -60,4 +60,46 @@ public static class MaybeExtensions
                 return new Nothing<TToType>();
         }
     }
+
+    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(this Maybe<TFromType> source, Func<TFromType, Task<TToType>> f)
+    {
+        switch (source)
+        {
+            case Something<TFromType> sth when !EqualityComparer<TFromType>.Default.Equals(sth.Value, default):
+                try
+                {
+                    var result = await f(sth.Value);
+                    return result.ToMaybe();
+                }
+                catch (Exception e)
+                {
+                    return new Error<TToType>(e);
+                }
+            case Error<TFromType> err:
+                return new Error<TToType>(err.ErrorMessage);
+            default:
+                return new Nothing<TToType>();
+        }
+    }
+
+    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(this Maybe<TFromType> @this, Func<TFromType, ValueTask<TToType>> f)
+    {
+        switch (@this)
+        {
+            case Something<TFromType> sth when !EqualityComparer<TFromType>.Default.Equals(sth.Value, default):
+                try
+                {
+                    var result = await f(sth.Value);
+                    return result.ToMaybe();
+                }
+                catch (Exception e)
+                {
+                    return new Error<TToType>(e);
+                }
+            case Error<TFromType> err:
+                return new Error<TToType>(err.ErrorMessage);
+            default:
+                return new Nothing<TToType>();
+        }
+    }
 }
