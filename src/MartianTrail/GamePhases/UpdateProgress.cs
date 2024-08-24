@@ -1,5 +1,4 @@
 ﻿using D20Tek.Minimal.Functional;
-using Spectre.Console;
 
 namespace MartianTrail.GamePhases;
 
@@ -14,7 +13,7 @@ internal sealed class UpdateProgress : IGamePhase
         _foodUsedUp = () => rnd(5) * 10;
     }
 
-    public GameState DoPhase(IAnsiConsole console, GameState oldState) =>
+    public GameState DoPhase(GameState oldState) =>
         CalculateDistanceTraveled(oldState)
             .Map(d => oldState with
                 {
@@ -26,7 +25,12 @@ internal sealed class UpdateProgress : IGamePhase
                         Food = (oldState.Inventory.Food - _foodUsedUp()).Map(x => x >= 0 ? x : 0)
                     }
                 })
-            .Map(s => s with { LatestMoves = Constants.UpdateProgress.Display(s) });
+            .Map(s => s with 
+                {
+                    ReachedDestination = s.DistanceTraveled >= Constants.UpdateProgress.CompletionDistance,
+                    PlayerIsDead = s.PlayerIsDead ? s.PlayerIsDead : s.Inventory.Food <= 0,
+                    LatestMoves = Constants.UpdateProgress.Display(s)
+                });
 
     private static int CalculateDistanceTraveled(GameState state) =>
         state.Inventory.Batteries * (state.UserActionSelectedThisTurn == PlayerActions.PushOn ? 100 : 50);

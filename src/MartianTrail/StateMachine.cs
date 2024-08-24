@@ -25,6 +25,6 @@ internal static class StateMachine
         (state.ReachedDestination || state.PlayerIsDead) ? state : f(state);
 
     private static GameState NextPhase(IAnsiConsole console, IGamePhase phase, GameState oldState) => 
-        phase.DoPhase(console, oldState)
+        phase.DoPhase(oldState)
             .Tap(x => console.WriteMessage(x.LatestMoves));
 }

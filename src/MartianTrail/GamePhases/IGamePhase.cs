@@ -4,5 +4,5 @@ namespace MartianTrail.GamePhases;
 
 internal interface IGamePhase
 {
-    GameState DoPhase(IAnsiConsole console, GameState oldState);
+    GameState DoPhase(GameState oldState);
 }

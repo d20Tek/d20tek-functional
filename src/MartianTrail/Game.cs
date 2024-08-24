@@ -12,10 +12,8 @@ internal static class Game
     public static void Play(IAnsiConsole console, WebApiClient webApiClient, Func<int, int> rollFunc)
     {
         var initialState = InitializeGame(console);
-        var miniGame = new MiniGameCommand(console, rollFunc, new TimeService());
-        //console.WriteLine($"Ran mini-game, success-factor: {miniGame.Play()}!");
+        var gamePhases = GetGamePhases(webApiClient, console, rollFunc);
 
-        var gamePhases = GetGamePhases(webApiClient, rollFunc);
         initialState.IterateUntil(
             x => StateMachine.NextTurn(x, console, gamePhases),
             x => x.PlayerIsDead || x.ReachedDestination)
@@ -38,9 +36,13 @@ internal static class Game
         console.Confirm(Constants.ShowInstructionsLabel)
             .Tap(x => console.WriteMessageConditional(x, Constants.Instructions));
 
-    private static IGamePhase[] GetGamePhases(WebApiClient webApiClient, Func<int, int> rollFunc) =>
+    private static IGamePhase[] GetGamePhases(
+        WebApiClient webApiClient,
+        IAnsiConsole console,
+        Func<int, int> rollFunc) =>
     [
         new DisplayMartianWeather(webApiClient),
+        new SelectAction(rollFunc, console, new MiniGameCommand(console, rollFunc, new TimeService())),
         new UpdateProgress(rollFunc)
     ];
 

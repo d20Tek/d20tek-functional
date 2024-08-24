@@ -37,14 +37,14 @@ internal sealed class DisplayMartianWeather : IGamePhase
                                     x.MaxTemp != Constants.MartianWeather.InvalidValue &&
                                     x.MinTemp != Constants.MartianWeather.InvalidValue));
 
-    public GameState DoPhase(IAnsiConsole console, GameState oldState) =>
+    public GameState DoPhase(GameState oldState) =>
         GetCurrentSol(oldState).Map(sol => oldState with
         {
-            CurrentSol = sol + 1,
+            CurrentSol = sol,
             LatestMoves = [ Constants.MartianWeather.FormatSolData(GetCurrentSolData(sol)) ]
         });
 
-    private int GetCurrentSol(GameState state) => state.CurrentSol == 0 ? _firstSol : state.CurrentSol;
+    private int GetCurrentSol(GameState state) => state.CurrentSol == 0 ? _firstSol : state.CurrentSol + 1;
 
     private SolData? GetCurrentSolData(int sol) => _solLookup(sol);
 }

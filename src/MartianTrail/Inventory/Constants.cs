@@ -10,19 +10,18 @@ internal static partial class Constants
         public const string SelectionHeading = "Inventory Selection";
         public const string ReenterAmountMsg = "Please enter another amount...";
         public const string ConfirmPurchaseMsg = "Are you happy with these purchases?";
-        private const int _defaultCostPerItem = 50;
 
         public static readonly IEnumerable<InventoryConfiguration> InventorySelections =
         [
-            new InventoryConfiguration("Batteries", _defaultCostPerItem, (q, c, oldState) =>
+            new InventoryConfiguration("Batteries", 50, (q, c, oldState) =>
                 oldState with { Batteries = q, Credits = c }),
-            new InventoryConfiguration("Food Packs", _defaultCostPerItem, (q, c, oldState) =>
+            new InventoryConfiguration("Food Packs", 10, (q, c, oldState) =>
                 oldState with { Food = q, Credits = c }),
-            new InventoryConfiguration("Laser Charges ", _defaultCostPerItem, (q, c, oldState) =>
+            new InventoryConfiguration("Laser Charges ", 40, (q, c, oldState) =>
                 oldState with { LaserCharges = q, Credits = c }),
-            new InventoryConfiguration("Atmosphere Suits", _defaultCostPerItem, (q, c, oldState) =>
+            new InventoryConfiguration("Atmosphere Suits", 15, (q, c, oldState) =>
                 oldState with { AtmosphereSuits = q, Credits = c }),
-            new InventoryConfiguration("MediPacks", _defaultCostPerItem, (q, c, oldState) =>
+            new InventoryConfiguration("MediPacks", 30, (q, c, oldState) =>
                 oldState with { MediPacks = q, Credits = c })
         ];
 
