@@ -11,7 +11,6 @@ internal sealed class SelectAction : IGamePhase
     private readonly IAnsiConsole _console;
     private readonly MiniGameCommand _playMiniGame;
 
-
     public SelectAction(Func<int, int> rnd, IAnsiConsole console, MiniGameCommand playMiniGame)
     {
         _rndPercentage = () => rnd(100);
@@ -20,71 +19,28 @@ internal sealed class SelectAction : IGamePhase
     }
 
     public GameState DoPhase(GameState oldState) =>
-        CalculateLocationFlags(_rndPercentage)
-            .Map(f => CalculatePlayerOptions(_rndPercentage, f)
-                .Tap(options => _console.WriteMessage(Constants.SelectAction.PlayerActionsMessage(options, f.IsWilderness)))
-                .Map(options => GetSelectedAction(_console, options))
+        GameCalculations.CalculateLocationFlags(_rndPercentage)
+            .Map(f => GameCalculations.CalculatePlayerOptions(_rndPercentage, f)
+                .Map(options => GetSelectedAction(_console, options, f.IsWilderness))
                 .Map(action => GetActionFunc(action)
-                    .Map(f => f(oldState) with
+                    .Map(f => f(oldState, _console, _playMiniGame) with
                     {
                         UserActionSelectedThisTurn = action,
                         LatestMoves = []
                     })));
 
-    private static PlayerActions GetSelectedAction(IAnsiConsole console, PlayerActionOptions[] options) =>
-        console.Prompt<int>(new TextPrompt<int>(Constants.SelectAction.PlayerChoiceLabel)
+    private static PlayerActions GetSelectedAction(IAnsiConsole console, PlayerActionOptions[] options, bool isWilderness) =>
+        options.Tap(o => console.WriteMessage(Constants.SelectAction.PlayerActionsMessage(o, isWilderness)))
+               .Map(o => console.Prompt<int>(new TextPrompt<int>(Constants.SelectAction.PlayerChoiceLabel)
                                 .AddChoices(options.Select(x => x.ChoiceNumber)))
-            .Map(c => options.Single(x => x.ChoiceNumber == c).Action);
+                    .Map(c => options.Single(x => x.ChoiceNumber == c).Action));
 
-    private static PlayerActionOptions[] CalculatePlayerOptions(Func<int> rnd, LocationFlags flags) =>
-        new[]
-        {
-            flags.IsTradingPost ? PlayerActions.TradeAtOutpost : PlayerActions.Unavailable,
-            flags.IsHuntingArea && GameCalculations.IsHuntingAvailable(rnd) ? PlayerActions.HuntForFood : PlayerActions.Unavailable,
-            flags.IsHuntingArea && GameCalculations.IsHuntingAvailable(rnd) ? PlayerActions.HuntForSkins : PlayerActions.Unavailable,
-            PlayerActions.PushOn
-        }.Where(x => x != PlayerActions.Unavailable)
-            .Select((x, i) => new PlayerActionOptions(
-                x,
-                i + 1))
-            .ToArray();
-
-    private Func<GameState, GameState> GetActionFunc(PlayerActions actionToDo) =>
+    private Func<GameState, IAnsiConsole, MiniGameCommand, GameState> GetActionFunc(PlayerActions actionToDo) =>
         actionToDo switch
         {
-            PlayerActions.TradeAtOutpost => DoTrading,
-            PlayerActions.HuntForFood => DoHuntingForFood,
-            PlayerActions.HuntForSkins => DoHuntingForFurs,
-            _ => DoPushOn,
+            PlayerActions.TradeAtOutpost => Actions.DoTrading,
+            PlayerActions.HuntForFood => Actions.DoHuntingForFood,
+            PlayerActions.HuntForSkins => Actions.DoHuntingForFurs,
+            _ => Actions.DoPushOn,
         };
-
-    private GameState DoHuntingForFood(GameState state) =>
-        Constants.SelectAction.HuntingFoodLabel
-            .Tap(l => _console.WriteMessage(l))
-            .Map(l => _playMiniGame.Play())
-            .Tap(a => _console.WriteMessage(Constants.SelectAction.FoodAccuracyMessage(a)))
-            .Map(a => state with
-            {
-                Inventory = state.Inventory with
-                {
-                    LaserCharges = state.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a),
-                    Food = state.Inventory.Food + GameCalculations.CalculateFoodGained(a)
-                }
-            });
-
-    private static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
-        GameCalculations.IsWilderness(rnd)
-            .Map(isWilderness =>
-                new LocationFlags(
-                    GameCalculations.IsWilderness(rnd),
-                    GameCalculations.IsTradingPost(rnd, isWilderness),
-                    GameCalculations.IsHuntingArea(rnd, isWilderness)));
-
-    public sealed record LocationFlags(bool IsWilderness, bool IsTradingPost, bool IsHuntingArea);
-
-    private static GameState DoHuntingForFurs(GameState state) => state;
-
-    private static GameState DoTrading(GameState state) => state;
-
-    private static GameState DoPushOn(GameState state) => state;
 }
