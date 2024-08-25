@@ -29,18 +29,18 @@ internal static class SelectInventoryCommand
         InventorySelectionState oldState,
         string name,
         int costPerItem,
-        Func<int, int, InventorySelectionState, InventorySelectionState> updateFunc)
-    {
-        var bought = (oldState.Credits / costPerItem)
+        Func<int, int, InventorySelectionState, InventorySelectionState> updateFunc) =>
+        BuyNumberOfItems(console, oldState.Credits, name, costPerItem)
+            .Map(bought => updateFunc(bought, oldState.Credits - (bought * costPerItem), oldState));
+
+    private static int BuyNumberOfItems(IAnsiConsole console, int credits, string name, int costPerItem) =>
+        (credits / costPerItem)
             .Map(afford => console.Ask<int>(Constants.Inventory.AmountPurchaseLabel(name, costPerItem, afford))
                 .Map(attempt => attempt.IterateUntil(
-                    x => Constants.Inventory.MessageForItemAmount(x, oldState.Credits * costPerItem, attempt)
+                    x => Constants.Inventory.MessageForItemAmount(x, credits * costPerItem, attempt)
                             .Tap(m => console.WriteMessage(m))
                             .Map(m => ConfirmOrRetryAmount(console, x, afford)),
                     x => ValidateUserChoice(x, afford))));
-
-        return updateFunc(bought, oldState.Credits - (bought * costPerItem), oldState);
-    }
 
     private static bool ValidateUserChoice(int x, int affordable) => x >= 0 && x <= affordable;
 
@@ -50,18 +50,18 @@ internal static class SelectInventoryCommand
     private static InventorySelectionState UpdateUserIsHappyStatus(
         IAnsiConsole console,
         InventorySelectionState invState) =>
-        console.Tap(x => Constants.Inventory.DisplayPurchasedItems(invState, x))
-               .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
-               .Map(r => r ? invState with { PlayerIsHappyWithSelection = true }
+        invState.Tap(i => Constants.Inventory.DisplayPurchasedItems(i, console))
+                .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
+                .Map(r => r ? invState with { PlayerIsHappyWithSelection = true }
                            : new(PlayerIsHappyWithSelection: false, Credits: Constants.Inventory.StartingCredits));
 
     private static InventorySelectionState UpdateUserIsHappyStatus(
         IAnsiConsole console,
         InventorySelectionState invState,
         InventorySelectionState prevInventory) =>
-        console.Tap(x => Constants.Inventory.DisplayPurchasedItems(invState, x))
-               .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
-               .Map(r => r ? invState with
+        invState.Tap(i => Constants.Inventory.DisplayPurchasedItems(i, console))
+                .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
+                .Map(r => r ? invState with
                                 {
                                     Batteries = prevInventory.Batteries + invState.Batteries,
                                     Food = prevInventory.Food + invState.Food,

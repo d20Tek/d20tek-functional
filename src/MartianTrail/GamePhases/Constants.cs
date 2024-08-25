@@ -23,6 +23,12 @@ internal static partial class Constants
     public static class SelectAction
     {
         public const string PlayerChoiceLabel = "What would you like to do?";
+        public static string[] CannotHuntLabel =
+        [
+            "",
+            "[red]Laser charges error!!![/]",
+            "You have no laser charges remaining, so you cannot hunt."
+        ];
         public static string[] HuntingFoodLabel =
         [
             "",
@@ -67,18 +73,19 @@ internal static partial class Constants
             {
                 >= 0.9M =>
                 [
-                       "Great shot! You brought down a whole load of the things!",
-                       "Vrolid burgers are on you today!"
+                    "",
+                    "[green]Great shot![/] You brought down a whole load of the things!",
+                    "Vrolid burgers are on you today!"
                 ],
                 0 =>
                 [
-                       "You missed.  Were you taking a nap?"
+                    "[orange]You missed.[/] Were you taking a nap?"
                 ],
                 _ =>
                 [
-                       "Not a bad shot",
-                       "You brought down at least a couple",
-                       "Don't go too crazy eating tonight."
+                    "Not a bad shot",
+                    "You brought down at least a couple",
+                    "Don't go too crazy eating tonight."
                 ]
             };
 
@@ -87,18 +94,18 @@ internal static partial class Constants
             {
                 >= 0.9M =>
                 [
-                       "Great shot! You brought down a whole load of the things!",
-                       "Lophroll furs are the fashion of the day!"
+                    "[green]Great shot![/] You brought down a whole load of the things!",
+                    "Lophroll furs are the fashion of the day!"
                 ],
                 0 =>
                 [
-                       "You missed.  Were you afraid of the Lophrolls?"
+                    "[orange]You missed.[/] Were you afraid of the Lophrolls?"
                 ],
                 _ =>
                 [
-                       "Not a bad shot",
-                       "You brought down at least a couple",
-                       "At least a couple of furs for the trader."
+                    "Not a bad shot",
+                    "You brought down at least a couple",
+                    "At least a couple of furs for the trader."
                 ]
             };
     }

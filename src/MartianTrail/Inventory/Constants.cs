@@ -50,5 +50,8 @@ internal static partial class Constants
                 "MediPacks: " + invState.MediPacks,
                 "Remaining Credits: " + invState.Credits,
                 "");
+
+        public static string SellFursMessage(int furs) => $"You have {furs} furs to sell.";
+        public const string SellFursLabel = "How many would you like to sell?";
     }
 }

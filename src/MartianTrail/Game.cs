@@ -9,16 +9,13 @@ namespace MartianTrail;
 
 internal static class Game
 {
-    public static void Play(IAnsiConsole console, WebApiClient webApiClient, Func<int, int> rollFunc)
-    {
-        var initialState = InitializeGame(console);
-        var gamePhases = GetGamePhases(webApiClient, console, rollFunc);
-
-        initialState.IterateUntil(
-            x => StateMachine.NextTurn(x, console, gamePhases),
-            x => x.PlayerIsDead || x.ReachedDestination)
-               .Tap(x => DisplayGameEnding(console, x));
-    }
+    public static void Play(IAnsiConsole console, WebApiClient webApiClient, Func<int, int> rollFunc) =>
+        InitializeGame(console)
+            .Map(initialState => GetGamePhases(webApiClient, console, rollFunc)
+                .Map(phases => initialState.IterateUntil(
+                    x => StateMachine.NextTurn(x, console, phases),
+                    x => x.PlayerIsDead || x.ReachedDestination)
+                       .Tap(x => DisplayGameEnding(console, x))));
 
     private static GameState InitializeGame(IAnsiConsole console) =>
         console.Tap(x => DisplayTitle(x))

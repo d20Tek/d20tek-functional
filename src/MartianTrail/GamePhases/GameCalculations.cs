@@ -36,6 +36,8 @@ internal static class GameCalculations
     public static int CalculateCreditsFromFurs(int furCount) =>
         (int)(25 * furCount);
 
+    public static bool PlayerCanHunt(this GameState state) => state.Inventory.LaserCharges > 0;
+
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)
             .Map(isWilderness =>

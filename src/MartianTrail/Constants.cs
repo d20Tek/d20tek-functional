@@ -10,6 +10,7 @@ internal static partial class Constants
 
     public static readonly string[] Instructions =
     [
+        "------------------------------------------------------------------------------------------",
         "The year is 2147, and humanity has finally reached the planet Mars. Not only have we",
         "traveled there, but settlement of the red planet is well underway. New cities, outposts,",
         "and trading posts are starting to spring up everywhere",
@@ -43,6 +44,8 @@ internal static partial class Constants
         "make it that far!",
         "",
         "It’s going to take weeks of hard traveling by hover barge to get where you need to",
-        "be—over 16,000 kilometers away! Best of luck!"
+        "be—over 16,000 kilometers away! Best of luck!",
+        "------------------------------------------------------------------------------------------",
+        ""
     ];
 }

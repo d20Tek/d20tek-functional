@@ -6,10 +6,10 @@ namespace MartianTrail.Common;
 internal static class AnsiConsoleExtensions
 {
     public static void WriteMessage(this IAnsiConsole console, params string[] messages) =>
-        console.WriteLine(string.Join(Environment.NewLine, messages));
+        console.MarkupLine(string.Join(Environment.NewLine, messages));
 
     public static void WriteMessageConditional(this IAnsiConsole console, bool condition, params string[] prompt) =>
-        condition.IfTrue(() => console.WriteMessage(prompt));
+        condition.IfTrueOrElse(() => console.WriteMessage(prompt));
 
     public static void PromptAnyKey(this IAnsiConsole console, string label) =>
         console.Tap(c => c.MarkupLine(label))

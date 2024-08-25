@@ -9,11 +9,11 @@ internal static class SellFursCommand
 {
     public static InventoryState Handle(InventoryState state, IAnsiConsole console) =>
         state.Furs
-            .Tap(f => console.WriteMessage($"You have {f} furs to sell."))
-            .Map(f => console.Ask<int>("How many would you like to sell?"))
+            .Tap(f => console.WriteMessage(Constants.Inventory.SellFursMessage(f)))
+            .Map(f => console.Ask<int>(Constants.Inventory.SellFursLabel))
             .Map(sold =>  state with
             {
-                    Credits = state.Credits + GameCalculations.CalculateCreditsFromFurs(sold),
-                    Furs = state.Furs - sold
+                Credits = state.Credits + GameCalculations.CalculateCreditsFromFurs(sold),
+                Furs = (state.Furs - sold).Map(x => x >= 0 ? x : 0)
             });
 }

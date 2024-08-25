@@ -18,11 +18,11 @@ internal class MiniGameCommand
     }
 
     public decimal Play() =>
-        _console.Tap(c => c.DisplayHeader(Constants.MiniGame.Heading))
-                .Tap(c => c.PromptAnyKey(Constants.MiniGame.StartMessage))
-                .Map(c => GenerateRandomText(_randFunc))
-                .Map(s => GetUserInput(_console, _timeService, s))
-                .Map(s => CalculateAccuracy(s));
+        GenerateRandomText(_randFunc)
+            .Tap(s => _console.DisplayHeader(Constants.MiniGame.Heading))
+            .Tap(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
+            .Map(s => GetUserInput(_console, _timeService, s))
+            .Map(s => CalculateAccuracy(s));
 
     private static MiniGameState GenerateRandomText(Func<int, int> randFunc) =>
         MiniGameState.Initialize(
