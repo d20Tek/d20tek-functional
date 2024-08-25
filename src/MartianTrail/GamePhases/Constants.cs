@@ -25,8 +25,21 @@ internal static partial class Constants
         public const string PlayerChoiceLabel = "What would you like to do?";
         public static string[] HuntingFoodLabel =
         [
+            "",
             "You've decided to hunt Vrolids for food.",
             "For that you'll have to play the mini-game..."
+        ];
+        public static string[] HuntingFursLabel =
+        [
+            "",
+            "You've decided to hunt Lophroll for fur.",
+            "For that you'll have to play the mini-game..."
+        ];
+        public static string[] TradingPostLabel =
+        [
+            "",
+            "Welcome to the settlement trading post.",
+            "We trade furs for fuel, laser charges, and medipacks..."
         ];
 
         public static string PlayerActionsMessage(
@@ -65,12 +78,32 @@ internal static partial class Constants
                 [
                        "Not a bad shot",
                        "You brought down at least a couple",
-                       "Don't go too crazy eating tonight"
+                       "Don't go too crazy eating tonight."
+                ]
+            };
+
+        public static string[] FursAccuracyMessage(decimal accuracy) =>
+            accuracy switch
+            {
+                >= 0.9M =>
+                [
+                       "Great shot! You brought down a whole load of the things!",
+                       "Lophroll furs are the fashion of the day!"
+                ],
+                0 =>
+                [
+                       "You missed.  Were you afraid of the Lophrolls?"
+                ],
+                _ =>
+                [
+                       "Not a bad shot",
+                       "You brought down at least a couple",
+                       "At least a couple of furs for the trader."
                 ]
             };
     }
 
-public static class UpdateProgress
+    public static class UpdateProgress
     {
         public const int CompletionDistance = 16000;
 
@@ -80,6 +113,8 @@ public static class UpdateProgress
             $"That's a total distance of {state.DistanceTraveled}.",
             $"You have " + state.Inventory.Batteries + " batteries remaining",
             $"You have " + state.Inventory.Food + " food remaining",
+            $"You have " + state.Inventory.Furs + " furs remaining",
+            $"You have " + state.Inventory.LaserCharges + " laser charges remaining",
             $"===== End of Sol {state.CurrentSol} =====",
             ""
         ];

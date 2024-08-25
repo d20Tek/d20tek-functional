@@ -9,4 +9,8 @@ internal sealed record InventorySelectionState(
     int MediPacks = 0,
     int Credits = 0,
     bool PlayerIsHappyWithSelection = false)
-    : InventoryState(Batteries, Food, Furs, LaserCharges, AtmosphereSuits, MediPacks, Credits);
+    : InventoryState(Batteries, Food, Furs, LaserCharges, AtmosphereSuits, MediPacks, Credits)
+{
+    public static InventorySelectionState From(InventoryState inv) =>
+        new(inv.Batteries, inv.Food, inv.Furs, inv.LaserCharges, inv.AtmosphereSuits, inv.MediPacks, inv.Credits);
+}

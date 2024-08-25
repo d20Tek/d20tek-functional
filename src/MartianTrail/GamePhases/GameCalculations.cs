@@ -30,6 +30,12 @@ internal static class GameCalculations
     public static int CalculateFoodGained(decimal accuracy) =>
         (int)(100 * accuracy);
 
+    public static int CalculateFursGained(decimal accuracy) =>
+        (int)(50 * accuracy);
+
+    public static int CalculateCreditsFromFurs(int furCount) =>
+        (int)(25 * furCount);
+
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)
             .Map(isWilderness =>

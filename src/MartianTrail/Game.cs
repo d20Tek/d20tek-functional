@@ -23,7 +23,7 @@ internal static class Game
     private static GameState InitializeGame(IAnsiConsole console) =>
         console.Tap(x => DisplayTitle(x))
                .Tap(x => DisplayInstructions(x))
-               .Map(x => SelectInitialInventoryCommand.SelectInitialInventory(x))
+               .Map(x => SelectInventoryCommand.SelectInitialInventory(x))
                .Map(i => StateMachine.InitialState(i));
 
     private static void DisplayTitle(IAnsiConsole console) =>

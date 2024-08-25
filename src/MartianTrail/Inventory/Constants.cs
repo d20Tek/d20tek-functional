@@ -1,4 +1,7 @@
-﻿using MartianTrail.Inventory;
+﻿using D20Tek.Minimal.Functional;
+using MartianTrail.Common;
+using MartianTrail.Inventory;
+using Spectre.Console;
 
 namespace MartianTrail;
 
@@ -8,6 +11,7 @@ internal static partial class Constants
     {
         public const int StartingCredits = 1000;
         public const string SelectionHeading = "Inventory Selection";
+        public const string PurchaseHeading = "Purchase Inventory Selection";
         public const string ReenterAmountMsg = "Please enter another amount...";
         public const string ConfirmPurchaseMsg = "Are you happy with these purchases?";
 
@@ -34,5 +38,17 @@ internal static partial class Constants
                 : totalCost > credits
                     ? "You can't accord that many!"
                     : "Thank you!";
+
+        public static void DisplayPurchasedItems(InventoryState invState, IAnsiConsole console) =>
+            console.WriteMessage(
+                "===== Items Purchased =====",
+                "Batteries: " + invState.Batteries,
+                "Food Packs: " + invState.Food,
+                "Furs: " + invState.Furs,
+                "Laser Charges: " + invState.LaserCharges,
+                "Atmosphere Suits: " + invState.AtmosphereSuits,
+                "MediPacks: " + invState.MediPacks,
+                "Remaining Credits: " + invState.Credits,
+                "");
     }
 }
