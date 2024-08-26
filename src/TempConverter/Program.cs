@@ -14,7 +14,8 @@ static Func<string> Run(string command, IAnsiConsole console) =>
     {
         "ctof" => () => HandleCtoF(console),
         "ftoc" => () => HandleFtoC(console),
-        _ => () => $"[red]Error:[/] '{command}' is an invalid command. Either use ftoc (Fahrenheit To Celsius) or ctof (Celsius to Fahrenheit)"
+        _ => () => $"[red]Error:[/] '{command}' is an invalid command. " +
+                   $"Either use ftoc (Fahrenheit To Celsius) or ctof (Celsius to Fahrenheit)"
     };
 
 static string HandleCtoF(IAnsiConsole console)

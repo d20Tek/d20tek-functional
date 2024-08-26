@@ -38,6 +38,9 @@ internal static class GameCalculations
 
     public static bool PlayerCanHunt(this GameState state) => state.Inventory.LaserCharges > 0;
 
+    public static int DistanceTraveled(GameState state) =>
+        state.Inventory.Batteries * (state.UserActionSelectedThisTurn == PlayerActions.PushOn ? 100 : 50);
+
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)
             .Map(isWilderness =>

@@ -8,15 +8,16 @@ namespace MartianTrail;
 
 internal static class StateMachine
 {
-    public static GameState InitialState(InventoryState initialInventory) => new(
-        DistanceTraveled: 0,
-        DistanceThisTurn: 0,
-        ReachedDestination: false,
-        PlayerIsDead: false,
-        CurrentSol: 0,
-        UserActionSelectedThisTurn: PlayerActions.Unavailable,
-        Inventory: initialInventory,
-        LatestMoves: []);
+    public static GameState InitialState(InventoryState initialInventory) =>
+        new(
+            DistanceTraveled: 0,
+            DistanceThisTurn: 0,
+            ReachedDestination: false,
+            PlayerIsDead: false,
+            CurrentSol: 0,
+            UserActionSelectedThisTurn: PlayerActions.Unavailable,
+            Inventory: initialInventory,
+            LatestMoves: []);
 
     public static GameState NextTurn(GameState state, IAnsiConsole console, IGamePhase[] gamePhases) =>
         gamePhases.Aggregate(state, (acc, y) => ContinueTurn(acc, z => NextPhase(console, y, z)));

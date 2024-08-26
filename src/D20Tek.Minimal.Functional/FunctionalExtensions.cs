@@ -5,10 +5,14 @@ public static partial class FunctionalExtensions
     public static TOut Map<TIn, TOut>(this TIn instance, Func<TIn, TOut> func) =>
         func(instance);
 
-    public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
-        args.Select(x => x(instance)).First(x => x != null);
+    public static TOut Fork<TIn, T1, T2, TOut>(
+        this TIn instance,
+        Func<TIn, T1> f1,
+        Func<TIn, T2> f2,
+        Func<T1, T2, TOut> fOut) =>
+        fOut(f1(instance), f2(instance));
 
-    public static TOut Alt<TIn, TOut>(this TIn instance, Func<TIn, bool> condition, params Func<TIn, TOut>[] args) =>
+    public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).First(x => x != null);
 
     public static T Tap<T>(this T instance, Action<T> action)

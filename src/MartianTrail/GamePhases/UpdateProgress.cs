@@ -14,7 +14,7 @@ internal sealed class UpdateProgress : IGamePhase
     }
 
     public GameState DoPhase(GameState oldState) =>
-        CalculateDistanceTraveled(oldState)
+        GameCalculations.DistanceTraveled(oldState)
             .Map(d => oldState with
                 {
                     DistanceThisTurn = d,
@@ -31,7 +31,4 @@ internal sealed class UpdateProgress : IGamePhase
                     PlayerIsDead = s.PlayerIsDead ? s.PlayerIsDead : s.Inventory.Food <= 0,
                     LatestMoves = Constants.UpdateProgress.Display(s)
                 });
-
-    private static int CalculateDistanceTraveled(GameState state) =>
-        state.Inventory.Batteries * (state.UserActionSelectedThisTurn == PlayerActions.PushOn ? 100 : 50);
 }

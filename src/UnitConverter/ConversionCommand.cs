@@ -10,7 +10,9 @@ internal static class ConversionCommand
         var from = GetSelectedUnit(console, "Select the unit to convert from:", metadata.GetUnitsList());
         var amount = GetConversionAmount(console, from);
         var to = GetSelectedUnit(console, "Select the unit to convert to:", metadata.GetUnitsList());
-        var result = metadata.Converter is null ? new Nothing<decimal>() : metadata.Converter.Convert(amount, from, to);
+        var result = metadata.Converter is null
+            ? new Nothing<decimal>()
+            : metadata.Converter.Convert(amount, from, to);
 
         console.MarkupLine(result switch
         {

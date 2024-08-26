@@ -61,7 +61,9 @@ public static class MaybeExtensions
         }
     }
 
-    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(this Maybe<TFromType> source, Func<TFromType, Task<TToType>> f)
+    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(
+        this Maybe<TFromType> source,
+        Func<TFromType, Task<TToType>> f)
     {
         switch (source)
         {
@@ -82,7 +84,9 @@ public static class MaybeExtensions
         }
     }
 
-    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(this Maybe<TFromType> @this, Func<TFromType, ValueTask<TToType>> f)
+    public static async Task<Maybe<TToType>> BindAsync<TFromType, TToType>(
+        this Maybe<TFromType> @this,
+        Func<TFromType, ValueTask<TToType>> f)
     {
         switch (@this)
         {

@@ -29,7 +29,10 @@ internal sealed class SelectAction : IGamePhase
                         LatestMoves = []
                     })));
 
-    private static PlayerActions GetSelectedAction(IAnsiConsole console, PlayerActionOptions[] options, bool isWilderness) =>
+    private static PlayerActions GetSelectedAction(
+        IAnsiConsole console,
+        PlayerActionOptions[] options,
+        bool isWilderness) =>
         options.Tap(o => console.WriteMessage(Constants.SelectAction.PlayerActionsMessage(o, isWilderness)))
                .Map(o => console.Prompt<int>(new TextPrompt<int>(Constants.SelectAction.PlayerChoiceLabel)
                                 .AddChoices(options.Select(x => x.ChoiceNumber)))

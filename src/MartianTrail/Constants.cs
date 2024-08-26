@@ -6,7 +6,8 @@ internal static partial class Constants
     public const string ShowInstructionsLabel = "Would you like the game instructions?";
     public const string FinalDestinationMsg = "[green]Congratulations!! You've reached your final destination.[/]";
     public const string FinalPlayerDeadMsg = "[red]You died in the Martian wastes... play again.[/]";
-    public const string FinalUnexpectedMsg = "[yellow]Unexpected conclusion to this game... you didn't reach the destination or die.[/]";
+    public const string FinalUnexpectedMsg = "[yellow]Unexpected conclusion to this game... " +
+                                             "you didn't reach the destination or die.[/]";
 
     public static readonly string[] Instructions =
     [
