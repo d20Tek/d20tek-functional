@@ -1,4 +1,5 @@
 ﻿using D20Tek.Minimal.Functional;
+using MartianTrail.Common;
 
 namespace MartianTrail.GamePhases;
 
@@ -21,8 +22,8 @@ internal sealed class UpdateProgress : IGamePhase
                     DistanceTraveled = oldState.DistanceTraveled + d,
                     Inventory = oldState.Inventory with
                     {
-                        Batteries = (oldState.Inventory.Batteries - _batteriesUsedUp()).Map(x => x >= 0 ? x : 0),
-                        Food = (oldState.Inventory.Food - _foodUsedUp()).Map(x => x >= 0 ? x : 0)
+                        Batteries = (oldState.Inventory.Batteries - _batteriesUsedUp()).OrZero(),
+                        Food = (oldState.Inventory.Food - _foodUsedUp()).OrZero()
                     }
                 })
             .Map(s => s with 

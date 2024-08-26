@@ -12,6 +12,6 @@ internal static partial class Constants
         public const int RandomCharMax = 25;
         public const decimal NoAccuracy = 0M;
 
-        public static decimal RateTimeAccuracy(double timeTaken) => 1M * (decimal)Math.Pow(0.9, timeTaken);
+        public static decimal RateTimeAccuracy(double timeTaken) => 1M * (decimal)Math.Pow(0.98, timeTaken);
     }
 }

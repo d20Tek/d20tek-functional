@@ -35,7 +35,9 @@ internal static class SelectInventoryCommand
 
     private static int BuyNumberOfItems(IAnsiConsole console, int credits, string name, int costPerItem) =>
         (credits / costPerItem)
-            .Map(afford => console.Ask<int>(Constants.Inventory.AmountPurchaseLabel(name, costPerItem, afford))
+            .Map(afford => console.Prompt<int>(
+                    new TextPrompt<int>(Constants.Inventory.AmountPurchaseLabel(name, costPerItem, afford))
+                        .DefaultValue(0))
                 .Map(attempt => attempt.IterateUntil(
                     x => Constants.Inventory.MessageForItemAmount(x, credits * costPerItem, attempt)
                             .Tap(m => console.WriteMessage(m))

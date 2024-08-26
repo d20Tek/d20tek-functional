@@ -19,8 +19,7 @@ internal static class Actions
                  {
                     Inventory = s.Inventory with
                     {
-                        LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a))
-                                         .Map(x => x >= 0 ? x : 0),
+                        LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a)).OrZero(),
                         Food = s.Inventory.Food + GameCalculations.CalculateFoodGained(a)
                     }
                  }));
@@ -36,8 +35,7 @@ internal static class Actions
                  {
                     Inventory = s.Inventory with
                     {
-                        LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a))
-                                         .Map(x => x >= 0 ? x : 0),
+                        LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a)).OrZero(),
                         Furs = s.Inventory.Furs + GameCalculations.CalculateFursGained(a)
                     }
                  }));

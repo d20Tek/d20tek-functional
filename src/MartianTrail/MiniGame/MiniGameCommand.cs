@@ -38,13 +38,13 @@ internal class MiniGameCommand
                 .Map(x => oldState with { UserInput = x.Result, TimeTaken = x.TimeTaken });
 
     private static decimal CalculateAccuracy(MiniGameState state) =>
-        state.UserInput.Map(i => i.Length == Constants.MiniGame.NumberRandomChars 
-                                ? RateTextAccuracy(state.TextToType, i)
-                                : Constants.MiniGame.NoAccuracy)
+        state.UserInput.Map(i => RateTextAccuracy(state.TextToType, i))
                        .Map(textAccuracy => textAccuracy * Constants.MiniGame.RateTimeAccuracy(state.TimeTaken));
 
     private static decimal RateTextAccuracy(string expected, string actual) =>
-        expected.Zip(actual, (x, y) => char.ToUpper(x) == char.ToUpper(y))
-            .Map(charByCharComparison => charByCharComparison.Sum(x => x ? 1 : 0))
-            .Map(numCorrect => (decimal)numCorrect / Constants.MiniGame.NumberRandomChars);
+        actual.Length != Constants.MiniGame.NumberRandomChars
+                      ? Constants.MiniGame.NoAccuracy
+                      : expected.Zip(actual, (x, y) => char.ToUpper(x) == char.ToUpper(y))
+                                .Map(charByCharComparison => charByCharComparison.Sum(x => x ? 1 : 0))
+                                .Map(numCorrect => (decimal)numCorrect / Constants.MiniGame.NumberRandomChars);
 }

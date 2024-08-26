@@ -53,5 +53,6 @@ internal static partial class Constants
 
         public static string SellFursMessage(int furs) => $"You have {furs} furs to sell.";
         public const string SellFursLabel = "How many would you like to sell?";
+        public const string SellFursError = "You cannot sell that many furs. Please try again.";
     }
 }
