@@ -34,7 +34,9 @@ internal class MiniGameCommand
 
     private static MiniGameState GetUserInput(IAnsiConsole console, TimeService timeService, MiniGameState oldState) =>
         timeService.MeasureDuration<string>(
-            () => console.Ask<string>($"{Constants.MiniGame.UserInputLabel} {oldState.TextToType}"))
+            () => console.Prompt<string>(
+                    new TextPrompt<string>($"{Constants.MiniGame.UserInputLabel} {oldState.TextToType} - ")
+                        .Secret('?')))
                 .Map(x => oldState with { UserInput = x.Result, TimeTaken = x.TimeTaken });
 
     private static decimal CalculateAccuracy(MiniGameState state) =>
