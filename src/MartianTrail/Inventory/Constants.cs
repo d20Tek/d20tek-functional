@@ -1,5 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
-using MartianTrail.Common;
+﻿using MartianTrail.Common;
 using MartianTrail.Inventory;
 using Spectre.Console;
 
@@ -15,7 +14,7 @@ internal static partial class Constants
         public const string ReenterAmountMsg = "Please enter another amount...";
         public const string ConfirmPurchaseMsg = "Are you happy with these purchases?";
 
-        public static readonly IEnumerable<InventoryConfiguration> InventorySelections =
+        public static readonly InventoryConfiguration[] InventorySelections =
         [
             new InventoryConfiguration("Batteries", 50, (q, c, oldState) =>
                 oldState with { Batteries = q, Credits = c }),
@@ -27,6 +26,14 @@ internal static partial class Constants
                 oldState with { AtmosphereSuits = q, Credits = c }),
             new InventoryConfiguration("MediPacks", 30, (q, c, oldState) =>
                 oldState with { MediPacks = q, Credits = c })
+        ];
+
+        public static readonly InventoryConfiguration[] YardSaleSelections =
+        [
+            new InventoryConfiguration("Batteries", 10, (q, c, oldState) =>
+                oldState with { Batteries = q, Credits = c }),
+            new InventoryConfiguration("Atmosphere Suits", 2, (q, c, oldState) =>
+                oldState with { AtmosphereSuits = q, Credits = c }),
         ];
 
         public static string AmountPurchaseLabel(string name, int costPerItem, int afford) =>

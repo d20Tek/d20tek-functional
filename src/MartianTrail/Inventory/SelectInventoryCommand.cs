@@ -24,6 +24,15 @@ internal static class SelectInventoryCommand
                                 .Map(y => UpdateUserIsHappyStatus(console, y, s)),
                    e => e.PlayerIsHappyWithSelection));
 
+    public static InventoryState YardSalePurchase(InventoryState state, IAnsiConsole console) =>
+        state.Tap(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
+             .Map(o => InventorySelectionState.From(o))
+             .Map(s => s.IterateUntil(
+                   x => Constants.Inventory.YardSaleSelections.Aggregate(x, (acc, y) =>
+                            MakeInventorySelection(console, acc, y.Name, y.CostPerItem, y.UpdateFunc))
+                                .Map(y => UpdateUserIsHappyStatus(console, y, s)),
+                   e => e.PlayerIsHappyWithSelection));
+
     private static InventorySelectionState MakeInventorySelection(
         IAnsiConsole console,
         InventorySelectionState oldState,

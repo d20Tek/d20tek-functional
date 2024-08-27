@@ -27,6 +27,15 @@ internal static class GameCalculations
     public static int CalculateChargesUsed(decimal accuracy) =>
         (int)(50 * (1 - accuracy));
 
+    public static int CalculateChargesUsed(Func<int, int> rnd) =>
+        (int)(50 * (rnd(100) / 100.0));
+
+    public static int CalculateMediPacksUsed(Func<int, int> rnd) =>
+        (int)(10 * (rnd(100)/100.0));
+
+    public static int CalculateAtmosphereSuitsUsed(Func<int, int> rnd) =>
+        (int)(20 * (rnd(100) / 100.0));
+
     public static int CalculateFoodGained(decimal accuracy) =>
         (int)(100 * accuracy);
 
@@ -40,6 +49,14 @@ internal static class GameCalculations
 
     public static int DistanceTraveled(GameState state) =>
         state.Inventory.Batteries * (state.UserActionSelectedThisTurn == PlayerActions.PushOn ? 100 : 50);
+
+    public static bool RandomEventOccurred(Func<int> rnd) => rnd() > 90;
+
+    public static int CalculateCreditsGained(Func<int, int> rnd) =>
+        (int)(100 * (rnd(100) / 100.0));
+
+    public static int CalculateExtraFoodGained(Func<int, int> rnd) =>
+        (int)(100 * (rnd(100) / 100.0));
 
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)

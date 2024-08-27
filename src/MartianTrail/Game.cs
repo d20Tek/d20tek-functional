@@ -40,6 +40,7 @@ internal static class Game
     [
         new DisplayMartianWeather(webApiClient),
         new SelectAction(rollFunc, console, new MiniGameCommand(console, rollFunc, new TimeService())),
+        new RandomEventPhase(rollFunc, console),
         new UpdateProgress(rollFunc)
     ];
 

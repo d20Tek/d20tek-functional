@@ -110,6 +110,59 @@ internal static partial class Constants
             };
     }
 
+    public static class RandomEvent
+    {
+        public const string EventHeader = "*** Event ***";
+        public static string[] EventMessages(RandomEventDetails details, int x = 0) =>
+            [EventHeader, details.Title, details.SuccessMessage(x), string.Empty];
+        public static string[] EventErrorMessages(RandomEventDetails details, int x = 0) =>
+            [EventHeader, details.Title, details.FailureMessage, string.Empty];
+
+        public static readonly RandomEventDetails[] Events =
+        [
+            new(
+            "You found a crashed speeder and recovered a stash of credits.",
+            (x) => $"Congrats! You recovered {x} credits.",
+            string.Empty,
+            RandomEventPhase.RecoverCredits),
+        new(
+            "Sand storm! Atmosphere suits are needed to survive.",
+            (x) => $"You were able to use your atmosphere suits to survive.",
+            "Unfortunately you don't have any atmosphere suits to use.",
+            RandomEventPhase.AtmosphericEvent),
+        new(
+            "A stampede of Vrolids occurs. You gain extra food today!",
+            (x) => $"Congrats! You found {x} extra food.",
+            string.Empty,
+            RandomEventPhase.ExtraFoodFound),
+        new(
+            "Dangerous predators attack during the night.",
+            (x) => $"You were able to fight back the enemies with your lasers.",
+            "Unfortunately you don't have any laser charges remaining to defend yourself.",
+            RandomEventPhase.EnemiesAttack),
+        new(
+            "You encounter settlers having a yard sale. They're selling off old batteries and atmosphere suits extremely cheaply.",
+            (x) => "",
+            string.Empty,
+            RandomEventPhase.YardSaleFound),
+        new(
+            "You are attacked by a group of bandits on the trail.",
+            (x) => $"You were able to fight back the enemies with your lasers.",
+            "Unfortunately you don't have any laser charges remaining to defend yourself.",
+            RandomEventPhase.EnemiesAttack),
+        new(
+            "Friendly Martians appear and guide you to a food source.",
+            (x) => $"You were able to use your medipacks to recover from the illness.",
+            string.Empty,
+            RandomEventPhase.ExtraFoodFound),
+        new(
+            "Your group falls ill from the dreaded Martian flu.",
+            (x) => "You use your medipacks to recover from the illness.",
+            "Unfortunately you don't have any medipacks to combat the illness.",
+            RandomEventPhase.ContractedIllness)
+        ];
+    }
+
     public static class UpdateProgress
     {
         public const int CompletionDistance = 16000;
