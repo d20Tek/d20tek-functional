@@ -10,38 +10,38 @@ internal static class Actions
 {
     public static GameState DoHuntingForFood(GameState state, IAnsiConsole console, MiniGameCommand miniGame) =>
         state.PlayerCanHuntAlt(
-            cannotHunt: (x) => x.Tap(y => console.WriteMessage(Constants.SelectAction.CannotHuntLabel)),
-            canHunt: (s) =>
-                s.Tap(s => console.WriteMessage(Constants.SelectAction.HuntingFoodLabel))
+            cannotHunt: (Func<GameState, GameState>)((x) => FunctionalExtensions.Apply<GameState>(x, (Action<GameState>)(y => console.WriteMessage(Constants.SelectAction.CannotHuntLabel)))),
+            canHunt: (Func<GameState, GameState>)((s) =>
+                FunctionalExtensions.Apply<decimal>(FunctionalExtensions.Apply<GameState>(s, (Action<GameState>)(s => console.WriteMessage(Constants.SelectAction.HuntingFoodLabel)))
                  .Map(s => miniGame.Play())
-                 .Tap(a => console.WriteMessage(Constants.SelectAction.FoodAccuracyMessage(a)))
-                 .Map(a => s with
+, (Action<decimal>)(a => console.WriteMessage(Constants.SelectAction.FoodAccuracyMessage(a))))
+                 .Map(a => (s with
                  {
                     Inventory = s.Inventory with
                     {
                         LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a)).OrZero(),
                         Food = s.Inventory.Food + GameCalculations.CalculateFoodGained(a)
                     }
-                 }));
+                 }))));
 
     public static GameState DoHuntingForFurs(GameState state, IAnsiConsole console, MiniGameCommand miniGame) =>
         state.PlayerCanHuntAlt(
-            cannotHunt: (x) => x.Tap(y => console.WriteMessage(Constants.SelectAction.CannotHuntLabel)),
-            canHunt: (s) => 
-                s.Tap(s => console.WriteMessage(Constants.SelectAction.HuntingFursLabel))
+            cannotHunt: (Func<GameState, GameState>)((x) => FunctionalExtensions.Apply<GameState>(x, (Action<GameState>)(y => console.WriteMessage(Constants.SelectAction.CannotHuntLabel)))),
+            canHunt: (Func<GameState, GameState>)((s) =>
+                FunctionalExtensions.Apply<decimal>(FunctionalExtensions.Apply<GameState>(s, (Action<GameState>)(s => console.WriteMessage(Constants.SelectAction.HuntingFursLabel)))
                  .Map(s => miniGame.Play())
-                 .Tap(a => console.WriteMessage(Constants.SelectAction.FursAccuracyMessage(a)))
-                 .Map(a => s with
+, (Action<decimal>)(a => console.WriteMessage(Constants.SelectAction.FursAccuracyMessage(a))))
+                 .Map(a => (s with
                  {
                     Inventory = s.Inventory with
                     {
                         LaserCharges = (s.Inventory.LaserCharges - GameCalculations.CalculateChargesUsed(a)).OrZero(),
                         Furs = s.Inventory.Furs + GameCalculations.CalculateFursGained(a)
                     }
-                 }));
+                 }))));
 
     public static GameState DoTrading(GameState state, IAnsiConsole console, MiniGameCommand miniGame) =>
-        state.Tap(s => console.WriteMessage(Constants.SelectAction.TradingPostLabel))
+        state.Apply(s => console.WriteMessage(Constants.SelectAction.TradingPostLabel))
              .Map(s => SellFursCommand.Handle(s.Inventory, console)
                  .Map(sold => SelectInventoryCommand.PurchaseInventory(sold, console)
                      .Map(bought => s with { Inventory = bought })));

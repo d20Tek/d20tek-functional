@@ -33,7 +33,7 @@ internal sealed class SelectAction : IGamePhase
         IAnsiConsole console,
         PlayerActionOptions[] options,
         bool isWilderness) =>
-        options.Tap(o => console.WriteMessage(Constants.SelectAction.PlayerActionsMessage(o, isWilderness)))
+        options.Apply(o => console.WriteMessage(Constants.SelectAction.PlayerActionsMessage(o, isWilderness)))
                .Map(o => console.Prompt<int>(new TextPrompt<int>(Constants.SelectAction.PlayerChoiceLabel)
                                 .AddChoices(options.Select(x => x.ChoiceNumber)))
                     .Map(c => options.Single(x => x.ChoiceNumber == c).Action));

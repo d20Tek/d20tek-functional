@@ -54,7 +54,7 @@ internal class RandomEventPhase : IGamePhase
             });
 
     internal static GameState YardSaleFound(EventRequest request) =>
-        request.OldState.Tap(s => request.Console.WriteMessage(request.Details.Title))
+        request.OldState.Apply(s => request.Console.WriteMessage(request.Details.Title))
                 .Map(s => s with 
                     {
                         Inventory = SelectInventoryCommand.YardSalePurchase(s.Inventory, request.Console)

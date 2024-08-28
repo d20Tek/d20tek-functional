@@ -9,7 +9,7 @@ internal static class App
     {
         var initialState = new ConverterState(console);
         initialState
-            .Tap(x => DisplayTitle(console))
+            .Apply(x => DisplayTitle(console))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);

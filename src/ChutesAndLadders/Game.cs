@@ -11,13 +11,13 @@ internal static class Game
         var finalState = initialState
             .IterateUntil(
                 x => StateMachine.NextState(x, rollFunc)
-                        .Tap(y => AnsiConsole.MarkupLine($"[{x.GetCurrentPlayer().Color}]{y.LatestMove}[/]")),
+                        .Apply(y => AnsiConsole.MarkupLine($"[{x.GetCurrentPlayer().Color}]{y.LatestMove}[/]")),
                 x => x.Players.Any(y => y.IsWinner()))
-            .Tap(x => DisplayWinner(console, x));
+            .Apply(x => DisplayWinner(console, x));
     }
 
     private static GameState InitializeGame(IAnsiConsole console) =>
-        console.Tap(x => DisplayTitle(x))
+        console.Apply(x => DisplayTitle(x))
                .Map(x => GetNumberOfPlayers(x))
                .Map(x => StateMachine.InitialState(x));
 
@@ -25,7 +25,7 @@ internal static class Game
         new FigletText("Chutes & Ladders")
             .Centered()
             .Color(Color.Green)
-            .Tap(x => console.Write(x));
+            .Apply(x => console.Write(x));
 
     private static int GetNumberOfPlayers(IAnsiConsole console) =>
         console.Prompt<int>(

@@ -15,11 +15,11 @@ internal static class Game
                 .Map(phases => initialState.IterateUntil(
                     x => StateMachine.NextTurn(x, console, phases),
                     x => x.PlayerIsDead || x.ReachedDestination)
-                       .Tap(x => DisplayGameEnding(console, x))));
+                       .Apply(x => DisplayGameEnding(console, x))));
 
     private static GameState InitializeGame(IAnsiConsole console) =>
-        console.Tap(x => DisplayTitle(x))
-               .Tap(x => DisplayInstructions(x))
+        console.Apply(x => DisplayTitle(x))
+               .Apply(x => DisplayInstructions(x))
                .Map(x => SelectInventoryCommand.SelectInitialInventory(x))
                .Map(i => StateMachine.InitialState(i));
 
@@ -27,11 +27,11 @@ internal static class Game
         new FigletText(Constants.GameTitle)
             .Centered()
             .Color(Color.Green)
-            .Tap(x => console.Write(x));
+            .Apply(x => console.Write(x));
 
     private static void DisplayInstructions(IAnsiConsole console) =>
         console.Confirm(Constants.ShowInstructionsLabel)
-            .Tap(x => console.WriteMessageConditional(x, Constants.Instructions));
+            .Apply(x => console.WriteMessageConditional(x, Constants.Instructions));
 
     private static IGamePhase[] GetGamePhases(
         WebApiClient webApiClient,

@@ -7,7 +7,7 @@ namespace MartianTrail.Inventory;
 internal static class SelectInventoryCommand
 {
     public static InventoryState SelectInitialInventory(IAnsiConsole console) =>
-        console.Tap(x => x.DisplayHeader(Constants.Inventory.SelectionHeading))
+        console.Apply(x => x.DisplayHeader(Constants.Inventory.SelectionHeading))
                .Map(x => new InventorySelectionState(Credits: Constants.Inventory.StartingCredits))
                .Map(s => s.IterateUntil(
                    x => Constants.Inventory.InventorySelections.Aggregate(x, (acc, y) =>
@@ -16,7 +16,7 @@ internal static class SelectInventoryCommand
                    e => e.PlayerIsHappyWithSelection));
 
     public static InventoryState PurchaseInventory(InventoryState state, IAnsiConsole console) =>
-        state.Tap(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
+        state.Apply(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
              .Map(o => InventorySelectionState.From(o))
              .Map(s => s.IterateUntil(
                    x => Constants.Inventory.InventorySelections.Aggregate(x, (acc, y) =>
@@ -25,7 +25,7 @@ internal static class SelectInventoryCommand
                    e => e.PlayerIsHappyWithSelection));
 
     public static InventoryState YardSalePurchase(InventoryState state, IAnsiConsole console) =>
-        state.Tap(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
+        state.Apply(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
              .Map(o => InventorySelectionState.From(o))
              .Map(s => s.IterateUntil(
                    x => Constants.Inventory.YardSaleSelections.Aggregate(x, (acc, y) =>
@@ -44,14 +44,14 @@ internal static class SelectInventoryCommand
 
     private static int BuyNumberOfItems(IAnsiConsole console, int credits, string name, int costPerItem) =>
         (credits / costPerItem)
-            .Map(afford => console.Prompt<int>(
+            .Map((Func<int, int>)(afford => console.Prompt(
                     new TextPrompt<int>(Constants.Inventory.AmountPurchaseLabel(name, costPerItem, afford))
                         .DefaultValue(0))
-                .Map(attempt => attempt.IterateUntil(
-                    x => Constants.Inventory.MessageForItemAmount(x, credits * costPerItem, attempt)
-                            .Tap(m => console.WriteMessage(m))
-                            .Map(m => ConfirmOrRetryAmount(console, x, afford)),
-                    x => ValidateUserChoice(x, afford))));
+                .Map((Func<int, int>)(attempt => attempt.IterateUntil(
+                    (Func<int, int>)(                    x => FunctionalExtensions.Apply<string>(Constants.Inventory.MessageForItemAmount(x, credits * costPerItem, attempt)
+, (Action<string>)(m => console.WriteMessage(m)))
+                            .Map(m => ConfirmOrRetryAmount(console, x, afford))),
+                    x => ValidateUserChoice(x, afford))))));
 
     private static bool ValidateUserChoice(int x, int affordable) => x >= 0 && x <= affordable;
 
@@ -61,7 +61,7 @@ internal static class SelectInventoryCommand
     private static InventorySelectionState UpdateUserIsHappyStatus(
         IAnsiConsole console,
         InventorySelectionState invState) =>
-        invState.Tap(i => Constants.Inventory.DisplayPurchasedItems(i, console))
+        invState.Apply(i => Constants.Inventory.DisplayPurchasedItems(i, console))
                 .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
                 .Map(r => r ? invState with { PlayerIsHappyWithSelection = true }
                            : new(PlayerIsHappyWithSelection: false, Credits: Constants.Inventory.StartingCredits));
@@ -70,7 +70,7 @@ internal static class SelectInventoryCommand
         IAnsiConsole console,
         InventorySelectionState invState,
         InventorySelectionState prevInventory) =>
-        invState.Tap(i => Constants.Inventory.DisplayPurchasedItems(i, console))
+        invState.Apply(i => Constants.Inventory.DisplayPurchasedItems(i, console))
                 .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
                 .Map(r => r ? invState with
                                 {

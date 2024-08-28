@@ -12,10 +12,10 @@ internal static class AnsiConsoleExtensions
         condition.IfTrueOrElse(() => console.WriteMessage(prompt));
 
     public static void PromptAnyKey(this IAnsiConsole console, string label) =>
-        console.Tap(c => c.MarkupLine(label))
-               .Tap(c => c.Input.ReadKey(true));
+        console.Apply(c => c.MarkupLine(label))
+               .Apply(c => c.Input.ReadKey(true));
 
     public static void DisplayHeader(this IAnsiConsole console, string title, string color = "grey") =>
-        console.Tap(x => x.WriteLine())
-               .Tap(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
+        console.Apply(x => x.WriteLine())
+               .Apply(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
 }

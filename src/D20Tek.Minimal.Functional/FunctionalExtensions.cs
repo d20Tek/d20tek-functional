@@ -15,12 +15,6 @@ public static partial class FunctionalExtensions
     public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).First(x => x != null);
 
-    public static T Tap<T>(this T instance, Action<T> action)
-    {
-        action(instance);
-        return instance;
-    }
-
     public static T Apply<T>(this T instance, Action<T> action)
     {
         action(instance);

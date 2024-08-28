@@ -27,5 +27,5 @@ internal static class StateMachine
 
     private static GameState NextPhase(IAnsiConsole console, IGamePhase phase, GameState oldState) => 
         phase.DoPhase(oldState)
-            .Tap(x => console.WriteMessage(x.LatestMoves));
+            .Apply(x => console.WriteMessage(x.LatestMoves));
 }

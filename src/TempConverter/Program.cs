@@ -4,7 +4,7 @@ using TempConverter;
 
 GetCommand(args)
     .Map(x => Run(x, AnsiConsole.Console))
-    .Tap(op => AnsiConsole.MarkupLine(op()));
+    .Apply(op => AnsiConsole.MarkupLine(op()));
 
 static string GetCommand(string[] args) =>
     args.FirstOrDefault() ?? "ftoc";

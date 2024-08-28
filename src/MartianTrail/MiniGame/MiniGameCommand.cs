@@ -19,8 +19,8 @@ internal class MiniGameCommand
 
     public decimal Play() =>
         GenerateRandomText(_randFunc)
-            .Tap(s => _console.DisplayHeader(Constants.MiniGame.Heading))
-            .Tap(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
+            .Apply(s => _console.DisplayHeader(Constants.MiniGame.Heading))
+            .Apply(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
             .Map(s => GetUserInput(_console, _timeService, s))
             .Map(s => CalculateAccuracy(s));
 
