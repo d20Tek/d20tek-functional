@@ -21,6 +21,12 @@ public static partial class FunctionalExtensions
         return instance;
     }
 
+    public static T Apply<T>(this T instance, Action<T> action)
+    {
+        action(instance);
+        return instance;
+    }
+
     public static TOut IfTrueOrElse<TOut>(this bool condition, Func<TOut> thenFunc, Func<TOut> elseFunc) =>
         condition ? thenFunc() : elseFunc();
 

@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Minimal.Functional",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempConverter", "src\TempConverter\TempConverter.csproj", "{F1EA0E58-B146-4A32-BCFF-40492A9690DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChutesAndLadders", "src\ChutesAndLadders\ChutesAndLadders.csproj", "{0A7BF725-1E12-4C10-9479-6B9140665A72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChutesAndLadders", "src\ChutesAndLadders\ChutesAndLadders.csproj", "{0A7BF725-1E12-4C10-9479-6B9140665A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianTrail", "src\MartianTrail\MartianTrail.csproj", "{DCA3A273-612C-4152-933E-DC16907144BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianTrail", "src\MartianTrail\MartianTrail.csproj", "{DCA3A273-612C-4152-933E-DC16907144BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zorgos", "src\Zorgos\Zorgos.csproj", "{F155DC0A-1AD7-437A-88CF-92D5934EF635}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Games.Common", "src\Games.Common\Games.Common.shproj", "{907A386A-24A4-4232-9B57-54E83B70701A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,11 +43,19 @@ Global
 		{DCA3A273-612C-4152-933E-DC16907144BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA3A273-612C-4152-933E-DC16907144BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA3A273-612C-4152-933E-DC16907144BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
+		src\Games.Common\Games.Common.projitems*{f155dc0a-1ad7-437a-88cf-92d5934ef635}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
