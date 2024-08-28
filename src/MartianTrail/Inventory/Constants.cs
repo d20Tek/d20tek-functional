@@ -1,4 +1,4 @@
-﻿using MartianTrail.Common;
+﻿using Games.Common;
 using MartianTrail.Inventory;
 using Spectre.Console;
 

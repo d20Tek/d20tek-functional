@@ -1,5 +1,5 @@
 ﻿using D20Tek.Minimal.Functional;
-using MartianTrail.Common;
+using Games.Common;
 using MartianTrail.Inventory;
 using MartianTrail.MiniGame;
 using Spectre.Console;

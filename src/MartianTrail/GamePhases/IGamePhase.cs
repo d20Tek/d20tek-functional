@@ -1,6 +1,4 @@
-﻿using Spectre.Console;
-
-namespace MartianTrail.GamePhases;
+﻿namespace MartianTrail.GamePhases;
 
 internal interface IGamePhase
 {

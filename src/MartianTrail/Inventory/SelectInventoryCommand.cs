@@ -1,5 +1,5 @@
 ﻿using D20Tek.Minimal.Functional;
-using MartianTrail.Common;
+using Games.Common;
 using Spectre.Console;
 
 namespace MartianTrail.Inventory;

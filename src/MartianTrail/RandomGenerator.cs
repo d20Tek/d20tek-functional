@@ -1,4 +1,4 @@
-﻿namespace MartianTrail.Common;
+﻿namespace MartianTrail;
 
 internal static class RandomGenerator
 {
