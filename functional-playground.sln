@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChutesAndLadders", "src\Chu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianTrail", "src\MartianTrail\MartianTrail.csproj", "{DCA3A273-612C-4152-933E-DC16907144BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zorgos", "src\Zorgos\Zorgos.csproj", "{F155DC0A-1AD7-437A-88CF-92D5934EF635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zorgos", "src\Zorgos\Zorgos.csproj", "{F155DC0A-1AD7-437A-88CF-92D5934EF635}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Games.Common", "src\Games.Common\Games.Common.shproj", "{907A386A-24A4-4232-9B57-54E83B70701A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotMachine", "src\SlotMachine\SlotMachine.csproj", "{37B67104-BBC7-4F00-BB57-5ED41E32080C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F155DC0A-1AD7-437A-88CF-92D5934EF635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
 		src\Games.Common\Games.Common.projitems*{dca3a273-612c-4152-933e-dc16907144bf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{f155dc0a-1ad7-437a-88cf-92d5934ef635}*SharedItemsImports = 5
