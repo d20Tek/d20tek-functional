@@ -19,6 +19,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Games.Common", "src\Games.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotMachine", "src\SlotMachine\SlotMachine.csproj", "{37B67104-BBC7-4F00-BB57-5ED41E32080C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureHunt", "src\TreasureHunt\TreasureHunt.csproj", "{DEE1AE19-3D0B-4162-9787-2AD3B1C54575}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B67104-BBC7-4F00-BB57-5ED41E32080C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE1AE19-3D0B-4162-9787-2AD3B1C54575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE1AE19-3D0B-4162-9787-2AD3B1C54575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE1AE19-3D0B-4162-9787-2AD3B1C54575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE1AE19-3D0B-4162-9787-2AD3B1C54575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
 		src\Games.Common\Games.Common.projitems*{dca3a273-612c-4152-933e-dc16907144bf}*SharedItemsImports = 5
+		src\Games.Common\Games.Common.projitems*{dee1ae19-3d0b-4162-9787-2ad3b1c54575}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{f155dc0a-1ad7-437a-88cf-92d5934ef635}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

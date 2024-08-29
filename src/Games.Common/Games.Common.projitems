@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DieRoller.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presenters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebApiClient.cs" />
   </ItemGroup>
 </Project>

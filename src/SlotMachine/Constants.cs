@@ -4,7 +4,7 @@ namespace SlotMachine;
 
 internal static class Constants
 {
-    private const string _gameTitle = "Slot Machine";
+    public const string GameTitle = "Slot Machine";
     public const string Cherry = "Cherry";
     public static string[] Fruit = ["Lemon", Cherry, "Melon", "Bell", "Grape", "Plum"];
     public const int StartingTokens = 10;
@@ -26,8 +26,6 @@ internal static class Constants
 
     public static string[] GameWonMessage(int rounds) =>
         [string.Empty, $"[green]You won![/] in {rounds} rounds."];
-
-    public static FigletText Header = new FigletText(_gameTitle).Color(Color.Green).Centered();
 
     public static string[] FruitRow(string[] items) =>
     [

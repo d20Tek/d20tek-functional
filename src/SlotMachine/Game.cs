@@ -31,7 +31,7 @@ internal static class Game
 
     private static void DisplayRoundStart(int tokens, IAnsiConsole console) =>
         console.Apply(c => c.Clear())
-               .Apply(c => c.Write(Constants.Header))
+               .Apply(c => c.Write(Presenters.GameHeader(Constants.GameTitle)))
                .Apply(c => c.WriteMessage(Constants.CurrentTokensMessage(tokens)))
                .Apply(c => c.PromptAnyKey(Constants.PullLeverMessage));
 
