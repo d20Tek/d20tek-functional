@@ -1,4 +1,5 @@
 ﻿using Games.Common;
 using Spectre.Console;
+using TreasureHunt;
 
-AnsiConsole.Write(Presenters.GameHeader("Treasure Hunt"));
+Game.Play(AnsiConsole.Console, DieRoller.Roll);
