@@ -1,15 +1,15 @@
-﻿namespace TreasureHunt;
+﻿namespace TreasureHunt.Data;
 
 internal static class GameData
 {
     private static readonly Room[] _rooms =
     [
-        new (1, 2, 7, 6, 0, "COLD AND CREEPY"),
-        new (2, 0, 3, 7, 1, "DARK AND DINGY"),
-        new (3, 0, 0, 4, 2, "GREY AND GHOSTLY"),
-        new (4, 3, 0, 5, 7, "FOUL AND FOGGY"),
-        new (5, 7, 4, 0, 6, "EMPTY AND EERIE"),
-        new (6, 1, 5, 0, 0, "HAUNTED AND HORRIBLE"),
+        new (1, 2, 7, 6, Constants.DirectionNotAllowed, "COLD AND CREEPY"),
+        new (2, Constants.DirectionNotAllowed, 3, 7, 1, "DARK AND DINGY"),
+        new (3, Constants.DirectionNotAllowed, Constants.DirectionNotAllowed, 4, 2, "GREY AND GHOSTLY"),
+        new (4, 3, Constants.DirectionNotAllowed, 5, 7, "FOUL AND FOGGY"),
+        new (5, 7, 4, Constants.DirectionNotAllowed, 6, "EMPTY AND EERIE"),
+        new (6, 1, 5, Constants.DirectionNotAllowed, Constants.DirectionNotAllowed, "HAUNTED AND HORRIBLE"),
         new (7, 2, 4, 5, 1, "SPOOKY AND SCARY")
     ];
 

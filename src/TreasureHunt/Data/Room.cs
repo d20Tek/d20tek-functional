@@ -1,4 +1,4 @@
-﻿namespace TreasureHunt;
+﻿namespace TreasureHunt.Data;
 
 internal sealed record Room(
     int Id,

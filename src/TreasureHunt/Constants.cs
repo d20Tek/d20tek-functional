@@ -1,23 +1,31 @@
-﻿namespace TreasureHunt;
+﻿using TreasureHunt.Data;
 
-internal static class Constants
+namespace TreasureHunt;
+
+internal static partial class Constants
 {
     public const string GameTitle = "Treasure Hunt";
     public const string ShowInstructionsLabel = "WOULD YOU LIKE THE GAME INSTRUCTIONS?";
     public const string StartGameLabel = "PRESS ANY KEY TO START...";
     public const int TotalRooms = 7;
-    public const int MovesAllowed = 28;
+    public const int MovesAllowed = 29;
+    public const int NoTreasure = 0;
+    public const int DirectionNotAllowed = 0;
+    public const int NoRoom = 0;
 
     public const string CommandInputLabel = "WHAT DO YOU WANT TO DO?";
-    public const string EndGameLostMessage = "SORRY! YOU'VE RUN OUT OF MOVES.";
-    public const string EndGameWonMessage = "CONGRATS! YOU WON THE GAME.";
+    public const string EndGameLostMessage = "[red]SORRY![/] YOU'VE RUN OUT OF MOVES.";
+    public static string[] EndGameWonMessage(int room, int moves) =>
+    [
+        "[green]WELL DONE![/] YOU GOT ALL OF THE TREASURE",
+        $"INTO ROOM {room} IN {moves} MOVES."
+    ];
 
     public static string[] CommandOptions = ["HELP", "N", "E", "S", "W", "GRAB", "PUT", "LOCATE",
                                              "help", "n", "e", "s", "w", "grab", "put", "locate"];
     public static readonly string[] Instructions =
     [
         "",
-        "------------------------------------------------------",
         "THERE ARE SEVEN ROOMS IN THE MAZE, AND",
         "THERE IS A BOX OF IN EACH ONE. YOU MUST",
         "GET ALL THE BOXES INTO THE SAME ROOM.",
@@ -28,7 +36,6 @@ internal static class Constants
         "[yellow]GRAB[/]    : PICK UP TREASURE IN THE ROOM",
         "[yellow]PUT[/]     : PUT DOWN TREASURE IN THE ROOM",
         "[yellow]LOCATE[/]  : PRINT CURRENT LOCATION OF TREASURE",
-        "------------------------------------------------------",
         ""
     ];
 
@@ -42,11 +49,4 @@ internal static class Constants
     public static string[] TreasureDescriptions(Location[] locations) =>
         locations.Select(x => $"IT CONTAINS {GameData.GetTreasureById(x.TreasureId).Name}")
                  .ToArray();
-
-    public static class Commands
-    {
-        public static string[] CannotMoveMessage = [string.Empty, "[yellow]YOU CANNOT MOVE THAT DIRECTION.[/]"];
-        public static string[] OkMessage = [string.Empty, "OK."];
-        public static string[] CommandError = [string.Empty, "[red]ERROR RUNNING COMMAND.[/]"];
-    }
 }
