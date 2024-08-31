@@ -10,5 +10,5 @@ internal sealed record GameState(
     string[] LatestMove)
 {
     public static GameState Initialize(Location[] treasureLocations, int room) =>
-        new(treasureLocations, room, Constants.NoTreasure, 1, []);
+        new(treasureLocations, room, Constants.NoTreasure, 0, []);
 }
