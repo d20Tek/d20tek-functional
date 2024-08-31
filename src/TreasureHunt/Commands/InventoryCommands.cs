@@ -41,12 +41,10 @@ internal static class InventoryCommands
     private static Location[] RemoveTreasureFrom(this GameState state, int treasureId) =>
         state.TreasureLocations.Select(x => x.TreasureId == treasureId
                                           ? new Location(x.TreasureId, Constants.NoRoom)
-                                          : x)
-                         .ToArray();
+                                          : x).ToArray();
 
     private static Location[] AddTreasureTo(this GameState state, int treasureId, int room) =>
         state.TreasureLocations.Select(x => x.TreasureId == treasureId
                                           ? new Location(x.TreasureId, room)
-                                          : x)
-                         .ToArray();
+                                          : x).ToArray();
 }

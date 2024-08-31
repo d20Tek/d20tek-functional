@@ -32,4 +32,13 @@ internal static class AnsiConsoleExtensions
     public static void DisplayHeader(this IAnsiConsole console, string title, string color = "grey") =>
         console.Apply(x => x.WriteLine())
                .Apply(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
+
+    public static void DisplayInstructions(
+        this IAnsiConsole console,
+        string showLabel,
+        string[] instructions,
+        string startLabel) =>
+        console.Confirm(showLabel)
+            .Apply(x => console.WriteMessageConditional(x, instructions))
+            .Apply(x => x.IfTrueOrElse(() => console.PromptAnyKey(startLabel)));
 }

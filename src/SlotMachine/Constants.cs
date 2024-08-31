@@ -1,6 +1,4 @@
-﻿using Spectre.Console;
-
-namespace SlotMachine;
+﻿namespace SlotMachine;
 
 internal static class Constants
 {

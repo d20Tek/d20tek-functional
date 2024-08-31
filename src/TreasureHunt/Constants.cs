@@ -39,14 +39,14 @@ internal static partial class Constants
         ""
     ];
 
-    public static string[] RoomDescription(int room, string description) =>
+    public static string[] RoomDescription(int room) =>
     [
             "------------------------------------------------------",
             $"YOU ARE IN ROOM {room}",
-            $"IT IS {description}",
+            $"IT IS {GameData.GetRoomById(room).Description}",
     ];
 
     public static string[] TreasureDescriptions(Location[] locations) =>
         locations.Select(x => $"IT CONTAINS {GameData.GetTreasureById(x.TreasureId).Name}")
-                 .ToArray();
+                 .Append(string.Empty).ToArray();
 }

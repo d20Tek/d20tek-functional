@@ -11,7 +11,4 @@ internal sealed record GameState(
 {
     public static GameState Initialize(Location[] treasureLocations, int room) =>
         new(treasureLocations, room, Constants.NoTreasure, 1, []);
-
-    public Location[] GetAllTreasureInRoom(int room) =>
-        TreasureLocations.Where(x => x.Room == room).ToArray();
 }
