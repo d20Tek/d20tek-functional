@@ -8,7 +8,7 @@ internal static partial class Constants
     public const string ShowInstructionsLabel = "WOULD YOU LIKE THE GAME INSTRUCTIONS?";
     public const string StartGameLabel = "PRESS ANY KEY TO START...";
     public const int TotalRooms = 7;
-    public const int MovesAllowed = 29;
+    public const int MovesAllowed = 30;
     public const int NoTreasure = 0;
     public const int DirectionNotAllowed = 0;
     public const int NoRoom = 0;
