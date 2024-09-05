@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreasureHunt", "src\Treasur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crash", "src\Crash\Crash.csproj", "{629200F7-043F-430C-92FC-C8E460554AB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teletype", "src\Teletype\Teletype.csproj", "{2C080C53-3298-4ABA-82E0-3568B8DC23CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{629200F7-043F-430C-92FC-C8E460554AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629200F7-043F-430C-92FC-C8E460554AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629200F7-043F-430C-92FC-C8E460554AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C080C53-3298-4ABA-82E0-3568B8DC23CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C080C53-3298-4ABA-82E0-3568B8DC23CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C080C53-3298-4ABA-82E0-3568B8DC23CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C080C53-3298-4ABA-82E0-3568B8DC23CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Games.Common\Games.Common.projitems*{2c080c53-3298-4aba-82e0-3568b8dc23cf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{629200f7-043f-430c-92fc-c8e460554ab6}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
