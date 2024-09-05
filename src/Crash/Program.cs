@@ -1,3 +1,12 @@
-﻿using Spectre.Console;
+﻿using Crash;
+using Spectre.Console;
 
-AnsiConsole.WriteLine("Crash!");
+AnsiConsole.Cursor.Hide();
+try
+{
+    Game.Play(AnsiConsole.Console, RandomGenerator.Roll);
+}
+finally
+{
+    AnsiConsole.Cursor.Show();
+}

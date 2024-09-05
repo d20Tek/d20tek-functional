@@ -10,8 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ArrayExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleSizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DictionaryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DieRoller.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleCursorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presenters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebApiClient.cs" />

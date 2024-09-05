@@ -12,6 +12,13 @@ public static partial class FunctionalExtensions
         Func<T1, T2, TOut> fOut) =>
         fOut(f1(instance), f2(instance));
 
+    public static void Fork<TIn, T1, T2>(
+        this TIn instance,
+        Func<TIn, T1> f1,
+        Func<TIn, T2> f2,
+        Action<T1, T2> fOut) =>
+        fOut(f1(instance), f2(instance));
+
     public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).First(x => x != null);
 
