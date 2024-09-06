@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleCursorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presenters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TeletypePresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebApiClient.cs" />
   </ItemGroup>
 </Project>
