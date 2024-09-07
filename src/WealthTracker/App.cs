@@ -1,35 +1,28 @@
 ﻿using D20Tek.Minimal.Functional;
+using Games.Common;
 using Spectre.Console;
 
 namespace WealthTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console)
-    {
-        var initialState = new AppState(console);
-        initialState
-            .Apply(x => DisplayTitle(console))
+    public static void Run(IAnsiConsole console) =>
+        AppState.Initialize(console)
+            .Apply(x => console.Write(Presenters.AppHeader(Constants.AppTitle)))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);
-    }
 
-    private static AppState NextCommand(AppState prevState)
-    {
-        prevState.Console.WriteLine();
-        var inputCommand = prevState.Console.Ask<string>($"Enter conversion type (show or exit):");
+    private static AppState NextCommand(AppState prevState) =>
+        UserCommandInput(prevState.Console)
+            .Map(inputCommand =>
+                CommandMetadata.GetCommandTypes()
+                    .Map(x => x.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand)))
+                    .Map(x => x ?? CommandMetadata.ErrorTypeHandler(inputCommand))
+                    .Map(x => x.TypeHandler(prevState, x))
+            );
 
-        var result = CommandMetadata.GetCommandTypes()
-            .Map(x => x.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand)))
-            .Map(x => x ?? CommandMetadata.ErrorTypeHandler(inputCommand))
-            .Map(x => x.TypeHandler(prevState, x));
-
-        return result;
-    }
-
-    private static void DisplayTitle(IAnsiConsole console) =>
-        console.Write(new FigletText("Wealth Tracker")
-                        .Centered()
-                        .Color(Color.Green));
+    private static string UserCommandInput(IAnsiConsole console) =>
+        console.Apply(c => c.WriteLine())
+               .Map(c => c.Ask<string>($"Enter conversion type (show or exit):"));
 }
