@@ -4,7 +4,7 @@ namespace UnitConverter;
 
 internal static class ConverterMetadata
 {
-    public static Func<string[]> GetDisplayText = () =>
+    public static string[] GetDisplayText() =>
     [
         " - area: performs area conversions, like Square Meter to Square Foot.",
         " - length (len): performs length or distance conversions, like Kilometer to Mile.",
@@ -81,7 +81,7 @@ internal static class ConverterMetadata
         { "Ounce", "oz" }
     };
 
-    public static Func<ConvertTypeMetadata[]> GetConvertTypes = () =>
+    public static ConvertTypeMetadata[] GetConvertTypes() =>
     [
         new ("show", ["show", "show-types"], CommandHandlers.ShowTypes, [], null),
         new ("area", ["area"], CommandHandlers.ConvertUnits, _areaUnits, new AreaConverter()),
