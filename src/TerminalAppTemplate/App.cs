@@ -1,5 +1,5 @@
-﻿using D20Tek.Minimal.Functional;
-using Games.Common;
+﻿using Apps.Common;
+using D20Tek.Minimal.Functional;
 using Spectre.Console;
 using TerminalAppTemplate.Commands;
 
@@ -9,7 +9,7 @@ internal static class App
 {
     public static void Run(IAnsiConsole console) =>
         AppState.Initialize(console)
-            .Apply(x => console.Write(Presenters.AppHeader(Constants.AppTitle)))
+            .Apply(x => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);
