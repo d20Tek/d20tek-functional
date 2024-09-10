@@ -9,7 +9,7 @@ internal static class App
     {
         var initialState = new ConverterState(console);
         initialState
-            .Apply(x => DisplayTitle(console))
+            .Apply(x => console.Write(GetDisplayTitle()))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);
@@ -28,12 +28,8 @@ internal static class App
         return result;
     }
 
-    private static Action<IAnsiConsole> DisplayTitle = (IAnsiConsole console) =>
-    {
-        var title = new FigletText("Func Unit Convert")
-                        .Centered()
-                        .Color(Color.Green);
-
-        console.Write(title);
-    };
+    private static FigletText GetDisplayTitle() =>
+        new FigletText("Func Unit Convert")
+            .Centered()
+            .Color(Color.Green);
 }

@@ -11,25 +11,15 @@ internal static class TemperatureConverter
         return result;
     }
 
-    public static decimal CelsiusToFahrenheit(decimal tempC)
-    {
-        var result = 
-            tempC.Map(x => x * 9)
-                 .Map(x => x / 5)
-                 .Map(x => x + 32)
-                 .Map(x => Math.Round(x, 2));
+    public static decimal CelsiusToFahrenheit(decimal tempC) =>
+        tempC.Map(x => x * 9)
+                .Map(x => x / 5)
+                .Map(x => x + 32)
+                .Map(x => Math.Round(x, 2));
 
-        return result;
-    }
-
-    public static decimal FahrenheitToCelsius(decimal tempF)
-    {
-        var result = 
-            tempF.Map(x => x - 32)
-                 .Map(x => x * 5)
-                 .Map(x => x / 9)
-                 .Map(x => Math.Round(x, 2));
-
-        return result;
-    }
+    public static decimal FahrenheitToCelsius(decimal tempF) =>
+        tempF.Map(x => x - 32)
+                .Map(x => x * 5)
+                .Map(x => x / 9)
+                .Map(x => Math.Round(x, 2));
 }
