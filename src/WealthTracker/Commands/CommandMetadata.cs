@@ -1,6 +1,4 @@
-﻿using WealthTracker.Commands;
-
-namespace WealthTracker;
+﻿namespace WealthTracker.Commands;
 
 internal sealed class CommandMetadata
 {

@@ -1,4 +1,4 @@
-﻿namespace WealthTracker;
+﻿namespace WealthTracker.Commands;
 
 internal sealed record CommandTypeMetadata(
     string Name,

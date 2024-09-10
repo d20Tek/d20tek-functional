@@ -1,6 +1,7 @@
 ﻿using D20Tek.Minimal.Functional;
 using Games.Common;
 using Spectre.Console;
+using WealthTracker.Commands;
 
 namespace WealthTracker;
 
@@ -24,5 +25,5 @@ internal static class App
 
     private static string UserCommandInput(IAnsiConsole console) =>
         console.Apply(c => c.WriteLine())
-               .Map(c => c.Ask<string>($"Enter conversion type (show or exit):"));
+               .Map(c => c.Ask<string>(Constants.AskCommandLabel));
 }
