@@ -1,8 +1,8 @@
-﻿namespace WealthTracker;
+﻿namespace TerminalAppTemplate;
 
 internal static class Constants
 {
-    public const string AppTitle = "Wealth Tracker";
+    public const string AppTitle = "Terminal App";
     public const string AskCommandLabel = "Enter app command (show or exit):";
     public const string ExitCommandMessage = "[green]Good-bye![/]";
     public static readonly string[] CommandListMessage = 
