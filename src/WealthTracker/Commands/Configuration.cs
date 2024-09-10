@@ -1,6 +1,6 @@
 ﻿namespace WealthTracker.Commands;
 
-internal sealed class CommandMetadata
+internal sealed class Configuration
 {
     public static Func<CommandTypeMetadata[]> GetCommandTypes = () =>
     [
