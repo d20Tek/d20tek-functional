@@ -9,7 +9,7 @@ namespace WealthTracker;
 internal static class App
 {
     public static void Run(IAnsiConsole console, IWealthRepository repository) =>
-        AppState.Initialize(console)
+        AppState.Initialize(console, repository)
             .Apply(x => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
