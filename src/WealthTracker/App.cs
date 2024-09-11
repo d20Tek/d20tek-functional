@@ -2,12 +2,13 @@
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
 using WealthTracker.Commands;
+using WealthTracker.Persistence;
 
 namespace WealthTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console) =>
+    public static void Run(IAnsiConsole console, IWealthRepository repository) =>
         AppState.Initialize(console)
             .Apply(x => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
