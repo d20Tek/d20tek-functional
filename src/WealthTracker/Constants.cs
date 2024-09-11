@@ -9,6 +9,7 @@ internal static class Constants
     [
         " - list (l): shows list of the user's accounts.",
         " - add: allows user to input account data.",
+        " - edit: allows uer to edit basic account data (name and categories).",
         " - delete (del): allows user to delete an existing account.",
         " - show-commands (show): show list of the available commands in this app.",
         " - exit (x): leave the app.",

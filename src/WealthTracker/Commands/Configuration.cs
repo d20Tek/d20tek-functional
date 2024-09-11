@@ -8,7 +8,8 @@ internal sealed class Configuration
         new ("exit", ["exit", "x"], CommonHandlers.Exit),
         new ("list", ["list", "l"], ListWealthEntriesCommand.Handle),
         new ("add", ["add"], AddWealthEntryCommand.Handle),
-        new ("delete", ["delete", "del"], DeleteWealthEntryCommand.Handle)
+        new ("delete", ["delete", "del"], DeleteWealthEntryCommand.Handle),
+        new ("edit", ["edit"], EditWealthEntryCommand.Handle)
     ];
 
     public static string[] GetCommands() =>

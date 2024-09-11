@@ -4,9 +4,9 @@ internal sealed class WealthDataEntry
 {
     public int Id { get; private set; }
 
-    public string Name { get; }
+    public string Name { get; private set; }
 
-    public string[] Categories { get; }
+    public string[] Categories { get; private set; }
 
     public Dictionary<DateTimeOffset, int> DailyValues { get; }
 
@@ -23,4 +23,10 @@ internal sealed class WealthDataEntry
     }
 
     internal void SetId(int id) => Id = id;
+
+    internal void UpdateEntry(string name, string[] categories)
+    {
+        Name = name;
+        Categories = categories;
+    }
 }

@@ -30,6 +30,23 @@ internal static class Constants
             $"[green]Success:[/] The new account '{s.Value.Name}' was created with id={s.Value.Id}.";
     }
 
+    public static class Edit
+    {
+        public const string Header = "Edit an account";
+        public const string IdLabel = "Enter account id to edit:";
+        public const string NameLabel = "Enter account's new name:";
+        public const string CategoryLabel = "Enter each category separately and press enter (or leave empty when done):";
+
+        public static string ChangeCategoriesConfirm(string prevCategories) =>
+            $"Do you wish to change the category list [[{prevCategories}]]?";
+
+        public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account with id={s.Value.Id} was retrieved.";
+
+        public static string SuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account '{s.Value.Name}' with id={s.Value.Id} was updated.";
+    }
+
     public static class Delete
     {
         public const string Header = "Delete an account";
