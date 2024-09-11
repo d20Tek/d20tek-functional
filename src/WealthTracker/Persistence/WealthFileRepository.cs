@@ -13,7 +13,8 @@ internal class WealthFileRepository : IWealthRepository
         _db.Get().Entities.ToArray() ?? [];
 
     public Maybe<WealthDataEntry> GetWealthEntryById(int id) =>
-        _db.Get().Entities.FirstOrDefault(x => x.Id == id) ?? throw Constants.NotFoundError(id);
+        new Something<int>(id)
+            .Bind(x => _db.Get().Entities.FirstOrDefault(x => x.Id == id) ?? throw Constants.NotFoundError(id));
 
     public Maybe<WealthDataEntry> Create(WealthDataEntry entry) =>
         new Something<WealthDataEntry>(entry).Bind(e =>

@@ -5,6 +5,8 @@ namespace WealthTracker.Commands;
 internal static class Constants
 {
     public const string JoinSeparator = ", ";
+    public const string ErrorLabel = "[red]Error:[/]";
+    public const string UnexpectedErrorMesssage = $"{ErrorLabel} An unexpected error occurred.";
 
     public static class List
     {
@@ -31,5 +33,14 @@ internal static class Constants
                 Error<WealthDataEntry> e => $"[red]Error:[/] {e.ErrorMessage.Message}",
                 _ => "[red]Error:[/] Unexpected error occurred."
             };
+    }
+
+    public static class Delete
+    {
+        public const string Header = "Delete an account";
+        public const string IdLabel = "Enter the account id:";
+
+        public static string SuccessMessage(Something<WealthDataEntry> s) => 
+            $"[green]Success:[/] The account '{s.Value.Name}' with id={s.Value.Id} was deleted.";
     }
 }
