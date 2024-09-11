@@ -26,5 +26,7 @@ internal static class App
 
     private static string UserCommandInput(IAnsiConsole console) =>
         console.Apply(c => c.WriteLine())
-               .Map(c => c.Ask<string>(Constants.AskCommandLabel));
+               .Map(c => c.Prompt<string>(new TextPrompt<string>(Constants.AskCommandLabel)
+                            .AddChoices(Configuration.GetCommands())
+                            .ShowChoices(false)));
 }

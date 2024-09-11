@@ -9,6 +9,9 @@ internal sealed class Configuration
         new ("list", ["list", "l"], ListWealthEntriesCommand.Handle)
     ];
 
+    public static string[] GetCommands() =>
+        GetCommandTypes().SelectMany(x => x.AllowedCommands).ToArray();
+
     public static CommandTypeMetadata ErrorTypeHandler(string command) =>
         new("error", [], (x, t) => CommonHandlers.Error(x, command, t));
 }
