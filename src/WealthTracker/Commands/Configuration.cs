@@ -2,7 +2,7 @@
 
 internal sealed class Configuration
 {
-    public static Func<CommandTypeMetadata[]> GetCommandTypes = () =>
+    public static CommandTypeMetadata[] GetCommandTypes() =>
     [
         new ("show", ["show", "show-commands"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit),
