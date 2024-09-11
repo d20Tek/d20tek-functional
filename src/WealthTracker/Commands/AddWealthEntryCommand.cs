@@ -10,7 +10,7 @@ internal static class AddWealthEntryCommand
         state.Apply(s => s.Console.DisplayHeader(Constants.Add.Header))
              .Map(s => new WealthDataEntry(0, state.Console.GetName(), state.Console.GetCategories())
                 .Map(entry => s.Repository.Create(entry))
-                .Apply(result => s.Console.MarkupLine(GetDisplayResult(result)))
+                .Apply(result => s.Console.Render(result, Constants.Add.SuccessMessage))
                 .Map(_ => s with { Command = metadata.Name }));
 
     private static string GetName(this IAnsiConsole console) =>
@@ -26,6 +26,4 @@ internal static class AddWealthEntryCommand
                 categories => categories.Any() && categories.Last().IsEmpty())
             .Where(x => x.HasText())
             .ToArray();
-
-    private static string GetDisplayResult(Maybe<WealthDataEntry> result) => Constants.Add.GetResultMessage(result);
 }

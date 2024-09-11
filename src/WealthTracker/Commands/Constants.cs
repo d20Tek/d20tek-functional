@@ -26,13 +26,8 @@ internal static class Constants
         public const string NameLabel = "Enter the account name:";
         public const string CategoryLabel = "Enter each category separately and press enter (or leave empty when done):";
 
-        public static string GetResultMessage(Maybe<WealthDataEntry> result) =>
-            result switch
-            {
-                Something<WealthDataEntry> s => $"[green]Success:[/] The new account '{s.Value.Name}' was created.",
-                Error<WealthDataEntry> e => $"[red]Error:[/] {e.ErrorMessage.Message}",
-                _ => "[red]Error:[/] Unexpected error occurred."
-            };
+        public static string SuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The new account '{s.Value.Name}' was created with id={s.Value.Id}.";
     }
 
     public static class Delete
