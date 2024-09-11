@@ -20,7 +20,7 @@ internal static class Constants
 
     public static class Add
     {
-        public const string AddHeader = "Add a new account";
+        public const string Header = "Add a new account";
         public const string NameLabel = "Enter the account name:";
         public const string CategoryLabel = "Enter each category separately and press enter (or leave empty when done):";
 

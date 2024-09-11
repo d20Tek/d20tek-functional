@@ -15,10 +15,14 @@ internal static class AnsiConsoleExtensions
         console.Apply(c => c.WriteMessage(labels))
                .Apply(c => c.Input.ReadKey(true));
 
-    public static void DisplayHeader(this IAnsiConsole console, string title, string color = "grey") =>
+    public static void DisplayHeader(this IAnsiConsole console, string title, string color = "grey", int width = 80) =>
         console.Apply(x => x.WriteLine())
-               .Apply(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
+               .Map(_ => new Rule(title).LeftJustified().RuleStyle(color))
+               .Apply(rule => console.Write(CreateSingleColumnGrid(width).AddRow(rule)));
 
     public static void DisplayAppHeader(this IAnsiConsole console, string title, Color? color = null) =>
         console.Write(new FigletText(title).Centered().Color(color ?? Color.Green));
+
+    private static Grid CreateSingleColumnGrid(int width) =>
+        new Grid().AddColumn(new GridColumn().NoWrap().Width(width));
 }
