@@ -41,7 +41,7 @@ internal static class Constants
             $"Do you wish to change the category list [[{prevCategories}]]?";
 
         public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
-            $"[green]Success:[/] The account with id={s.Value.Id} was retrieved.";
+            $"[green]Success:[/] The account with id={s.Value.Id} was retrieved for editing.";
 
         public static string SuccessMessage(Something<WealthDataEntry> s) =>
             $"[green]Success:[/] The account '{s.Value.Name}' with id={s.Value.Id} was updated.";
