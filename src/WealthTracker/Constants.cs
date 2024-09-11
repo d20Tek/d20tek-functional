@@ -8,6 +8,7 @@ internal static class Constants
     public static readonly string[] CommandListMessage = 
     [
         " - list (l): shows list of the user's accounts.",
+        " - add: allows user to input account data",
         " - show-commands (show): show list of the available commands in this app.",
         " - exit (x): leave the app.",
     ];

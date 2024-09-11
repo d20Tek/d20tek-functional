@@ -2,7 +2,7 @@
 
 internal sealed class WealthDataStore
 {
-    public int LastId { get; private set; } = 0;
+    public int LastId { get; set; } = 0;
 
     public List<WealthDataEntry> Entities { get; init; } = [];
 
