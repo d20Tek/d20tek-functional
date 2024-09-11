@@ -12,21 +12,16 @@ internal static class StringExtensions
     private const string _ellipsis = "...";
     private const int _ellipsisLength = 3;
 
-    public static string CapOverflow(this string str, int maxLength, Overflow overflow = Overflow.Ellipsis)
-    {
-        var result = str;
-        if (str.Length > maxLength)
-        {
-            if (overflow == Overflow.Crop)
-            {
-                result = str.Substring(0, maxLength);
-            }
-            else if (overflow == Overflow.Ellipsis)
-            {
-                result = string.Concat(str.AsSpan(0, maxLength - _ellipsisLength), _ellipsis);
-            }
-        }
+    public static string CapOverflow(this string str, int maxLength, Overflow overflow = Overflow.Ellipsis) =>
+        (str.Length > maxLength)
+            ? str.HandleOverflowTypes(maxLength, overflow)
+            : str;
 
-        return result;
-    }
+    private static string HandleOverflowTypes(this string str, int maxLength, Overflow overflow) =>
+        overflow switch
+        {
+            Overflow.Crop => str.Substring(0, maxLength),
+            Overflow.Ellipsis => string.Concat(str.AsSpan(0, maxLength - _ellipsisLength), _ellipsis),
+            _ => str
+        };
 }
