@@ -8,13 +8,13 @@ internal sealed class WealthDataEntry
 
     public string[] Categories { get; private set; }
 
-    public Dictionary<DateTimeOffset, decimal> DailyValues { get; }
+    public SortedDictionary<DateTimeOffset, decimal> DailyValues { get; }
 
     public WealthDataEntry(
         int id,
         string name,
         string[]? categories = null,
-        Dictionary<DateTimeOffset, decimal>? dailyValues = null)
+        SortedDictionary<DateTimeOffset, decimal>? dailyValues = null)
     {
         Id = id;
         Name = name;
@@ -36,4 +36,6 @@ internal sealed class WealthDataEntry
 
     internal void RemoveDailyValue(DateTimeOffset date) =>
         DailyValues.Remove(date.Date);
+
+    internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
 }

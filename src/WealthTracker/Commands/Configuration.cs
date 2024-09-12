@@ -12,6 +12,7 @@ internal sealed class Configuration
         new ("edit", ["edit", "e"], EditWealthEntryCommand.Handle),
         new ("record", ["record", "r"], RecordAmountCommand.Handle),
         new ("unrecord", ["unrecord", "u"], UnrecordAmountCommand.Handle),
+        new ("current", ["current", "c"], CurrentNetWorthCommand.Handle),
     ];
 
     public static string[] GetCommands() =>

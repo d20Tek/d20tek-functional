@@ -80,4 +80,19 @@ internal static class Constants
         public static string SuccessMessage(Something<WealthDataEntry> s) =>
             $"[green]Success:[/] The account '{s.Value.Name}' (id={s.Value.Id}) had an amount record removed.";
     }
+
+    public static class Current
+    {
+        public const string ListHeader = "Current Net Worth";
+        public const string NoAccountsMessage = "No accounts are being tracked... please add some.";
+        public const string ColumnId = "Id";
+        public const int ColumnIdLen = 5;
+        public const string ColumnName = "Name";
+        public const int ColumnNameLen = 60;
+        public const string ColumnValue = "Value";
+        public const int ColumnValueLen = 20;
+        public static readonly (string Id, string Name, string Value) TotalBorder = 
+            ("─────", "────────────────────────────────────────────────────────────", "────────────────────");
+        public const string TotalLabel = "Total:";
+    }
 }
