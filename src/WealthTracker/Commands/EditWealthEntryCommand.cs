@@ -11,19 +11,17 @@ internal static class EditWealthEntryCommand
         state.Apply(s => s.Console.DisplayHeader(Constants.Edit.Header))
              .Map(s => s.Repository.GetWealthEntryById(s.Console.GetId())
                  .Apply(result => s.Console.Render(result, Constants.Edit.GetSuccessMessage))
-                 .Apply(result => PerformEdit(s.Console, s.Repository, result as Something<WealthDataEntry>))
+                 .Apply(result => PerformEdit(s.Console, s.Repository, result))
                  .Map(_ => s with { Command = metadata.Name }));
 
     private static void PerformEdit(
         IAnsiConsole console,
         IWealthRepository repo,
-        Something<WealthDataEntry>? editEntry) =>
-            (editEntry is null).IfTrueOrElse(
-                () => { },
-                () => editEntry!.Value
-                        .Apply(v => v.UpdateEntry(console.GetName(v.Name), console.GetCategories(v.Categories)))
-                        .Map(entry => repo.Update(entry))
-                        .Apply(result => console.Render(result, Constants.Edit.SuccessMessage))
+        Maybe<WealthDataEntry> editEntry) =>
+            editEntry.OnSomething(
+                v => v.Apply(v => v.UpdateEntry(console.GetName(v.Name), console.GetCategories(v.Categories)))
+                      .Map(entry => repo.Update(entry))
+                      .Apply(result => console.Render(result, Constants.Edit.SuccessMessage))
                 );
 
     private static int GetId(this IAnsiConsole console) =>
@@ -45,7 +43,4 @@ internal static class EditWealthEntryCommand
                 .Where(x => x.HasText())
                 .ToArray()
             : prevCategories;
-
-    private static string AsString(this string[] categories) =>
-        string.Join(Constants.JoinSeparator, categories);
 }

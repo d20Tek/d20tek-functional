@@ -31,8 +31,4 @@ internal static class ListWealthEntriesCommand
         (Id: entry.Id.ToString(),
          Name: entry.Name.CapOverflow(Constants.List.ColumnNameLen),
          Categories: entry.Categories.AsString().CapOverflow(Constants.List.ColumnCategoriesLen));
-
-
-    private static string AsString(this string[] categories) =>
-        string.Join(Constants.JoinSeparator, categories);
 }

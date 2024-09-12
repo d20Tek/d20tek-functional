@@ -6,6 +6,8 @@ internal static class StringExtensions
 
     public static bool HasText(this string value) => !string.IsNullOrWhiteSpace(value);
 
+    public static string AsString(this string[] list) => string.Join(", ", list);
+
     public enum Overflow
     {
         Wrap,
