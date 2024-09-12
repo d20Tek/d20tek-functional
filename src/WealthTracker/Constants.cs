@@ -11,6 +11,10 @@ internal static class Constants
         " - add: allows user to input account data.",
         " - edit: allows uer to edit basic account data (name and categories).",
         " - delete (del): allows user to delete an existing account.",
+        " - record (r): record the value for an account on a specified day.",
+        " - unrecord (u): removed a recorded value from an account on a specified day.",
+        " - current (c): list the current net worth based on latest account entries.",
+        " - monthly (m): list monthly net worth for last 6 months.",
         " - show-commands (show): show list of the available commands in this app.",
         " - exit (x): leave the app.",
     ];

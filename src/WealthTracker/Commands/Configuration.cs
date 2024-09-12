@@ -9,7 +9,9 @@ internal sealed class Configuration
         new ("list", ["list", "l"], ListWealthEntriesCommand.Handle),
         new ("add", ["add", "a"], AddWealthEntryCommand.Handle),
         new ("delete", ["delete", "del", "d"], DeleteWealthEntryCommand.Handle),
-        new ("edit", ["edit", "e"], EditWealthEntryCommand.Handle)
+        new ("edit", ["edit", "e"], EditWealthEntryCommand.Handle),
+        new ("record", ["record", "r"], RecordAmountCommand.Handle),
+        new ("unrecord", ["unrecord", "u"], UnrecordAmountCommand.Handle),
     ];
 
     public static string[] GetCommands() =>

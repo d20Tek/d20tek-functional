@@ -106,4 +106,46 @@ public static class MaybeExtensions
                 return new Nothing<TToType>();
         }
     }
+
+    public static Maybe<T> OnSomething<T>(this Maybe<T> @this, Action<T> act)
+    {
+        try
+        {
+            if (@this is Something<T> sth)
+                act(sth.Value);
+            return @this;
+        }
+        catch (Exception e)
+        {
+            return new Error<T>(e);
+        }
+    }
+
+    public static Maybe<T> OnNothing<T>(this Maybe<T> @this, Action act)
+    {
+        try
+        {
+            if (@this is Nothing<T> nth)
+                act();
+            return @this;
+        }
+        catch (Exception e)
+        {
+            return new Error<T>(e);
+        }
+    }
+
+    public static Maybe<T> OnError<T>(this Maybe<T> @this, Action<Exception> act)
+    {
+        try
+        {
+            if (@this is Error<T> err)
+                act(err.ErrorMessage);
+            return @this;
+        }
+        catch (Exception e)
+        {
+            return new Error<T>(e);
+        }
+    }
 }

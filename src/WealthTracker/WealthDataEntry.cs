@@ -8,13 +8,13 @@ internal sealed class WealthDataEntry
 
     public string[] Categories { get; private set; }
 
-    public Dictionary<DateTimeOffset, int> DailyValues { get; }
+    public Dictionary<DateTimeOffset, decimal> DailyValues { get; }
 
     public WealthDataEntry(
         int id,
         string name,
         string[]? categories = null,
-        Dictionary<DateTimeOffset, int>? dailyValues = null)
+        Dictionary<DateTimeOffset, decimal>? dailyValues = null)
     {
         Id = id;
         Name = name;
@@ -26,7 +26,14 @@ internal sealed class WealthDataEntry
 
     internal void UpdateEntry(string name, string[] categories)
     {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         Name = name;
         Categories = categories;
     }
+
+    internal void AddDailyValue(DateTimeOffset date, decimal value) => 
+        DailyValues[date.Date] = value;
+
+    internal void RemoveDailyValue(DateTimeOffset date) =>
+        DailyValues.Remove(date.Date);
 }

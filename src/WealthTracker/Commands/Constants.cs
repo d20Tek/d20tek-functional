@@ -55,4 +55,29 @@ internal static class Constants
         public static string SuccessMessage(Something<WealthDataEntry> s) => 
             $"[green]Success:[/] The account '{s.Value.Name}' with id={s.Value.Id} was deleted.";
     }
+
+    public static class Record
+    {
+        public const string Header = "Record Amount";
+        public const string IdLabel = "Enter the account id:";
+        public const string AmountLabel = "Enter the current value:";
+
+        public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account with id={s.Value.Id} was retrieved to change.";
+
+        public static string SuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account '{s.Value.Name}' (id={s.Value.Id}) amount was recorded.";
+    }
+
+    public static class Unrecord
+    {
+        public const string Header = "Remove Recorded Amount";
+        public const string IdLabel = "Enter the account id:";
+
+        public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account with id={s.Value.Id} was retrieved to change.";
+
+        public static string SuccessMessage(Something<WealthDataEntry> s) =>
+            $"[green]Success:[/] The account '{s.Value.Name}' (id={s.Value.Id}) had an amount record removed.";
+    }
 }
