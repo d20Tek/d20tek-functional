@@ -106,12 +106,12 @@ internal static class Constants
         public const string ColumnName = "Name";
         public const int ColumnNameLen = 30;
         public const string ColumnValue = "Curr";
-        public const int ColumnValueLen = 12;
+        public const int ColumnValueLen = 10;
         public const string TotalLabel = "Total:";
         public static string[] TotalBorder =
         [
-            "─────", "──────────────────", "────────────", "────────────",
-            "────────────", "────────────", "────────────", "────────────"
+            "─────", "──────────────────────────────", "──────────", "──────────",
+            "──────────", "──────────", "──────────", "──────────"
         ];
     }
 }
