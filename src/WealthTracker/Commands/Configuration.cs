@@ -11,9 +11,11 @@ internal sealed class Configuration
         new ("delete", ["delete", "del", "d"], DeleteWealthEntryCommand.Handle),
         new ("edit", ["edit", "e"], EditWealthEntryCommand.Handle),
         new ("record", ["record", "r"], RecordAmountCommand.Handle),
+        new ("record-date", ["record-date", "rd"], RecordPastAmountCommand.Handle),
         new ("unrecord", ["unrecord", "u"], UnrecordAmountCommand.Handle),
+        new ("unrecord-date", ["unrecord-date", "ud"], RecordPastAmountCommand.Handle),
         new ("current", ["current", "c"], CurrentNetWorthCommand.Handle),
-        new ("monthly", ["monthly", "m"], MonthlyNetWorthCommand.Handle)
+        new ("monthly", ["monthly", "m"], MonthlyNetWorthCommand.Handle),
     ];
 
     public static string[] GetCommands() =>

@@ -60,6 +60,7 @@ internal static class Constants
     {
         public const string Header = "Record Amount";
         public const string IdLabel = "Enter the account id:";
+        public const string DateLabel = "Enter the date of record:";
         public const string AmountLabel = "Enter the current value:";
 
         public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
