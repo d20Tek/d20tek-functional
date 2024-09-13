@@ -13,6 +13,7 @@ internal sealed class Configuration
         new ("record", ["record", "r"], RecordAmountCommand.Handle),
         new ("unrecord", ["unrecord", "u"], UnrecordAmountCommand.Handle),
         new ("current", ["current", "c"], CurrentNetWorthCommand.Handle),
+        new ("monthly", ["monthly", "m"], MonthlyNetWorthCommand.Handle)
     ];
 
     public static string[] GetCommands() =>

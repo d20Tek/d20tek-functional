@@ -17,8 +17,7 @@ internal static class CurrentNetWorthCommand
             .AddColumns(
                 new TableColumn(Constants.Current.ColumnId).Centered().Width(Constants.Current.ColumnIdLen),
                 new TableColumn(Constants.Current.ColumnName).Width(Constants.Current.ColumnNameLen),
-                new TableColumn(Constants.Current.ColumnValue).Width(Constants.Current.ColumnValueLen))
-            .Apply(t => t.Columns.Last().RightAligned())
+                new TableColumn(Constants.Current.ColumnValue).RightAligned().Width(Constants.Current.ColumnValueLen))
             .Apply(t => t.AddRowsForEntries(entries));
 
     private static void AddRowsForEntries(this Table table, WealthDataEntry[] entries) =>

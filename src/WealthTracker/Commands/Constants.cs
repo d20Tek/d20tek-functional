@@ -95,4 +95,23 @@ internal static class Constants
             ("─────", "────────────────────────────────────────────────────────────", "────────────────────");
         public const string TotalLabel = "Total:";
     }
+
+    public static class Monthly
+    {
+        public const string ListHeader = "Monthly Net Worth";
+        public const string NoAccountsMessage = "No accounts are being tracked... please add some.";
+        public const int BackMonths = 5;
+        public const string ColumnId = "Id";
+        public const int ColumnIdLen = 5;
+        public const string ColumnName = "Name";
+        public const int ColumnNameLen = 30;
+        public const string ColumnValue = "Curr";
+        public const int ColumnValueLen = 12;
+        public const string TotalLabel = "Total:";
+        public static string[] TotalBorder =
+        [
+            "─────", "──────────────────", "────────────", "────────────",
+            "────────────", "────────────", "────────────", "────────────"
+        ];
+    }
 }

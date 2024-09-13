@@ -38,4 +38,7 @@ internal sealed class WealthDataEntry
         DailyValues.Remove(date.Date);
 
     internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
+
+    internal decimal GetLatestValueFor(DateTimeOffset date) => 
+        DailyValues.Where(x => x.Key <= date.Date).LastOrDefault().Value;
 }
