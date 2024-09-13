@@ -21,4 +21,7 @@ internal static class Constants
 
     public static string ErrorCommandMessage(string command) => 
         $"[red]Error:[/] The '{command}' conversion is unknown. Please select again...";
+
+    public static Exception FutureDateError(string propertyName) =>
+        new ArgumentOutOfRangeException(propertyName, "Date value for updates cannot be in the future.");
 }

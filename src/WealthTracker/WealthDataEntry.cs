@@ -1,4 +1,7 @@
-﻿namespace WealthTracker;
+﻿using Apps.Common;
+using D20Tek.Minimal.Functional;
+
+namespace WealthTracker;
 
 internal sealed class WealthDataEntry
 {
@@ -16,6 +19,7 @@ internal sealed class WealthDataEntry
         string[]? categories = null,
         SortedDictionary<DateTimeOffset, decimal>? dailyValues = null)
     {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         Id = id;
         Name = name;
         Categories = categories ?? [];
@@ -31,14 +35,21 @@ internal sealed class WealthDataEntry
         Categories = categories;
     }
 
-    internal void AddDailyValue(DateTimeOffset date, decimal value) => 
-        DailyValues[date.Date] = value;
+    internal void AddDailyValue(DateTimeOffset date, decimal value) =>
+        OnValidDate(date, d => DailyValues[d.Date] = value);
 
     internal void RemoveDailyValue(DateTimeOffset date) =>
-        DailyValues.Remove(date.Date);
+        OnValidDate(date, d => DailyValues.Remove(d.Date));
 
     internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
 
-    internal decimal GetLatestValueFor(DateTimeOffset date) => 
-        DailyValues.Where(x => x.Key <= date.Date).LastOrDefault().Value;
+    internal decimal GetLatestValueFor(DateTimeOffset date) =>
+        date.IsFutureDate()
+            ? throw Constants.FutureDateError(nameof(date))
+            : DailyValues.Where(x => x.Key <= date.Date).LastOrDefault().Value;
+
+    private static void OnValidDate(DateTimeOffset date, Action<DateTimeOffset> action) =>
+        date.IsFutureDate().IfTrueOrElse(
+            () => throw Constants.FutureDateError(nameof(date)),
+            () => action(date));
 }
