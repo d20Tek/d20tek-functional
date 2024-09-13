@@ -13,7 +13,7 @@ internal sealed class Configuration
         new ("record", ["record", "r"], RecordAmountCommand.Handle),
         new ("record-date", ["record-date", "rd"], RecordPastAmountCommand.Handle),
         new ("unrecord", ["unrecord", "u"], UnrecordAmountCommand.Handle),
-        new ("unrecord-date", ["unrecord-date", "ud"], RecordPastAmountCommand.Handle),
+        new ("unrecord-date", ["unrecord-date", "ud"], UnrecordPastAmountCommand.Handle),
         new ("current", ["current", "c"], CurrentNetWorthCommand.Handle),
         new ("monthly", ["monthly", "m"], MonthlyNetWorthCommand.Handle),
     ];

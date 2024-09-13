@@ -74,6 +74,7 @@ internal static class Constants
     {
         public const string Header = "Remove Recorded Amount";
         public const string IdLabel = "Enter the account id:";
+        public const string DateLabel = "Enter the date of record:";
 
         public static string GetSuccessMessage(Something<WealthDataEntry> s) =>
             $"[green]Success:[/] The account with id={s.Value.Id} was retrieved to change.";
