@@ -33,13 +33,13 @@ internal static class CurrentNetWorthCommand
         entry.GetLatestValue().Map(v => 
             (Id: entry.Id.ToString(),
              Name: entry.Name.CapOverflow(Constants.Current.ColumnNameLen),
-             Value: MoneyPresenter.Render(v)));
+             Value: MoneyComponent.Render(v)));
 
     private static (string Id, string Name, string Value)[] CreateTotalRow(decimal total) =>
     [
         Constants.Current.TotalBorder,
         (Id: string.Empty,
          Name: Constants.Current.TotalLabel,
-         Value: MoneyPresenter.Render(total))
+         Value: MoneyComponent.Render(total))
     ];
 }

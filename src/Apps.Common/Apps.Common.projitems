@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeOffsetExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MoneyPresenter.cs" />
+    <Compile Include="..\Apps.Common\MoneyComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringExtensions.cs" />
   </ItemGroup>
 </Project>

@@ -28,5 +28,5 @@ internal static class RecordAmountCommand
         console.Prompt<int>(new TextPrompt<int>(Constants.Record.IdLabel));
 
     private static decimal GetAmount(this IAnsiConsole console) =>
-        console.Prompt<decimal>(new TextPrompt<decimal>(Constants.Record.AmountLabel));
+        MoneyComponent.Input(console, Constants.Record.AmountLabel);
 }
