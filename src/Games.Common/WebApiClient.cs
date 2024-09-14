@@ -23,7 +23,7 @@ internal class WebApiClient
         }
         catch (Exception e)
         {
-            return new Error<T>(e);
+            return new Exceptional<T>(e);
         }
     }
 }
