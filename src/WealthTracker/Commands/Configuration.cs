@@ -16,6 +16,7 @@ internal sealed class Configuration
         new ("unrecord-date", ["unrecord-date", "ud"], UnrecordPastAmountCommand.Handle),
         new ("current", ["current", "c"], CurrentNetWorthCommand.Handle),
         new ("monthly", ["monthly", "m"], MonthlyNetWorthCommand.Handle),
+        new ("yearly", ["yearly", "yoy", "y"], YearlyNetWorthCommand.Handle),
     ];
 
     public static string[] GetCommands() =>

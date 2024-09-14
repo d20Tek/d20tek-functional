@@ -116,4 +116,20 @@ internal static class Constants
             "────────", "────────", "────────", "────────", "────────"
         ];
     }
+
+    public static class Yearly
+    {
+        public const string ListHeader = "Year-over-year Net Worth";
+        public const string NoAccountsMessage = "No accounts are being tracked... please add some.";
+        public const int BackYears = 5;
+        public const string ColumnYear = "Year";
+        public const int ColumnYearLen = 15;
+        public const string ColumnValue = "Value";
+        public const int ColumnValueLen = 20;
+        public const string ColumnDelta = "Gain/Loss";
+        public const int ColumnDeltaLen = 20;
+        public static readonly (string Year, string Value, string Delta) YtdBorder =
+            ("───────────────", "────────────────────", "────────────────────");
+        public const string YtdLabel = "Year-to-date:";
+    }
 }
