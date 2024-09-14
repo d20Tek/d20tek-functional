@@ -10,6 +10,6 @@ internal static class Constants
     public static Maybe<WealthDataEntry> NotFoundError(int id) =>
         new Failure<WealthDataEntry>(Error.NotFound("Entry.NotFound", $"Entry with id={id} not found."));
 
-    public static Exception AlreadyExistsError(int id) =>
-        new InvalidOperationException($"Entry with id={id} already exists.");
+    public static Maybe<int> AlreadyExistsError(int id) =>
+        new Failure<int>(Error.Conflict("Entry.AlreadyExists", $"Entry with id={id} already exists."));
 }

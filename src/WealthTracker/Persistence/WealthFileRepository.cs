@@ -20,11 +20,13 @@ internal class WealthFileRepository : IWealthRepository
             .First();
     
     public Maybe<WealthDataEntry> Create(WealthDataEntry entry) =>
-        new Something<WealthDataEntry>(entry).Bind(e =>
-            _db.Get()
-                .Map(x => EnsureUniqueId(x)
-                    .Apply(newId => e.SetId(newId))
-                    .Map(_ => Save(e, () => x.Entities.Add(e)))));
+        _db.Get()
+            .Map(store => EnsureUniqueId(store)
+                .Bind(id =>
+                {
+                    entry.SetId(id);
+                    return Save(entry, () => store.Entities.Add(entry));
+                }));
 
     public Maybe<WealthDataEntry> Update(WealthDataEntry entry) =>
         GetWealthEntryById(entry.Id).Bind(_ =>
@@ -41,8 +43,9 @@ internal class WealthFileRepository : IWealthRepository
         entry.Apply(_ => op())
              .Apply(e => _db.Write());
 
-    private static int EnsureUniqueId(WealthDataStore store) =>
+    private static Maybe<int> EnsureUniqueId(WealthDataStore store) =>
         store.GetNextId()
-            .Apply(newId => (store.Entities.Any(x => x.Id == newId)).IfTrueOrElse(
-                () => throw Constants.AlreadyExistsError(newId)));
+            .Map(newId => (store.Entities.Any(x => x.Id == newId))
+                       ? Constants.AlreadyExistsError(newId)
+                       : newId.ToMaybe());
 }
