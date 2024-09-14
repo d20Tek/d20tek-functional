@@ -13,13 +13,13 @@ internal static class MoneyComponent
     public static string Render(decimal value, string monetarySymbol = "$") =>
         $"{monetarySymbol} {value:N0}";
 
-    public static string RenderShort(decimal value, string monetarySymbol = "$") =>
+    public static string RenderShort(decimal value) =>
         value switch
         {
-            > _billion => $"{monetarySymbol} {(value / _billion):0.##}B",
-            > _million => $"{monetarySymbol} {(value / _million):0.##}M",
-            > _thousand => $"{monetarySymbol} {(value / _thousand):0.##}K",
-            _ => $"{monetarySymbol} {value:0.##}"
+            > _billion => $"{(value / _billion):0.##}B",
+            > _million => $"{(value / _million):0.##}M",
+            > _thousand => $"{(value / _thousand):0.##}K",
+            _ => $"{value:0.##}"
         };
 
     public static decimal Input(IAnsiConsole console, string label) =>
