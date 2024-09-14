@@ -32,8 +32,6 @@ public class Failure<T> : Maybe<T>
     {
         Error = error;
     }
-
-    public static implicit operator Failure<T>(Error error) => new(error);
 }
 
 public class Exceptional<T> : Maybe<T>
@@ -46,6 +44,4 @@ public class Exceptional<T> : Maybe<T>
     {
         Exception = e;
     }
-
-    public static implicit operator Exceptional<T>(Exception ex) => new(ex);
 }
