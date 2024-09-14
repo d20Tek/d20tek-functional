@@ -17,9 +17,9 @@ internal static class App
     private static AppState NextCommand(AppState prevState) =>
         UserCommandInput(prevState.Console)
             .Map(inputCommand =>
-                CommandMetadata.GetCommandTypes()
+                Configuration.GetCommandTypes()
                     .Map(x => x.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand)))
-                    .Map(x => x ?? CommandMetadata.ErrorTypeHandler(inputCommand))
+                    .Map(x => x ?? Configuration.ErrorTypeHandler(inputCommand))
                     .Map(x => x.TypeHandler(prevState, x))
             );
 

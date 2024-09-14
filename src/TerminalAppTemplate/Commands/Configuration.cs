@@ -1,10 +1,10 @@
 ﻿namespace TerminalAppTemplate.Commands;
 
-internal sealed class CommandMetadata
+internal sealed class Configuration
 {
     public static Func<CommandTypeMetadata[]> GetCommandTypes = () =>
     [
-        new ("show", ["show", "show-commands"], CommonHandlers.ShowCommands),
+        new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
     ];
 

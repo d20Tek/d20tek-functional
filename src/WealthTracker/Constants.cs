@@ -3,7 +3,7 @@
 internal static class Constants
 {
     public const string AppTitle = "Wealth Tracker";
-    public const string AskCommandLabel = "Enter app command (show or exit):";
+    public const string AskCommandLabel = "Enter app command (help or exit):";
     public const string ExitCommandMessage = "[green]Good-bye![/]";
     public static readonly string[] CommandListMessage = 
     [
@@ -17,7 +17,7 @@ internal static class Constants
         " - monthly (m): list monthly net worth for last 6 months.",
         " - record-date (rd): record the value on an account for specified date in the past.",
         " - unrecord-date (ud): remove recorded value from an account on specified date in the past.",
-        " - show-commands (show): show list of the available commands in this app.",
+        " - help (h): show list of the available commands in this app.",
         " - exit (x): leave the app.",
     ];
 

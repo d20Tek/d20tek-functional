@@ -4,7 +4,7 @@ internal sealed class Configuration
 {
     public static CommandTypeMetadata[] GetCommandTypes() =>
     [
-        new ("show", ["show", "show-commands"], CommonHandlers.ShowCommands),
+        new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit),
         new ("list", ["list", "l"], ListWealthEntriesCommand.Handle),
         new ("add", ["add", "a"], AddWealthEntryCommand.Handle),

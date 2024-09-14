@@ -3,11 +3,11 @@
 internal static class Constants
 {
     public const string AppTitle = "Terminal App";
-    public const string AskCommandLabel = "Enter app command (show or exit):";
+    public const string AskCommandLabel = "Enter app command (help or exit):";
     public const string ExitCommandMessage = "[green]Good-bye![/]";
     public static readonly string[] CommandListMessage = 
     [
-        " - show-commands (show): show list of the available commands in this app.",
+        " - help (h): show list of the available commands in this app.",
         " - exit (x): leave the app.",
     ];
 
