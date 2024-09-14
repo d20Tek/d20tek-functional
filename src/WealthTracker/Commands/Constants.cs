@@ -90,11 +90,11 @@ internal static class Constants
         public const string ColumnId = "Id";
         public const int ColumnIdLen = 5;
         public const string ColumnName = "Name";
-        public const int ColumnNameLen = 60;
+        public const int ColumnNameLen = 50;
         public const string ColumnValue = "Value";
         public const int ColumnValueLen = 20;
         public static readonly (string Id, string Name, string Value) TotalBorder = 
-            ("─────", "────────────────────────────────────────────────────────────", "────────────────────");
+            ("─────", "──────────────────────────────────────────────────", "────────────────────");
         public const string TotalLabel = "Total:";
     }
 
