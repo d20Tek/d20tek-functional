@@ -43,9 +43,17 @@ public static partial class FunctionalExtensions
     {
         var currentThis = instance;
 
-        while (!endCondition(currentThis))
+        try
         {
-            currentThis = updateFunction(currentThis);
+            while (!endCondition(currentThis))
+            {
+                currentThis = updateFunction(currentThis);
+            }
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"ERROR: {ex.Message}");
+            throw;
         }
 
         return currentThis;

@@ -14,7 +14,7 @@ public class Something<T> : Maybe<T>
         Value = value;
     }
 
-    public static implicit operator Something<T>(T @this) => new Something<T>(@this);
+    public static implicit operator Something<T>(T @this) => new(@this);
     public static implicit operator T(Something<T> @this) => @this.Value;
 }
 
