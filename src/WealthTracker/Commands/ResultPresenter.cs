@@ -13,7 +13,7 @@ internal static class ResultPresenter
                 result switch
                 {
                     Something<WealthDataEntry> s => successMessage(s),
-                    Exceptional<WealthDataEntry> e => $"{Constants.ErrorLabel} {e.ErrorMessage.Message}",
+                    Exceptional<WealthDataEntry> e => $"{Constants.ErrorLabel} {e.Exception.Message}",
                     _ => Constants.UnexpectedErrorMesssage
                 });
 }

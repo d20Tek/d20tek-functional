@@ -22,12 +22,30 @@ public class Nothing<T> : Maybe<T>
 {
 }
 
-public class Exceptional<T> : Maybe<T>
+public class Failure<T> : Maybe<T>
 {
-    public Exceptional(Exception e)
+    public Error Error { get; }
+
+    public string Message => Error.ToString();
+
+    public Failure(Error error)
     {
-        ErrorMessage = e;
+        Error = error;
     }
 
-    public Exception ErrorMessage { get; set; }
+    public static implicit operator Failure<T>(Error error) => new(error);
+}
+
+public class Exceptional<T> : Maybe<T>
+{
+    public Exception Exception { get; init; }
+
+    public string Message => Exception.Message.ToString();
+
+    public Exceptional(Exception e)
+    {
+        Exception = e;
+    }
+
+    public static implicit operator Exceptional<T>(Exception ex) => new(ex);
 }

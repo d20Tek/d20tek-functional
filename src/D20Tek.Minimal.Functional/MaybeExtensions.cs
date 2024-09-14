@@ -22,7 +22,7 @@ public static class MaybeExtensions
                 }
 
             case Exceptional<TFromType> err:
-                return new Exceptional<TToType>(err.ErrorMessage);
+                return new Exceptional<TToType>(err.Exception);
 
             default:
                 return new Nothing<TToType>();
@@ -46,7 +46,7 @@ public static class MaybeExtensions
                     return new Exceptional<TToType>(e);
                 }
             case Exceptional<TFromType> err:
-                return new Exceptional<TToType>(err.ErrorMessage);
+                return new Exceptional<TToType>(err.Exception);
             default:
                 return new Nothing<TToType>();
         }
@@ -69,7 +69,7 @@ public static class MaybeExtensions
                     return new Exceptional<TToType>(e);
                 }
             case Exceptional<TFromType> err:
-                return new Exceptional<TToType>(err.ErrorMessage);
+                return new Exceptional<TToType>(err.Exception);
             default:
                 return new Nothing<TToType>();
         }
@@ -108,7 +108,7 @@ public static class MaybeExtensions
         try
         {
             if (@this is Exceptional<T> err)
-                act(err.ErrorMessage);
+                act(err.Exception);
             return @this;
         }
         catch (Exception e)
