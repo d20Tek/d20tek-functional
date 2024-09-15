@@ -128,8 +128,6 @@ internal static class Constants
         public const int ColumnValueLen = 20;
         public const string ColumnDelta = "Gain/Loss";
         public const int ColumnDeltaLen = 20;
-        public static readonly (string Year, string Value, string Delta) YtdBorder =
-            ("───────────────", "────────────────────", "────────────────────");
-        public const string YtdLabel = "Year-to-date:";
+        public const string YtdLabel = "Year-to-date";
     }
 }

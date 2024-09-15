@@ -11,7 +11,8 @@ internal static class MoneyComponent
     private const decimal _billion = 1_000_000_000M;
 
     public static string Render(decimal value, string monetarySymbol = "$") =>
-        $"{monetarySymbol} {value:N0}";
+        value >= 0 ? $"{monetarySymbol} {value:N0}"
+                   : $"[red]{monetarySymbol} {value:N0}[/]";
 
     public static string RenderShort(decimal value) =>
         value switch

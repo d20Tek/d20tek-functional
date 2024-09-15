@@ -14,33 +14,38 @@ internal static class YearlyNetWorthCommand
     private static Table CreateTable(WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>
         new Table()
             .Border(TableBorder.Rounded)
-            .AddColumns(CreateColumns())
+            .AddColumns(
+                new TableColumn(Constants.Yearly.ColumnYear).Width(Constants.Yearly.ColumnYearLen),
+                new TableColumn(Constants.Yearly.ColumnValue).RightAligned().Width(Constants.Yearly.ColumnValueLen),
+                new TableColumn(Constants.Yearly.ColumnDelta).RightAligned().Width(Constants.Yearly.ColumnDeltaLen))
             .Apply(t => t.AddRowsForEntries(entries, dateRange));
 
-    private static TableColumn[] CreateColumns() =>
-    [
-        new TableColumn(Constants.Yearly.ColumnYear).Width(Constants.Yearly.ColumnYearLen),
-        new TableColumn(Constants.Yearly.ColumnValue).RightAligned().Width(Constants.Yearly.ColumnValueLen),
-        new TableColumn(Constants.Yearly.ColumnDelta).RightAligned().Width(Constants.Yearly.ColumnDeltaLen)
-    ];
-
     private static void AddRowsForEntries(this Table table, WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>
-        dateRange.Select(d => CreateRow(entries.Sum(x => x.GetLatestValueFor(d)), d))
-                 .Concat(CreateYtdRow(entries.Sum(x => x.GetLatestValue())))
+        dateRange.Aggregate(
+                    (PrevTotal: 0M, Rows: new List<(string Year, string Value, string Delta)>()),
+                    (acc, date) =>
+                        entries.Sum(x => x.GetLatestValueFor(date))
+                               .Apply(currentTotal => acc.Rows.Add(CreateRow(currentTotal, acc.PrevTotal, date)))
+                               .Map(currentTotal => (currentTotal, acc.Rows)),
+                    acc => acc.Rows.Concat(CreateYtdRow(entries.Sum(x => x.GetLatestValue()), acc.PrevTotal)))
                  .ToList()
                  .ForEach(r => table.AddRow(r.Year, r.Value, r.Delta));
 
-    private static (string Year, string Value, string Delta) CreateRow(decimal yearlyTotal, DateTimeOffset date) =>
-        (Year: date.Year.ToString(),
-         Value: MoneyComponent.Render(yearlyTotal, string.Empty).CapOverflow(Constants.Yearly.ColumnValueLen),
-         Delta: string.Empty);
+    private static (string Year, string Value, string Delta) CreateRow(
+        decimal yearlyTotal,
+        decimal prevTotal,
+        DateTimeOffset date) =>
+            (Year: date.ToDateString(),
+             Value: MoneyComponent.Render(yearlyTotal, string.Empty).CapOverflow(Constants.Yearly.ColumnValueLen),
+             Delta: MoneyComponent.Render(yearlyTotal - prevTotal, string.Empty)
+                                  .CapOverflow(Constants.Yearly.ColumnDeltaLen));
 
-    private static (string Year, string Value, string Delta)[] CreateYtdRow(decimal total) =>
+    private static (string Year, string Value, string Delta)[] CreateYtdRow(decimal ytdTotal, decimal prevTotal) =>
     [
-        Constants.Yearly.YtdBorder,
         (Year: Constants.Yearly.YtdLabel,
-         Value: MoneyComponent.Render(total, string.Empty).CapOverflow(Constants.Yearly.ColumnValueLen),
-         Delta: string.Empty)
+         Value: MoneyComponent.Render(ytdTotal, string.Empty).CapOverflow(Constants.Yearly.ColumnValueLen),
+         Delta: MoneyComponent.Render(ytdTotal - prevTotal, string.Empty)
+                              .CapOverflow(Constants.Yearly.ColumnDeltaLen))
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
