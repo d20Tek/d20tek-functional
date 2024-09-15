@@ -5,7 +5,9 @@ namespace Apps.Common;
 
 internal static class MoneyComponent
 {
-    private const NumberStyles _numberStyles = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+    private const NumberStyles _numberStyles = NumberStyles.AllowDecimalPoint |
+                                               NumberStyles.AllowThousands |
+                                               NumberStyles.AllowLeadingSign;
     private const decimal _thousand = 1000M;
     private const decimal _million = 1_000_000M;
     private const decimal _billion = 1_000_000_000M;
@@ -35,5 +37,5 @@ internal static class MoneyComponent
                     : ValidationResult.Error("[red]Invalid number format.[/]"));
 
     private static decimal ToDecimal(this string input) =>
-        decimal.Parse(input, NumberStyles.Number, CultureInfo.CurrentUICulture);
+        decimal.Parse(input, _numberStyles, CultureInfo.CurrentUICulture);
 }
