@@ -31,11 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerminalAppTemplate", "src\
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Common", "src\Apps.Common\Apps.Common.shproj", "{F88FF24C-0578-4315-91B2-3070B2E51D1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePassword", "src\GeneratePassword\GeneratePassword.csproj", "{8C829098-56CC-48CF-9E58-0F9EDC8B926E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{482E7CED-27CA-45A0-948E-DA0091DE44A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{E62683BB-A801-4CC1-AD7F-4E73026C157D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePassword", "src\GeneratePassword\GeneratePassword.csproj", "{8C829098-56CC-48CF-9E58-0F9EDC8B926E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

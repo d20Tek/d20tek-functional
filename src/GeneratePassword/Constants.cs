@@ -5,9 +5,6 @@ namespace GeneratePassword;
 
 internal static class Constants
 {
-    public const string AppTitle = "Generate Password";
-    public const string ErrorLabel = "[red]Error:[/]";
-    public static readonly string[] UnexpectedErrorMesssage = [$"{ErrorLabel} An unexpected error occurred."];
     public const int DefaultPasswordLength = 12;
 
     public static string PasswordMessage(string password) =>
@@ -18,14 +15,19 @@ internal static class Constants
     public static string StrengthMessage(string strength) => $"[yellow]Password Strength:[/] {strength}";
 
     public static readonly Error PasswordLengthError =
-        Error.Validation("Password.Length", "Password length must be between 4-30 characters.");
+        Error.Validation("Password.Length", "Password length must be between 4-64 characters.");
+
+    public static readonly Error PasswordNoCharSetsError =
+        Error.Validation(
+            "Password.CharacterSetsRequired",
+            "Please include at least one characters set for the password to be based on.");
 
     public static string DetermineStrength(double entropy) =>
         entropy switch
         {
             < 40 => "Very Weak",
-            < 60 => "Weak",
-            < 80 => "Good",
+            < 50 => "Weak",
+            < 60 => "Good",
             < 120 => "Strong",
             _ => "Very Strong",
         };

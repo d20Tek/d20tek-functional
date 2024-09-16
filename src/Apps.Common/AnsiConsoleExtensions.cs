@@ -23,6 +23,18 @@ internal static class AnsiConsoleExtensions
     public static void DisplayAppHeader(this IAnsiConsole console, string title, Color? color = null) =>
         console.Write(new FigletText(title).Centered().Color(color ?? Color.Green));
 
+    public static void DisplayMaybe<T>(this IAnsiConsole console, Maybe<T> maybe, Func<T, string[]> successMessage) =>
+        console.WriteMessage(
+            maybe switch
+            {
+                Something<T> s => successMessage(s),
+                Failure<T> e => GetErrorMessages(e.Error.Message),
+                Exceptional<T> e => GetErrorMessages(e.Message),
+                _ => GetErrorMessages("An unexpected error occurred.")
+            });
+
     private static Grid CreateSingleColumnGrid(int width) =>
         new Grid().AddColumn(new GridColumn().NoWrap().Width(width));
+
+    private static string[] GetErrorMessages(string message) => [$"[red]Error:[/] {message}"];
 }
