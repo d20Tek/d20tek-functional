@@ -5,6 +5,12 @@ public static partial class FunctionalExtensions
     public static TOut Map<TIn, TOut>(this TIn instance, Func<TIn, TOut> func) =>
         func(instance);
 
+    public static T Apply<T>(this T instance, Action<T> action)
+    {
+        action(instance);
+        return instance;
+    }
+
     public static TOut Fork<TIn, T1, T2, TOut>(
         this TIn instance,
         Func<TIn, T1> f1,
@@ -21,12 +27,6 @@ public static partial class FunctionalExtensions
 
     public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).First(x => x != null);
-
-    public static T Apply<T>(this T instance, Action<T> action)
-    {
-        action(instance);
-        return instance;
-    }
 
     public static TOut IfTrueOrElse<TOut>(this bool condition, Func<TOut> thenFunc, Func<TOut> elseFunc) =>
         condition ? thenFunc() : elseFunc();
@@ -59,8 +59,15 @@ public static partial class FunctionalExtensions
         return currentThis;
     }
 
-    public static TState UpdateState<TState>(this TState currentState, Func<TState, TState> func)
-        where TState : State =>
-        func(currentState);
+    public static T TryExcept<T>(Func<T> operation, Func<Exception, T> onException)
+    {
+        try
+        {
+            return operation();
+        }
+        catch (Exception e)
+        {
+            return onException(e);
+        }
+    }
 }
-
