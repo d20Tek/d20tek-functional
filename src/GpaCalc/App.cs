@@ -8,7 +8,7 @@ internal static class App
 {
     public static int Run(IAnsiConsole console) =>
         console.Apply(c => c.DisplayAppHeader(Constants.AppTitle))
-               .Map(c => c.GetCources())
+               .Map(c => c.GetCourses())
                .Map(courses => courses.Fork(
                     x => courses.Sum(x => x.Credits * GradesTable.GradeToPoint(x.Grade)),
                     x => courses.Sum(x => x.Credits),
@@ -20,7 +20,7 @@ internal static class App
     // todo: move strings to Constants.
     // todo: output a table at the end with all of the courses and total gpa.
 
-    private static Course[] GetCources(this IAnsiConsole console) =>
+    private static Course[] GetCourses(this IAnsiConsole console) =>
         InitializeCourses().IterateUntil(
             c => c.Append(new Course(
                     console.GetCourseName(),
