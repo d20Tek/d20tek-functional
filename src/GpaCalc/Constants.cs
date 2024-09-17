@@ -10,7 +10,18 @@ internal static class Constants
     public const string GradeEntryCompleteLabel = "Are you done entering grades?";
     public const int CreditsMaximum = 5;
 
-    public static string[] GpaMessage(double gpa) => [string.Empty, $"[green]Your GPA is:[/] {gpa:F2}"];
+    public const string ColumnName = "Course";
+    public const int ColumnNameLen = 28;
+    public const string ColumnCredits = "Credits";
+    public const int ColumnCreditsLen = 7;
+    public const string ColumnGrade = "Grade";
+    public const int ColumnGradeLen = 6;
+    public const string TotalOverallGpa = "Overall GPA:";
+
+    public static readonly (string Id, string Name, string Value) OverallBorder =
+        ("────────────────────────────", "───────", "──────");
+
+    public static readonly string[] TableTitle = [string.Empty, " Grading Transcipt"];
 
     public static string InvalidGradeError(string grade) => $"'{grade}' was an invalid letter grade.";
 
