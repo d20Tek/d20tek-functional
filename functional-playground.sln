@@ -35,7 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{482E7CED-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{E62683BB-A801-4CC1-AD7F-4E73026C157D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePassword", "src\GeneratePassword\GeneratePassword.csproj", "{8C829098-56CC-48CF-9E58-0F9EDC8B926E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneratePassword", "src\GeneratePassword\GeneratePassword.csproj", "{8C829098-56CC-48CF-9E58-0F9EDC8B926E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpaCalc", "src\GpaCalc\GpaCalc.csproj", "{7381E71A-026A-4697-8E8B-A687E8D735F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{8C829098-56CC-48CF-9E58-0F9EDC8B926E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C829098-56CC-48CF-9E58-0F9EDC8B926E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C829098-56CC-48CF-9E58-0F9EDC8B926E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7381E71A-026A-4697-8E8B-A687E8D735F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7381E71A-026A-4697-8E8B-A687E8D735F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7381E71A-026A-4697-8E8B-A687E8D735F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7381E71A-026A-4697-8E8B-A687E8D735F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +120,7 @@ Global
 		{D96EF53D-5A93-47EC-A5D5-872BAED66116} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 		{F88FF24C-0578-4315-91B2-3070B2E51D1C} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 		{8C829098-56CC-48CF-9E58-0F9EDC8B926E} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
+		{7381E71A-026A-4697-8E8B-A687E8D735F9} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
@@ -122,6 +129,7 @@ Global
 		src\Games.Common\Games.Common.projitems*{2c080c53-3298-4aba-82e0-3568b8dc23cf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{629200f7-043f-430c-92fc-c8e460554ab6}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{7381e71a-026a-4697-8e8b-a687e8d735f9}*SharedItemsImports = 5
 		src\Apps.Common\Apps.Common.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
 		src\Apps.Common\Apps.Common.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
