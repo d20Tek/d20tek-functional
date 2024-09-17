@@ -6,6 +6,7 @@ namespace GeneratePassword;
 internal static class Constants
 {
     public const int DefaultPasswordLength = 12;
+    public const string ConfigFile = "password.config";
 
     public static string PasswordMessage(string password) =>
         $"[yellow]Generated Password:[/] {password.EscapeMarkup()}";
@@ -20,7 +21,8 @@ internal static class Constants
     public static readonly Error PasswordNoCharSetsError =
         Error.Validation(
             "Password.CharacterSetsRequired",
-            "Please include at least one characters set for the password to be based on.");
+            "The password configuration must include at least one character set for the password to be generated.\r\n" +
+            "Please fix your password.config file.");
 
     public static string DetermineStrength(double entropy) =>
         entropy switch

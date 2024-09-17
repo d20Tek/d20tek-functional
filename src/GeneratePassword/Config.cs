@@ -10,6 +10,10 @@ internal sealed record Config(
     bool ExcludeAmbiguous = false,
     bool ExcludeBrackets = false)
 {
+    public Config() : this(true, true, true, true, false, false)
+    {
+    }
+
     public int RequiredCharsAmount = 
         IncludeLowerCase.ToInt() + IncludeUpperCase.ToInt() + IncludeNumbers.ToInt() + IncludeSymbols.ToInt();
 };
