@@ -10,29 +10,20 @@ internal static class App
         FunctionalExtensions.TryExcept<int>(
             operation: () => console.Apply(c => c.DisplayAppHeader(Constants.AppTitle))
                    .Map(c => c.GetCourses())
-                   .Map(courses => courses.Fork(
-                        x => courses.Sum(x => x.Credits * GradesTable.GradeToPoint(x.Grade)),
-                        x => courses.Sum(x => x.Credits),
-                        (totalPoints, totalCredits) => totalPoints / totalCredits))
-                   .Apply(gpa => console.WriteMessage(Constants.GpaMessage(gpa)))
-                   .Map(_ => 0),
-            onException: ex => console.Apply(c => c.MarkupLine(Constants.ExceptionErrorMessage(ex)))
-                   .Map(_ => -1));
+                   .Map(courses => courses.CalculateGpa(GradesTable.GradeToPoint))
+                   .Map(console.DisplayGpaResults),
+            onException: console.HandleErrorMessage);
 
-    // todo: make input letter grades case insensitive.
-    // todo: move InitializeCourses and Gpa calculation to CoursesExtensions class.
     // todo: output a table at the end with all of the courses and total gpa.
 
     private static Course[] GetCourses(this IAnsiConsole console) =>
-        InitializeCourses().IterateUntil(
-            c => c.Append(new Course(
-                    console.GetCourseName(),
-                    console.GetNumCredits(),
-                    console.GetLetterGrade())),
+        CoursesExtensions.InitializeCourses().IterateUntil(
+            c => c.Append(console.CreateCourse()),
             c => c.Any() && console.ConfirmGradesComplete())
             .ToArray();
 
-    private static IEnumerable<Course> InitializeCourses() => [];
+    private static Course CreateCourse(this IAnsiConsole console) =>
+        new(console.GetCourseName(), console.GetNumCredits(), console.GetLetterGrade());
 
     private static string GetCourseName(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<string>(Constants.CourseNameLabel));
@@ -42,10 +33,18 @@ internal static class App
             .Validate(v => v is > 0 and <= Constants.CreditsMaximum, Constants.CourseCreditsError));
 
     private static string GetLetterGrade(this IAnsiConsole console) =>
-        console.Prompt(new TextPrompt<string>(Constants.CourseGradeLabel)
+        console.Prompt(new TextPrompt<string>(Constants.CourseGradeLabel, StringComparer.CurrentCultureIgnoreCase)
             .AddChoices(GradesTable.GetLetterGrades())
             .ShowChoices(false));
 
     private static bool ConfirmGradesComplete(this IAnsiConsole console) =>
         console.Confirm(Constants.GradeEntryCompleteLabel, false);
+
+    private static int DisplayGpaResults(this IAnsiConsole console, double gpa) =>
+        gpa.Apply(gpa => console.WriteMessage(Constants.GpaMessage(gpa)))
+           .Map(_ => 0);
+
+    private static int HandleErrorMessage(this IAnsiConsole console, Exception ex) =>
+        console.Apply(c => c.MarkupLine(Constants.ExceptionErrorMessage(ex)))
+               .Map(_ => -1);
 }
