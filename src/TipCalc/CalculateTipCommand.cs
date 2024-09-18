@@ -8,11 +8,12 @@ internal static class CalculateTipCommand
         FunctionalExtensions.TryExcept<Maybe<TipResponse>>(
             () => CalcTip(request),
             ex => new Exceptional<TipResponse>(ex));
-    
-    private static TipResponse CalcTip(TipRequest request)
-    {
-        var tipAmount = request.OriginalPrice * (request.TipPercentage / 100);
-        var totalAmount = request.OriginalPrice + tipAmount;
-        return new TipResponse(tipAmount, totalAmount, totalAmount / request.TipperCount);
-    }
+
+    private static TipResponse CalcTip(TipRequest request) =>
+        CalcTipAmount(request.OriginalPrice, request.TipPercentage)
+            .Map(tipAmount => (request.OriginalPrice + tipAmount)
+                .Map(totalAmount => new TipResponse(tipAmount, totalAmount, totalAmount / request.TipperCount)));
+
+    private static decimal CalcTipAmount(decimal price, decimal percentage) =>
+        price * (percentage / Constants.Percent);
 }

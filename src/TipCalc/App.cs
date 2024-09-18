@@ -4,35 +4,36 @@ using Spectre.Console;
 
 namespace TipCalc;
 
+// todo: add better error checking on inputs (use TextPrompt instead of Ask)
+// todo: print out the tip results in a table
+
 internal static class App
 {
     public static int Run(IAnsiConsole console)
     {
+        console.DisplayAppHeader(Constants.AppTitle);
         TipRequest request = console.GatherTipRequest();
 
         var result = CalculateTipCommand.Handle(request);
-        result.OnSomething(response => console.PrintTipReponse(request, response));
+        console.DisplayMaybe(result, response => Constants.TipResponseMessages(request, response));
+        //result.OnSomething(response => console.WriteMessage(Constants.TipResponseMessages(request, response)));
 
-        return 0;
+        return result is Something<TipResponse> ? 0 : -1;
     }
 
     private static TipRequest GatherTipRequest(this IAnsiConsole console) =>
-        new (
-            console.Ask<decimal>("Enter the [green]original price[/]:"),
-            console.Ask<decimal>("Enter the [green]tip percentage[/]:"),
-            console.Ask<int>("Enter the [green]number of people[/] splitting bill:"));
+        new (console.GetOriginalPrice(), console.GetTipPercentage(), console.GetTipperCount());
 
-    private static void PrintTipReponse(this IAnsiConsole console, TipRequest request, TipResponse response)
-    {
-        console.WriteLine();
-        console.MarkupLine($"[yellow]Original Price:[/] {request.OriginalPrice:C}");
-        console.MarkupLine($"[yellow]Tip Percentage:[/] {request.TipPercentage}%");
-        console.MarkupLine($"[yellow]Tip Amount:[/] {response.TipAmount:C}");
-        console.MarkupLine($"[yellow]Total Amount:[/] {response.TotalAmount:C}");
+    private static decimal GetOriginalPrice(this IAnsiConsole console) =>
+        console.Ask<decimal>(Constants.OriginalPriceLabel);
 
-        if (request.TipperCount > 1)
-        {
-            console.MarkupLine($"[yellow]Amount Per Person:[/] {response.AmountPerTipper:C}");
-        }
-    }
+    private static decimal GetTipPercentage(this IAnsiConsole console) =>
+        console.Prompt(new TextPrompt<decimal>(Constants.TipPercentageLabel)
+                            .DefaultValue(15)
+                            .Validate(v => Constants.PercentRange.InRange(v), "Tip percentage must be between 0%-100%."));
+
+    private static int GetTipperCount(this IAnsiConsole console) =>
+        console.Prompt(new TextPrompt<int>(Constants.TipperCountLabel)
+                            .DefaultValue(15)
+                            .Validate(v => Constants.TipperCountRange.InRange(v), "Number of tippers must be between 1-20."));
 }
