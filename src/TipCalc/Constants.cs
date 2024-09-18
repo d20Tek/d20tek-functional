@@ -1,4 +1,6 @@
-﻿namespace TipCalc;
+﻿using D20Tek.Minimal.Functional;
+
+namespace TipCalc;
 
 internal static class Constants
 {
@@ -10,7 +12,11 @@ internal static class Constants
     public const string TipperCountLabel = "Enter the [green]number of people[/] splitting bill";
 
     public static readonly ValueRange<decimal> PercentRange = new(0, 100);
+    public const string PercentRangeError = "Tip percentage must be between 0%-100%.";
     public static readonly ValueRange<decimal> TipperCountRange = new(1, 20);
+    public const string TipperCountRangeError = "Number of tippers must be between 1-20.";
+
+    public static int ToResultCode(this Maybe<TipResponse> maybe) => maybe is Something<TipResponse> ? 0 : -1;
 
     public static string[] TipResponseMessages(TipRequest request, TipResponse response) =>
     [

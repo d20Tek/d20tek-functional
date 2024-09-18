@@ -1,10 +1,8 @@
 ﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
 using Spectre.Console;
 
 namespace TipCalc;
 
-// todo: add better error checking on inputs (use TextPrompt instead of Ask)
 // todo: print out the tip results in a table
 
 internal static class App
@@ -18,7 +16,7 @@ internal static class App
         console.DisplayMaybe(result, response => Constants.TipResponseMessages(request, response));
         //result.OnSomething(response => console.WriteMessage(Constants.TipResponseMessages(request, response)));
 
-        return result is Something<TipResponse> ? 0 : -1;
+        return result.ToResultCode();
     }
 
     private static TipRequest GatherTipRequest(this IAnsiConsole console) =>
@@ -30,10 +28,10 @@ internal static class App
     private static decimal GetTipPercentage(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<decimal>(Constants.TipPercentageLabel)
                             .DefaultValue(15)
-                            .Validate(v => Constants.PercentRange.InRange(v), "Tip percentage must be between 0%-100%."));
+                            .Validate(v => Constants.PercentRange.InRange(v), Constants.PercentRangeError));
 
     private static int GetTipperCount(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<int>(Constants.TipperCountLabel)
                             .DefaultValue(1)
-                            .Validate(v => Constants.TipperCountRange.InRange(v), "Number of tippers must be between 1-20."));
+                            .Validate(v => Constants.TipperCountRange.InRange(v), Constants.TipperCountRangeError));
 }
