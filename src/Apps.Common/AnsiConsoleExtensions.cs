@@ -33,6 +33,25 @@ internal static class AnsiConsoleExtensions
                 _ => GetErrorMessages("An unexpected error occurred.")
             });
 
+    public static void DisplayMaybe<T>(this IAnsiConsole console, Maybe<T> maybe, Action<T> successAction)
+    {
+        switch (maybe)
+        {
+            case Something<T> s:
+                successAction(s);
+                break;
+            case Failure<T> e:
+                console.WriteMessage(GetErrorMessages(e.Error.Message));
+                break;
+            case Exceptional<T> e:
+                console.WriteMessage(GetErrorMessages(e.Message));
+                break;
+            default:
+                console.WriteMessage(GetErrorMessages("An unexpected error occurred."));
+                break;
+        };
+    }
+
     private static Grid CreateSingleColumnGrid(int width) =>
         new Grid().AddColumn(new GridColumn().NoWrap().Width(width));
 

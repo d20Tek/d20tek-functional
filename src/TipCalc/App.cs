@@ -1,23 +1,19 @@
 ﻿using Apps.Common;
+using D20Tek.Minimal.Functional;
 using Spectre.Console;
 
 namespace TipCalc;
 
-// todo: print out the tip results in a table
-
 internal static class App
 {
-    public static int Run(IAnsiConsole console)
-    {
-        console.DisplayAppHeader(Constants.AppTitle);
-        TipRequest request = console.GatherTipRequest();
-
-        var result = CalculateTipCommand.Handle(request);
-        console.DisplayMaybe(result, response => Constants.TipResponseMessages(request, response));
-        //result.OnSomething(response => console.WriteMessage(Constants.TipResponseMessages(request, response)));
-
-        return result.ToResultCode();
-    }
+    public static int Run(IAnsiConsole console) =>
+        console.Apply(c => c.DisplayAppHeader(Constants.AppTitle))
+               .Map(c => c.GatherTipRequest()
+                    .Map(request => CalculateTipCommand.Handle(request)
+                        .Apply(result => console.DisplayMaybe(
+                            result,
+                            response => ShowTipResponseCommand.Handle(console, request, response)))
+                        .Map(result => result.ToResultCode())));
 
     private static TipRequest GatherTipRequest(this IAnsiConsole console) =>
         new (console.GetOriginalPrice(), console.GetTipPercentage(), console.GetTipperCount());

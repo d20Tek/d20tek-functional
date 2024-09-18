@@ -6,6 +6,7 @@ internal static class Constants
 {
     public const string AppTitle = "Tip Calc";
     public const decimal Percent = 100M;
+    public const int MinimumTippers = 1;
 
     public const string OriginalPriceLabel = "Enter the [green]original price[/]:";
     public const string TipPercentageLabel = "Enter the [green]tip percentage[/]";
@@ -18,13 +19,15 @@ internal static class Constants
 
     public static int ToResultCode(this Maybe<TipResponse> maybe) => maybe is Something<TipResponse> ? 0 : -1;
 
-    public static string[] TipResponseMessages(TipRequest request, TipResponse response) =>
-    [
-        string.Empty,
-        $"[yellow]Original Price:[/] {request.OriginalPrice:C}",
-        $"[yellow]Tip Percentage:[/] {request.TipPercentage}%",
-        $"[yellow]Tip Amount:[/] {response.TipAmount:C}",
-        $"[yellow]Total Amount:[/] {response.TotalAmount:C}",
-        request.TipperCount > 1 ? $"[yellow]Amount Per Person:[/] {response.AmountPerTipper:C}" : string.Empty
-    ];
+    public const int ColumnNameLen = 24;
+    public const int ColumnAmountsLen = 10;
+    public const string PriceRowLabel = "[yellow]Original Price:[/]";
+    public const string TipPercentRowLabel = "[yellow]Tip Percentage:[/]";
+    public const string TipAmountRowLabel = "[yellow]Tip Amount:[/]";
+    public const string TotalAmountRowLabel = "[yellow]Total Amount:[/]";
+    public const string AmountPerTipperLabel = "[yellow]Amount Per Person:[/]";
+
+    public static string CurrencyDisplay(this decimal v) => $"{v:C}";
+
+    public static string PercentageDisplay(this decimal p) => $"{p}%";
 }
