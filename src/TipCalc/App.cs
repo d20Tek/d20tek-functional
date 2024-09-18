@@ -34,6 +34,6 @@ internal static class App
 
     private static int GetTipperCount(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<int>(Constants.TipperCountLabel)
-                            .DefaultValue(15)
+                            .DefaultValue(1)
                             .Validate(v => Constants.TipperCountRange.InRange(v), "Number of tippers must be between 1-20."));
 }

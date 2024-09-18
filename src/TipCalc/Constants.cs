@@ -6,8 +6,8 @@ internal static class Constants
     public const decimal Percent = 100M;
 
     public const string OriginalPriceLabel = "Enter the [green]original price[/]:";
-    public const string TipPercentageLabel = "Enter the [green]tip percentage[/]:";
-    public const string TipperCountLabel = "Enter the [green]number of people[/] splitting bill:";
+    public const string TipPercentageLabel = "Enter the [green]tip percentage[/]";
+    public const string TipperCountLabel = "Enter the [green]number of people[/] splitting bill";
 
     public static readonly ValueRange<decimal> PercentRange = new(0, 100);
     public static readonly ValueRange<decimal> TipperCountRange = new(1, 20);
