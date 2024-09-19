@@ -1,5 +1,6 @@
 ﻿using Apps.Common;
 using BudgetTracker.Commands;
+using BudgetTracker.Persistence;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
 
@@ -7,8 +8,8 @@ namespace BudgetTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console) => 
-        AppState.Init(console)
+    public static void Run(IAnsiConsole console, ICategoryRepository catRepo) => 
+        AppState.Init(console, catRepo)
             .Apply(_ => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
