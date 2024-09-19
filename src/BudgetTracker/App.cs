@@ -1,6 +1,5 @@
 ﻿using Apps.Common;
 using BudgetTracker.Commands;
-using BudgetTracker.Persistence;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
 

@@ -1,4 +1,6 @@
-﻿using D20Tek.LowDb;
+﻿using Apps.Repositories;
+using BudgetTracker.Entities;
+using D20Tek.LowDb;
 
 namespace BudgetTracker.Persistence;
 
@@ -11,5 +13,5 @@ internal static class RepositoryFactory
                     Environment.SpecialFolder.ApplicationData) + Constants.AppFolder));
 
     public static ICategoryRepository CreateCategoryRepository() =>
-        new CategoryFileRepository(_dataStore);
+        new FileRepository<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
 }

@@ -1,6 +1,8 @@
-﻿namespace BudgetTracker.Entities;
+﻿using Apps.Repositories;
 
-internal sealed class BudgetCategory
+namespace BudgetTracker.Entities;
+
+internal sealed class BudgetCategory : IEntity
 {
     public int Id { get; private set; }
 
@@ -15,13 +17,15 @@ internal sealed class BudgetCategory
         BudgetedAmount = budgetedAmount;
     }
 
-    internal void SetId(int id) => Id = id;
+    public void SetId(int id) => Id = id;
 
-    internal void UpdateCategory(string name, decimal budgetedAmount)
+    internal BudgetCategory UpdateCategory(string name, decimal budgetedAmount)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentOutOfRangeException.ThrowIfNegative(budgetedAmount, nameof(budgetedAmount));
+
         Name = name;
         BudgetedAmount = budgetedAmount;
+        return this;
     }
 }

@@ -1,12 +1,9 @@
-﻿using BudgetTracker.Entities;
+﻿using Apps.Repositories;
+using BudgetTracker.Entities;
 
 namespace BudgetTracker.Persistence;
 
 internal sealed class BudgetDataStore
 {
-    public int CategoryLastId { get; set; } = 0;
-
-    public List<BudgetCategory> Categories { get; init; } = [];
-
-    internal int GetNextCategoryId() => ++CategoryLastId;
+    public DataStoreElement<BudgetCategory> Categories { get; set; } = new();
 }
