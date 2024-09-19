@@ -28,6 +28,11 @@ internal static class MoneyComponent
     public static decimal Input(IAnsiConsole console, string label) =>
         console.Prompt(CreateTextPrompt(label)).ToDecimal();
 
+    public static decimal Input(IAnsiConsole console, string label, decimal previousValue) =>
+        console.Prompt(
+            CreateTextPrompt(label).DefaultValue(previousValue.ToString()))
+            .ToDecimal();
+
     private static TextPrompt<string> CreateTextPrompt(string label) =>
         new TextPrompt<string>(label)
             .Culture(CultureInfo.CurrentUICulture)
