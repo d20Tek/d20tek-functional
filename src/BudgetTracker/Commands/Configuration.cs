@@ -1,4 +1,4 @@
-﻿namespace TerminalAppTemplate.Commands;
+﻿namespace BudgetTracker.Commands;
 
 internal sealed class Configuration
 {

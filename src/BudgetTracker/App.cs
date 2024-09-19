@@ -1,15 +1,15 @@
 ﻿using Apps.Common;
+using BudgetTracker.Commands;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
-using TerminalAppTemplate.Commands;
 
-namespace TerminalAppTemplate;
+namespace BudgetTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console) =>
-        AppState.Initialize(console)
-            .Apply(x => console.DisplayAppHeader(Constants.AppTitle))
+    public static void Run(IAnsiConsole console) => 
+        AppState.Init(console)
+            .Apply(_ => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);
