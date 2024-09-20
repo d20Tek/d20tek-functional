@@ -50,4 +50,29 @@ internal static class Constants
             $"[green]Success:[/] The expense item '{expense.Name}' with id={expense.Id} was deleted."
         ];
     }
+
+    public static class Edit
+    {
+        public const string Header = "Edit Expense Item";
+        public const string IdLabel = "Enter expense id to edit:";
+        public const string NameLabel = "Enter expense's new name";
+        public const string CategoryIdLabel = "Enter the expense's new category id";
+        public const string DateLabel = "Enter new date of the expense";
+        public const string ActualLabel = "Enter the expense new actual amount";
+        public const string InvalidCatIdError = "[red]That category id does not exist.[/]";
+        public const decimal InvalidActual = -1M;
+        public const string InvalidActualError = "[red]The expense actual cannot be negative.[/]";
+
+        public static string[] GetSuccessMessage(Expense expense) =>
+        [
+            string.Empty,
+            $"[green]Success:[/] The expense item with id={expense.Id} was retrieved for editing."
+        ];
+
+        public static string[] SuccessMessage(Expense expense) =>
+        [
+            string.Empty,
+            $"[green]Success:[/] The expense item '{expense.Name}' with id={expense.Id} was updated."
+        ];
+    }
 }

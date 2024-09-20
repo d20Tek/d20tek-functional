@@ -45,8 +45,8 @@ internal static class Constants
     {
         public const string Header = "Edit Budget Category";
         public const string IdLabel = "Enter category id to edit:";
-        public const string NameLabel = "Enter category's new name:";
-        public const string CategoryLabel = "Enter the category's new budget amount:";
+        public const string NameLabel = "Enter category's new name";
+        public const string CategoryLabel = "Enter the category's new budget amount";
 
         public static string[] GetSuccessMessage(BudgetCategory cat) =>
         [
