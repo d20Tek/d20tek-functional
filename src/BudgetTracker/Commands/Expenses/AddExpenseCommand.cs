@@ -32,11 +32,6 @@ internal static class AddExpenseCommand
                             .WithConverter(date => date.ToDateString()));
 
     private static decimal GetActual(this IAnsiConsole console) =>
-        Constants.Add.InvalidActual
-            .IterateUntil(
-                _ => MoneyComponent.Input(console, Constants.Add.ActualLabel)
-                        .Apply(x => (x < 0).IfTrueOrElse(
-                            () => console.WriteMessage(Constants.Add.InvalidActualError))),
-                x => x >= 0);
+        CurrencyComponent.Input(console, Constants.Edit.ActualLabel, false);
 }
 

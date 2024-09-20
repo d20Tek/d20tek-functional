@@ -36,7 +36,7 @@ internal static class ListExpenseCommand
         expense.Name.CapOverflow(Constants.List.ColumnNameLen),
         catRepo.FindCategoryName(expense.CategoryId).CapOverflow(Constants.List.ColumnCategoryLen),
         expense.CommittedDate.ToDateString(),
-        $"{expense.Actual:C}"
+        CurrencyComponent.Render(expense.Actual)
     ];
 
     private static string FindCategoryName(this ICategoryRepository catRepo, int catId) =>
