@@ -18,5 +18,5 @@ internal static class AddCategoryCommand
         console.Prompt(new TextPrompt<string>(Constants.Add.NameLabel));
 
     private static decimal GetBudgetAmount(this IAnsiConsole console) =>
-        MoneyComponent.Input(console, Constants.Add.AmountLabel);
+        CurrencyComponent.Input(console, Constants.Add.AmountLabel, false);
 }

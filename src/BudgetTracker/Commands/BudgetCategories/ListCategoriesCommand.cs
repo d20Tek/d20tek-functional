@@ -31,5 +31,5 @@ internal static class ListCategoriesCommand
     private static (string Id, string Name, string Amount) CreateRow(BudgetCategory category) =>
         (Id: category.Id.ToString(),
          Name: category.Name.CapOverflow(Constants.List.ColumnNameLen),
-         Amount: $"{category.BudgetedAmount:C}");
+         Amount: CurrencyComponent.Render(category.BudgetedAmount));
 }

@@ -32,5 +32,5 @@ internal static class EditCategoryCommand
                             .DefaultValue(prevName));
 
     private static decimal GetBudgetAmount(this IAnsiConsole console, decimal prevAmount) =>
-        MoneyComponent.Input(console, Constants.Add.AmountLabel, prevAmount);
+        CurrencyComponent.Input(console, Constants.Add.AmountLabel, prevAmount, false);
 }
