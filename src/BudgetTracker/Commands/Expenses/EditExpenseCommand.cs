@@ -33,24 +33,15 @@ internal static class EditExpenseCommand
                             .DefaultValue(prevName));
 
     private static int GetCategoryId(this IAnsiConsole console, ICategoryRepository catRepo, int prevCatId) =>
-        console.Prompt(new TextPrompt<int>(Constants.Edit.CategoryIdLabel)
-                            .DefaultValue(prevCatId)
-                            .Validate(
-                                x => catRepo.GetEntityById(x) is Something<BudgetCategory>,
-                                Constants.Edit.InvalidCatIdError));
+        console.GetExistingCategoryId(Constants.Edit.CategoryIdLabel, catRepo, prevCatId);
 
     private static DateTimeOffset GetCommittedDate(this IAnsiConsole console, DateTimeOffset prevDate) =>
-        console.Prompt(new TextPrompt<DateTimeOffset>(Constants.Edit.DateLabel)
-                            .DefaultValue(prevDate)
-                            .WithConverter(date => date.ToDateString()));
+        DateTimeOffsetPrompt.GetDate(console, Constants.Edit.DateLabel, prevDate);
 
     private static decimal GetActual(this IAnsiConsole console, decimal prevActual) =>
         CurrencyComponent.Input(console, Constants.Edit.ActualLabel, prevActual, false);
 }
 
-// todo: create new CurrencyComponent to encapsulate logic for getting currency from input prompt.
-// todo: move GetActual, GetCommittedDate, and GetCategoryId into reuseable extension methods.
-// todo: refactor inputs on BudgetCategory Add/Edit as well.
 // todo: move delete command code into shared code too.
 // todo: add Income item CRUD operations.
 // todo: implement show operation that shows the current budgeted versus actuals in a table.

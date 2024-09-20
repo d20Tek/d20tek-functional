@@ -21,15 +21,10 @@ internal static class AddExpenseCommand
         console.Prompt(new TextPrompt<string>(Constants.Add.NameLabel));
 
     private static int GetCategoryId(this IAnsiConsole console, ICategoryRepository catRepo) =>
-        console.Prompt(new TextPrompt<int>(Constants.Add.CategoryLabel)
-                            .Validate(
-                                x => catRepo.GetEntityById(x) is Something<BudgetCategory>,
-                                Constants.Add.InvalidCatIdError));
+        console.GetExistingCategoryId(Constants.Add.CategoryIdLabel, catRepo);
 
     private static DateTimeOffset GetCommittedDate(this IAnsiConsole console) =>
-        console.Prompt(new TextPrompt<DateTimeOffset>(Constants.Add.DateLabel)
-                            .DefaultValue(DateTimeOffset.Now)
-                            .WithConverter(date => date.ToDateString()));
+        DateTimeOffsetPrompt.GetDate(console, Constants.Add.DateLabel, DateTimeOffset.Now);
 
     private static decimal GetActual(this IAnsiConsole console) =>
         CurrencyComponent.Input(console, Constants.Edit.ActualLabel, false);

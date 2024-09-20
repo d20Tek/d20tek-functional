@@ -4,6 +4,8 @@ namespace BudgetTracker.Commands.Expenses;
 
 internal static class Constants
 {
+    public const string InvalidCatIdError = "[red]That category id does not exist.[/]";
+
     public static class List
     {
         public const string ExpensesListHeader = "List of Expenses";
@@ -25,12 +27,9 @@ internal static class Constants
     {
         public const string Header = "Add Expense Item";
         public const string NameLabel = "Enter the expense title:";
-        public const string CategoryLabel = "Enter expense category id:";
+        public const string CategoryIdLabel = "Enter expense category id:";
         public const string DateLabel = "Enter date of the expense";
         public const string ActualLabel = "Enter the expense actual amount:";
-        public const string InvalidCatIdError = "[red]That category id does not exist.[/]";
-        public const decimal InvalidActual = -1M;
-        public const string InvalidActualError = "[red]The expense actual cannot be negative.[/]";
 
         public static string[] SuccessMessage(Expense expense) =>
         [
@@ -59,9 +58,6 @@ internal static class Constants
         public const string CategoryIdLabel = "Enter the expense's new category id";
         public const string DateLabel = "Enter new date of the expense";
         public const string ActualLabel = "Enter the expense new actual amount";
-        public const string InvalidCatIdError = "[red]That category id does not exist.[/]";
-        public const decimal InvalidActual = -1M;
-        public const string InvalidActualError = "[red]The expense actual cannot be negative.[/]";
 
         public static string[] GetSuccessMessage(Expense expense) =>
         [
