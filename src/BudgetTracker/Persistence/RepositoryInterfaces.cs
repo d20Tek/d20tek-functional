@@ -2,3 +2,4 @@
 
 global using ICategoryRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.BudgetCategory>;
 
+global using IExpenseRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.Expense>;

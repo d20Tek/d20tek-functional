@@ -17,4 +17,7 @@ internal static class RepositoryFactory
 
     public static ICategoryRepository CreateCategoryRepository() =>
         new FileRepository<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
+
+    public static IExpenseRepository CreateExpenseRepository() =>
+        new FileRepository<Expense, BudgetDataStore>(_dataStore, store => store.Expenses);
 }
