@@ -25,11 +25,11 @@ internal static class EditCategoryCommand
                 );
 
     private static int GetId(this IAnsiConsole console) =>
-        console.Prompt<int>(new TextPrompt<int>(Constants.Edit.IdLabel));
+        console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));
 
     private static string GetName(this IAnsiConsole console, string prevName) =>
-        console.Prompt<string>(new TextPrompt<string>(Constants.Edit.NameLabel)
-                                    .DefaultValue(prevName));
+        console.Prompt(new TextPrompt<string>(Constants.Edit.NameLabel)
+                            .DefaultValue(prevName));
 
     private static decimal GetBudgetAmount(this IAnsiConsole console, decimal prevAmount) =>
         MoneyComponent.Input(console, Constants.Add.AmountLabel, prevAmount);

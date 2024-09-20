@@ -12,6 +12,7 @@ internal sealed class Configuration
         new ("delete-cat", ["delete-category", "del-cat", "dc"], DeleteCategoryCommand.Handle),
         new ("edit-cat", ["edit-category", "edit-cat", "ec"], EditCategoryCommand.Handle),
         new ("list-exp", ["list-expenses", "list-exp", "le"], ListExpenseCommand.Handle),
+        new ("add-exp", ["add-expense", "add-exp", "ae"], AddExpenseCommand.Handle),
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
     ];

@@ -15,7 +15,7 @@ internal static class AddCategoryCommand
                 .Map(_ => s with { Command = metadata.Name }));
 
     private static string GetName(this IAnsiConsole console) =>
-        console.Prompt<string>(new TextPrompt<string>(Constants.Add.NameLabel));
+        console.Prompt(new TextPrompt<string>(Constants.Add.NameLabel));
 
     private static decimal GetBudgetAmount(this IAnsiConsole console) =>
         MoneyComponent.Input(console, Constants.Add.AmountLabel);

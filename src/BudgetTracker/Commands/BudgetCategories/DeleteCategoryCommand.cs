@@ -14,5 +14,5 @@ internal static class DeleteCategoryCommand
                 .Map(_ => s with { Command = metadata.Name }));
 
     private static int GetId(this IAnsiConsole console) =>
-        console.Prompt<int>(new TextPrompt<int>(Constants.Delete.IdLabel));
+        console.Prompt(new TextPrompt<int>(Constants.Delete.IdLabel));
 }
