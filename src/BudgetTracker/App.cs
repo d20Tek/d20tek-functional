@@ -15,7 +15,7 @@ internal static class App
                 x => x.CanContinue is false);
 
     private static AppState NextCommand(AppState prevState) =>
-        UserCommandInput(prevState.Console)
+        prevState.Console.GetUserCommandInput()
             .Map(inputCommand =>
                 Configuration.GetCommandTypes()
                     .Map(x => x.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand)))
@@ -23,7 +23,7 @@ internal static class App
                     .Map(x => x.TypeHandler(prevState, x))
             );
 
-    private static string UserCommandInput(IAnsiConsole console) =>
+    private static string GetUserCommandInput(this IAnsiConsole console) =>
         console.Apply(c => c.WriteLine())
                .Map(c => c.Prompt<string>(new TextPrompt<string>(Constants.AskCommandLabel)
                             .AddChoices(Configuration.GetCommands())

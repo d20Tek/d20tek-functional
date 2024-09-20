@@ -8,7 +8,7 @@ namespace BudgetTracker.Commands.BudgetCategories;
 internal static class ListCategoriesCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
-        state.Apply(s => s.Console.WriteLine(Constants.List.CategoryListHeader))
+        state.Apply(s => s.Console.WriteMessage(Constants.List.CategoryListHeader))
              .Apply(s => s.Console.Write(CreateTable(s.CategoryRepo.GetEntities())))
              .Map(s => s with { Command = metadata.Name });
 
