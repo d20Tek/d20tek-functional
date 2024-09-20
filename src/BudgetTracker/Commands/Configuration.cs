@@ -1,4 +1,5 @@
 ﻿using BudgetTracker.Commands.BudgetCategories;
+using BudgetTracker.Commands.Expenses;
 
 namespace BudgetTracker.Commands;
 
@@ -10,6 +11,7 @@ internal sealed class Configuration
         new ("add-cat", ["add-categories", "add-cat", "ac"], AddCategoryCommand.Handle),
         new ("delete-cat", ["delete-category", "del-cat", "dc"], DeleteCategoryCommand.Handle),
         new ("edit-cat", ["edit-category", "edit-cat", "ec"], EditCategoryCommand.Handle),
+        new ("list-exp", ["list-expenses", "list-exp", "le"], ListExpenseCommand.Handle),
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
     ];
