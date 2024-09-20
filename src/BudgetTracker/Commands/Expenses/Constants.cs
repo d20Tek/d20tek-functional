@@ -26,8 +26,11 @@ internal static class Constants
         public const string Header = "Add Expense Item";
         public const string NameLabel = "Enter the expense title:";
         public const string CategoryLabel = "Enter expense category id:";
-        public const string DateLabel = "Enter date of the expense:";
+        public const string DateLabel = "Enter date of the expense";
         public const string ActualLabel = "Enter the expense actual amount:";
+        public const string InvalidCatIdError = "[red]That category id does not exist.[/]";
+        public const decimal InvalidActual = -1M;
+        public const string InvalidActualError = "[red]The expense actual cannot be negative.[/]";
 
         public static string[] SuccessMessage(Expense expense) =>
         [
