@@ -38,4 +38,16 @@ internal static class Constants
             $"[green]Success:[/] The new expense item '{expense.Name}' was created with id={expense.Id}."
         ];
     }
+
+    public static class Delete
+    {
+        public const string Header = "Delete Expense Item";
+        public const string IdLabel = "Enter the expense id:";
+
+        public static string[] SuccessMessage(Expense expense) =>
+        [
+            string.Empty,
+            $"[green]Success:[/] The expense item '{expense.Name}' with id={expense.Id} was deleted."
+        ];
+    }
 }
