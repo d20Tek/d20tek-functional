@@ -22,6 +22,9 @@ internal sealed class Configuration
 
         new ("list-cred", ["list-credits", "list-cred", "lcr"], ListCreditsCommand.Handle),
         new ("add-cred", ["add-credit", "add-cred", "acr"], AddCreditCommand.Handle),
+        new ("edit-cred", ["edit-credit", "edit-cred", "ecr"], EditCreditCommand.Handle),
+        new ("del-cred", ["delete-credit", "del-cred", "dcr"],
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Credits.Constants.Delete.Header, id => s.CreditRepo.Delete(id))),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
