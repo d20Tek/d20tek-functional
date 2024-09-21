@@ -1,4 +1,7 @@
-﻿namespace BudgetTracker;
+﻿using Apps.Repositories;
+using BudgetTracker.Entities;
+
+namespace BudgetTracker;
 
 internal static class Constants
 {
@@ -29,4 +32,12 @@ internal static class Constants
 
     public static string ErrorCommandMessage(string command) =>
         $"[red]Error:[/] The '{command}' conversion is unknown. Please select again...";
+
+    public const string DeleteIdLabel = "Enter the id of item to delete:";
+
+    public static string[] DeleteSuccessMessage(IEntity entity) =>
+    [
+        string.Empty,
+            $"[green]Success:[/] The item with id={entity.Id} was deleted."
+    ];
 }

@@ -9,11 +9,13 @@ internal sealed class Configuration
     [
         new ("list-cat", ["list-categories", "list-cat", "lc"], ListCategoriesCommand.Handle),
         new ("add-cat", ["add-categories", "add-cat", "ac"], AddCategoryCommand.Handle),
-        new ("delete-cat", ["delete-category", "del-cat", "dc"], DeleteCategoryCommand.Handle),
+        new ("delete-cat", ["delete-category", "del-cat", "dc"], 
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, BudgetCategories.Constants.Delete.Header, id => s.CategoryRepo.Delete(id))),
         new ("edit-cat", ["edit-category", "edit-cat", "ec"], EditCategoryCommand.Handle),
         new ("list-exp", ["list-expenses", "list-exp", "le"], ListExpenseCommand.Handle),
         new ("add-exp", ["add-expense", "add-exp", "ae"], AddExpenseCommand.Handle),
-        new ("del-exp", ["delete-expense", "del-exp", "de"], DeleteExpenseCommand.Handle),
+        new ("del-exp", ["delete-expense", "del-exp", "de"], 
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Expenses.Constants.Delete.Header, id => s.ExpenseRepo.Delete(id))),
         new ("edit-exp", ["edit-expense", "edit-exp", "ee"], EditExpenseCommand.Handle),
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)

@@ -42,7 +42,6 @@ internal static class EditExpenseCommand
         CurrencyComponent.Input(console, Constants.Edit.ActualLabel, prevActual, false);
 }
 
-// todo: move delete command code into shared code too.
 // todo: add Income item CRUD operations.
 // todo: implement show operation that shows the current budgeted versus actuals in a table.
 // todo: implement close out month operation to snapshot budget and expenses for a particular month... save closed months to separate archive file.
