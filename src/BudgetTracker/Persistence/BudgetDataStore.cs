@@ -8,4 +8,6 @@ internal sealed class BudgetDataStore
     public DataStoreElement<BudgetCategory> Categories { get; set; } = new();
 
     public DataStoreElement<Expense> Expenses { get; set; } = new();
+
+    public DataStoreElement<Credit> Credits { get; set; } = new();
 }
