@@ -27,6 +27,6 @@ internal static class AddExpenseCommand
         DateTimeOffsetPrompt.GetDate(console, Constants.Add.DateLabel, DateTimeOffset.Now);
 
     private static decimal GetActual(this IAnsiConsole console) =>
-        CurrencyComponent.Input(console, Constants.Edit.ActualLabel, false);
+        CurrencyComponent.Input(console, Constants.Add.ActualLabel, false);
 }
 

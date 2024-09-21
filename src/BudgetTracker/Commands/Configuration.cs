@@ -21,6 +21,7 @@ internal sealed class Configuration
             (s, m) => CommonHandlers.DeleteFromRepository(s, m, Expenses.Constants.Delete.Header, id => s.ExpenseRepo.Delete(id))),
 
         new ("list-cred", ["list-credits", "list-cred", "lcr"], ListCreditsCommand.Handle),
+        new ("add-cred", ["add-credit", "add-cred", "acr"], AddCreditCommand.Handle),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
