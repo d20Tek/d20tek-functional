@@ -7,8 +7,12 @@ namespace BudgetTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console, ICategoryRepository catRepo, IExpenseRepository expRepo) => 
-        AppState.Init(console, catRepo, expRepo)
+    public static void Run(
+        IAnsiConsole console,
+        ICategoryRepository catRepo,
+        IExpenseRepository expRepo,
+        ICreditRepository credRepo) => 
+        AppState.Init(console, catRepo, expRepo, credRepo)
             .Apply(_ => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
