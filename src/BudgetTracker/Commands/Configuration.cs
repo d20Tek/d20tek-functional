@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.Commands.BudgetCategories;
-using BudgetTracker.Commands.Credits;
+using BudgetTracker.Commands.Incomes;
 using BudgetTracker.Commands.Expenses;
 
 namespace BudgetTracker.Commands;
@@ -20,11 +20,11 @@ internal sealed class Configuration
         new ("del-exp", ["delete-expense", "del-exp", "de"],
             (s, m) => CommonHandlers.DeleteFromRepository(s, m, Expenses.Constants.Delete.Header, id => s.ExpenseRepo.Delete(id))),
 
-        new ("list-cred", ["list-credits", "list-cred", "lcr"], ListCreditsCommand.Handle),
-        new ("add-cred", ["add-credit", "add-cred", "acr"], AddCreditCommand.Handle),
-        new ("edit-cred", ["edit-credit", "edit-cred", "ecr"], EditCreditCommand.Handle),
-        new ("del-cred", ["delete-credit", "del-cred", "dcr"],
-            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Credits.Constants.Delete.Header, id => s.CreditRepo.Delete(id))),
+        new ("list-inc", ["list-income", "list-inc", "li"], ListIncomeCommand.Handle),
+        new ("add-inc", ["add-income", "add-inc", "ai"], AddIncomeCommand.Handle),
+        new ("edit-inc", ["edit-income", "edit-inc", "ei"], EditIncomeCommand.Handle),
+        new ("del-inc", ["delete-income", "del-inc", "di"],
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)

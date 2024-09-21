@@ -3,24 +3,24 @@ using BudgetTracker.Entities;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
 
-namespace BudgetTracker.Commands.Credits;
+namespace BudgetTracker.Commands.Incomes;
 
-internal static class EditCreditCommand
+internal static class EditIncomeCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Edit.Header))
-             .Map(s => s.CreditRepo.GetEntityById(s.Console.GetId())
+             .Map(s => s.IncomeRepo.GetEntityById(s.Console.GetId())
                  .Apply(result => s.Console.DisplayMaybe(result, Constants.Edit.GetSuccessMessage))
                  .Apply(result => PerformEdit(s, result))
                  .Map(_ => s with { Command = metadata.Name }));
 
-    private static void PerformEdit(AppState state, Maybe<Credit> editCredit) =>
-            editCredit.OnSomething(
-                v => v.Apply(v => v.UpdateCredit(
+    private static void PerformEdit(AppState state, Maybe<Income> editIncome) =>
+            editIncome.OnSomething(
+                v => v.Apply(v => v.UpdateIncome(
                     state.Console.GetName(v.Name),
                     state.Console.GetDepositDate(v.DepositDate),
                     state.Console.GetAmount(v.Amount)))
-                      .Map(entry => state.CreditRepo.Update(entry))
+                      .Map(entry => state.IncomeRepo.Update(entry))
                       .Apply(result => state.Console.DisplayMaybe(result, Constants.Edit.SuccessMessage))
                 );
 

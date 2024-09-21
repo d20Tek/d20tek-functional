@@ -4,6 +4,6 @@ using Spectre.Console;
 
 var catRepo = RepositoryFactory.CreateCategoryRepository();
 var expRepo = RepositoryFactory.CreateExpenseRepository();
-var credRepo = RepositoryFactory.CreateCreditRepository();
+var incomeRepo = RepositoryFactory.CreateIncomeRepository();
 
-App.Run(AnsiConsole.Console, catRepo, expRepo, credRepo);
+App.Run(AnsiConsole.Console, catRepo, expRepo, incomeRepo);

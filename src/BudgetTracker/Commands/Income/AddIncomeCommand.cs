@@ -3,18 +3,18 @@ using BudgetTracker.Entities;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
 
-namespace BudgetTracker.Commands.Credits;
+namespace BudgetTracker.Commands.Incomes;
 
-internal static class AddCreditCommand
+internal static class AddIncomeCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Add.Header))
-             .Map(s => s.Console.GatherCreditData()
-                .Map(entry => s.CreditRepo.Create(entry))
+             .Map(s => s.Console.GatherIncomeData()
+                .Map(entry => s.IncomeRepo.Create(entry))
                 .Apply(result => s.Console.DisplayMaybe(result, Constants.Add.SuccessMessage))
                 .Map(_ => s with { Command = metadata.Name }));
 
-    private static Credit GatherCreditData(this IAnsiConsole console) =>
+    private static Income GatherIncomeData(this IAnsiConsole console) =>
         new(0, console.GetName(), console.GetDepositDate(), console.GetAmount());
 
     private static string GetName(this IAnsiConsole console) =>

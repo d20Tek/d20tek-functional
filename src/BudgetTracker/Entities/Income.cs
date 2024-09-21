@@ -2,7 +2,7 @@
 
 namespace BudgetTracker.Entities;
 
-internal sealed class Credit : IEntity
+internal sealed class Income : IEntity
 {
     public int Id { get; private set; }
 
@@ -12,7 +12,7 @@ internal sealed class Credit : IEntity
 
     public decimal Amount {  get; private set; }
 
-    public Credit(int id, string name, DateTimeOffset depositDate, decimal amount)
+    public Income(int id, string name, DateTimeOffset depositDate, decimal amount)
     {
         Id = id;
         Name = name;
@@ -22,7 +22,7 @@ internal sealed class Credit : IEntity
 
     public void SetId(int id) => Id = id;
 
-    internal Credit UpdateCredit(string name,  DateTimeOffset depositDate, decimal amount)
+    internal Income UpdateIncome(string name,  DateTimeOffset depositDate, decimal amount)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentOutOfRangeException.ThrowIfNegative(amount, nameof(amount));

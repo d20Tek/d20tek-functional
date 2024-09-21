@@ -11,8 +11,8 @@ internal static class App
         IAnsiConsole console,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo,
-        ICreditRepository credRepo) => 
-        AppState.Init(console, catRepo, expRepo, credRepo)
+        IIncomeRepository incomeRepo) => 
+        AppState.Init(console, catRepo, expRepo, incomeRepo)
             .Apply(_ => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),

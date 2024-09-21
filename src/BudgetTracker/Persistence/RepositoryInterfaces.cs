@@ -4,4 +4,4 @@ global using ICategoryRepository = Apps.Repositories.IRepository<BudgetTracker.E
 
 global using IExpenseRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.Expense>;
 
-global using ICreditRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.Credit>;
+global using IIncomeRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.Income>;

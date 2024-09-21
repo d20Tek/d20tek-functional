@@ -9,5 +9,5 @@ internal sealed class BudgetDataStore
 
     public DataStoreElement<Expense> Expenses { get; set; } = new();
 
-    public DataStoreElement<Credit> Credits { get; set; } = new();
+    public DataStoreElement<Income> Incomes { get; set; } = new();
 }
