@@ -21,4 +21,9 @@ internal static class Constants
 
         public static readonly DateTimeOffset DefaultStartDate = new(2024, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
     }
+
+    public static class Reconcile
+    {
+        public const string DateLabel = "Enter the month start you want to reconcile";
+    }
 }

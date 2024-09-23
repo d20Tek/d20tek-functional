@@ -13,8 +13,16 @@ internal static class DateTimeOffsetPrompt
                             .WithConverter(date => date.ToDateString()));
 
     public static DateTimeOffset GetPastDate(IAnsiConsole console, string label) =>
-        console.Prompt(new TextPrompt<DateTimeOffset>(label)
+        console.Prompt(CreatePastPrompt(label));
+
+    public static DateTimeOffset GetPastDate(IAnsiConsole console, string label, DateTimeOffset prevDate) =>
+        console.Prompt(CreatePastPrompt(label)
+            .DefaultValue(prevDate)
+            .WithConverter(date => date.ToDateString()));
+
+    private static TextPrompt<DateTimeOffset> CreatePastPrompt(string label) =>
+        new TextPrompt<DateTimeOffset>(label)
             .Validate(d => d.IsFutureDate()
                         ? ValidationResult.Error("[red]Date cannot be in the future.[/]")
-                        : ValidationResult.Success()));
+                        : ValidationResult.Success());
 }

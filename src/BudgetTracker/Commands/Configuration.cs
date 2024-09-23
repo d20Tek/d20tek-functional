@@ -28,6 +28,7 @@ internal sealed class Configuration
             (s, m) => CommonHandlers.DeleteFromRepository(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
 
         new ("current", ["current", "c"], ShowCurrentCommand.Handle),
+        new ("reconcile", ["reconcile", "rec", "r"], ReconcileMonthCommand.Handle),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
