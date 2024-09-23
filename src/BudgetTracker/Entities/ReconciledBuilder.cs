@@ -1,8 +1,7 @@
-﻿using BudgetTracker.Entities;
-using BudgetTracker.Persistence;
+﻿using BudgetTracker.Persistence;
 using D20Tek.Minimal.Functional;
 
-namespace BudgetTracker.Commands.Show;
+namespace BudgetTracker.Entities;
 
 internal static class ReconciledBuilder
 {
@@ -13,20 +12,14 @@ internal static class ReconciledBuilder
         ICategoryRepository catRepo,
         IExpenseRepository expRepo)
     {
-        var (income, total) = CalculateIncome(incRepo);
+        var (income, totalIncome) = CalculateIncome(incRepo);
         var (expenses, totalExpense) = CalculateGroupedExpenses(catRepo, expRepo);
-        return new(
-            startDate,
-            endDate,
-            income,
-            new ReconciledIncome("Total Income:", total),
-            expenses,
-            totalExpense);
+        return new(startDate, endDate, income, totalIncome, expenses, totalExpense);
     }
-    private static (ReconciledIncome[], decimal) CalculateIncome(IIncomeRepository incRepo) =>
+    private static (ReconciledIncome[], ReconciledIncome) CalculateIncome(IIncomeRepository incRepo) =>
         incRepo.GetEntities()
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
-            .Map(reconciled => (reconciled.ToArray(), reconciled.Sum(x => x.Amount)));
+            .Map(reconciled => (reconciled.ToArray(), new ReconciledIncome("Total Income:", reconciled.Sum(x => x.Amount))));
 
     private static (ReconciledExpenses[], ReconciledExpenses) CalculateGroupedExpenses(
         ICategoryRepository catRepo,

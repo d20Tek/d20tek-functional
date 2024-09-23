@@ -18,6 +18,7 @@ internal static class Constants
         public const int ColumnActualLen = 12;
         public const string ColumnRemaining = "Remaining";
         public const int ColumnRemainingLen = 12;
-        public const string Uncategorized = "[red]Uncategorized[/]";
+
+        public static readonly DateTimeOffset DefaultStartDate = new(2024, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
     }
 }
