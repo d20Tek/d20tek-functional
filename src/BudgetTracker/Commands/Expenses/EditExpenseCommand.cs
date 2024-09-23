@@ -42,8 +42,9 @@ internal static class EditExpenseCommand
         CurrencyComponent.Input(console, Constants.Edit.ActualLabel, prevActual, false);
 }
 
-// todo: add Income item CRUD operations.
 // todo: implement show operation that shows the current budgeted versus actuals in a table.
+// todo: refactor reconciliation process into ReconciledBuilder... move it to the Entities folder.
+
 // todo: implement close out month operation to snapshot budget and expenses for a particular month... save closed months to separate archive file.
 // todo: implement show operation on past closed month data.
 // todo: implement show year operation as well.

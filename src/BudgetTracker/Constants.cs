@@ -1,5 +1,4 @@
 ﻿using Apps.Repositories;
-using BudgetTracker.Entities;
 
 namespace BudgetTracker;
 
@@ -30,6 +29,9 @@ internal static class Constants
         " - add-inc (ai): allows user to input new income item.",
         " - edit-inc (ei): allows uer to edit basic income data (name, date, amount).",
         " - delete-inc (di): allows user to delete an existing income item.",
+        string.Empty,
+        "[yellow]Display:[/]",
+        " - current (c): shows the current status of unreconciled income and expenses.",
         string.Empty,
         "[yellow]Common Commands:[/]",
         " - help (h): show list of the available commands in this app.",

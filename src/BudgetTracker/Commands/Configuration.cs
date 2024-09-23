@@ -1,6 +1,7 @@
 ﻿using BudgetTracker.Commands.BudgetCategories;
 using BudgetTracker.Commands.Incomes;
 using BudgetTracker.Commands.Expenses;
+using BudgetTracker.Commands.Show;
 
 namespace BudgetTracker.Commands;
 
@@ -25,6 +26,8 @@ internal sealed class Configuration
         new ("edit-inc", ["edit-income", "edit-inc", "ei"], EditIncomeCommand.Handle),
         new ("del-inc", ["delete-income", "del-inc", "di"],
             (s, m) => CommonHandlers.DeleteFromRepository(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
+
+        new ("current", ["current", "c"], ShowCurrentCommand.Handle),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
