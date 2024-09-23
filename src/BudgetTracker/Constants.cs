@@ -48,4 +48,7 @@ internal static class Constants
         string.Empty,
             $"[green]Success:[/] The item with id={entity.Id} was deleted."
     ];
+
+    public const string TotalIncomeLabel = "Total Income:";
+    public const string TotalExpensesLabel = "Total Expenses:";
 }
