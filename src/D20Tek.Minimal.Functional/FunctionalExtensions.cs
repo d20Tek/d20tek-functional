@@ -28,6 +28,14 @@ public static partial class FunctionalExtensions
     public static TOut Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).First(x => x != null);
 
+    public static void Iter<TIn>(this IEnumerable<TIn> enumerable, Action<TIn> action)
+    {
+        foreach (var item in enumerable)
+        {
+            action(item);
+        }
+    }
+
     public static TOut IfTrueOrElse<TOut>(this bool condition, Func<TOut> thenFunc, Func<TOut> elseFunc) =>
         condition ? thenFunc() : elseFunc();
 

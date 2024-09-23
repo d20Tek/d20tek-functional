@@ -28,7 +28,7 @@ internal static class ShowCurrentCommand
 
     private static void AddRowsForIncome(this Table table, ReconciledSnapshot snapshot) =>
         snapshot
-            .Apply(s => s.Income.ToList().ForEach(x => table.AddRow(x.Name, CurrencyComponent.Render(x.Amount))))
+            .Apply(s => s.Income.Iter(x => table.AddRow(x.Name, CurrencyComponent.Render(x.Amount))))
             .Apply(s => table.AddRow(s.TotalIncome.Name, CurrencyComponent.Render(s.TotalIncome.Amount)));
 
     private static Table CreateExpenseTable(ReconciledSnapshot snapshot) =>
@@ -42,7 +42,7 @@ internal static class ShowCurrentCommand
             .Apply(t => t.AddRowsForExpenses(snapshot));
 
     private static void AddRowsForExpenses(this Table table, ReconciledSnapshot snapshot) =>
-        snapshot.Apply(s => s.CategoryExpenses.ToList().ForEach(x => 
+        snapshot.Apply(s => s.CategoryExpenses.Iter(x => 
             table.AddRow(
                 x.Category,
                 CurrencyComponent.Render(x.Budget),
