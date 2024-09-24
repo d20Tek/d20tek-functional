@@ -45,6 +45,15 @@ public sealed class FileRepository<TEntity, TStore> : IRepository<TEntity>
             GetDataElement()
                 .Map(x => Save(e, () => x.Entities.RemoveAll(x => x.Id == id))));
 
+    public Maybe<TEntity[]> DeleteMany(TEntity[] entities) =>
+        entities.Select(e => e.Id).ToMaybe()
+            .Bind(ids =>
+                GetDataElement()
+                    .Apply(store => ids.Iter(id => store.Entities.RemoveAll(x => x.Id == id)))
+                    .Apply(_ => _db.Write()))
+                    .Map(_ => entities);
+
+
     public Maybe<TEntity> Update(TEntity entity) =>
         GetEntityById(entity.Id).Bind(_ =>
             GetDataElement()

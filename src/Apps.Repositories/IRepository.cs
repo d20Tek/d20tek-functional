@@ -9,6 +9,8 @@ public interface IRepository<TEntity>
 
     Maybe<TEntity> Delete(int id);
 
+    Maybe<TEntity[]> DeleteMany(TEntity[] entities);
+
     TEntity[] GetEntities();
 
     Maybe<TEntity> GetEntityById(int id);
