@@ -23,4 +23,7 @@ internal static class RepositoryFactory
 
     public static IIncomeRepository CreateIncomeRepository() =>
         new FileRepository<Income, BudgetDataStore>(_dataStore, store => store.Incomes);
+
+    public static IReconciledSnapshotRepository CreateSnapshotRepository() =>
+        new FileRepository<ReconciledSnapshot, BudgetDataStore>(_dataStore, store => store.CompletedSnapshots);
 }

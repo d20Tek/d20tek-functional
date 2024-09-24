@@ -7,6 +7,7 @@ internal sealed record AppState(
     ICategoryRepository CategoryRepo,
     IExpenseRepository ExpenseRepo,
     IIncomeRepository IncomeRepo,
+    IReconciledSnapshotRepository SnapshotRepo,
     string Command,
     bool CanContinue)
 {
@@ -14,6 +15,7 @@ internal sealed record AppState(
         IAnsiConsole console,
         ICategoryRepository categoryRepo,
         IExpenseRepository expenseRepo,
-        IIncomeRepository incomeRepo) =>
-            new(console, categoryRepo, expenseRepo, incomeRepo, string.Empty, true);
+        IIncomeRepository incomeRepo,
+        IReconciledSnapshotRepository snapshotRepo) =>
+            new(console, categoryRepo, expenseRepo, incomeRepo, snapshotRepo, string.Empty, true);
 }

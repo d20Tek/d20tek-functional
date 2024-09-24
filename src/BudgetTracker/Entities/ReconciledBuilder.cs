@@ -47,5 +47,5 @@ internal static class ReconciledBuilder
         new(Constants.TotalExpensesLabel, exp.Sum(x => x.Budget), exp.Sum(x => x.Actual), exp.Sum(x => x.Remaining));
 
     private static ReconciledSnapshot MapToSnapshot(this ReconcileState s, DateTimeOffset start, DateTimeOffset end) =>
-        new(start, end, s.Incomes, s.TotalIncome!, s.Expenses, s.TotalExpenses!);
+        new(0, start, end, s.Incomes, s.TotalIncome, s.Expenses, s.TotalExpenses);
 }
