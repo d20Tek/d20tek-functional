@@ -5,28 +5,19 @@ namespace BudgetTracker.Entities;
 
 internal static class ReconciledBuilder
 {
-    public sealed record State(
-        ReconciledIncome[] Incomes,
-        ReconciledIncome? TotalIncome,
-        ReconciledExpenses[] Expenses,
-        ReconciledExpenses? TotalExpenses)
-    {
-        public static State Initialize() => new([], null, [], null);
-    }
-
     public static ReconciledSnapshot GenerateSnapshot(
         DateTimeOffset startDate,
         DateTimeOffset endDate,
         IIncomeRepository incRepo,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
-            State.Initialize()
+            ReconcileState.Initialize(startDate, endDate)
                 .Map(s => s.CalculateIncome(incRepo))
                 .Map(s => s.CalculateGroupedExpenses(catRepo, expRepo))
                 .Map(s => s.MapToSnapshot(startDate, endDate));
 
-    private static State CalculateIncome(this State state, IIncomeRepository incRepo) =>
-        incRepo.GetEntities()
+    private static ReconcileState CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
+        incRepo.GetIncomeToReconcile(state.StartDate, state.EndDate)
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
             .Map(reconciled => state with
             {
@@ -34,24 +25,27 @@ internal static class ReconciledBuilder
                 TotalIncome = new(Constants.TotalIncomeLabel, reconciled.Sum(x => x.Amount))
             });
 
-    private static State CalculateGroupedExpenses(
-        this State state,
+    private static ReconcileState CalculateGroupedExpenses(
+        this ReconcileState state,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
-        CalcReconciledExpenses(catRepo, expRepo)
+        state.CalcReconciledExpenses(catRepo, expRepo)
             .Map(expenses => CalcTotalExpenses(expenses)
                 .Map(total => state with { Expenses = [.. expenses], TotalExpenses = total }));
 
-    private static ReconciledExpenses[] CalcReconciledExpenses(ICategoryRepository catRepo, IExpenseRepository expRepo) =>
+    private static ReconciledExpenses[] CalcReconciledExpenses(
+        this ReconcileState state,
+        ICategoryRepository catRepo,
+        IExpenseRepository expRepo) =>
         catRepo.GetEntities()
             .Select(cat =>
-                expRepo.GetExpensesByCategory(cat.Id).Sum(e => e.Actual)
+                expRepo.GetExpensesToReconcile(cat.Id, state.StartDate,state.EndDate).Sum(e => e.Actual)
                     .Map(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
             .ToArray();
 
     private static ReconciledExpenses CalcTotalExpenses(ReconciledExpenses[] exp) =>
         new(Constants.TotalExpensesLabel, exp.Sum(x => x.Budget), exp.Sum(x => x.Actual), exp.Sum(x => x.Remaining));
 
-    private static ReconciledSnapshot MapToSnapshot(this State s, DateTimeOffset start, DateTimeOffset end) =>
+    private static ReconciledSnapshot MapToSnapshot(this ReconcileState s, DateTimeOffset start, DateTimeOffset end) =>
         new(start, end, s.Incomes, s.TotalIncome!, s.Expenses, s.TotalExpenses!);
 }

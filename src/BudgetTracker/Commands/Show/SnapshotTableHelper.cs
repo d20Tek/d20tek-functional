@@ -20,7 +20,11 @@ internal static class SnapshotTableHelper
     private static void AddRowsForIncome(this Table table, ReconciledSnapshot snapshot) =>
         snapshot
             .Apply(s => s.Income.Iter(x => table.AddRow(x.Name, CurrencyComponent.Render(x.Amount))))
-            .Apply(s => table.AddRow(s.TotalIncome.Name, CurrencyComponent.Render(s.TotalIncome.Amount)));
+            .Apply(s => table.AddTotalIncomeRow(s.TotalIncome));
+
+    private static void AddTotalIncomeRow(this Table table, ReconciledIncome total) =>
+        table.AddRow(Constants.Tables.TotalIncomeSeparator)
+             .AddRow(total.Name, CurrencyComponent.Render(total.Amount));
 
     public static Table CreateExpenseTable(ReconciledSnapshot snapshot) =>
         new Table()
@@ -36,7 +40,8 @@ internal static class SnapshotTableHelper
                 new TableColumn(Constants.Tables.ColumnRemaining)
                     .RightAligned()
                     .Width(Constants.Tables.ColumnRemainingLen))
-            .Apply(t => t.AddRowsForExpenses(snapshot));
+            .Apply(t => t.AddRowsForExpenses(snapshot))
+            .Apply(t => t.AddTotalExpensesRow(snapshot.TotalExpenses));
 
     private static void AddRowsForExpenses(this Table table, ReconciledSnapshot snapshot) =>
         snapshot.Apply(s => s.CategoryExpenses.Iter(x =>
@@ -45,4 +50,12 @@ internal static class SnapshotTableHelper
                 CurrencyComponent.Render(x.Budget),
                 CurrencyComponent.Render(x.Actual),
                 CurrencyComponent.Render(x.Remaining))));
+
+    private static void AddTotalExpensesRow(this Table table, ReconciledExpenses total) =>
+        table.AddRow(Constants.Tables.TotalExpenseSeparator)
+             .AddRow(
+                total.Category,
+                CurrencyComponent.Render(total.Budget),
+                CurrencyComponent.Render(total.Actual),
+                CurrencyComponent.Render(total.Remaining));
 }

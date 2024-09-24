@@ -19,6 +19,11 @@ internal static class Constants
         public const string ColumnRemaining = "Remaining";
         public const int ColumnRemainingLen = 12;
 
+        public static readonly string[] TotalIncomeSeparator = 
+            ["───────────────────────────────────────────────────────", "─────────────────"];
+        public static readonly string[] TotalExpenseSeparator = 
+            ["──────────────────────────────", "────────────", "────────────", "────────────"];
+
         public static readonly DateTimeOffset DefaultStartDate = new(2024, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
     }
 
@@ -32,10 +37,10 @@ internal static class Constants
         public const string HeaderLabel = "Reconcile Monthly Actuals";
         public const string DateLabel = "Enter the month start you want to reconcile";
         public static string[] ItemsToReconcile(string month) =>
-            [string.Empty, $"The following income and actuals will be reconciled for {month}:"];
+            [string.Empty, $"The following income and actuals will be reconciled for the month of {month}:"];
         public const string PerformReconcileLabel = "Are you sure you want to perform this reconciliation?\r\n" +
             "All of the individual income and expense entries will be collapsed into this snapshot.\r\n" +
-            "And it cannot be undone.";
+            "And this action cannot be undone.";
         public const string CancelledMessage = "This reconcile operation was cancelled.";
     }
 }

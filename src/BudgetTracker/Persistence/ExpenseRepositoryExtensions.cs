@@ -4,6 +4,12 @@ namespace BudgetTracker.Persistence;
 
 internal static class ExpenseRepositoryExtensions
 {
-    public static Expense[] GetExpensesByCategory(this IExpenseRepository expRepo, int catId) =>
-        expRepo.GetEntities().Where(x => x.CategoryId == catId).ToArray();
+    public static Expense[] GetExpensesToReconcile(
+        this IExpenseRepository expRepo,
+        int catId,
+        DateTimeOffset start,
+        DateTimeOffset end) =>
+        expRepo.GetEntities().Where(x => x.CategoryId == catId)
+                             .Where(x => x.CommittedDate >= start && x.CommittedDate < end)
+                             .ToArray();
 }

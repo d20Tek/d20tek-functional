@@ -4,6 +4,9 @@ internal static class DateTimeOffsetExtensions
 {
     public static string ToMonthDay(this DateTimeOffset d) => d.ToString("MM-dd");
 
+    public static string ToMonth(this DateTimeOffset d, bool abbreviated = true) =>
+        abbreviated ? d.ToString("MMM") : d.ToString("MMMM");
+
     public static string ToDateString(this DateTimeOffset d) => d.ToString("MM-dd-yyyy");
 
     public static DateTimeOffset StartOfMonth(this DateTimeOffset d) =>

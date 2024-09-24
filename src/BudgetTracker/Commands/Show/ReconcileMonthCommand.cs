@@ -24,15 +24,10 @@ internal static class ReconcileMonthCommand
         this AppState state,
         DateTimeOffset start,
         DateTimeOffset end) =>
-        ReconciledBuilder.GenerateSnapshot(
-            start,
-            end,
-            state.IncomeRepo,
-            state.CategoryRepo,
-            state.ExpenseRepo)
-                .Apply(r => state.Console.WriteMessage(Constants.Reconcile.ItemsToReconcile(start.ToString("MMM"))))
-                .Apply(r => state.Console.Write(SnapshotTableHelper.CreateIncomeTable(r)))
-                .Apply(r => state.Console.Write(SnapshotTableHelper.CreateExpenseTable(r)));
+        ReconciledBuilder.GenerateSnapshot(start, end, state.IncomeRepo, state.CategoryRepo, state.ExpenseRepo)
+            .Apply(r => state.Console.WriteMessage(Constants.Reconcile.ItemsToReconcile(start.ToMonth())))
+            .Apply(r => state.Console.Write(SnapshotTableHelper.CreateIncomeTable(r)))
+            .Apply(r => state.Console.Write(SnapshotTableHelper.CreateExpenseTable(r)));
 
     private static void PerformReconciliation(ReconciledSnapshot snapshot, IAnsiConsole console) =>
         console.Confirm(Constants.Reconcile.PerformReconcileLabel).IfTrueOrElse(
