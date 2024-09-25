@@ -23,7 +23,7 @@ internal static class ListCategoriesCommand
 
     private static void AddRowsForEntries(this Table table, BudgetCategory[] categories) =>
         categories
-            .Map(e => e.Any()
+            .Map(e => (e.Length != 0)
                 ? categories.Select(entry => CreateRow(entry)).ToList()
                 : [(string.Empty, Constants.List.NoCategoriesMessage, string.Empty)])
             .Apply(rows => rows.ForEach(x => table.AddRow(x.Id, x.Name, x.Amount)));
