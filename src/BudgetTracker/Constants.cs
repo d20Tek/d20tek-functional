@@ -32,7 +32,10 @@ internal static class Constants
         string.Empty,
         "[yellow]Display:[/]",
         " - current (c): shows the current status of unreconciled income and expenses.",
-        " - reconcile (r): reconciles income and expenses for a particular month. Reconciliation collapses all of the data in that month into a snapshot and removes line items.",
+        " - reconcile (r): reconciles income and expenses for a particular month. " +
+        "Reconciliation collapses all of the data in that month into a snapshot and removes line items.",
+        " - list-months (lm): shows list of the monthly reconciled snapshots",
+
         string.Empty,
         "[yellow]Common Commands:[/]",
         " - help (h): show list of the available commands in this app.",

@@ -59,4 +59,20 @@ internal static class Constants
                 "Snapshot.AlreadyExists",
                 "A snapshot already exists for that month. We cannot overwrite the one that exists."));
     }
+
+    public static class List
+    {
+        public const string ListHeader = "List of Reconciled Months";
+        public const string NoSnapshotsMessage = "No reconciled months exist...";
+        public const string ColumnDate = "Monthly";
+        public const int ColumnDateLen = 15;
+        public const string ColumnIncome = "Income";
+        public const int ColumnIncomeLen = 12;
+        public const string ColumnBudget = "Budget";
+        public const int ColumnBudgetLen = 12;
+        public const string ColumnActual = "Actual";
+        public const int ColumnActualLen = 12;
+        public const string ColumnRemaining = "Remaining";
+        public const int ColumnRemainingLen = 12;
+    }
 }
