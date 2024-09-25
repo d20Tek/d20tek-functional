@@ -7,17 +7,11 @@ namespace BudgetTracker;
 
 internal static class App
 {
-    public static void Run(
-        IAnsiConsole console,
-        ICategoryRepository catRepo,
-        IExpenseRepository expRepo,
-        IIncomeRepository incomeRepo,
-        IReconciledSnapshotRepository snapRepo) => 
-        AppState.Init(console, catRepo, expRepo, incomeRepo, snapRepo)
-            .Apply(_ => console.DisplayAppHeader(Constants.AppTitle))
-            .IterateUntil(
-                x => NextCommand(x),
-                x => x.CanContinue is false);
+    public static void Run(AppState state) => 
+        state.Apply(s => s.Console.DisplayAppHeader(Constants.AppTitle))
+             .IterateUntil(
+                s => NextCommand(s),
+                s => s.CanContinue is false);
 
     private static AppState NextCommand(AppState prevState) =>
         prevState.Console.GetUserCommandInput()
