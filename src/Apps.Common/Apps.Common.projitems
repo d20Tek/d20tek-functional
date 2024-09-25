@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DateRange.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeOffsetExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeOffsetPrompt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueRange.cs" />
     <Compile Include="..\Apps.Common\MoneyComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringExtensions.cs" />
   </ItemGroup>

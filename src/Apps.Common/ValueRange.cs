@@ -1,4 +1,4 @@
-﻿namespace TipCalc;
+﻿namespace Apps.Common;
 
 internal sealed record ValueRange<T>(T Min, T Max)
     where T : struct, IComparable<T>
