@@ -10,7 +10,8 @@ internal static class DeleteWealthEntryCommand
         state.Apply(s => s.Console.DisplayHeader(Constants.Delete.Header))
              .Map(s => s.Console.GetId()
                 .Map(id => s.Repository.Delete(id))
-                .Apply(result => s.Console.Render(result, Constants.Delete.SuccessMessage))
+                .Apply(result => s.Console.DisplayMaybe(
+                    result, e => s.Console.WriteMessage(Constants.Delete.SuccessMessage(e))))
                 .Map(_ => s with { Command = metadata.Name }));
 
     private static int GetId(this IAnsiConsole console) =>

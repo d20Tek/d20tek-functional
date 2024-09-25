@@ -10,7 +10,8 @@ internal static class RecordAmountCommand
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Record.Header))
              .Map(s => s.Repository.GetWealthEntryById(s.Console.GetId())
-                 .Apply(result => s.Console.Render(result, Constants.Record.GetSuccessMessage))
+                 .Apply(result => s.Console.DisplayMaybe(
+                     result, e => s.Console.WriteMessage(Constants.Record.GetSuccessMessage(e))))
                  .Apply(result => PerformChange(s.Console, s.Repository, result))
                  .Map(_ => s with { Command = metadata.Name }));
 
@@ -21,7 +22,8 @@ internal static class RecordAmountCommand
             updateEntry.OnSomething(
                 v => v.Apply(v => v.AddDailyValue(DateTimeOffset.Now, console.GetAmount()))
                       .Map(entry => repo.Update(entry))
-                      .Apply(result => console.Render(result, Constants.Record.SuccessMessage))
+                      .Apply(result => console.DisplayMaybe(
+                          result, e => console.WriteMessage(Constants.Record.SuccessMessage(e))))
                 );
 
     private static int GetId(this IAnsiConsole console) =>

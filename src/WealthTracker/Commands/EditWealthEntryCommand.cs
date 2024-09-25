@@ -10,7 +10,8 @@ internal static class EditWealthEntryCommand
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Edit.Header))
              .Map(s => s.Repository.GetWealthEntryById(s.Console.GetId())
-                 .Apply(result => s.Console.Render(result, Constants.Edit.GetSuccessMessage))
+                 .Apply(result => s.Console.DisplayMaybe(
+                     result, e => s.Console.WriteMessage(Constants.Edit.GetSuccessMessage(e))))
                  .Apply(result => PerformEdit(s.Console, s.Repository, result))
                  .Map(_ => s with { Command = metadata.Name }));
 
@@ -21,7 +22,8 @@ internal static class EditWealthEntryCommand
             editEntry.OnSomething(
                 v => v.Apply(v => v.UpdateEntry(console.GetName(v.Name), console.GetCategories(v.Categories)))
                       .Map(entry => repo.Update(entry))
-                      .Apply(result => console.Render(result, Constants.Edit.SuccessMessage))
+                      .Apply(result => console.DisplayMaybe(
+                          result, e => console.WriteMessage(Constants.Edit.SuccessMessage(e))))
                 );
 
     private static int GetId(this IAnsiConsole console) =>
