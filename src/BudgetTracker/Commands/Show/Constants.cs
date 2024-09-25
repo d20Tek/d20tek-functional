@@ -1,4 +1,7 @@
-﻿namespace BudgetTracker.Commands.Show;
+﻿using BudgetTracker.Entities;
+using D20Tek.Minimal.Functional;
+
+namespace BudgetTracker.Commands.Show;
 
 internal static class Constants
 {
@@ -42,5 +45,18 @@ internal static class Constants
             "All of the individual income and expense entries will be collapsed into this snapshot.\r\n" +
             "And this action cannot be undone.";
         public const string CancelledMessage = "This reconcile operation was cancelled.";
+
+        public static string[] ReconcileSucceeded =
+            [string.Empty, "Your montly reconciliation [green]completed successfully[/]!"];
+
+        public static Maybe<ReconciledSnapshot> SnapshotEmptyError =
+            new Failure<ReconciledSnapshot>(Error.Validation(
+                "Snapshot.Empty",
+                "There are no income or expenses in the current date range. No action was performed."));
+
+        public static Maybe<ReconciledSnapshot> SnapshotAlreadyExistsError =
+            new Failure<ReconciledSnapshot>(Error.Validation(
+                "Snapshot.AlreadyExists",
+                "A snapshot already exists for that month. We cannot overwrite the one that exists."));
     }
 }
