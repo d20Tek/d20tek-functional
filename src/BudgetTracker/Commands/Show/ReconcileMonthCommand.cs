@@ -38,8 +38,8 @@ internal static class ReconcileMonthCommand
     private static void SaveReconciledSnapshot(ReconciledSnapshot snapshot, AppState state) =>
         snapshot.Validate(state.SnapshotRepo)
             .Bind(s => state.SnapshotRepo.Create(snapshot))
-            .Bind(_ => state.IncomeRepo.DeleteByDateRange(snapshot.StartDate, snapshot.EndDate))
-            .Bind(_ => state.ExpenseRepo.DeleteByDateRange(snapshot.StartDate, snapshot.EndDate))
+            .Bind(_ => state.IncomeRepo.DeleteByDateRange(snapshot.GetDateRange()))
+            .Bind(_ => state.ExpenseRepo.DeleteByDateRange(snapshot.GetDateRange()))
             .Bind(_ => snapshot)
             .Apply(result => state.Console.DisplayMaybe(result, s => Constants.Reconcile.ReconcileSucceeded));
 

@@ -1,4 +1,5 @@
-﻿using Apps.Repositories;
+﻿using Apps.Common;
+using Apps.Repositories;
 
 namespace BudgetTracker.Entities;
 
@@ -40,6 +41,8 @@ internal sealed class ReconciledSnapshot: IEntity
     }
 
     public void SetId(int id) => Id = id;
+
+    internal DateRange GetDateRange() => new(StartDate, EndDate);
 }
 
 internal sealed record ReconciledIncome(string Name, decimal Amount);

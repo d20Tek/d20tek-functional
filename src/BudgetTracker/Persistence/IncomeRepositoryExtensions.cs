@@ -1,19 +1,14 @@
-﻿using BudgetTracker.Entities;
+﻿using Apps.Common;
+using BudgetTracker.Entities;
 using D20Tek.Minimal.Functional;
 
 namespace BudgetTracker.Persistence;
 
 internal static class IncomeRepositoryExtensions
 {
-    public static Income[] GetIncomeToReconcile(
-        this IIncomeRepository incRepo,
-        DateTimeOffset start,
-        DateTimeOffset end) =>
-        incRepo.GetEntities().Where(x => x.DepositDate >= start && x.DepositDate < end).ToArray();
+    public static Income[] GetIncomeToReconcile(this IIncomeRepository incRepo, DateRange range) =>
+        incRepo.GetEntities().Where(x => range.InRange(x.DepositDate)).ToArray();
 
-    public static Maybe<Income[]> DeleteByDateRange(
-        this IIncomeRepository incRepo,
-        DateTimeOffset start,
-        DateTimeOffset end) =>
-        incRepo.DeleteMany(incRepo.GetIncomeToReconcile(start, end));
+    public static Maybe<Income[]> DeleteByDateRange(this IIncomeRepository incRepo, DateRange range) =>
+        incRepo.DeleteMany(incRepo.GetIncomeToReconcile(range));
 }

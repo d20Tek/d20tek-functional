@@ -1,4 +1,5 @@
-﻿using BudgetTracker.Entities;
+﻿using Apps.Common;
+using BudgetTracker.Entities;
 using D20Tek.Minimal.Functional;
 
 namespace BudgetTracker.Persistence;
@@ -10,9 +11,7 @@ internal static class SnapshotRepositoryExtensions
             "Snapshot.NotFound",
             "There was no reconciled snapshot for the month that you specified."));
 
-    public static bool SnapshotExists(
-        this IReconciledSnapshotRepository snapRepo,
-        DateTimeOffset date) =>
+    public static bool SnapshotExists(this IReconciledSnapshotRepository snapRepo, DateTimeOffset date) =>
         snapRepo.GetEntities().FirstOrDefault(x => x.StartDate == date) is not null;
 
     public static Maybe<ReconciledSnapshot> GetSnapshotForMonth(
@@ -23,9 +22,8 @@ internal static class SnapshotRepositoryExtensions
 
     public static ReconciledSnapshot[] GetSnapshotsForDateRange(
         this IReconciledSnapshotRepository snapRepo,
-        DateTimeOffset start,
-        DateTimeOffset end) =>
-        snapRepo.GetEntities().Where(x => x.StartDate >= start && x.StartDate <= end)
+        DateRange range) =>
+        snapRepo.GetEntities().Where(x => range.InRange(x.StartDate))
                               .OrderBy(x => x.StartDate)
                               .ToArray() ?? [];
 }

@@ -1,4 +1,5 @@
-﻿using BudgetTracker.Persistence;
+﻿using Apps.Common;
+using BudgetTracker.Persistence;
 using D20Tek.Minimal.Functional;
 
 namespace BudgetTracker.Entities;
@@ -17,7 +18,7 @@ internal static class ReconciledBuilder
                 .Map(s => s.MapToSnapshot(startDate, endDate));
 
     private static ReconcileState CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
-        incRepo.GetIncomeToReconcile(state.StartDate, state.EndDate)
+        incRepo.GetIncomeToReconcile(state.GetDateRange())
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
             .Map(reconciled => state with
             {
@@ -39,7 +40,7 @@ internal static class ReconciledBuilder
         IExpenseRepository expRepo) =>
         catRepo.GetEntities()
             .Select(cat =>
-                expRepo.GetExpensesToReconcile(cat.Id, state.StartDate,state.EndDate).Sum(e => e.Actual)
+                expRepo.GetExpensesToReconcile(cat.Id, new DateRange(state.StartDate,state.EndDate)).Sum(e => e.Actual)
                     .Map(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
             .ToArray();
 

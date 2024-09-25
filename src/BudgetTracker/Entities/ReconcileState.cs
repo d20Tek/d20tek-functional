@@ -1,4 +1,6 @@
-﻿namespace BudgetTracker.Entities;
+﻿using Apps.Common;
+
+namespace BudgetTracker.Entities;
 
 internal sealed record ReconcileState(
     DateTimeOffset StartDate,
@@ -10,4 +12,6 @@ internal sealed record ReconcileState(
 {
     public static ReconcileState Initialize(DateTimeOffset startDate, DateTimeOffset endDate) =>
         new(startDate, endDate,[], null, [], null);
+
+    internal DateRange GetDateRange() => new(StartDate, EndDate);
 }
