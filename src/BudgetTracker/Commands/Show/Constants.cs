@@ -1,4 +1,5 @@
-﻿using BudgetTracker.Entities;
+﻿using Apps.Common;
+using BudgetTracker.Entities;
 using D20Tek.Minimal.Functional;
 
 namespace BudgetTracker.Commands.Show;
@@ -74,5 +75,13 @@ internal static class Constants
         public const int ColumnActualLen = 12;
         public const string ColumnRemaining = "Remaining";
         public const int ColumnRemainingLen = 12;
+    }
+
+    public static class Month
+    {
+        public static string HeaderLabel(DateTimeOffset date) =>
+            $"Reconciled Month Snapshot - {date.ToDateString()}";
+        
+        public const string DateLabel = "Enter the month to show:";
     }
 }

@@ -30,11 +30,12 @@ internal static class Constants
         " - edit-inc (ei): allows uer to edit basic income data (name, date, amount).",
         " - delete-inc (di): allows user to delete an existing income item.",
         string.Empty,
-        "[yellow]Display:[/]",
+        "[yellow]Reconcile:[/]",
         " - current (c): shows the current status of unreconciled income and expenses.",
         " - reconcile (r): reconciles income and expenses for a particular month. " +
         "Reconciliation collapses all of the data in that month into a snapshot and removes line items.",
-        " - list-months (lm): shows list of the monthly reconciled snapshots",
+        " - list-months (lm): shows list of the monthly reconciled snapshots.",
+        " - month (m): shows user the specific month reconciled snapshot details.",
 
         string.Empty,
         "[yellow]Common Commands:[/]",
