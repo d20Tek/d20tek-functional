@@ -36,6 +36,7 @@ internal static class Constants
         "Reconciliation collapses all of the data in that month into a snapshot and removes line items.",
         " - list-months (lm): shows list of the monthly reconciled snapshots.",
         " - month (m): shows user the specific month reconciled snapshot details.",
+        " - year (y): shows user monthly reconciled snapshot overviews for the last year.",
 
         string.Empty,
         "[yellow]Common Commands:[/]",

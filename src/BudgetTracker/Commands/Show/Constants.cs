@@ -23,9 +23,9 @@ internal static class Constants
         public const string ColumnRemaining = "Remaining";
         public const int ColumnRemainingLen = 12;
 
-        public static readonly string[] TotalIncomeSeparator = 
+        public static readonly string[] TotalIncomeSeparator =
             ["───────────────────────────────────────────────────────", "─────────────────"];
-        public static readonly string[] TotalExpenseSeparator = 
+        public static readonly string[] TotalExpenseSeparator =
             ["──────────────────────────────", "────────────", "────────────", "────────────"];
 
         public static readonly DateTimeOffset DefaultStartDate = new(2024, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
@@ -81,7 +81,12 @@ internal static class Constants
     {
         public static string HeaderLabel(DateTimeOffset date) =>
             $"Reconciled Month Snapshot - {date.ToDateString()}";
-        
+
         public const string DateLabel = "Enter the month to show:";
+    }
+
+    public static class Year
+    {
+        public const string ListHeader = "Budget for the Year";
     }
 }

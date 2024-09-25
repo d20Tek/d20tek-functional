@@ -20,4 +20,12 @@ internal static class SnapshotRepositoryExtensions
         DateTimeOffset date) =>
         snapRepo.GetEntities().FirstOrDefault(x => x.StartDate == date)
             .Map(snapshot => snapshot is null ? SnapshotNotFoundError : snapshot);
+
+    public static ReconciledSnapshot[] GetSnapshotsForDateRange(
+        this IReconciledSnapshotRepository snapRepo,
+        DateTimeOffset start,
+        DateTimeOffset end) =>
+        snapRepo.GetEntities().Where(x => x.StartDate >= start && x.StartDate <= end)
+                              .OrderBy(x => x.StartDate)
+                              .ToArray() ?? [];
 }

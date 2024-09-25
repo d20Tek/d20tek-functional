@@ -31,6 +31,7 @@ internal sealed class Configuration
         new ("reconcile", ["reconcile", "rec", "r"], ReconcileMonthCommand.Handle),
         new ("list-months", ["list-months", "lm"], ListSnapshotsCommand.Handle),
         new ("month", ["month", "show-month", "m"], ShowMonthCommand.Handle),
+        new ("year", ["year", "show-year", "y"], ShowYearCommand.Handle),
 
         new ("help", ["help", "h"], CommonHandlers.ShowCommands),
         new ("exit", ["exit", "x"], CommonHandlers.Exit)

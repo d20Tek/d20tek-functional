@@ -41,6 +41,3 @@ internal static class EditExpenseCommand
     private static decimal GetActual(this IAnsiConsole console, decimal prevActual) =>
         CurrencyComponent.Input(console, Constants.Edit.ActualLabel, prevActual, false);
 }
-
-// todo: implement show month operation on past reconciled snapshot.
-// todo: implement show year operation as well.

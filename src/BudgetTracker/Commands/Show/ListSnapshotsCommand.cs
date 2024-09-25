@@ -12,7 +12,7 @@ internal static class ListSnapshotsCommand
              .Apply(s => s.Console.Write(CreateTable(s.SnapshotRepo.GetEntities())))
              .Map(s => s with { Command = metadata.Name });
 
-    private static Table CreateTable(ReconciledSnapshot[] snapshots) =>
+    internal static Table CreateTable(ReconciledSnapshot[] snapshots) =>
         new Table()
             .Border(TableBorder.Rounded)
             .AddColumns(
