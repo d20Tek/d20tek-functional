@@ -3,15 +3,12 @@
 namespace BudgetTracker.Entities;
 
 internal sealed record ReconcileState(
-    DateTimeOffset StartDate,
-    DateTimeOffset EndDate,
+    DateRange Range,
     ReconciledIncome[] Incomes,
     ReconciledIncome? TotalIncome,
     ReconciledExpenses[] Expenses,
     ReconciledExpenses? TotalExpenses)
 {
-    public static ReconcileState Initialize(DateTimeOffset startDate, DateTimeOffset endDate) =>
-        new(startDate, endDate,[], null, [], null);
-
-    internal DateRange GetDateRange() => new(StartDate, EndDate);
+    public static ReconcileState Initialize(DateRange range) =>
+        new(range, [], null, [], null);
 }

@@ -12,21 +12,18 @@ internal static class ReconcileMonthCommand
         state.Console
             .Apply(c => c.DisplayHeader(Constants.Reconcile.HeaderLabel))
             .GetMonth()
-            .Map(month => state.CreateReconciledSnapshot(month.Start, month.End))
+            .Map(month => state.CreateReconciledSnapshot(month))
             .Apply(r => state.PerformReconciliation(r))
             .Map(r => state with { Command = metadata.Name });
 
-    private static (DateTimeOffset Start, DateTimeOffset End) GetMonth(this IAnsiConsole console) =>
+    private static DateRange GetMonth(this IAnsiConsole console) =>
         DateTimeOffsetPrompt.GetPastDate(console, Constants.Reconcile.DateLabel, DateTimeOffset.Now.StartOfMonth())
             .StartOfMonth()
-            .Map(start => (start, start.AddMonths(1)));
+            .Map(start => new DateRange(start, start.AddMonths(1)));
 
-    private static ReconciledSnapshot CreateReconciledSnapshot(
-        this AppState state,
-        DateTimeOffset start,
-        DateTimeOffset end) =>
-        ReconciledBuilder.GenerateSnapshot(start, end, state.IncomeRepo, state.CategoryRepo, state.ExpenseRepo)
-            .Apply(r => state.Console.WriteMessage(Constants.Reconcile.ItemsToReconcile(start.ToMonth())))
+    private static ReconciledSnapshot CreateReconciledSnapshot(this AppState state, DateRange range) =>
+        ReconciledBuilder.GenerateSnapshot(range, state.IncomeRepo, state.CategoryRepo, state.ExpenseRepo)
+            .Apply(r => state.Console.WriteMessage(Constants.Reconcile.ItemsToReconcile(range.Start.ToMonth())))
             .Apply(r => state.Console.Write(SnapshotTableHelper.CreateIncomeTable(r)))
             .Apply(r => state.Console.Write(SnapshotTableHelper.CreateExpenseTable(r)));
 

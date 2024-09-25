@@ -8,8 +8,7 @@ internal static class ShowCurrentCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         ReconciledBuilder.GenerateSnapshot(
-            Constants.Tables.DefaultStartDate,
-            DateTimeOffset.Now,
+            new (Constants.Tables.DefaultStartDate, DateTimeOffset.Now),
             state.IncomeRepo,
             state.CategoryRepo,
             state.ExpenseRepo)
