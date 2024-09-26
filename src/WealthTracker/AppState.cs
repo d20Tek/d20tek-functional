@@ -1,5 +1,4 @@
 ﻿using Spectre.Console;
-using WealthTracker.Persistence;
 
 namespace WealthTracker;
 

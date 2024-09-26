@@ -1,7 +1,6 @@
 ﻿using Apps.Common;
 using D20Tek.Minimal.Functional;
 using Spectre.Console;
-using WealthTracker.Persistence;
 
 namespace WealthTracker.Commands;
 

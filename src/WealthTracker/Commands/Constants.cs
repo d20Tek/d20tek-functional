@@ -1,6 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
-
-namespace WealthTracker.Commands;
+﻿namespace WealthTracker.Commands;
 
 internal static class Constants
 {
