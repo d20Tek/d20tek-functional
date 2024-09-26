@@ -9,7 +9,7 @@ internal static class RecordPastAmountCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Record.Header))
-             .Map(s => s.Repository.GetWealthEntryById(s.Console.GetId())
+             .Map(s => s.Repository.GetEntityById(s.Console.GetId())
                  .Apply(result => s.Console.DisplayMaybe(
                      result, e => s.Console.WriteMessage(Constants.Record.GetSuccessMessage(e))))
                  .Apply(result => PerformChange(s.Console, s.Repository, result))

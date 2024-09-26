@@ -8,7 +8,7 @@ internal static class ListWealthEntriesCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.WriteLine(Constants.List.AccountListHeader))
-             .Apply(s => s.Console.Write(CreateTable(s.Repository.GetWealthEntries())))
+             .Apply(s => s.Console.Write(CreateTable(s.Repository.GetEntities())))
              .Map(s => s with { Command = metadata.Name });
 
     private static Table CreateTable(WealthDataEntry[] entries) =>

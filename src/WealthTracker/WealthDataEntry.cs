@@ -1,9 +1,10 @@
 ﻿using Apps.Common;
+using Apps.Repositories;
 using D20Tek.Minimal.Functional;
 
 namespace WealthTracker;
 
-internal sealed class WealthDataEntry
+internal sealed class WealthDataEntry : IEntity
 {
     public int Id { get; private set; }
 
@@ -26,7 +27,7 @@ internal sealed class WealthDataEntry
         DailyValues = dailyValues ?? [];
     }
 
-    internal void SetId(int id) => Id = id;
+    public void SetId(int id) => Id = id;
 
     internal void UpdateEntry(string name, string[] categories)
     {

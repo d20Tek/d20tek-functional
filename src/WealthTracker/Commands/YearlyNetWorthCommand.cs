@@ -8,7 +8,7 @@ internal static class YearlyNetWorthCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.WriteLine(Constants.Yearly.ListHeader))
-             .Apply(s => s.Console.Write(CreateTable(s.Repository.GetWealthEntries(), GetDateRange())))
+             .Apply(s => s.Console.Write(CreateTable(s.Repository.GetEntities(), GetDateRange())))
              .Map(s => s with { Command = metadata.Name });
 
     private static Table CreateTable(WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>

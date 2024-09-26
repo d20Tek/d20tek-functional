@@ -1,16 +1,9 @@
-﻿using D20Tek.Minimal.Functional;
+﻿global using IWealthRepository = Apps.Repositories.IRepository<WealthTracker.WealthDataEntry>;
+
+using Apps.Repositories;
 
 namespace WealthTracker.Persistence;
 
-internal interface IWealthRepository
+internal sealed class WealthDataStore : DataStoreElement<WealthDataEntry>
 {
-    Maybe<WealthDataEntry> Create(WealthDataEntry entry);
-
-    Maybe<WealthDataEntry> Delete(int id);
-    
-    WealthDataEntry[] GetWealthEntries();
-    
-    Maybe<WealthDataEntry> GetWealthEntryById(int id);
-    
-    Maybe<WealthDataEntry> Update(WealthDataEntry entry);
 }

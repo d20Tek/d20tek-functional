@@ -9,7 +9,7 @@ internal static class EditWealthEntryCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Apply(s => s.Console.DisplayHeader(Constants.Edit.Header))
-             .Map(s => s.Repository.GetWealthEntryById(s.Console.GetId())
+             .Map(s => s.Repository.GetEntityById(s.Console.GetId())
                  .Apply(result => s.Console.DisplayMaybe(
                      result, e => s.Console.WriteMessage(Constants.Edit.GetSuccessMessage(e))))
                  .Apply(result => PerformEdit(s.Console, s.Repository, result))
