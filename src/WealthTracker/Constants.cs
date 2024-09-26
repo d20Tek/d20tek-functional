@@ -15,6 +15,7 @@ internal static class Constants
         " - unrecord (u): remove today's recorded value from an account.",
         " - current (c): list the current net worth based on latest account entries.",
         " - monthly (m): list monthly net worth for last 6 months.",
+        " - yearly (y): list yearly net worth for last 5 years.",
         " - record-date (rd): record the value on an account for specified date in the past.",
         " - unrecord-date (ud): remove recorded value from an account on specified date in the past.",
         " - help (h): show list of the available commands in this app.",

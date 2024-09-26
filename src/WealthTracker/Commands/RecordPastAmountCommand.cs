@@ -33,5 +33,5 @@ internal static class RecordPastAmountCommand
         DateTimeOffsetPrompt.GetPastDate(console, Constants.Record.DateLabel);
 
     private static decimal GetAmount(this IAnsiConsole console) =>
-        MoneyComponent.Input(console, Constants.Record.AmountLabel);
+        CurrencyComponent.Input(console, Constants.Record.AmountLabel);
 }

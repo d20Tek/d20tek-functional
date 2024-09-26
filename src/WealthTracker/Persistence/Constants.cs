@@ -5,7 +5,7 @@ namespace WealthTracker.Persistence;
 internal static class Constants
 {
     public const string DatabaseFile = "wealth-data.json";
-    public const string AppFolder = "\\WealthTracker";
+    public const string AppFolder = "\\d20tek-fin";
 
     public static Maybe<WealthDataEntry> NotFoundError(int id) =>
         new Failure<WealthDataEntry>(Error.NotFound("Entry.NotFound", $"Entry with id={id} not found."));

@@ -5,7 +5,24 @@ namespace Apps.Common;
 
 internal static class CurrencyComponent
 {
+    private const decimal _thousand = 1000M;
+    private const decimal _million = 1_000_000M;
+    private const decimal _billion = 1_000_000_000M;
+
     public static string Render(decimal value) => $"{value:C}";
+
+    public static string RenderWithNegative(decimal value) =>
+        value >= 0 ? $"{value:C}"
+                   : $"[red]{value:C}[/]";
+
+    public static string RenderShort(decimal value) =>
+        value switch
+        {
+            > _billion => $"{(value / _billion):0.##}B",
+            > _million => $"{(value / _million):0.##}M",
+            > _thousand => $"{(value / _thousand):0.##}K",
+            _ => $"{value:0.##}"
+        };
 
     public static decimal Input(IAnsiConsole console, string label, bool allowNegatives = true) =>
         console.Prompt(CreateTextPrompt(label, allowNegatives)).ToDecimal();

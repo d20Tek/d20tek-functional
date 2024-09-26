@@ -38,8 +38,8 @@ internal static class MonthlyNetWorthCommand
     private static string[] CreateRow(WealthDataEntry entry, DateTimeOffset[] dateRange) =>
     [
         entry.Id.ToString(), entry.Name.CapOverflow(Constants.Monthly.ColumnNameLen),
-        .. dateRange.Select(date => MoneyComponent.RenderShort(entry.GetLatestValueFor(date))),
-        MoneyComponent.RenderShort(entry.GetLatestValue())
+        .. dateRange.Select(date => CurrencyComponent.RenderShort(entry.GetLatestValueFor(date))),
+        CurrencyComponent.RenderShort(entry.GetLatestValue())
     ];
 
     private static string[][] CreateTotalRow(WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>
@@ -48,8 +48,8 @@ internal static class MonthlyNetWorthCommand
         [
             string.Empty,
             Constants.Monthly.TotalLabel,
-            .. dateRange.Select(d => MoneyComponent.RenderShort(entries.Sum(x => x.GetLatestValueFor(d)))),
-            MoneyComponent.RenderShort(entries.Sum(x => x.GetLatestValue())),
+            .. dateRange.Select(d => CurrencyComponent.RenderShort(entries.Sum(x => x.GetLatestValueFor(d)))),
+            CurrencyComponent.RenderShort(entries.Sum(x => x.GetLatestValue())),
         ]
     ];
 
