@@ -12,9 +12,9 @@ public abstract class Option<T>
 
     public bool IsNone => this is None<T>;
 
-    protected abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
+    internal abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
-    public virtual Option<TResult> Bind<TResult>(Func<T, Option<TResult>> bind) where TResult : notnull =>  
+    public Option<TResult> Bind<TResult>(Func<T, Option<TResult>> bind) where TResult : notnull =>  
         Match(v => bind(v), () => Option<TResult>.None());
 
     public bool Contains(T value) => Match(v => v.Equals(value), () => false);
@@ -31,6 +31,12 @@ public abstract class Option<T>
         Match(
             v => predicate(v) ? Option<T>.Some(v) : Option<T>.None(),
             () => Option<T>.None());
+
+    public TResult Fold<TResult>(TResult initial, Func<TResult, T, TResult> func) where TResult : notnull =>
+        Match(v => func(initial, v), () => initial);
+
+    public TResult FoldBack<TResult>(TResult initial, Func<T, TResult, TResult> func) where TResult : notnull =>
+        Match(v => func(v, initial), () => initial);
 
     public T Get() => Match(v => v, () => throw new ArgumentNullException("Value"));
 }

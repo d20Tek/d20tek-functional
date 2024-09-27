@@ -272,6 +272,84 @@ public class OptionTests
     }
 
     [TestMethod]
+    public void Fold_WithSomeValue_ReturnsAccumulated()
+    {
+        // arrange
+        var option = Option<int>.Some(1);
+
+        // act
+        var result = option.Fold(0, (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(2);
+    }
+
+    [TestMethod]
+    public void Fold_WithSomeValueAndInitial_ReturnsAccumulated()
+    {
+        // arrange
+        var option = Option<int>.Some(2);
+
+        // act
+        var result = option.Fold(10, (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(14);
+    }
+
+    [TestMethod]
+    public void Fold_WithNone_ReturnsInitial()
+    {
+        // arrange
+        var option = Option<int>.None();
+
+        // act
+        var result = option.Fold(0, [ExcludeFromCodeCoverage] (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(0);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithSomeValue_ReturnsAccumulated()
+    {
+        // arrange
+        var option = Option<int>.Some(1);
+
+        // act
+        var result = option.FoldBack(0, (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(2);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithSomeValueAndInitial_ReturnsAccumulated()
+    {
+        // arrange
+        var option = Option<int>.Some(2);
+
+        // act
+        var result = option.FoldBack(10, (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(14);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithNone_ReturnsInitial()
+    {
+        // arrange
+        var option = Option<int>.None();
+
+        // act
+        var result = option.FoldBack(0, [ExcludeFromCodeCoverage] (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(0);
+    }
+
+    [TestMethod]
     public void Get_WithSomeValue_ReturnsValue()
     {
         // arrange
