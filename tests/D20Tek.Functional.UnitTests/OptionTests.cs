@@ -34,45 +34,6 @@ public class OptionTests
     }
 
     [TestMethod]
-    public void Bind_WithValidValue_ReturnsSome()
-    {
-        // arrange
-        var option = Option<string>.Some("42");
-
-        // act
-        var result = option.Bind(v => OptionHelper.TryParse(v));
-
-        // assert
-        result.IsSome.Should().BeTrue();
-        result.Get().Should().Be(42);
-    }
-
-    [TestMethod]
-    public void Bind_WithInvalidValue_ReturnsSome()
-    {
-        // arrange
-        var option = Option<string>.Some("non-int-text");
-
-        // act
-        var result = option.Bind(v => OptionHelper.TryParse(v));
-
-        // assert
-        result.IsNone.Should().BeTrue();
-    }
-
-    [TestMethod]
-    public void Bind_WithNoneOption_ReturnsSome()
-    {
-        // arrange
-        var option = Option<string>.None();
-
-        // act
-        var result = option.Bind([ExcludeFromCodeCoverage](v) => OptionHelper.TryParse(v));
-
-        // assert
-        result.IsNone.Should().BeTrue();
-    }
-    [TestMethod]
     public void Contains_WithEqualSomeValue_ReturnsTrue()
     {
         // arrange
@@ -350,6 +311,45 @@ public class OptionTests
     }
 
     [TestMethod]
+    public void ForAll_WithSomeAndPositivePredicate_ReturnsTrue()
+    {
+        // arrange
+        var option = Option<int>.Some(42);
+
+        // act
+        var result = option.ForAll(x => x >= 5);
+
+        // assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void ForAll_WithSomeAndNegativePredicate_ReturnsFalse()
+    {
+        // arrange
+        var option = Option<int>.Some(4);
+
+        // act
+        var result = option.ForAll(x => x >= 5);
+
+        // assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void ForAll_WithNone_ReturnsTrue()
+    {
+        // arrange
+        var option = Option<string>.None();
+
+        // act
+        var result = option.ForAll([ExcludeFromCodeCoverage] (x) => x == string.Empty);
+
+        // assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
     public void Get_WithSomeValue_ReturnsValue()
     {
         // arrange
@@ -372,5 +372,33 @@ public class OptionTests
 
         // act
         _ = option.Get();
+    }
+
+    [TestMethod]
+    public void Iter_WithSomeValue_PerformsAction()
+    {
+        // arrange
+        var output = string.Empty;
+        var option = Option<string>.Some("Hello World");
+
+        // act
+        option.Iter(x => output = x);
+
+        // assert
+        output.Should().Be("Hello World");
+    }
+
+    [TestMethod]
+    public void Iter_WithNone_DoesNotPerformAction()
+    {
+        // arrange
+        var output = string.Empty;
+        var option = Option<string>.None();
+
+        // act
+        option.Iter([ExcludeFromCodeCoverage] (x) => output = x);
+
+        // assert
+        output.Should().Be(string.Empty);
     }
 }
