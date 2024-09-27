@@ -401,4 +401,64 @@ public class OptionTests
         // assert
         output.Should().Be(string.Empty);
     }
+
+    [TestMethod]
+    public void OrElse_WithSomeValue_ReturnsThatSome()
+    {
+        // arrange
+        var option = Option<decimal>.Some(100M);
+        var ifNone = Option<decimal>.Some(41);
+
+        // act
+        var result = option.OrElse(ifNone);
+
+        // assert
+        result.Should().Be(option);
+        result.Get().Should().Be(100M);
+    }
+
+    [TestMethod]
+    public void OrElse_WithNoneValue_ReturnsOtherSome()
+    {
+        // arrange
+        var option = Option<decimal>.None();
+        var ifNone = Option<decimal>.Some(41);
+
+        // act
+        var result = option.OrElse(ifNone);
+
+        // assert
+        result.Should().Be(ifNone);
+        result.Get().Should().Be(41);
+    }
+
+    [TestMethod]
+    public void OrElseWith_WithSomeValue_ReturnsThatSome()
+    {
+        // arrange
+        var option = Option<decimal>.Some(100M);
+        var ifNone = Option<decimal>.Some(41);
+
+        // act
+        var result = option.OrElseWith([ExcludeFromCodeCoverage] () => ifNone);
+
+        // assert
+        result.Should().Be(option);
+        result.Get().Should().Be(100M);
+    }
+
+    [TestMethod]
+    public void OrElseWith_WithNoneValue_ReturnsOtherSome()
+    {
+        // arrange
+        var option = Option<decimal>.None();
+        var ifNone = Option<decimal>.Some(41);
+
+        // act
+        var result = option.OrElseWith(() => ifNone);
+
+        // assert
+        result.Should().Be(ifNone);
+        result.Get().Should().Be(41);
+    }
 }

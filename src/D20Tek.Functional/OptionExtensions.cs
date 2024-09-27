@@ -27,3 +27,16 @@ public static class OptionExtensions
             ? Option<TResult>.Some(mapper(opt1.Get(), opt2.Get(), opt3.Get()))
             : Option<TResult>.None();
 }
+
+public static class Option
+{
+    public static Option<T> Some<T>(T value) where T : notnull => new Some<T>(value);
+
+    public static Option<T> None<T>() where T : notnull => new None<T>();
+
+    public static Option<T> OfNullable<T>(Nullable<T> value) where T : struct =>
+        value.HasValue ? Some(value.Value) : None<T>();
+
+    public static Option<T> OfObj<T>(T? obj) where T : class =>
+        obj != null ? Some(obj) : None<T>();
+}

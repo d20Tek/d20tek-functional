@@ -49,4 +49,8 @@ public abstract class Option<T>
 
     public Option<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
         Match(v => Option<TResult>.Some(mapper(v)), () => Option<TResult>.None());
+
+    public Option<T> OrElse(Option<T> ifNone) => IsSome ? this : ifNone;
+
+    public Option<T> OrElseWith(Func<Option<T>> ifNone) => IsSome ? this : ifNone();
 }
