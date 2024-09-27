@@ -1,4 +1,6 @@
-﻿namespace D20Tek.Functional;
+﻿using System.Collections.Immutable;
+
+namespace D20Tek.Functional;
 
 public abstract class Option<T>
     where T : notnull
@@ -53,4 +55,12 @@ public abstract class Option<T>
     public Option<T> OrElse(Option<T> ifNone) => IsSome ? this : ifNone;
 
     public Option<T> OrElseWith(Func<Option<T>> ifNone) => IsSome ? this : ifNone();
+
+    public T[] ToArray() => IsSome ? [Get()] : [];
+
+    public ImmutableList<T> ToList() => IsSome ? [Get()] : [];
+
+    public T? ToNullable() => IsSome ? Get() : default;
+
+    public T? ToObj() => IsSome ? Get() : default;
 }
