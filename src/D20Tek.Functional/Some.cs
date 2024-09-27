@@ -3,10 +3,9 @@
 public sealed class Some<T> : Option<T>
     where T : notnull
 {
-    private readonly T _value
-        ;
+    private readonly T _value;
 
-    public Some(T value) => _value = value;
+    internal Some(T value) => _value = value;
 
     internal override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
         onSome(_value);

@@ -52,15 +52,15 @@ public abstract class Option<T>
     public Option<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
         Match(v => Option<TResult>.Some(mapper(v)), () => Option<TResult>.None());
 
-    public Option<T> OrElse(Option<T> ifNone) => IsSome ? this : ifNone;
+    public Option<T> OrElse(Option<T> ifNone) => Match(v => this, () => ifNone);
 
-    public Option<T> OrElseWith(Func<Option<T>> ifNone) => IsSome ? this : ifNone();
+    public Option<T> OrElseWith(Func<Option<T>> ifNone) => Match(v => this, () => ifNone());
 
-    public T[] ToArray() => IsSome ? [Get()] : [];
+    public T[] ToArray() => Match<T[]>(v => [v], () => []);
 
-    public ImmutableList<T> ToList() => IsSome ? [Get()] : [];
+    public ImmutableList<T> ToList() => Match<ImmutableList<T>>(v => [v], () => []);
 
-    public T? ToNullable() => IsSome ? Get() : default;
+    public T? ToNullable() => Match<T?>(v => v, () => default);
 
-    public T? ToObj() => IsSome ? Get() : default;
+    public T? ToObj() => Match<T?>(v => v, () => default);
 }

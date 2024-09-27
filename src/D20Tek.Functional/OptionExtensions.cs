@@ -2,6 +2,9 @@
 
 public static class OptionExtensions
 {
+    public static Option<T> ToOption<T>(this T? source) where T : notnull =>
+        source is null ? Option.None<T>() : Option.Some<T>(source);
+
     public static Option<T> Flatten<T>(this Option<Option<T>> option) where T : notnull =>
         option.Match(someOption => someOption, () => Option<T>.None());
 
