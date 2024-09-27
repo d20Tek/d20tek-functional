@@ -14,28 +14,23 @@ public abstract class Option<T>
 
     protected abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
-    public virtual Option<TResult> Bind<TResult>(Func<T, Option<TResult>> bind) where TResult : notnull => 
+    public virtual Option<TResult> Bind<TResult>(Func<T, Option<TResult>> bind) where TResult : notnull =>  
         Match(v => bind(v), () => Option<TResult>.None());
 
     public bool Contains(T value) => Match(v => v.Equals(value), () => false);
 
     public int Count() => Match(_ => 1, () => 0);
-}
 
-public sealed class None<T> : Option<T>
-    where T : notnull
-{
-    protected override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
-        onNone();
-}
+    public T DefaultValue(T defaultArg) => Match(v => v, () => defaultArg);
 
-public sealed class Some<T> : Option<T>
-    where T : notnull
-{
-    private readonly T _value;
+    public T DefaultWith(Func<T> func) => Match(v => v, () => func());
 
-    public Some(T value) => _value = value;
+    public bool Exists(Func<T, bool> predicate) => Match(v => predicate(v), () => false);
 
-    protected override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
-        onSome(_value);
+    public Option<T> Filter(Func<T, bool> predicate) => 
+        Match(
+            v => predicate(v) ? Option<T>.Some(v) : Option<T>.None(),
+            () => Option<T>.None());
+
+    public T Get() => Match(v => v, () => throw new ArgumentNullException("Value"));
 }
