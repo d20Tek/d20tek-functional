@@ -67,5 +67,5 @@ public abstract class Option<T>
     public T? ToObj() => Match<T?>(v => v, () => default);
 
     public override string ToString() =>
-        Match<string>(v => $"Some<{typeof(T).Name}>(value = {v})", () => $"None<{typeof(T).Name}>");
+        Match(v => $"Some<{typeof(T).Name}>(value = {v})", () => $"None<{typeof(T).Name}>");
 }
