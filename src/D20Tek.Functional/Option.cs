@@ -10,6 +10,8 @@ public abstract class Option<T>
 
     public static Option<T> None() => new None<T>();
 
+    public static implicit operator Option<T>(T instance) => instance.ToOption();
+
     public bool IsSome => this is Some<T>;
 
     public bool IsNone => this is None<T>;
@@ -63,4 +65,7 @@ public abstract class Option<T>
     public T? ToNullable() => Match<T?>(v => v, () => default);
 
     public T? ToObj() => Match<T?>(v => v, () => default);
+
+    public override string ToString() =>
+        Match<string>(v => $"Some<{typeof(T).Name}>(value = {v})", () => $"None<{typeof(T).Name}>");
 }

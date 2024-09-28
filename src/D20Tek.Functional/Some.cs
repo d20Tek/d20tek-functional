@@ -9,4 +9,7 @@ public sealed class Some<T> : Option<T>
 
     internal override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
         onSome(_value);
+
+    public static implicit operator Some<T>(T instance) => new(instance);
+    public static implicit operator T(Some<T> instance) => instance._value;
 }

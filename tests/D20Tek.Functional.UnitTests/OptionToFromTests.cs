@@ -204,4 +204,30 @@ public class OptionToFromTests
         // assert
         result.Should().BeNull();
     }
+
+    [TestMethod]
+    public void ToString_WithSomeValue_ReturnsSomeString()
+    {
+        // arrange
+        var option = Option.Some<int>(13);
+
+        // act
+        var result = option.ToString();
+
+        // assert
+        result.Should().Be("Some<Int32>(value = 13)");
+    }
+
+    [TestMethod]
+    public void ToString_WithNone_ReturnsSomeString()
+    {
+        // arrange
+        var option = Option.None<int>();
+
+        // act
+        var result = option.ToString();
+
+        // assert
+        result.Should().Be("None<Int32>");
+    }
 }
