@@ -92,4 +92,84 @@ public class ResultTests
         // assert
         result.IsFailure.Should().BeTrue();
     }
+
+    [TestMethod]
+    public void Count_WithSuccessValue_ReturnsOne()
+    {
+        // arrange
+        var result = Result<DateTimeOffset>.Success(DateTimeOffset.Now);
+
+        // act
+        int count = result.Count();
+
+        // assert
+        count.Should().Be(1);
+    }
+
+    [TestMethod]
+    public void Count_WithFailureError_ReturnsZero()
+    {
+        // arrange
+        var result = Result<DateTimeOffset>.Failure(Error.Unexpected("code", "test"));
+
+        // act
+        int count = result.Count();
+
+        // assert
+        count.Should().Be(0);
+    }
+
+    [TestMethod]
+    public void DefaultValue_WithSuccessValue_ReturnsValue()
+    {
+        // arrange
+        var input = Result<int>.Success(10);
+
+        // act
+        var result = input.DefaultValue(42);
+
+        // assert
+        result.Should().Be(10);
+    }
+
+    [TestMethod]
+    public void DefaultValue_WithFailure_ReturnsDefault()
+    {
+        // arrange
+        var input = Result<int>.Failure(Error.Conflict("code", "test"));
+
+        // act
+        var result = input.DefaultValue(42);
+
+        // assert
+        result.Should().Be(42);
+    }
+
+    [TestMethod]
+    public void DefaultWith_WithSuccessValue_ReturnsValue()
+    {
+        // arrange
+        var x = 10;
+        var input = Result<int>.Success(x);
+
+        // act
+        var result = input.DefaultWith([ExcludeFromCodeCoverage] () => x + 1);
+
+        // assert
+        result.Should().Be(10);
+    }
+
+    [TestMethod]
+    public void DefaultWith_WithFailure_ReturnsDefault()
+    {
+        // arrange
+        var defDate = DateTimeOffset.Now;
+        var input = Result<DateTimeOffset>.Failure(Error.Failure("code", "test"));
+
+        // act
+        var result = input.DefaultWith(() => defDate);
+
+        // assert
+        result.Should().Be(defDate);
+    }
 }

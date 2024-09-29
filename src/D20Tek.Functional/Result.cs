@@ -18,5 +18,11 @@ public abstract class Result<T>
     public Result<TResult> Bind<TResult>(Func<T, Result<TResult>> bind) where TResult : notnull =>
         Match(v => bind(v), e => Result<TResult>.Failure(e));
 
+    public int Count() => Match(_ => 1, _ => 0);
+
+    public T DefaultValue(T defaultArg) => Match(v => v, _ => defaultArg);
+
+    public T DefaultWith(Func<T> func) => Match(v => v, _ => func());
+
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
 }
