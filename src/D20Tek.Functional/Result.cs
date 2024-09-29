@@ -24,5 +24,15 @@ public abstract class Result<T>
 
     public T DefaultWith(Func<T> func) => Match(v => v, _ => func());
 
+    public bool Exists(Func<T, bool> predicate) => Match(v => predicate(v), _ => false);
+
+    public Result<T> Filter(Func<T, bool> predicate) =>
+        Match(
+            v => predicate(v) ? Result<T>.Success(v)
+                              : Result<T>.Failure(Error.NotFound("Filter.Error", "No filtered items found.")),
+            e => Result<T>.Failure(e));
+
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
+
+    public Error[] GetErrors() => Match(_ => [], e => e);
 }

@@ -172,4 +172,88 @@ public class ResultTests
         // assert
         result.Should().Be(defDate);
     }
+
+    [TestMethod]
+    public void Exists_WithSuccessAndPositivePredicate_ReturnsTrue()
+    {
+        // arrange
+        var input = Result<int>.Success(42);
+
+        // act
+        var result = input.Exists(x => x > 10);
+
+        // assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void Exists_WithSuccessAndNegativePredicate_ReturnsFalse()
+    {
+        // arrange
+        var input = Result<int>.Success(42);
+
+        // act
+        var result = input.Exists(x => x == 10);
+
+        // assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void Exists_WithNone_ReturnsFalse()
+    {
+        // arrange
+        var input = Result<string>.Failure(Error.Create("code", "test", 404));
+
+        // act
+        var result = input.Exists([ExcludeFromCodeCoverage] (x) => x == string.Empty);
+
+        // assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void Filter_WithSuccessAndPositivePredicate_ReturnsSuccess()
+    {
+        // arrange
+        var input = Result<int>.Success(42);
+
+        // act
+        var result = input.Filter(x => x >= 5);
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public void Filter_WithSuccessAndNegativePredicate_ReturnsNotFoundError()
+    {
+        // arrange
+        var input = Result<int>.Success(4);
+
+        // act
+        var result = input.Filter(x => x >= 5);
+        var errors = result.GetErrors();
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+        errors.Length.Should().Be(1);
+        errors.First().Code.Should().Be("Filter.Error");
+        errors.First().Message.Should().Contain("found");
+        errors.First().Type.Should().Be(ErrorType.NotFound);
+    }
+
+    [TestMethod]
+    public void Filter_WithFailure_ReturnsFailure()
+    {
+        // arrange
+        var input = Result<int>.Failure(Error.Invalid("code", "error"));
+
+        // act
+        var result = input.Filter([ExcludeFromCodeCoverage] (x) => x >= 5);
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
 }

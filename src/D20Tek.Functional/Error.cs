@@ -39,7 +39,7 @@ public readonly struct Error
     public static Error Invalid(string code, string message) =>
         new(code, message, ErrorType.Invalid);
 
-    public static Error Custom(string code, string message, int errorType) =>
+    public static Error Create(string code, string message, int errorType) =>
         new(code, message, errorType);
 
     public override string ToString() => $"Error ({Code} [{Type}]): {Message}";
