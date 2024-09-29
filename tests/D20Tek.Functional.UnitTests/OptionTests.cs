@@ -461,4 +461,31 @@ public class OptionTests
         result.Should().Be(ifNone);
         result.Get().Should().Be(41);
     }
+
+    [TestMethod]
+    public void opImplicit_WithValue_ReturnsSome()
+    {
+        // arrange
+        Some<string> option = "test";
+
+        // act
+        string value = option;
+
+        // assert
+        option.IsSome.Should().BeTrue();
+        value.Should().Be("test");
+    }
+
+    [TestMethod]
+    public void opImplicit_WithValue_ReturnsOption()
+    {
+        // arrange
+        Option<string> option = "test";
+
+        // act
+
+        // assert
+        option.IsSome.Should().BeTrue();
+        option.Get().Should().Be("test");
+    }
 }
