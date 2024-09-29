@@ -14,4 +14,9 @@ public abstract class Result<T>
     public bool IsFailure => this is Failure<T>;
 
     protected abstract TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Error[], TResult> onFailure);
+
+    public Result<TResult> Bind<TResult>(Func<T, Result<TResult>> bind) where TResult : notnull =>
+        Match(v => bind(v), e => Result<TResult>.Failure(e));
+
+    public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
 }

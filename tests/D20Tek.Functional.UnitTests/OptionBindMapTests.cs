@@ -18,7 +18,7 @@ public class OptionBindMapTests
     }
 
     [TestMethod]
-    public void Bind_WithInvalidValue_ReturnsSome()
+    public void Bind_WithInvalidValue_ReturnsNone()
     {
         // arrange
         var option = Option<string>.Some("non-int-text");
@@ -31,7 +31,7 @@ public class OptionBindMapTests
     }
 
     [TestMethod]
-    public void Bind_WithNoneOption_ReturnsSome()
+    public void Bind_WithNoneOption_ReturnsNone()
     {
         // arrange
         var option = Option<string>.None();
