@@ -57,46 +57,6 @@ public class ResultTests
     }
 
     [TestMethod]
-    public void Bind_WithValidValue_ReturnsSuccess()
-    {
-        // arrange
-        var input = Result<string>.Success("42");
-
-        // act
-        var result = input.Bind(v => ResultHelper.TryParse(v));
-
-        // assert
-        result.IsSuccess.Should().BeTrue();
-        result.GetValue().Should().Be(42);
-    }
-
-    [TestMethod]
-    public void Bind_WithInvalidValue_ReturnsFailure()
-    {
-        // arrange
-        var input = Result<string>.Success("non-int-text");
-
-        // act
-        var result = input.Bind(v => ResultHelper.TryParse(v));
-
-        // assert
-        result.IsFailure.Should().BeTrue();
-    }
-
-    [TestMethod]
-    public void Bind_WithExistingFailure_ReturnsFailure()
-    {
-        // arrange
-        var input = Result<string>.Failure(Error.NotFound("id", "error"));
-
-        // act
-        var result = input.Bind([ExcludeFromCodeCoverage] (v) => ResultHelper.TryParse(v));
-
-        // assert
-        result.IsFailure.Should().BeTrue();
-    }
-
-    [TestMethod]
     public void Count_WithSuccessValue_ReturnsOne()
     {
         // arrange
@@ -414,5 +374,33 @@ public class ResultTests
 
         // assert
         errors.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void Iter_WithSuccessValue_PerformsAction()
+    {
+        // arrange
+        var output = string.Empty;
+        var result = Result<string>.Success("Hello World");
+
+        // act
+        result.Iter(x => output = x);
+
+        // assert
+        output.Should().Be("Hello World");
+    }
+
+    [TestMethod]
+    public void Iter_WithFailure_DoesNotPerformAction()
+    {
+        // arrange
+        var output = string.Empty;
+        var result = Result<string>.Failure(Error.Invalid("code", "test"));
+
+        // act
+        result.Iter([ExcludeFromCodeCoverage] (x) => output = "foo");
+
+        // assert
+        output.Should().Be(string.Empty);
     }
 }

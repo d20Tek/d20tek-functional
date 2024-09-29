@@ -43,4 +43,15 @@ public abstract class Result<T>
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
 
     public Error[] GetErrors() => Match(_ => [], e => e);
+
+    public void Iter(Action<T> action)
+    {
+        if (IsSuccess) action(GetValue());
+    }
+
+    public Result<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
+        Match(v => Result<TResult>.Success(mapper(v)), e => Result<TResult>.Failure(e));
+
+    public Result<TResult> MapErrors<TResult>(Func<Error[], Result<TResult>> mapper) where TResult : notnull =>
+        Match(_ => throw new InvalidOperationException(), e => mapper(e));
 }
