@@ -32,6 +32,14 @@ public abstract class Result<T>
                               : Result<T>.Failure(Error.NotFound("Filter.Error", "No filtered items found.")),
             e => Result<T>.Failure(e));
 
+    public TResult Fold<TResult>(TResult initial, Func<TResult, T, TResult> func) where TResult : notnull =>
+        Match(v => func(initial, v), _ => initial);
+
+    public TResult FoldBack<TResult>(TResult initial, Func<T, TResult, TResult> func) where TResult : notnull =>
+        Match(v => func(v, initial), _ => initial);
+
+    public bool ForAll(Func<T, bool> predicate) => Match(v => predicate(v), _ => true);
+
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
 
     public Error[] GetErrors() => Match(_ => [], e => e);

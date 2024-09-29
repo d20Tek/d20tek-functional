@@ -1,4 +1,7 @@
-﻿namespace D20Tek.Functional.UnitTests;
+﻿using FluentAssertions.Equivalency;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+
+namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
 public class ResultTests
@@ -255,5 +258,161 @@ public class ResultTests
 
         // assert
         result.IsFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void Fold_WithSuccessValue_ReturnsAccumulated()
+    {
+        // arrange
+        var input = Result<int>.Success(1);
+
+        // act
+        var result = input.Fold(0, (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(2);
+    }
+
+    [TestMethod]
+    public void Fold_WithSuccessValueAndInitial_ReturnsAccumulated()
+    {
+        // arrange
+        var input = Result<int>.Success(2);
+
+        // act
+        var result = input.Fold(10, (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(14);
+    }
+
+    [TestMethod]
+    public void Fold_WithFailure_ReturnsInitial()
+    {
+        // arrange
+        var input = Result<int>.Failure(Error.Unauthorized("code", "test"));
+
+        // act
+        var result = input.Fold(5, [ExcludeFromCodeCoverage] (acc, value) => acc + value * 2);
+
+        // assert
+        result.Should().Be(5);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithSuccessValue_ReturnsAccumulated()
+    {
+        // arrange
+        var input = Result<int>.Success(1);
+
+        // act
+        var result = input.FoldBack(0, (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(2);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithSuccessValueAndInitial_ReturnsAccumulated()
+    {
+        // arrange
+        var input = Result<int>.Success(2);
+
+        // act
+        var result = input.FoldBack(10, (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(14);
+    }
+
+    [TestMethod]
+    public void FoldBack_WithFailure_ReturnsInitial()
+    {
+        // arrange
+        var input = Result<int>.Failure(Error.Forbidden("code", "test"));
+
+        // act
+        var result = input.FoldBack(5, [ExcludeFromCodeCoverage] (value, acc) => acc + value * 2);
+
+        // assert
+        result.Should().Be(5);
+    }
+
+    [TestMethod]
+    public void ForAll_WithSuccessAndPositivePredicate_ReturnsTrue()
+    {
+        // arrange
+        var input = Result<int>.Success(42);
+
+        // act
+        var result = input.ForAll(x => x >= 5);
+
+        // assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void ForAll_WithSuccessAndNegativePredicate_ReturnsFalse()
+    {
+        // arrange
+        var input = Result<int>.Success(4);
+
+        // act
+        var result = input.ForAll(x => x >= 5);
+
+        // assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void ForAll_WithFailure_ReturnsTrue()
+    {
+        // arrange
+        var input = Result<string>.Failure(Error.Unexpected("code", "test"));
+
+        // act
+        var result = input.ForAll([ExcludeFromCodeCoverage] (x) => x == string.Empty);
+
+        // assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    [ExcludeFromCodeCoverage]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void GetValue_WithFailure_ThrowsException()
+    {
+        // arrange
+        var result = Result<decimal>.Failure(Error.Invalid("code", "test"));
+
+        // act
+        _ = result.GetValue();
+    }
+
+    [TestMethod]
+    public void GetErrors_WithFailure_ReturnsError()
+    {
+        // arrange
+        var result = Result<decimal>.Failure(Error.Validation("code", "test"));
+
+        // act
+        var errors = result.GetErrors();
+
+        // assert
+        errors.Length.Should().Be(1);
+        errors.First().ToString().Should().Be("Error (code [2]): test");
+    }
+
+    [TestMethod]
+    public void GetErrors_WithSuccess_ReturnsEmptyErrors()
+    {
+        // arrange
+        var result = Result<decimal>.Success(42);
+
+        // act
+        var errors = result.GetErrors();
+
+        // assert
+        errors.Should().BeEmpty();
     }
 }
