@@ -1,4 +1,6 @@
-﻿namespace D20Tek.Functional;
+﻿using System.Collections.Immutable;
+
+namespace D20Tek.Functional;
 
 public abstract class Result<T>
     where T : notnull
@@ -54,4 +56,15 @@ public abstract class Result<T>
 
     public Result<TResult> MapErrors<TResult>(Func<Error[], Result<TResult>> mapper) where TResult : notnull =>
         Match(_ => throw new InvalidOperationException(), e => mapper(e));
+
+    public T[] ToArray() => Match<T[]>(v => [v], _ => []);
+
+    public ImmutableList<T> ToList() => Match<ImmutableList<T>>(v => [v], _ => []);
+
+    public Option<T> ToOption() => Match(v => Option<T>.Some(v), _ => Option<T>.None());
+
+    public override string ToString() =>
+        Match(
+            v => $"Success<{typeof(T).Name}>(value = {v})",
+            e => $"Failure<{typeof(T).Name}>(errors = {string.Join(Environment.NewLine, e)})");
 }
