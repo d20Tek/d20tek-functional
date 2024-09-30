@@ -47,8 +47,5 @@ public sealed class Choice<T1, T2>
     public Choice<TResult, T2> Map<TResult>(Func<T1, TResult> mapFunc) where TResult : notnull => 
         Match(t1 => new Choice<TResult, T2>(mapFunc(t1)), t2 => new Choice<TResult, T2>(t2));
 
-    public override string ToString() =>
-        Match(
-            v1 => $"Choice<{typeof(T1).Name}>(value = {v1})",
-            v2 => $"Choice<{typeof(T2).Name}>(value = {v2})");
+    public override string ToString() => $"Choice<{_value.GetType().Name}>(value = {_value})";
 }
