@@ -415,4 +415,45 @@ public class ResultTests
         // assert
         output.Should().Be(string.Empty);
     }
+
+    [TestMethod]
+    public void Flatten_WithSuccessSuccessValue_ReturnsInnerSuccess()
+    {
+        // arrange
+        var input = Result<Result<int>>.Success(Result<int>.Success(42));
+
+        // act
+        var result = input.Flatten();
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public void Flatten_WithSuccessFailureValue_ReturnsInnerFailure()
+    {
+        // arrange
+        var input = Result<Result<int>>.Success(
+            Result<int>.Failure(Error.Invalid("code", "test")));
+
+        // act
+        var result = input.Flatten();
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void Flatten_WithFailureFailure_ReturnsFailure()
+    {
+        // arrange
+        var input = Result<Result<int>>.Failure(Error.Invalid("code", "test"));
+
+        // act
+        var result = input.Flatten();
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
 }

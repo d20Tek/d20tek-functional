@@ -7,7 +7,7 @@ public sealed class Success<T> : Result<T>
 
     internal Success(T value) => _value = value;
 
-    protected override TResult Match<TResult>(
+    internal override TResult Match<TResult>(
         Func<T, TResult> onSuccess,
         Func<Error[], TResult> onFailure) =>
             onSuccess(_value);
