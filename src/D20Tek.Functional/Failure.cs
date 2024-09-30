@@ -11,4 +11,8 @@ public sealed class Failure<T> : Result<T>
         Func<T, TResult> onSuccess,
         Func<Error[], TResult> onFailure) =>
             onFailure(_errors);
+
+    public static implicit operator Failure<T>(Error[] errors) => new(errors);
+    public static implicit operator Failure<T>(Error error) => new([error]);
+    public static implicit operator Failure<T>(Exception ex) => new([Error.Exception(ex)]);
 }

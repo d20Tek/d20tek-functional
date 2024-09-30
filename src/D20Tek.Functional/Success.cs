@@ -10,5 +10,8 @@ public sealed class Success<T> : Result<T>
     protected override TResult Match<TResult>(
         Func<T, TResult> onSuccess,
         Func<Error[], TResult> onFailure) =>
-            onSuccess(_value);        
+            onSuccess(_value);
+
+    public static implicit operator Success<T>(T instance) => new(instance);
+    public static implicit operator T(Success<T> instance) => instance._value;
 }

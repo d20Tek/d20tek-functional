@@ -11,6 +11,8 @@ public abstract class Result<T>
 
     public static Result<T> Failure(Error error) => new Failure<T>([error]);
 
+    public static Result<T> Failure(Exception ex) => new Failure<T>([Error.Exception(ex)]);
+
     public bool IsSuccess => this is Success<T>;
 
     public bool IsFailure => this is Failure<T>;

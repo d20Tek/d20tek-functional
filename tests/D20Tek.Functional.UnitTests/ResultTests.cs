@@ -1,7 +1,4 @@
-﻿using FluentAssertions.Equivalency;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-
-namespace D20Tek.Functional.UnitTests;
+﻿namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
 public class ResultTests
@@ -46,6 +43,21 @@ public class ResultTests
             Error.Validation("Invalid", "Validation error."),
             Error.Validation("foo", "bar")
         ]);
+
+        // act
+        var isSuccess = result.IsSuccess;
+        var isFailure = result.IsFailure;
+
+        // assert
+        isSuccess.Should().BeFalse();
+        isFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void IsFailure_WithException_ReturnsTrue()
+    {
+        // arrange
+        var result = Result<string>.Failure(new InvalidOperationException());
 
         // act
         var isSuccess = result.IsSuccess;

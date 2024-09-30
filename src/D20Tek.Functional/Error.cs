@@ -39,6 +39,9 @@ public readonly struct Error
     public static Error Invalid(string code, string message) =>
         new(code, message, ErrorType.Invalid);
 
+    public static Error Exception(Exception ex) =>
+        new("General.Exception", ex.Message, ErrorType.Unexpected);
+
     public static Error Create(string code, string message, int errorType) =>
         new(code, message, errorType);
 
