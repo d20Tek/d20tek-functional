@@ -1,27 +1,27 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace GeneratePassword;
 
 internal static class PasswordGenerator
 {
-    public static Maybe<PasswordResponse> Handle(PasswordRequest request) =>
+    public static Result<PasswordResponse> Handle(PasswordRequest request) =>
         Validate(request)
-            .Bind(state => GetCharacterSet(state))
-            .Bind(state => CalculateEntropy(state))
-            .Bind(state =>
+            .Map(GetCharacterSet)
+            .Map(CalculateEntropy)
+            .Map(state =>
                 new PasswordResponse(
                     GetRandomCharacters(state).Shuffle(state.Rnd),
                     state.Entropy,
                     Constants.DetermineStrength(state.Entropy)));
 
-    private static Maybe<PasswordState> Validate(PasswordRequest request) =>
+    private static Result<PasswordState> Validate(PasswordRequest request) =>
         request switch
         {
-            { Length: < 4 or > 64 } => new Failure<PasswordState>(Constants.PasswordLengthError),
+            { Length: < 4 or > 64 } => Result<PasswordState>.Failure(Constants.PasswordLengthError),
             { Config: { IncludeLowerCase: false, IncludeUpperCase: false,
                         IncludeNumbers: false, IncludeSymbols: false } } =>
-                new Failure<PasswordState>(Constants.PasswordNoCharSetsError),
-            _ => new PasswordState(request.Length, request.Config, request.Rnd)
+                Result<PasswordState>.Failure(Constants.PasswordNoCharSetsError),
+            _ => Result<PasswordState>.Success(new PasswordState(request.Length, request.Config, request.Rnd))
         };
 
     private static PasswordState GetCharacterSet(PasswordState s) =>

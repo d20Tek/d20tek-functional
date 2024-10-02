@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BoolExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueRange.cs" />
   </ItemGroup>

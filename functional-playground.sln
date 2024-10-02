@@ -47,7 +47,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Repositories", "src\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.UnitTests", "tests\D20Tek.Functional.UnitTests\D20Tek.Functional.UnitTests.csproj", "{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.Functional", "src\D20Tek.Functional\D20Tek.Functional.csproj", "{AF3D8F22-89A5-4FC9-924E-32023C613F17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional", "src\D20Tek.Functional\D20Tek.Functional.csproj", "{AF3D8F22-89A5-4FC9-924E-32023C613F17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{37B6E55F-B212-47B4-86D8-6E4812BEE837}"
 EndProject
@@ -168,7 +168,7 @@ Global
 		src\Apps.Repositories\Apps.Repositories.projitems*{5f1bcf33-767b-452e-8621-22a1f78ee6c2}*SharedItemsImports = 13
 		src\Games.Common\Games.Common.projitems*{629200f7-043f-430c-92fc-c8e460554ab6}*SharedItemsImports = 5
 		src\Apps.Common.2\Apps.Common.2.projitems*{7381e71a-026a-4697-8e8b-a687e8d735f9}*SharedItemsImports = 5
-		src\Apps.Common\Apps.Common.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
+		src\Apps.Common.2\Apps.Common.2.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
 		src\Apps.Common.2\Apps.Common.2.projitems*{94ccf4b1-392f-48ca-bf90-4c592715b632}*SharedItemsImports = 5
 		src\Apps.Common.2\Apps.Common.2.projitems*{c3e996b1-74da-49b8-a5ad-73dc3f079533}*SharedItemsImports = 13

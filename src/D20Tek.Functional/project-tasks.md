@@ -5,4 +5,5 @@
 - [x] move AnsiConsoleExtensions and ValueRange into a new shared project
 - [x] migrate GpaCalc to new Functional library
 - [x] add unit tests for new Fork and IterateUntil functions
-- [ ] migrate GeneratePassword to new Functional library
+- [x] migrate GeneratePassword to new Functional library
+- [ ] migrate UnitConverter to new Functional library
