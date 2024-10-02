@@ -2,5 +2,5 @@
 - [x] Unit tests for Iter changes
 - [x] unit tests for BoolExtensions and TryExcept
 - [x] add Bind and Map functions to TryExcept
-- [ ] move AnsiConsoleExtensions and ValueRange into a new shared project
+- [x] move AnsiConsoleExtensions and ValueRange into a new shared project
 - [ ] migrate GpaCalc to new Functional library

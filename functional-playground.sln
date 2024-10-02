@@ -45,11 +45,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracker", "src\Budget
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Repositories", "src\Apps.Repositories\Apps.Repositories.shproj", "{5F1BCF33-767B-452E-8621-22A1F78EE6C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional", "src\D20Tek.Functional\D20Tek.Functional.csproj", "{AF3D8F22-89A5-4FC9-924E-32023C613F17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.UnitTests", "tests\D20Tek.Functional.UnitTests\D20Tek.Functional.UnitTests.csproj", "{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.Functional", "src\D20Tek.Functional\D20Tek.Functional.csproj", "{AF3D8F22-89A5-4FC9-924E-32023C613F17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{37B6E55F-B212-47B4-86D8-6E4812BEE837}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.UnitTests", "tests\D20Tek.Functional.UnitTests\D20Tek.Functional.UnitTests.csproj", "{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Common.2", "src\Apps.Common.2\Apps.Common.2.shproj", "{C3E996B1-74DA-49B8-A5AD-73DC3F079533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,14 +123,14 @@ Global
 		{5084769B-3196-4856-8603-39A61FCA2C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5084769B-3196-4856-8603-39A61FCA2C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5084769B-3196-4856-8603-39A61FCA2C5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF3D8F22-89A5-4FC9-924E-32023C613F17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +155,7 @@ Global
 		{5084769B-3196-4856-8603-39A61FCA2C5E} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 		{5F1BCF33-767B-452E-8621-22A1F78EE6C2} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 		{B1D9FF73-8A73-45A3-8D62-8F341A1CDDF7} = {37B6E55F-B212-47B4-86D8-6E4812BEE837}
+		{C3E996B1-74DA-49B8-A5AD-73DC3F079533} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
@@ -167,6 +170,8 @@ Global
 		src\Apps.Common\Apps.Common.projitems*{7381e71a-026a-4697-8e8b-a687e8d735f9}*SharedItemsImports = 5
 		src\Apps.Common\Apps.Common.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
+		src\Apps.Common.2\Apps.Common.2.projitems*{94ccf4b1-392f-48ca-bf90-4c592715b632}*SharedItemsImports = 5
+		src\Apps.Common.2\Apps.Common.2.projitems*{c3e996b1-74da-49b8-a5ad-73dc3f079533}*SharedItemsImports = 13
 		src\Apps.Common\Apps.Common.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
 		src\Apps.Common\Apps.Common.projitems*{d96ef53d-5a93-47ec-a5d5-872baed66116}*SharedItemsImports = 5

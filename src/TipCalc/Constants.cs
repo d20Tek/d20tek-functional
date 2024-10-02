@@ -1,4 +1,5 @@
-﻿using D20Tek.Functional;
+﻿using Apps.Common;
+using D20Tek.Functional;
 
 namespace TipCalc;
 
