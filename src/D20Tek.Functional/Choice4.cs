@@ -38,7 +38,7 @@ public sealed class Choice<T1, T2, T3, T4>
             _ => throw new ArgumentOutOfRangeException("Invalid Choice type")
         };
 
-    public void Iter(Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4)
+    public Choice<T1, T2, T3, T4> Iter(Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4)
     {
         switch (_value)
         {
@@ -57,6 +57,8 @@ public sealed class Choice<T1, T2, T3, T4>
             default:
                 throw new ArgumentOutOfRangeException("Invalid Choice type");
         }
+        
+        return this;
     }
 
     public Choice<TResult, T2, T3, T4> Bind<TResult>(Func<T1, Choice<TResult, T2, T3, T4>> bindFunc)

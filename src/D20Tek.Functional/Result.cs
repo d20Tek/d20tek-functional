@@ -48,9 +48,10 @@ public abstract class Result<T>
 
     public Error[] GetErrors() => Match(_ => [], e => e);
 
-    public void Iter(Action<T> action)
+    public Result<T> Iter(Action<T> action)
     {
         if (IsSuccess) action(GetValue());
+        return this;
     }
 
     public Result<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>

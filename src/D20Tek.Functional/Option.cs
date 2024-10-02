@@ -46,9 +46,10 @@ public abstract class Option<T>
 
     public T Get() => Match(v => v, () => throw new ArgumentNullException("Value"));
 
-    public void Iter(Action<T> action)
+    public Option<T> Iter(Action<T> action)
     {
         if (IsSome) action(Get());
+        return this;
     }
 
     public Option<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
