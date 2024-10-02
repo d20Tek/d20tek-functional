@@ -123,6 +123,19 @@ public class IdentityTests
         result.Get().Should().Be(84);
     }
 
+    [TestMethod]
+    public void ToIdentity_WithValue_ReturnsIdentity()
+    {
+        // arrange
+        var v = 13.ToIdentity();
+
+        // act
+        int result = v;
+
+        // assert
+        result.Should().Be(13);
+    }
+
     public static Identity<int> TryParse(string text) =>
         int.TryParse(text, out int parsed) ? parsed : 0;
 }
