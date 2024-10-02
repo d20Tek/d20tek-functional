@@ -1,5 +1,5 @@
 ﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 
 namespace GpaCalc;
@@ -7,18 +7,19 @@ namespace GpaCalc;
 internal static class App
 {
     public static int Run(IAnsiConsole console) =>
-        FunctionalExtensions.TryExcept<int>(
-            operation: () => console.Apply(c => c.DisplayAppHeader(Constants.AppTitle))
+        TryExcept.Run<int>(
+            operation: () =>
+                console.ToIdentity().Iter(c => c.DisplayAppHeader(Constants.AppTitle))
                    .Map(c => c.GetCourses())
-                   .Map(courses => courses.CalculateGpa(GradesTable.GradeToPoint)
+                   .Bind(courses => courses.CalculateGpa(GradesTable.GradeToPoint)
                        .Map(gpa => ShowGpaCommand.Handle(console, courses, gpa))),
             onException: console.HandleErrorMessage);
 
     private static Course[] GetCourses(this IAnsiConsole console) =>
         CoursesExtensions.InitializeCourses().IterateUntil(
             c => c.Append(new(console.GetCourseName(), console.GetNumCredits(), console.GetLetterGrade())),
-            c => c.Any() && console.ConfirmGradesComplete())
-            .ToArray();
+            c => c.Any() && console.ConfirmGradesComplete()
+            ).ToArray();
 
     private static string GetCourseName(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<string>(Constants.CourseNameLabel));
@@ -36,6 +37,6 @@ internal static class App
         console.Confirm(Constants.GradeEntryCompleteLabel, false);
 
     private static int HandleErrorMessage(this IAnsiConsole console, Exception ex) =>
-        console.Apply(c => c.MarkupLine(Constants.ExceptionErrorMessage(ex)))
-               .Map(_ => -1);
+        console.ToIdentity().Iter(c => c.MarkupLine(Constants.ExceptionErrorMessage(ex)))
+                            .Map(_ => -1);
 }
