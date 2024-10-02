@@ -4,5 +4,5 @@
 - [x] add Bind and Map functions to TryExcept
 - [x] move AnsiConsoleExtensions and ValueRange into a new shared project
 - [x] migrate GpaCalc to new Functional library
-- [ ] add unit tests for new Fork and IterateUntil functions
+- [x] add unit tests for new Fork and IterateUntil functions
 - [ ] migrate GeneratePassword to new Functional library
