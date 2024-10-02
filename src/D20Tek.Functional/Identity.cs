@@ -17,7 +17,11 @@ public sealed class Identity<T>
 
     public T Get() => _value;
 
-    public void Iter(Action<T> action) => action(_value);
+    public Identity<T> Iter(Action<T> action)
+    {
+        action(_value);
+        return this;
+    }
 
     public Identity<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull => new(mapper(_value));
 
@@ -26,4 +30,10 @@ public sealed class Identity<T>
     public static Identity<T> Create(T value) => new(value);
     public static implicit operator Identity<T>(T instance) => new(instance);
     public static implicit operator T(Identity<T> instance) => instance._value;
+}
+
+public static class IdentityExtensions
+{
+    public static Identity<T> ToIdentity<T>(this T source) where T : notnull =>
+        Identity<T>.Create(source);
 }

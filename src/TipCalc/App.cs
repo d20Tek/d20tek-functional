@@ -1,5 +1,5 @@
 ﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 
 namespace TipCalc;
@@ -7,16 +7,15 @@ namespace TipCalc;
 internal static class App
 {
     public static int Run(IAnsiConsole console) =>
-        console.Apply(c => c.DisplayAppHeader(Constants.AppTitle))
-               .Map(c => c.GatherTipRequest()
-                    .Map(request => CalculateTipCommand.Handle(request)
-                        .Apply(result => console.DisplayMaybe(
-                            result,
-                            response => ShowTipResponseCommand.Handle(console, request, response)))
-                        .Map(result => result.ToResultCode())));
+        Identity<int>.Create(0)
+            .Iter(_ => console.DisplayAppHeader(Constants.AppTitle))
+            .Bind(_ => console.GatherTipRequest()
+                .Map(request => (Request: request, Response: CalculateTipCommand.Handle(request)))
+                .Iter(x => console.DisplayResult(x.Response, response => ShowTipResponseCommand.Handle(console, x.Request, response))))
+                .Map(x => x.Response.ToResultCode());
 
-    private static TipRequest GatherTipRequest(this IAnsiConsole console) =>
-        new (console.GetOriginalPrice(), console.GetTipPercentage(), console.GetTipperCount());
+    private static Identity<TipRequest> GatherTipRequest(this IAnsiConsole console) =>
+        new TipRequest(console.GetOriginalPrice(), console.GetTipPercentage(), console.GetTipperCount());
 
     private static decimal GetOriginalPrice(this IAnsiConsole console) =>
         console.Ask<decimal>(Constants.OriginalPriceLabel);

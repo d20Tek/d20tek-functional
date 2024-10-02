@@ -1,5 +1,4 @@
-﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace TipCalc;
 
@@ -18,7 +17,7 @@ internal static class Constants
     public static readonly ValueRange<decimal> TipperCountRange = new(1, 20);
     public const string TipperCountRangeError = "Number of tippers must be between 1-20.";
 
-    public static int ToResultCode(this Maybe<TipResponse> maybe) => maybe is Something<TipResponse> ? 0 : -1;
+    public static int ToResultCode(this Result<TipResponse> result) => result.IsSuccess ? 0 : -1;
 
     public const int ColumnNameLen = 24;
     public const int ColumnAmountsLen = 10;
@@ -29,6 +28,6 @@ internal static class Constants
     public const string AmountPerTipperLabel = "[yellow]Amount Per Person:[/]";
 
     public static string CurrencyDisplay(this decimal v) => $"{v:C}";
-
+    
     public static string PercentageDisplay(this decimal p) => $"{p}%";
 }
