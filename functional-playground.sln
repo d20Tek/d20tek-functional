@@ -174,7 +174,7 @@ Global
 		src\Apps.Common.2\Apps.Common.2.projitems*{c3e996b1-74da-49b8-a5ad-73dc3f079533}*SharedItemsImports = 13
 		src\Apps.Common\Apps.Common.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
-		src\Apps.Common\Apps.Common.projitems*{d96ef53d-5a93-47ec-a5d5-872baed66116}*SharedItemsImports = 5
+		src\Apps.Common.2\Apps.Common.2.projitems*{d96ef53d-5a93-47ec-a5d5-872baed66116}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{dca3a273-612c-4152-933e-dc16907144bf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{dee1ae19-3d0b-4162-9787-2ad3b1c54575}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{f155dc0a-1ad7-437a-88cf-92d5934ef635}*SharedItemsImports = 5
