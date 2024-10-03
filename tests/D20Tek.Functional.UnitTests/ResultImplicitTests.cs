@@ -59,4 +59,18 @@ public class ResultImplicitTests
         result.IsFailure.Should().BeTrue();
         result.GetErrors().Should().NotBeEmpty();
     }
+
+    [TestMethod]
+    public void opImplicit_WithValue_ReturnsSuccessResult()
+    {
+        // arrange
+        Result<string> result = "test";
+
+        // act
+        string value = result.GetValue();
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        value.Should().Be("test");
+    }
 }

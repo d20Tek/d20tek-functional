@@ -9,6 +9,9 @@ public static class FunctionalExtensions
         Func<T1, T2, TOut> fOut) =>
         fOut(f1(instance), f2(instance));
 
+    public static TOut? Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
+        args.Select(x => x(instance)).FirstOrDefault(x => x != null);
+
     public static T IterateUntil<T>(this T instance, Func<T, T> updateFunction, Func<T, bool> endCondition)
     {
         var currentThis = instance;

@@ -8,7 +8,7 @@
 - [x] migrate GeneratePassword to new Functional library
 - [x] migrate UnitConverter to new Functional library
 - [x] migrate the TerminalAppTemplate to new Functional library
-- [ ] add unit tests for StateExtensions functions
+- [x] add unit tests for StateExtensions functions
 - [ ] move remaining code to App.Common.2
 - [ ] refactor Apps.Repositories to new Functional library
 - [ ] migrate WealthTracker to new Functional library

@@ -136,6 +136,20 @@ public class IdentityTests
         result.Should().Be(13);
     }
 
+    [TestMethod]
+    public void Flatten_WithNestedIdentity_ReturnsInnerIdentity()
+    {
+        // arrange
+        var id = Identity<Identity<int>>.Create(Identity<int>.Create(42));
+
+        // act
+        var result = id.Flatten();
+
+        // assert
+        result.Should().BeAssignableTo<Identity<int>>();
+        result.Get().Should().Be(42);
+    }
+
     public static Identity<int> TryParse(string text) =>
         int.TryParse(text, out int parsed) ? parsed : 0;
 }

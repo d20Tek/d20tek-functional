@@ -96,4 +96,52 @@ public class FunctionalExtensionsTests
         result.IsFailure.Should().BeTrue();
         result.GetErrors().Should().NotBeEmpty();
     }
+
+    [TestMethod]
+    [ExcludeFromCodeCoverage]
+    public void Alt_WithTwoInputFuncs_ReturnsThroughAll()
+    {
+        // arrange
+        var text = "foo";
+
+        // act
+        var result = text.Alt(
+            x => x == "bar" ? "it was bar" : null,
+            x => x == "foo" ? "it was foo" : null);
+
+        // assert
+        result.Should().Be("it was foo");
+    }
+
+    [TestMethod]
+    [ExcludeFromCodeCoverage]
+    public void Alt_WithTwoInputFuncs_ReturnsFirstPath()
+    {
+        // arrange
+        var text = "bar";
+
+        // act
+        var result = text.Alt(
+            x => x == "bar" ? "it was bar" : null,
+            x => x == "foo" ? "it was foo" : null);
+
+        // assert
+        result.Should().Be("it was bar");
+    }
+
+    [TestMethod]
+    [ExcludeFromCodeCoverage]
+    public void Alt_WithNoMatches_ReturnsNull()
+    {
+        // arrange
+        var text = "other";
+
+        // act
+        var result = text.Alt(
+            x => x == "bar" ? "it was bar" : null,
+            x => x == "foo" ? "it was foo" : null);
+
+        // assert
+        result.Should().BeNull();
+    }
 }
