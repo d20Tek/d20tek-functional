@@ -16,14 +16,14 @@ internal static class RepositoryFactory
                     Environment.SpecialFolder.ApplicationData) + _appFolder));
 
     public static ICategoryRepository CreateCategoryRepository() =>
-        new FileRepository<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
+        new FileRepositoryOld<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
 
     public static IExpenseRepository CreateExpenseRepository() =>
-        new FileRepository<Expense, BudgetDataStore>(_dataStore, store => store.Expenses);
+        new FileRepositoryOld<Expense, BudgetDataStore>(_dataStore, store => store.Expenses);
 
     public static IIncomeRepository CreateIncomeRepository() =>
-        new FileRepository<Income, BudgetDataStore>(_dataStore, store => store.Incomes);
+        new FileRepositoryOld<Income, BudgetDataStore>(_dataStore, store => store.Incomes);
 
     public static IReconciledSnapshotRepository CreateSnapshotRepository() =>
-        new FileRepository<ReconciledSnapshot, BudgetDataStore>(_dataStore, store => store.CompletedSnapshots);
+        new FileRepositoryOld<ReconciledSnapshot, BudgetDataStore>(_dataStore, store => store.CompletedSnapshots);
 }

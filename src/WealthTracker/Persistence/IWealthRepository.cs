@@ -1,4 +1,4 @@
-﻿global using IWealthRepository = Apps.Repositories.IRepository<WealthTracker.WealthDataEntry>;
+﻿global using IWealthRepository = Apps.Repositories.IRepositoryOld<WealthTracker.WealthDataEntry>;
 
 using Apps.Repositories;
 

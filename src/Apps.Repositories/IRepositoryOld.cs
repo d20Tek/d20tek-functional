@@ -2,7 +2,7 @@
 
 namespace Apps.Repositories;
 
-public interface IRepository<TEntity>
+public interface IRepositoryOld<TEntity>
     where TEntity : IEntity
 {
     Maybe<TEntity> Create(TEntity entity);

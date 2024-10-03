@@ -3,7 +3,7 @@ using D20Tek.LowDb;
 
 namespace Apps.Repositories;
 
-public sealed class FileRepository<TEntity, TStore> : IRepository<TEntity>
+public sealed class FileRepositoryOld<TEntity, TStore> : IRepositoryOld<TEntity>
     where TEntity : IEntity
     where TStore : class, new()
 {
@@ -16,7 +16,7 @@ public sealed class FileRepository<TEntity, TStore> : IRepository<TEntity>
     private readonly LowDb<TStore> _db;
     private readonly Func<TStore, DataStoreElement<TEntity>> _elementAccessor;
 
-    public FileRepository(LowDb<TStore> db, Func<TStore, DataStoreElement<TEntity>> elementAccessor)
+    public FileRepositoryOld(LowDb<TStore> db, Func<TStore, DataStoreElement<TEntity>> elementAccessor)
     {
         _db = db;
         _elementAccessor = elementAccessor;
