@@ -13,6 +13,8 @@ public abstract class Result<T>
 
     public static Result<T> Failure(Exception ex) => new Failure<T>([Error.Exception(ex)]);
 
+    public static implicit operator Result<T>(T instance) => Success(instance);
+
     public bool IsSuccess => this is Success<T>;
 
     public bool IsFailure => this is Failure<T>;

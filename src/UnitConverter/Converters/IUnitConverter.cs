@@ -1,8 +1,11 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace UnitConverter.Converters;
 
 public interface IUnitConverter
 {
-    Maybe<decimal> Convert(decimal value, string fromUnit, string toUnit);
+    public static Result<decimal> InvalidUnitError(string unit) =>
+        Result<decimal>.Failure(Error.Invalid("Unit.Invalid", $"Invalid unit to convert ({unit})."));
+
+    Result<decimal> Convert(decimal value, string fromUnit, string toUnit);
 }

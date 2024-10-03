@@ -1,15 +1,15 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace UnitConverter.Converters;
 
 internal class AreaConverter : IUnitConverter
 {
-    public Maybe<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
-        new Something<decimal>(value)
+    public Result<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
+        Result<decimal>.Success(value)
             .Bind(x => ConvertToSquareMeters(x, fromUnit))
             .Bind(x => ConvertFromSquareMeters(x, toUnit));
 
-    private static decimal ConvertToSquareMeters(decimal value, string unit) =>
+    private static Result<decimal> ConvertToSquareMeters(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "square kilometer" => value * 1_000_000m,
@@ -20,10 +20,10 @@ internal class AreaConverter : IUnitConverter
             "square yard" => value * 0.83612736m,
             "square foot" => value * 0.09290304m,
             "square inch" => value * 0.00064516m,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 
-    private static decimal ConvertFromSquareMeters(decimal value, string unit) =>
+    private static Result<decimal> ConvertFromSquareMeters(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "square kilometer" => value / 1_000_000m,
@@ -34,6 +34,6 @@ internal class AreaConverter : IUnitConverter
             "square yard" => value / 0.83612736m,
             "square foot" => value / 0.09290304m,
             "square inch" => value / 0.00064516m,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 }

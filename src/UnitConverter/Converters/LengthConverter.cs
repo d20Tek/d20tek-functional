@@ -1,15 +1,15 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace UnitConverter.Converters;
 
 internal class LengthConverter : IUnitConverter
 {
-    public Maybe<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
-        new Something<decimal>(value)
+    public Result<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
+        Result<decimal>.Success(value)
             .Bind(x => UnitToMeters(x, fromUnit))
             .Bind(x => MetersToUnit(x, toUnit));
         
-    private static decimal UnitToMeters(decimal value, string unit) =>
+    private static Result<decimal> UnitToMeters(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "kilometer" => value * 1000,
@@ -20,10 +20,10 @@ internal class LengthConverter : IUnitConverter
             "yard" => value * 0.9144M,
             "foot" => value * 0.3048M,
             "inch" => value * 0.0254M,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 
-    private static decimal MetersToUnit(decimal value, string unit) =>
+    private static Result<decimal> MetersToUnit(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "kilometer" => value / 1000,
@@ -34,6 +34,6 @@ internal class LengthConverter : IUnitConverter
             "yard" => value / 0.9144M,
             "foot" => value / 0.3048M,
             "inch" => value / 0.0254M,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 }

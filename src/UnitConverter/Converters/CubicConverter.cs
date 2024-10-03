@@ -1,15 +1,15 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace UnitConverter.Converters;
 
 internal class CubicConverter : IUnitConverter
 {
-    public Maybe<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
-        new Something<decimal>(value)
+    public Result<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
+        Result<decimal>.Success(value)
             .Bind(x => ConvertToCubicMeters(x, fromUnit))
             .Bind(x => ConvertFromCubicMeters(x, toUnit));
 
-    private static decimal ConvertToCubicMeters(decimal value, string unit) =>
+    private static Result<decimal> ConvertToCubicMeters(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "cubic kilometer" => value * 1_000_000_000_000m,
@@ -20,10 +20,10 @@ internal class CubicConverter : IUnitConverter
             "cubic yard" => value * 0.764554857984m,
             "cubic foot" => value * 0.028316846592m,
             "cubic inch" => value * 0.000016387064m,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 
-    private static decimal ConvertFromCubicMeters(decimal value, string unit) =>
+    private static Result<decimal> ConvertFromCubicMeters(decimal value, string unit) =>
         unit.ToLower() switch
         {
             "cubic kilometer" => value / 1_000_000_000_000m,
@@ -34,6 +34,6 @@ internal class CubicConverter : IUnitConverter
             "cubic yard" => value / 0.764554857984m,
             "cubic foot" => value / 0.028316846592m,
             "cubic inch" => value / 0.000016387064m,
-            _ => throw new ArgumentException($"Invalid unit to convert ({unit})."),
+            _ => IUnitConverter.InvalidUnitError(unit)
         };
 }
