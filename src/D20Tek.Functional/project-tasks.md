@@ -10,7 +10,8 @@
 - [x] migrate the TerminalAppTemplate to new Functional library
 - [x] add unit tests for StateExtensions functions
 - [x] move remaining code to App.Common.2
-- [ ] refactor Apps.Repositories to new Functional library types
+- [x] refactor Apps.Repositories to new Functional library types
+- [x] add unit tests for IEnumerableExtensions
 - [ ] migrate WealthTracker to new Functional library
 - [ ] migrate BudgetTracker to new Functional library
 - [ ] delete App.Common and rename App.Common.2
