@@ -12,6 +12,14 @@ public static class FunctionalExtensions
     public static TOut? Alt<TIn, TOut>(this TIn instance, params Func<TIn, TOut>[] args) =>
         args.Select(x => x(instance)).FirstOrDefault(x => x != null);
 
+    public static TResult Pipe<T, TResult>(this T instance, Func<T, TResult> func) => func(instance);
+
+    public static T Pipe<T>(this T instance, Action<T> action)
+    {
+        action(instance);
+        return instance;
+    }
+
     public static T IterateUntil<T>(this T instance, Func<T, T> updateFunction, Func<T, bool> endCondition)
     {
         var currentThis = instance;

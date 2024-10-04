@@ -14,6 +14,7 @@
 - [x] add unit tests for IEnumerableExtensions
 - [x] migrate WealthTracker to new Functional library
 - [ ] fix error handling in WealthTracker update scenarios
+- [ ] implement Pipe functions to chain operation together
 - [ ] migrate BudgetTracker to new Functional library
 - [ ] delete App.Common and rename App.Common.2
 - [ ] delete old Apps.Repositories types.

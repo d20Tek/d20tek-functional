@@ -8,10 +8,10 @@ internal static class AddWealthEntryCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Add.Header))
-             .Map(s => s.Repository.Create(s.Console.CreateDataEntry())
-                 .Iter(result => s.Console.DisplayResult<WealthDataEntry>(
-                     result, e => Constants.Add.SuccessMessage(e))))
-             .Map(_ => state with { Command = metadata.Name }).GetValue();
+             .Iter(s => s.Repository
+                            .Create(s.Console.CreateDataEntry())
+                            .Pipe(result => s.Console.DisplayResult(result, e => Constants.Delete.SuccessMessage(e))))
+             .Map(_ => state with { Command = metadata.Name });
 
     private static Identity<WealthDataEntry> CreateDataEntry(this IAnsiConsole console) =>
         new WealthDataEntry(0, console.GetName(), console.GetCategories());

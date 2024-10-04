@@ -8,10 +8,11 @@ internal static class RecordPastAmountCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Record.Header))
-             .Map(s => s.Repository.GetEntityById(s.Console.GetId())
-                 .Iter(result => s.Console.DisplayResult<WealthDataEntry>(result, e => Constants.Record.GetSuccessMessage(e)))
-                 .Iter(result => PerformChange(s.Console, s.Repository, result))
-                 .Map(_ => s with { Command = metadata.Name })).GetValue();
+             .Iter(s => s.Repository
+                            .GetEntityById(s.Console.GetId())
+                            .Pipe(result => s.Console.DisplayResult(result, e => Constants.Delete.SuccessMessage(e)))
+                            .Pipe(result => PerformChange(s.Console, s.Repository, result)))
+             .Map(s => s with { Command = metadata.Name });
 
     private static void PerformChange(
         IAnsiConsole console,
