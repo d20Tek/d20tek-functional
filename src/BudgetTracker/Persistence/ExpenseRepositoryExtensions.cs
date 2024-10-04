@@ -1,6 +1,6 @@
 ﻿using Apps.Common;
 using BudgetTracker.Entities;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Persistence;
 
@@ -11,7 +11,7 @@ internal static class ExpenseRepositoryExtensions
                              .Where(x => range.InRange(x.CommittedDate))
                              .ToArray();
 
-    public static Maybe<Expense[]> DeleteByDateRange(this IExpenseRepository expRepo, DateRange range) =>
+    public static Result<Expense[]> DeleteByDateRange(this IExpenseRepository expRepo, DateRange range) =>
         expRepo.DeleteMany(expRepo.GetExpensesByDateRange(range));
 
     private static Expense[] GetExpensesByDateRange(this IExpenseRepository expRepo, DateRange range) =>

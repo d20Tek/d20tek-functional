@@ -10,9 +10,9 @@ internal static class EditCategoryCommand
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Edit.Header))
              .Iter(s => s.CategoryRepo
-                             .GetEntityById(s.Console.GetId())
-                             .Pipe(result => s.Console.DisplayResult(result, Constants.Edit.GetSuccessMessage))
-                             .Pipe(result => PerformEdit(s.Console, s.CategoryRepo, result)))
+                         .GetEntityById(s.Console.GetId())
+                         .Pipe(result => s.Console.DisplayResult(result, Constants.Edit.GetSuccessMessage))
+                         .Pipe(result => PerformEdit(s.Console, s.CategoryRepo, result)))
              .Map(s => s with { Command = metadata.Name });
 
     private static void PerformEdit(
