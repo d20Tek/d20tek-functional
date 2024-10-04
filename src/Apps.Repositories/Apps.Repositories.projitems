@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DataStoreElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IRepository.cs" />
     <Compile Include="..\Apps.Repositories\FileRepositoryOld.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEntity.cs" />
     <Compile Include="..\Apps.Repositories\IRepositoryOld.cs" />
