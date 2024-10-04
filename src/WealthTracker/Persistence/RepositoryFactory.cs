@@ -5,7 +5,7 @@ namespace WealthTracker.Persistence;
 
 internal static class RepositoryFactory
 {
-    public const string _databaseFile = "wealth-data-test.json";
+    public const string _databaseFile = "wealth-data.json";
     public const string _appFolder = "\\d20tek-fin";
 
     private static readonly LowDb<WealthDataStore> _dataStore =

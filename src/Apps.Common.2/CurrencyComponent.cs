@@ -16,7 +16,7 @@ internal static class CurrencyComponent
                    : $"[red]{value:C}[/]";
 
     public static string RenderShort(decimal value) =>
-        value switch
+        Math.Abs(value) switch
         {
             > _billion => $"{(value / _billion):0.##}B",
             > _million => $"{(value / _million):0.##}M",
