@@ -1,5 +1,5 @@
 ﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 
 namespace WealthTracker.Commands;
@@ -7,24 +7,25 @@ namespace WealthTracker.Commands;
 internal static class MonthlyNetWorthCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
-        state.Apply(s => s.Console.WriteLine(Constants.Monthly.ListHeader))
-             .Apply(s => s.Console.Write(CreateTable(s.Repository.GetEntities(), GetDateRange())))
+        state.Iter(s => s.Console.WriteLine(Constants.Monthly.ListHeader))
+             .Iter(s => s.Console.Write(CreateTable(s.Repository.GetEntities(), GetDateRange())))
              .Map(s => s with { Command = metadata.Name });
 
     private static Table CreateTable(WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>
         new Table()
             .Border(TableBorder.Rounded)
             .AddColumns(CreateColumns(dateRange))
-            .Apply(t => t.AddRowsForEntries(entries, dateRange));
+            .ToIdentity()
+            .Iter(t => t.AddRowsForEntries(entries, dateRange));
 
     private static void AddRowsForEntries(this Table table, WealthDataEntry[] entries, DateTimeOffset[] dateRange) =>
-        entries
+        entries.ToIdentity()
             .Map(e => e.Any()
                 ? e.Select(entry => CreateRow(entry, dateRange))
                    .Concat(CreateTotalRow(e, dateRange))
                    .ToList()
                 : [[string.Empty, Constants.Monthly.NoAccountsMessage]])
-            .ForEach(x => table.AddRow(x));
+            .Iter(rows => rows.ForEach(x => table.AddRow(x)));
 
     private static TableColumn[] CreateColumns(DateTimeOffset[] dateRange) =>
     [

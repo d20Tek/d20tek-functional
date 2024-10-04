@@ -15,5 +15,5 @@ internal static class RepositoryFactory
                     Environment.SpecialFolder.ApplicationData) + _appFolder));
 
     public static IWealthRepository CreateWealthRepository() =>
-        new FileRepositoryOld<WealthDataEntry, WealthDataStore>(_dataStore, store => store);
+        new FileRepository<WealthDataEntry, WealthDataStore>(_dataStore, store => store);
 }

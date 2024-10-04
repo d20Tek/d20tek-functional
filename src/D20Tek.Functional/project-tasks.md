@@ -12,7 +12,8 @@
 - [x] move remaining code to App.Common.2
 - [x] refactor Apps.Repositories to new Functional library types
 - [x] add unit tests for IEnumerableExtensions
-- [ ] migrate WealthTracker to new Functional library
+- [x] migrate WealthTracker to new Functional library
+- [ ] fix error handling in WealthTracker update scenarios
 - [ ] migrate BudgetTracker to new Functional library
 - [ ] delete App.Common and rename App.Common.2
 - [ ] delete old Apps.Repositories types.

@@ -1,5 +1,5 @@
 ﻿using Apps.Common;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 using WealthTracker.Commands;
 
@@ -7,25 +7,26 @@ namespace WealthTracker;
 
 internal static class App
 {
-    public static void Run(IAnsiConsole console, IWealthRepository repository) =>
-        AppState.Initialize(console, repository)
-            .Apply(x => console.DisplayAppHeader(Constants.AppTitle))
+    public static void Run(IAnsiConsole console, IWealthRepository wealthRepo) =>
+        AppState.Initialize(console, wealthRepo)
+            .Iter(x => console.DisplayAppHeader(Constants.AppTitle))
             .IterateUntil(
                 x => NextCommand(x),
                 x => x.CanContinue is false);
 
     private static AppState NextCommand(AppState prevState) =>
-        UserCommandInput(prevState.Console)
-            .Map(inputCommand =>
-                Configuration.GetCommandTypes()
-                    .Map(x => x.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand)))
-                    .Map(x => x ?? Configuration.ErrorTypeHandler(inputCommand))
-                    .Map(x => x.TypeHandler(prevState, x))
-            );
+        prevState.Console.GetUserCommandInput()
+            .Bind(inputCommand => FindMetadataType(inputCommand, Configuration.GetCommandTypes()))
+            .Map(m => m.TypeHandler(prevState, m));
 
-    private static string UserCommandInput(IAnsiConsole console) =>
-        console.Apply(c => c.WriteLine())
-               .Map(c => c.Prompt<string>(new TextPrompt<string>(Constants.AskCommandLabel)
+    private static Identity<string> GetUserCommandInput(this IAnsiConsole console) =>
+        console.ToIdentity()
+               .Iter(c => c.WriteLine())
+               .Map(c => c.Prompt(new TextPrompt<string>(Constants.AskCommandLabel)
                             .AddChoices(Configuration.GetCommands())
                             .ShowChoices(false)));
+
+    private static Identity<CommandTypeMetadata> FindMetadataType(string inputCommand, CommandTypeMetadata[] types) =>
+        types.FirstOrDefault(t => t.AllowedCommands.Contains(inputCommand))
+            ?? Configuration.ErrorTypeHandler(inputCommand);
 }

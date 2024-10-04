@@ -21,6 +21,6 @@ public static class StateExtensions
 
     public static TOut Map<TIn, TOut>(this TIn state, Func<TIn, TOut> mapper)
         where TIn : IState
-        where TOut : IState =>
+        where TOut : notnull =>
         mapper(state);
 }

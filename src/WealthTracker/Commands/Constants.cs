@@ -24,8 +24,8 @@ internal static class Constants
         public const string NameLabel = "Enter the account name:";
         public const string CategoryLabel = "Enter each category separately and press enter (or leave empty when done):";
 
-        public static string SuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The new account '{e.Name}' was created with id={e.Id}.";
+        public static string[] SuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The new account '{e.Name}' was created with id={e.Id}."];
     }
 
     public static class Edit
@@ -38,11 +38,11 @@ internal static class Constants
         public static string ChangeCategoriesConfirm(string prevCategories) =>
             $"Do you wish to change the category list [[{prevCategories}]]?";
 
-        public static string GetSuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account with id={e.Id} was retrieved for editing.";
+        public static string[] GetSuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account with id={e.Id} was retrieved for editing."];
 
-        public static string SuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account '{e.Name}' with id={e.Id} was updated.";
+        public static string[] SuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account '{e.Name}' with id={e.Id} was updated."];
     }
 
     public static class Delete
@@ -50,8 +50,8 @@ internal static class Constants
         public const string Header = "Delete an account";
         public const string IdLabel = "Enter the account id:";
 
-        public static string SuccessMessage(WealthDataEntry e) => 
-            $"[green]Success:[/] The account '{e.Name}' with id={e.Id} was deleted.";
+        public static string[] SuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account '{e.Name}' with id={e.Id} was deleted."];
     }
 
     public static class Record
@@ -61,11 +61,11 @@ internal static class Constants
         public const string DateLabel = "Enter the date of record:";
         public const string AmountLabel = "Enter the current value:";
 
-        public static string GetSuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account with id={e.Id} was retrieved to change.";
+        public static string[] GetSuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account with id={e.Id} was retrieved to change."];
 
-        public static string SuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account '{e.Name}' (id={e.Id}) amount was recorded.";
+        public static string[] SuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account '{e.Name}' (id={e.Id}) amount was recorded."];
     }
 
     public static class Unrecord
@@ -74,11 +74,11 @@ internal static class Constants
         public const string IdLabel = "Enter the account id:";
         public const string DateLabel = "Enter the date of record:";
 
-        public static string GetSuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account with id={e.Id} was retrieved to change.";
+        public static string[] GetSuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account with id={e.Id} was retrieved to change."];
 
-        public static string SuccessMessage(WealthDataEntry e) =>
-            $"[green]Success:[/] The account '{e.Name}' (id={e.Id}) had an amount record removed.";
+        public static string[] SuccessMessage(WealthDataEntry e) =>
+            [$"[green]Success:[/] The account '{e.Name}' (id={e.Id}) had an amount record removed."];
     }
 
     public static class Current
