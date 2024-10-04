@@ -1,6 +1,6 @@
 ﻿using Apps.Common;
 using BudgetTracker.Entities;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 
 namespace BudgetTracker.Commands.BudgetCategories;
@@ -8,21 +8,20 @@ namespace BudgetTracker.Commands.BudgetCategories;
 internal static class EditCategoryCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
-        state.Apply(s => s.Console.DisplayHeader(Constants.Edit.Header))
-             .Map(s => s.CategoryRepo.GetEntityById(s.Console.GetId())
-                 .Apply(result => s.Console.DisplayMaybe(result, Constants.Edit.GetSuccessMessage))
-                 .Apply(result => PerformEdit(s.Console, s.CategoryRepo, result))
-                 .Map(_ => s with { Command = metadata.Name }));
+        state.Iter(s => s.Console.DisplayHeader(Constants.Edit.Header))
+             .Iter(s => s.CategoryRepo
+                             .GetEntityById(s.Console.GetId())
+                             .Pipe(result => s.Console.DisplayResult(result, Constants.Edit.GetSuccessMessage))
+                             .Pipe(result => PerformEdit(s.Console, s.CategoryRepo, result)))
+             .Map(s => s with { Command = metadata.Name });
 
     private static void PerformEdit(
         IAnsiConsole console,
         ICategoryRepository repo,
-        Maybe<BudgetCategory> editCategory) =>
-            editCategory.OnSomething(
-                v => v.Apply(v => v.UpdateCategory(console.GetName(v.Name), console.GetBudgetAmount(v.BudgetedAmount)))
-                      .Map(entry => repo.Update(entry))
-                      .Apply(result => console.DisplayMaybe(result, Constants.Edit.SuccessMessage))
-                );
+        Result<BudgetCategory> editCategory) =>
+            editCategory.Iter(v => v.UpdateCategory(console.GetName(v.Name), console.GetBudgetAmount(v.BudgetedAmount)))
+                        .Map(entry => repo.Update(entry))
+                        .Iter(result => console.DisplayResult(result, Constants.Edit.SuccessMessage));
 
     private static int GetId(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));

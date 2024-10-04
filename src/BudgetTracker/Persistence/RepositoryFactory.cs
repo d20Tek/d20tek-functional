@@ -16,7 +16,7 @@ internal static class RepositoryFactory
                     Environment.SpecialFolder.ApplicationData) + _appFolder));
 
     public static ICategoryRepository CreateCategoryRepository() =>
-        new FileRepositoryOld<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
+        new FileRepository<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);
 
     public static IExpenseRepository CreateExpenseRepository() =>
         new FileRepositoryOld<Expense, BudgetDataStore>(_dataStore, store => store.Expenses);

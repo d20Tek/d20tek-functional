@@ -13,7 +13,7 @@ internal sealed class Configuration
         new ("add-cat", ["add-categories", "add-cat", "ac"], AddCategoryCommand.Handle),
         new ("edit-cat", ["edit-category", "edit-cat", "ec"], EditCategoryCommand.Handle),
         new ("delete-cat", ["delete-category", "del-cat", "dc"],
-            (s, m) => CommonHandlers.DeleteFromRepositoryOld(s, m, BudgetCategories.Constants.Delete.Header, id => s.CategoryRepo.Delete(id))),
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, BudgetCategories.Constants.Delete.Header, id => s.CategoryRepo.Delete(id))),
 
         new ("list-exp", ["list-expenses", "list-exp", "le"], ListExpenseCommand.Handle),
         new ("add-exp", ["add-expense", "add-exp", "ae"], AddExpenseCommand.Handle),

@@ -17,5 +17,6 @@
 - [x] implement Pipe functions to chain operation together
 - [x] fix WealthTracker currency ShortRender to work with negative numbers
 - [ ] migrate BudgetTracker to new Functional library
+- [ ] clean up open todo migration items
 - [ ] delete App.Common and rename App.Common.2
 - [ ] delete old Apps.Repositories types.

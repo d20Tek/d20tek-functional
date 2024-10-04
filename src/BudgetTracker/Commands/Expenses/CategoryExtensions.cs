@@ -1,5 +1,5 @@
 ﻿using BudgetTracker.Entities;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 using Spectre.Console;
 
 namespace BudgetTracker.Commands.Expenses;
@@ -19,6 +19,6 @@ internal static class CategoryExtensions
     private static TextPrompt<int> CreateTextPrompt(string label, ICategoryRepository catRepo) =>
         new TextPrompt<int>(label)
             .Validate(
-                x => catRepo.GetEntityById(x) is Something<BudgetCategory>,
+                x => catRepo.GetEntityById(x) is Success<BudgetCategory>,
                 Constants.InvalidCatIdError);
 }
