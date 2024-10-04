@@ -25,7 +25,7 @@ internal sealed class Configuration
         new ("add-inc", ["add-income", "add-inc", "ai"], AddIncomeCommand.Handle),
         new ("edit-inc", ["edit-income", "edit-inc", "ei"], EditIncomeCommand.Handle),
         new ("del-inc", ["delete-income", "del-inc", "di"],
-            (s, m) => CommonHandlers.DeleteFromRepositoryOld(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
+            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
 
         new ("current", ["current", "c"], ShowCurrentCommand.Handle),
         new ("reconcile", ["reconcile", "rec", "r"], ReconcileMonthCommand.Handle),
