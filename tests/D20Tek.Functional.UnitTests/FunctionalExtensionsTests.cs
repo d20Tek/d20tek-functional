@@ -144,4 +144,44 @@ public class FunctionalExtensionsTests
         // assert
         result.Should().BeNull();
     }
+
+    [TestMethod]
+    public void Pipe_WithFunc_ReturnsChainedResult()
+    {
+        // arrange
+        Func<int, int, int> add = (x, y) => x + y;
+
+        // act
+        var result = add(1, 3).Pipe(z => add(z, 5));
+
+        // assert
+        result.Should().Be(9);
+    }
+
+    [TestMethod]
+    public void Pipe_WithFunc_ReturnsChainedResult2()
+    {
+        // arrange
+        Func<string, string, string> add = (x, y) => $"{x} {y}";
+
+        // act
+        var result = add("test", "with").Pipe(z => add(z, "string"));
+
+        // assert
+        result.Should().Be("test with string");
+    }
+
+    [TestMethod]
+    public void Pipe_WithAction_ReturnsChainedResult2()
+    {
+        // arrange
+        var output = "test";
+        Action<string> append = (x) => output += $" {x}";
+
+        // act
+        var result = output.Pipe(_ => append("with")).Pipe(_ => append("string"));
+
+        // assert
+        output.Should().Be("test with string");
+    }
 }
