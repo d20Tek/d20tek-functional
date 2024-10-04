@@ -163,6 +163,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Games.Common\Games.Common.projitems*{2c080c53-3298-4aba-82e0-3568b8dc23cf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
+		src\Apps.Common.2\Apps.Common.2.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
 		src\Apps.Common\Apps.Common.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{5f1bcf33-767b-452e-8621-22a1f78ee6c2}*SharedItemsImports = 13

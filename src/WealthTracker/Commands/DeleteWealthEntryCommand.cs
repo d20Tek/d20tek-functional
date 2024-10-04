@@ -11,7 +11,7 @@ internal static class DeleteWealthEntryCommand
              .Iter(s => s.Repository
                             .Delete(s.Console.GetId())
                             .Pipe(result => s.Console.DisplayResult(result, e => Constants.Delete.SuccessMessage(e))))
-             .Map(_ => state with { Command = metadata.Name });
+             .Map(s => s with { Command = metadata.Name });
 
     private static int GetId(this IAnsiConsole console) =>
         console.Prompt<int>(new TextPrompt<int>(Constants.Delete.IdLabel));

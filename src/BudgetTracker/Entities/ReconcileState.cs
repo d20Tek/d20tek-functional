@@ -1,4 +1,5 @@
 ﻿using Apps.Common;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Entities;
 
@@ -7,7 +8,7 @@ internal sealed record ReconcileState(
     ReconciledIncome[] Incomes,
     ReconciledIncome? TotalIncome,
     ReconciledExpenses[] Expenses,
-    ReconciledExpenses? TotalExpenses)
+    ReconciledExpenses? TotalExpenses) : IState
 {
     public static ReconcileState Initialize(DateRange range) =>
         new(range, [], null, [], null);

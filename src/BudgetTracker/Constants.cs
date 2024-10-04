@@ -52,7 +52,7 @@ internal static class Constants
     public static string[] DeleteSuccessMessage(IEntity entity) =>
     [
         string.Empty,
-            $"[green]Success:[/] The item with id={entity.Id} was deleted."
+        $"[green]Success:[/] The item with id={entity.Id} was deleted."
     ];
 
     public const string TotalIncomeLabel = "Total Income:";

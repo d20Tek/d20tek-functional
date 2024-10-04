@@ -13,19 +13,19 @@ internal sealed class Configuration
         new ("add-cat", ["add-categories", "add-cat", "ac"], AddCategoryCommand.Handle),
         new ("edit-cat", ["edit-category", "edit-cat", "ec"], EditCategoryCommand.Handle),
         new ("delete-cat", ["delete-category", "del-cat", "dc"],
-            (s, m) => CommonHandlers.DeleteFromRepository(s, m, BudgetCategories.Constants.Delete.Header, id => s.CategoryRepo.Delete(id))),
+            (s, m) => CommonHandlers.DeleteFromRepositoryOld(s, m, BudgetCategories.Constants.Delete.Header, id => s.CategoryRepo.Delete(id))),
 
         new ("list-exp", ["list-expenses", "list-exp", "le"], ListExpenseCommand.Handle),
         new ("add-exp", ["add-expense", "add-exp", "ae"], AddExpenseCommand.Handle),
         new ("edit-exp", ["edit-expense", "edit-exp", "ee"], EditExpenseCommand.Handle),
         new ("del-exp", ["delete-expense", "del-exp", "de"],
-            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Expenses.Constants.Delete.Header, id => s.ExpenseRepo.Delete(id))),
+            (s, m) => CommonHandlers.DeleteFromRepositoryOld(s, m, Expenses.Constants.Delete.Header, id => s.ExpenseRepo.Delete(id))),
 
         new ("list-inc", ["list-income", "list-inc", "li"], ListIncomeCommand.Handle),
         new ("add-inc", ["add-income", "add-inc", "ai"], AddIncomeCommand.Handle),
         new ("edit-inc", ["edit-income", "edit-inc", "ei"], EditIncomeCommand.Handle),
         new ("del-inc", ["delete-income", "del-inc", "di"],
-            (s, m) => CommonHandlers.DeleteFromRepository(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
+            (s, m) => CommonHandlers.DeleteFromRepositoryOld(s, m, Incomes.Constants.Delete.Header, id => s.IncomeRepo.Delete(id))),
 
         new ("current", ["current", "c"], ShowCurrentCommand.Handle),
         new ("reconcile", ["reconcile", "rec", "r"], ReconcileMonthCommand.Handle),

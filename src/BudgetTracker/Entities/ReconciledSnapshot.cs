@@ -3,7 +3,7 @@ using Apps.Repositories;
 
 namespace BudgetTracker.Entities;
 
-internal sealed class ReconciledSnapshot: IEntity
+internal sealed class ReconciledSnapshot : IEntity
 {
     public int Id { get; set; }
 

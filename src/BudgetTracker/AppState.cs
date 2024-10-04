@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using D20Tek.Functional;
+using Spectre.Console;
 
 namespace BudgetTracker;
 
@@ -9,7 +10,7 @@ internal sealed record AppState(
     IIncomeRepository IncomeRepo,
     IReconciledSnapshotRepository SnapshotRepo,
     string Command,
-    bool CanContinue)
+    bool CanContinue) : IState
 {
     public static AppState Init(
         IAnsiConsole console,
