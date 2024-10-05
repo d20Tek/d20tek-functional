@@ -22,5 +22,7 @@
 - [x] delete App.Common and rename App.Common.2
 - [x] delete old Apps.Repositories types
 - [x] run final test pass on BudgetTracker and then update to consume my real data file
-- [ ] fix reconcile success message misspelling (montly)
-- [ ] BudgetTracker add totals row to year command
+- [x] fix reconcile success message misspelling (montly)
+- [x] BudgetTracker add totals row to year command
+- [ ] migrate Teletype game to Functional library
+- [ ] migrate SlotMachine to Functional library

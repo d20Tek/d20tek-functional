@@ -88,5 +88,9 @@ internal static class Constants
     public static class Year
     {
         public const string ListHeader = "Budget for the Year";
+        public const string Totals = "Totals";
+
+        public static readonly string[] TotalsSeparator =
+            ["───────────────", "────────────", "────────────", "────────────", "────────────"];
     }
 }
