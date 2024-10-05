@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using Spectre.Console;
 
@@ -12,17 +12,17 @@ internal static class Game
             initialState.IterateUntil(
                 x => x.NextState(rollFunc, console),
                 x => GameCalculations.IsGameComplete(x))
-        .Apply(x => console.WriteMessage(x.GetEndGameMessage())));
+        .Iter(x => console.WriteMessage(x.GetEndGameMessage())));
 
 
     private static GameState InitializeGame() => new(Constants.StartingTokens);
 
     private static GameState NextState(this GameState state, Func<int> rnd, IAnsiConsole console) =>
-        state.Apply(s => DisplayRoundStart(s.Tokens, console))
-             .Map(s => GameCalculations.GetRandomCombination(rnd, Constants.Fruit)
-                 .Apply(combo => DisplayRow(console, combo))
+        state.Iter(s => DisplayRoundStart(s.Tokens, console))
+             .Map(s => GameCalculations.GetRandomCombination(rnd, Constants.Fruit).ToIdentity()
+                 .Iter(combo => DisplayRow(console, combo))
                  .Map(combo => GameCalculations.CalculatePull(s.Tokens, combo))
-                 .Apply(y => DisplayRoundEnd(console, y))
+                 .Iter(y => DisplayRoundEnd(console, y))
                  .Map(result =>  s with
                  {
                      Tokens = result.Tokens,
@@ -30,15 +30,17 @@ internal static class Game
                  }));
 
     private static void DisplayRoundStart(int tokens, IAnsiConsole console) =>
-        console.Apply(c => c.Clear())
-               .Apply(c => c.Write(Presenters.GameHeader(Constants.GameTitle)))
-               .Apply(c => c.WriteMessage(Constants.CurrentTokensMessage(tokens)))
-               .Apply(c => c.PromptAnyKey(Constants.PullLeverMessage));
+        console.ToIdentity()
+               .Iter(c => c.Clear())
+               .Iter(c => c.Write(Presenters.GameHeader(Constants.GameTitle)))
+               .Iter(c => c.WriteMessage(Constants.CurrentTokensMessage(tokens)))
+               .Iter(c => c.PromptAnyKey(Constants.PullLeverMessage));
 
     private static void DisplayRow(IAnsiConsole console, string[] items) =>
         console.WriteMessage(Constants.FruitRow(items));
 
     private static void DisplayRoundEnd(IAnsiConsole console, PullResult result) =>
-        console.Apply(c => c.WriteMessage(result.Message))
-               .Apply(c => c.PromptAnyKey(Constants.ContinueMessage));
+        console.ToIdentity()
+               .Iter(c => c.WriteMessage(result.Message))
+               .Iter(c => c.PromptAnyKey(Constants.ContinueMessage));
 }

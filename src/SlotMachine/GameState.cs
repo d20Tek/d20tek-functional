@@ -1,3 +1,5 @@
-﻿namespace SlotMachine;
+﻿using D20Tek.Functional;
 
-internal sealed record GameState(int Tokens, int Round = 1);
+namespace SlotMachine;
+
+internal sealed record GameState(int Tokens, int Round = 1) : IState;

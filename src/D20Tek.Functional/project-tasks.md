@@ -24,5 +24,9 @@
 - [x] run final test pass on BudgetTracker and then update to consume my real data file
 - [x] fix reconcile success message misspelling (montly)
 - [x] BudgetTracker add totals row to year command
-- [ ] migrate Teletype game to Functional library
-- [ ] migrate SlotMachine to Functional library
+- [x] migrate Teletype game to Functional library
+- [x] migrate SlotMachine to Functional library
+- [ ] migrate ChutesAndLadders to Functional library
+- [ ] migrate Zorgos to Functional library
+- [ ] remove all project references to D20Tek.Minimal.Functional and delete the project
+
