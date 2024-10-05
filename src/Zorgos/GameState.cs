@@ -1,6 +1,8 @@
-﻿namespace Zorgos;
+﻿using D20Tek.Functional;
 
-internal sealed record GameState(int Zchips, int CurrentBet, string[] LatestMove, RollResult Result)
+namespace Zorgos;
+
+internal sealed record GameState(int Zchips, int CurrentBet, string[] LatestMove, RollResult Result) : IState
 {
     public bool IsGameComplete() => Zchips <= 0 || Zchips >= Constants.WinningTotal;
 

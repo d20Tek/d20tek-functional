@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 
 namespace Zorgos;
@@ -10,9 +10,10 @@ internal static class StateMachine
 
     public static GameState NextState(GameState state, Func<int> rnd) =>
         Enumerable.Range(1, 2).Select(x => rnd()).ToArray()
+            .ToIdentity()
             .Map(rolls => CalculatePayout(rolls, state.CurrentBet))
             .Map(result => (state.Zchips + result.ChipDelta).OrZero()
-                .Map(total => state with
+                .Pipe(total => state with
                 {
                     Zchips = total,
                     CurrentBet = 0,
