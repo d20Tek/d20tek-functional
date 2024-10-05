@@ -48,7 +48,7 @@ internal static class Constants
         public const string CancelledMessage = "This reconcile operation was cancelled.";
 
         public static string[] ReconcileSucceeded =
-            [string.Empty, "Your montly reconciliation [green]completed successfully[/]!"];
+            [string.Empty, "Your monthly reconciliation [green]completed successfully[/]!"];
 
         public static Result<ReconciledSnapshot> SnapshotEmptyError =
             Result<ReconciledSnapshot>.Failure(Error.Validation(
