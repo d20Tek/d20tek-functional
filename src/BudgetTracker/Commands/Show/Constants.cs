@@ -1,6 +1,6 @@
 ﻿using Apps.Common;
 using BudgetTracker.Entities;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Commands.Show;
 
@@ -50,13 +50,13 @@ internal static class Constants
         public static string[] ReconcileSucceeded =
             [string.Empty, "Your montly reconciliation [green]completed successfully[/]!"];
 
-        public static Maybe<ReconciledSnapshot> SnapshotEmptyError =
-            new Failure<ReconciledSnapshot>(Error.Validation(
+        public static Result<ReconciledSnapshot> SnapshotEmptyError =
+            Result<ReconciledSnapshot>.Failure(Error.Validation(
                 "Snapshot.Empty",
                 "There are no income or expenses in the current date range. No action was performed."));
 
-        public static Maybe<ReconciledSnapshot> SnapshotAlreadyExistsError =
-            new Failure<ReconciledSnapshot>(Error.Validation(
+        public static Result<ReconciledSnapshot> SnapshotAlreadyExistsError =
+            Result<ReconciledSnapshot>.Failure(Error.Validation(
                 "Snapshot.AlreadyExists",
                 "A snapshot already exists for that month. We cannot overwrite the one that exists."));
     }

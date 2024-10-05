@@ -6,4 +6,4 @@ global using IExpenseRepository = Apps.Repositories.IRepository<BudgetTracker.En
 
 global using IIncomeRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.Income>;
 
-global using IReconciledSnapshotRepository = Apps.Repositories.IRepositoryOld<BudgetTracker.Entities.ReconciledSnapshot>;
+global using IReconciledSnapshotRepository = Apps.Repositories.IRepository<BudgetTracker.Entities.ReconciledSnapshot>;

@@ -1,9 +1,10 @@
 ﻿using Apps.Common;
 using Apps.Repositories;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Entities;
 
-internal sealed class ReconciledSnapshot : IEntity
+internal sealed class ReconciledSnapshot : IEntity, IState
 {
     public int Id { get; set; }
 
