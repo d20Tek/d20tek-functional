@@ -24,10 +24,10 @@ public static class TeletypePresenter
 
     private static IEnumerable<Segment> SplitSegments(IAnsiConsole console, IRenderable renderable) =>
         renderable.GetSegments(console)
-            .SelectMany(segment =>
-                segment is { IsLineBreak: false, Text.Length: > 1 }
-                ? segment.Text.Select(c => new Segment(c.ToString(), segment.Style))
-                : [segment]);
+                  .SelectMany(segment =>
+                      segment is { IsLineBreak: false, Text.Length: > 1 }
+                      ? segment.Text.Select(c => new Segment(c.ToString(), segment.Style))
+                      : [segment]);
 
     private sealed class SegmentRenderable : Renderable
     {
@@ -36,7 +36,6 @@ public static class TeletypePresenter
         public SegmentRenderable(Segment segment) =>
             _segment = segment ?? throw new ArgumentNullException(nameof(segment));
 
-        protected override IEnumerable<Segment> Render(RenderOptions options, int maxWidth) => 
-            [_segment];
+        protected override IEnumerable<Segment> Render(RenderOptions options, int maxWidth) => [_segment];
     }
 }
