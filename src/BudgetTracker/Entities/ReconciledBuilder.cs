@@ -1,6 +1,6 @@
 ﻿using Apps.Common;
 using BudgetTracker.Persistence;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Entities;
 
@@ -17,7 +17,7 @@ internal static class ReconciledBuilder
                 .Map(s => s.MapToSnapshot(range));
 
     private static ReconcileState CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
-        incRepo.GetIncomeToReconcile(state.Range)
+        incRepo.GetIncomeToReconcile(state.Range).ToIdentity()
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
             .Map(reconciled => state with
             {
@@ -30,8 +30,8 @@ internal static class ReconciledBuilder
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
         state.CalcReconciledExpenses(catRepo, expRepo)
-            .Map(expenses => CalcTotalExpenses(expenses)
-                .Map(total => state with { Expenses = [.. expenses], TotalExpenses = total }));
+             .Pipe(expenses => CalcTotalExpenses(expenses)
+                .Pipe(total => state with { Expenses = [.. expenses], TotalExpenses = total }));
 
     private static ReconciledExpenses[] CalcReconciledExpenses(
         this ReconcileState state,
@@ -40,7 +40,7 @@ internal static class ReconciledBuilder
         catRepo.GetEntities()
             .Select(cat =>
                 expRepo.GetExpensesToReconcile(cat.Id, state.Range).Sum(e => e.Actual)
-                    .Map(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
+                    .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
             .ToArray();
 
     private static ReconciledExpenses CalcTotalExpenses(ReconciledExpenses[] exp) =>

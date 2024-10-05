@@ -35,7 +35,7 @@ internal static class ReconcileMonthCommand
             .Map(s => state.SnapshotRepo.Create(snapshot))
             .Map(_ => state.IncomeRepo.DeleteByDateRange(snapshot.GetDateRange()))
             .Map(_ => state.ExpenseRepo.DeleteByDateRange(snapshot.GetDateRange()))
-            .Iter(result => state.Console.DisplayResult(result, s => Constants.Reconcile.ReconcileSucceeded));
+            .Pipe(result => state.Console.DisplayResult(result, s => Constants.Reconcile.ReconcileSucceeded));
 
     private static Result<ReconciledSnapshot> Validate(
         this ReconciledSnapshot snapshot,

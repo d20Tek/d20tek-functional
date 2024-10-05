@@ -1,6 +1,6 @@
 ﻿using Apps.Common;
 using Apps.Repositories;
-using D20Tek.Minimal.Functional;
+using D20Tek.Functional;
 
 namespace WealthTracker;
 

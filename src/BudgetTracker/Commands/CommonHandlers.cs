@@ -19,13 +19,6 @@ internal static class CommonHandlers
         state.Iter(s => s.Console.MarkupLine(Constants.ErrorCommandMessage(command)))
              .Map(s => s with { Command = metadata.Name });
 
-    // todo: remove this code after migration
-    public static AppState DeleteFromRepositoryOld<TEntity>(
-        AppState state,
-        CommandTypeMetadata metadata,
-        string label,
-        Func<int, D20Tek.Minimal.Functional.Maybe<TEntity>> deleteFunc) => state;
-
     public static AppState DeleteFromRepository<TEntity>(
         AppState state,
         CommandTypeMetadata metadata,
