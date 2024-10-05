@@ -3,12 +3,19 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>f88ff24c-0578-4315-91b2-3070b2e51d1c</SharedGUID>
+    <SharedGUID>c3e996b1-74da-49b8-a5ad-73dc3f079533</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Apps.Common</Import_RootNamespace>
+    <Import_RootNamespace>Apps.Common.2</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnsiConsoleExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BoolExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CurrencyComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeOffsetExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeOffsetPrompt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueRange.cs" />
   </ItemGroup>
 </Project>

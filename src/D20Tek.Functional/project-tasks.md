@@ -19,6 +19,6 @@
 - [x] migrate BudgetTracker to new Functional library
 - [x] clean up open todo migration items
 - [x] fix bug display reconcile command error message (when month already reconciled)
-- [ ] delete App.Common and rename App.Common.2
+- [x] delete App.Common and rename App.Common.2
 - [x] delete old Apps.Repositories types
 - [ ] run final test pass on BudgetTracker and then update to consume my real data file

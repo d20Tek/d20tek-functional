@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional", "src\D2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{37B6E55F-B212-47B4-86D8-6E4812BEE837}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Common.2", "src\Apps.Common.2\Apps.Common.2.shproj", "{C3E996B1-74DA-49B8-A5AD-73DC3F079533}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Common", "src\Apps.Common\Apps.Common.shproj", "{C3E996B1-74DA-49B8-A5AD-73DC3F079533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -160,18 +160,18 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Games.Common\Games.Common.projitems*{2c080c53-3298-4aba-82e0-3568b8dc23cf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{37b67104-bbc7-4f00-bb57-5ed41e32080c}*SharedItemsImports = 5
-		src\Apps.Common.2\Apps.Common.2.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{5084769b-3196-4856-8603-39a61fca2c5e}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{5f1bcf33-767b-452e-8621-22a1f78ee6c2}*SharedItemsImports = 13
 		src\Games.Common\Games.Common.projitems*{629200f7-043f-430c-92fc-c8e460554ab6}*SharedItemsImports = 5
-		src\Apps.Common.2\Apps.Common.2.projitems*{7381e71a-026a-4697-8e8b-a687e8d735f9}*SharedItemsImports = 5
-		src\Apps.Common.2\Apps.Common.2.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{7381e71a-026a-4697-8e8b-a687e8d735f9}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{8c829098-56cc-48cf-9e58-0f9edc8b926e}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{907a386a-24a4-4232-9b57-54e83b70701a}*SharedItemsImports = 13
-		src\Apps.Common.2\Apps.Common.2.projitems*{94ccf4b1-392f-48ca-bf90-4c592715b632}*SharedItemsImports = 5
-		src\Apps.Common.2\Apps.Common.2.projitems*{c3e996b1-74da-49b8-a5ad-73dc3f079533}*SharedItemsImports = 13
-		src\Apps.Common.2\Apps.Common.2.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{94ccf4b1-392f-48ca-bf90-4c592715b632}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.2.projitems*{c3e996b1-74da-49b8-a5ad-73dc3f079533}*SharedItemsImports = 13
+		src\Apps.Common\Apps.Common.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
 		src\Apps.Repositories\Apps.Repositories.projitems*{c5fef00a-fc92-477c-a4ab-2f619d40a0cf}*SharedItemsImports = 5
-		src\Apps.Common.2\Apps.Common.2.projitems*{d96ef53d-5a93-47ec-a5d5-872baed66116}*SharedItemsImports = 5
+		src\Apps.Common\Apps.Common.projitems*{d96ef53d-5a93-47ec-a5d5-872baed66116}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{dca3a273-612c-4152-933e-dc16907144bf}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{dee1ae19-3d0b-4162-9787-2ad3b1c54575}*SharedItemsImports = 5
 		src\Games.Common\Games.Common.projitems*{f155dc0a-1ad7-437a-88cf-92d5934ef635}*SharedItemsImports = 5
