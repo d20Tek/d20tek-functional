@@ -6,7 +6,7 @@ namespace BudgetTracker.Persistence;
 
 internal static class RepositoryFactory
 {
-    private const string _databaseFile = "budget-data-test.json";
+    private const string _databaseFile = "budget-data.json";
     private const string _appFolder = "\\d20tek-fin";
 
     private static readonly LowDb<BudgetDataStore> _dataStore =
