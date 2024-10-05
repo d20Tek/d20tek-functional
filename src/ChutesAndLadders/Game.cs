@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Spectre.Console;
 
 namespace ChutesAndLadders;
@@ -11,13 +11,14 @@ internal static class Game
         var finalState = initialState
             .IterateUntil(
                 x => StateMachine.NextState(x, rollFunc)
-                        .Apply(y => AnsiConsole.MarkupLine($"[{x.GetCurrentPlayer().Color}]{y.LatestMove}[/]")),
+                        .Iter(y => AnsiConsole.MarkupLine($"[{x.GetCurrentPlayer().Color}]{y.LatestMove}[/]")),
                 x => x.Players.Any(y => y.IsWinner()))
-            .Apply(x => DisplayWinner(console, x));
+            .Iter(x => DisplayWinner(console, x));
     }
 
     private static GameState InitializeGame(IAnsiConsole console) =>
-        console.Apply(x => DisplayTitle(x))
+        console.ToIdentity()
+               .Iter(x => DisplayTitle(x))
                .Map(x => GetNumberOfPlayers(x))
                .Map(x => StateMachine.InitialState(x));
 
@@ -25,7 +26,8 @@ internal static class Game
         new FigletText("Chutes & Ladders")
             .Centered()
             .Color(Color.Green)
-            .Apply(x => console.Write(x));
+            .ToIdentity()
+            .Iter(x => console.Write(x));
 
     private static int GetNumberOfPlayers(IAnsiConsole console) =>
         console.Prompt<int>(
@@ -35,7 +37,7 @@ internal static class Game
     private static void DisplayWinner(IAnsiConsole console, GameState finalState) =>
         console.MarkupLine(finalState.GetWinningPlayer() switch
         {
-            Something<Player> p => $"The winner is [{p.Value.Color}]Player {p.Value.Number}[/]!!!",
+            Some<Player> p => $"The winner is [{p.Get().Color}]Player {p.Get().Number}[/]!!!",
             _ => $"[red]Error:[/] There was an unexpected error running through this game."
         });
 }

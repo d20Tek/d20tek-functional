@@ -26,7 +26,7 @@
 - [x] BudgetTracker add totals row to year command
 - [x] migrate Teletype game to Functional library
 - [x] migrate SlotMachine to Functional library
-- [ ] migrate ChutesAndLadders to Functional library
+- [x] migrate ChutesAndLadders to Functional library
 - [x] migrate Zorgos to Functional library
 - [ ] migrate Crash to Functional library
 - [ ] migrate TreasureHunt to Functional library

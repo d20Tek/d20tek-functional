@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Spectre.Console;
 
 namespace ChutesAndLadders;
@@ -12,7 +12,7 @@ internal static class StateMachine
         NumberOfPlayers: numPlayers);
 
     public static GameState NextState(GameState state, Func<int> rollFunc) =>
-        rollFunc()
+        rollFunc().ToIdentity()
             .Map(r => new GameState(
                 Players: state.Players.Select(x => x.Number == state.CurrentPlayer ? MovePlayer(x, r) : x).ToArray(),
                 CurrentPlayer: NextPlayer(state.CurrentPlayer, state.NumberOfPlayers, r),
@@ -27,6 +27,7 @@ internal static class StateMachine
 
     private static Player MovePlayer(Player player, int roll) =>
         Math.Min(player.Position + roll, Constants.WinningPosition)
+            .ToIdentity()
             .Map(pos => Constants.SnakesAndLadders.ContainsKey(pos) ? Constants.SnakesAndLadders[pos] : pos)
             .Map(pos => player with { Position = pos });
 
