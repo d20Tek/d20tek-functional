@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using TreasureHunt.Data;
 
 namespace TreasureHunt.Commands;
@@ -9,6 +9,7 @@ internal static class InventoryCommands
         state.IsAlreadyCarryingTreasure()
             ? state with { LatestMove = Constants.Commands.CannotCarryMoreMessage }
             : state.GetTreasureInRoom(state.CurrentRoom)
+                   .ToIdentity()
                    .Map(treasureId => treasureId == Constants.NoTreasure
                         ? state with { LatestMove = Constants.Commands.EmptyRoomMessage }
                         : state with
@@ -23,6 +24,7 @@ internal static class InventoryCommands
         state.IsAlreadyCarryingTreasure() == false
             ? state with { LatestMove = Constants.Commands.CannotCarryMoreMessage }
             : state.Carrying
+                   .ToIdentity()
                    .Map(treasureId => state with
                    {
                        TreasureLocations = state.AddTreasureTo(treasureId, state.CurrentRoom),

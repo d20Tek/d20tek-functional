@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using TreasureHunt.Data;
 
 namespace TreasureHunt.Commands;
@@ -16,6 +16,7 @@ internal static class MoveCommands
 
     private static GameState Move(Func<Room, int> direction, GameState state) =>
         GameData.GetRoomById(state.CurrentRoom)
+            .ToIdentity()
             .Map(r => direction(r))
             .Map(d => d == Constants.DirectionNotAllowed
                     ? state with { LatestMove = Constants.Commands.CannotMoveMessage }

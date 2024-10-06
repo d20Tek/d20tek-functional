@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace TreasureHunt.Commands;
 
@@ -19,7 +19,7 @@ internal static class Commands
     };
 
     public static GameState ProcessCommand(GameState state, string command) =>
-        command.ToUpper()
+        command.ToUpper().ToIdentity()
             .Map(c => _commands.TryGetValue(c, out CommandFunc? value) ? value : None).Map(f => f(state))
             .Map(s => s with { Moves = s.Moves + 1 });
 
