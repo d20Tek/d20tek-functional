@@ -1,4 +1,6 @@
-﻿namespace MartianTrail.Inventory;
+﻿using D20Tek.Functional;
+
+namespace MartianTrail.Inventory;
 
 internal sealed record InventorySelectionState(
     int Batteries = 0,
@@ -9,7 +11,7 @@ internal sealed record InventorySelectionState(
     int MediPacks = 0,
     int Credits = 0,
     bool PlayerIsHappyWithSelection = false)
-    : InventoryState(Batteries, Food, Furs, LaserCharges, AtmosphereSuits, MediPacks, Credits)
+    : InventoryState(Batteries, Food, Furs, LaserCharges, AtmosphereSuits, MediPacks, Credits), IState
 {
     public static InventorySelectionState From(InventoryState inv) =>
         new(inv.Batteries, inv.Food, inv.Furs, inv.LaserCharges, inv.AtmosphereSuits, inv.MediPacks, inv.Credits);

@@ -1,4 +1,5 @@
-﻿using MartianTrail.Inventory;
+﻿using D20Tek.Functional;
+using MartianTrail.Inventory;
 
 namespace MartianTrail.GamePhases;
 
@@ -10,4 +11,4 @@ internal sealed record GameState(
     int CurrentSol,
     PlayerActions UserActionSelectedThisTurn,
     InventoryState Inventory,
-    string[] LatestMoves);
+    string[] LatestMoves) : IState;

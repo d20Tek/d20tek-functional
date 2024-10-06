@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using Spectre.Console;
 
@@ -19,8 +19,8 @@ internal class MiniGameCommand
 
     public decimal Play() =>
         GenerateRandomText(_randFunc)
-            .Apply(s => _console.DisplayHeader(Constants.MiniGame.Heading))
-            .Apply(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
+            .Iter(s => _console.DisplayHeader(Constants.MiniGame.Heading))
+            .Iter(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
             .Map(s => GetUserInput(_console, _timeService, s))
             .Map(s => CalculateAccuracy(s));
 
@@ -29,6 +29,7 @@ internal class MiniGameCommand
             Enumerable.Repeat(0, Constants.MiniGame.NumberRandomChars)
                 .Select(_ => randFunc(Constants.MiniGame.RandomCharMax))
                 .Select(x => (char)(Constants.MiniGame.RandomCharBase + x))
+                .ToIdentity()
                 .Map(lettersToSelect => string.Join(string.Empty, lettersToSelect))
             );
 
@@ -37,16 +38,20 @@ internal class MiniGameCommand
             () => console.Prompt<string>(
                     new TextPrompt<string>($"{Constants.MiniGame.UserInputLabel} {oldState.TextToType} - ")
                         .Secret('?')))
+                .ToIdentity()
                 .Map(x => oldState with { UserInput = x.Result, TimeTaken = x.TimeTaken });
 
     private static decimal CalculateAccuracy(MiniGameState state) =>
-        state.UserInput.Map(i => RateTextAccuracy(state.TextToType, i))
-                       .Map(textAccuracy => textAccuracy * Constants.MiniGame.RateTimeAccuracy(state.TimeTaken));
+        state.UserInput
+                .ToIdentity()
+                .Map(i => RateTextAccuracy(state.TextToType, i))
+                .Map(textAccuracy => textAccuracy * Constants.MiniGame.RateTimeAccuracy(state.TimeTaken));
 
     private static decimal RateTextAccuracy(string expected, string actual) =>
         actual.Length != Constants.MiniGame.NumberRandomChars
                       ? Constants.MiniGame.NoAccuracy
                       : expected.Zip(actual, (x, y) => char.ToUpper(x) == char.ToUpper(y))
+                                .ToIdentity()
                                 .Map(charByCharComparison => charByCharComparison.Sum(x => x ? 1 : 0))
                                 .Map(numCorrect => (decimal)numCorrect / Constants.MiniGame.NumberRandomChars);
 }

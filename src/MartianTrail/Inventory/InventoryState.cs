@@ -1,4 +1,6 @@
-﻿namespace MartianTrail.Inventory;
+﻿using D20Tek.Functional;
+
+namespace MartianTrail.Inventory;
 
 internal record InventoryState(
     int Batteries,
@@ -7,4 +9,4 @@ internal record InventoryState(
     int LaserCharges,
     int AtmosphereSuits,
     int MediPacks,
-    int Credits);
+    int Credits) : IState;

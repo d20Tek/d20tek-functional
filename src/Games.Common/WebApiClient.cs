@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using System.Net.Http.Json;
 
 namespace Games.Common;
@@ -12,18 +12,22 @@ internal class WebApiClient
         _httpClient = httpClient;
     }
 
-    public async Task<Maybe<T>> Fetch<T>(string url)
+    public async Task<Result<T>> Fetch<T>(string url) where T : notnull
     {
         try
         {
             var response = await this._httpClient.GetAsync(url);
             return response.IsSuccessStatusCode
-                ? (await response.Content.ReadFromJsonAsync<T>()).ToMaybeIfNull()
-                : new Nothing<T>();
+                ? Result<T>.Success(await ReadJson<T>(response))
+                : Result<T>.Failure(Error.Invalid("Fetch.Error", response.ReasonPhrase!));
         }
         catch (Exception e)
         {
-            return new Exceptional<T>(e);
+            return Result<T>.Failure(e);
         }
     }
+
+    private static async Task<T> ReadJson<T>(HttpResponseMessage response)
+        where T : notnull =>
+        (await response.Content.ReadFromJsonAsync<T>())!;
 }
