@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using Spectre.Console;
 
@@ -14,7 +14,7 @@ internal static class Game
                 initialState.IterateUntil(
                     x => x.NextRound(console, rnd),
                     x => x.IsGameComplete())
-            .Apply(x =>
+            .Iter(x =>
             {
                 console.Clear();
                 console.WriteMessage(x.GetEndGameMessage());
@@ -22,12 +22,12 @@ internal static class Game
 
     private static GameState InitializeGame(IAnsiConsole console) =>
         GameState.Empty()
-                 .Apply(s => console.Write(Presenters.GameHeader(Constants.GameTitle)))
-                 .Apply(x => console.DisplayInstructions(
+                 .Iter(s => console.Write(Presenters.GameHeader(Constants.GameTitle)))
+                 .Iter(x => console.DisplayInstructions(
                      Constants.ShowInstructionsLabel,
                      Constants.Instructions,
                      Constants.StartGameLabel))
-                 .Apply(x => console.Clear());
+                 .Iter(x => console.Clear());
 
     private static GameState NextRound(this GameState state, IAnsiConsole console, RndFunc rnd) =>
         GameRound.PlayRound(state, console, rnd);

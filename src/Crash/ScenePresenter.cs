@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using Spectre.Console;
 
@@ -9,15 +9,15 @@ internal static class ScenePresenter
     public static void Render(GameState state, IAnsiConsole console) =>
         SceneToText(state)
             .Map(rows => string.Join(Environment.NewLine, rows))
-            .Apply(sceneText => console.Cursor.ResetPosition())
-            .Apply(sceneText => console.Write(sceneText));
+            .Iter(sceneText => console.Cursor.ResetPosition())
+            .Iter(sceneText => console.Write(sceneText));
 
     public static void ClearLines(int width, int height, IAnsiConsole console) => 
         EmptyLines(width, height)
-            .Apply(x => console.Cursor.ResetPosition())
-            .Apply(x => console.Write(x));
+            .Iter(x => console.Cursor.ResetPosition())
+            .Iter(x => console.Write(x));
 
-    private static string[] SceneToText(GameState state) =>
+    private static Identity<string[]> SceneToText(GameState state) =>
         Enumerable.Range(0, Constants.Height)
             .Reverse()
             .Select(i => Enumerable
@@ -39,7 +39,7 @@ internal static class ScenePresenter
             _ => Constants.Scene.CarStraight
         };
 
-    private static string EmptyLines(int width, int height) =>
+    private static Identity<string> EmptyLines(int width, int height) =>
         Enumerable.Range(0, height)
             .Select(_ => new string(Constants.Scene.EmptySpace, width))
             .Aggregate((line1, line2) => $"{line1}{Environment.NewLine}{line2}");

@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Spectre.Console;
 
 namespace Crash;
@@ -19,6 +19,6 @@ internal static class KeyboardInput
                 }),
             s => console.Input.IsKeyAvailable() is false);
 
-    private static ConsoleKey ReadNextKey(IAnsiConsole console) =>
+    private static Identity<ConsoleKey> ReadNextKey(IAnsiConsole console) =>
         console.Input.ReadKey(true)?.Key ?? ConsoleKey.None;
 }

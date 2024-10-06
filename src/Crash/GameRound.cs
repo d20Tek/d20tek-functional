@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using Spectre.Console;
 
@@ -12,15 +12,15 @@ internal static class GameRound
                 initialSceneState.IterateUntil(
                     x => x.NexState(console, rnd),
                     x => x.GameRunning is false)
-            .Map(s => RoundOverScreen(s, console)));
+            .Map(s => RoundOverScreen(s, console.ToIdentity())));
 
     private static GameState NexState(this GameState state, IAnsiConsole console, Game.RndFunc rnd) =>
         (ConsoleSizer.IsValidSize(Constants.Width, Constants.Height) is false).IfTrueOrElse(
             () => state with { ConsoleSizeError = true, KeepPlaying = false },
             () => KeyboardInput.Handle(state, console)
                     .Map(s => Update(s, rnd))
-                    .Apply(s => ScenePresenter.Render(s, console))
-                    .Apply(s => Thread.Sleep(Constants.RefreshRate)));
+                    .Iter(s => ScenePresenter.Render(s, console))
+                    .Iter(s => Thread.Sleep(Constants.RefreshRate)));
 
     private static GameState InitializeScene(GameState state) =>
         state with
@@ -44,11 +44,11 @@ internal static class GameRound
                 Score = state.Score + 1
             });
 
-    private static GameState RoundOverScreen(GameState state, IAnsiConsole console) =>
+    private static GameState RoundOverScreen(GameState state, Identity<IAnsiConsole> console) =>
         (state.KeepPlaying is false)
             ? state
-            : console.Apply(c => ScenePresenter.ClearLines(Constants.Width, Constants.EndBannerHeight, c))
-                     .Apply(c => c.Cursor.ResetPosition())
-                     .Apply(c => c.WriteMessage(Constants.ScoreMessage(state.Score)))
+            : console.Iter(c => ScenePresenter.ClearLines(Constants.Width, Constants.EndBannerHeight, c))
+                     .Iter(c => c.Cursor.ResetPosition())
+                     .Iter(c => c.WriteMessage(Constants.ScoreMessage(state.Score)))
                      .Map(c => state with { KeepPlaying = c.Confirm(Constants.PlayAgainLabel) });
 }

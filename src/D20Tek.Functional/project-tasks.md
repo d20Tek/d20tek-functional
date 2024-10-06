@@ -28,7 +28,7 @@
 - [x] migrate SlotMachine to Functional library
 - [x] migrate ChutesAndLadders to Functional library
 - [x] migrate Zorgos to Functional library
-- [ ] migrate Crash to Functional library
+- [x] migrate Crash to Functional library
 - [ ] migrate TreasureHunt to Functional library
 - [ ] migrate MartianTrail to Functional library
 - [ ] remove all project references to D20Tek.Minimal.Functional and delete the project
