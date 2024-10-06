@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using MartianTrail.GamePhases;
 using MartianTrail.Inventory;
@@ -27,5 +27,5 @@ internal static class StateMachine
 
     private static GameState NextPhase(IAnsiConsole console, IGamePhase phase, GameState oldState) => 
         phase.DoPhase(oldState)
-            .Apply(x => console.WriteMessage(x.LatestMoves));
+             .Iter(x => console.WriteMessage(x.LatestMoves));
 }

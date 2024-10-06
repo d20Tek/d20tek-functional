@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 using MartianTrail.GamePhases;
 using MartianTrail.Inventory;
@@ -12,14 +12,16 @@ internal static class Game
     public static void Play(IAnsiConsole console, WebApiClient webApiClient, Func<int, int> rollFunc) =>
         InitializeGame(console)
             .Map(initialState => GetGamePhases(webApiClient, console, rollFunc)
+                .ToIdentity()
                 .Map(phases => initialState.IterateUntil(
                     x => StateMachine.NextTurn(x, console, phases),
                     x => x.PlayerIsDead || x.ReachedDestination)
-                       .Apply(x => DisplayGameEnding(console, x))));
+                       .Iter(x => DisplayGameEnding(console, x))));
 
     private static GameState InitializeGame(IAnsiConsole console) =>
-        console.Apply(x => DisplayTitle(x))
-               .Apply(x => DisplayInstructions(x))
+        console.ToIdentity()
+               .Iter(x => DisplayTitle(x))
+               .Iter(x => DisplayInstructions(x))
                .Map(x => SelectInventoryCommand.SelectInitialInventory(x))
                .Map(i => StateMachine.InitialState(i));
 
@@ -27,11 +29,13 @@ internal static class Game
         new FigletText(Constants.GameTitle)
             .Centered()
             .Color(Color.Green)
-            .Apply(x => console.Write(x));
+            .ToIdentity()
+            .Iter(x => console.Write(x));
 
     private static void DisplayInstructions(IAnsiConsole console) =>
         console.Confirm(Constants.ShowInstructionsLabel)
-            .Apply(x => console.WriteMessageConditional(x, Constants.Instructions));
+            .ToIdentity()
+            .Iter(x => console.WriteMessageConditional(x, Constants.Instructions));
 
     private static IGamePhase[] GetGamePhases(
         WebApiClient webApiClient,

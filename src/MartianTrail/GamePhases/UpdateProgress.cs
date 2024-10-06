@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Games.Common;
 
 namespace MartianTrail.GamePhases;
@@ -16,6 +16,7 @@ internal sealed class UpdateProgress : IGamePhase
 
     public GameState DoPhase(GameState oldState) =>
         GameCalculations.DistanceTraveled(oldState)
+            .ToIdentity()
             .Map(d => oldState with
                 {
                     DistanceThisTurn = d,
