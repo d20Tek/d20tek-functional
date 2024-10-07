@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\D20Tek.Functional\D20Tek.Functional.csproj" />
+	  <ProjectReference Include="..\..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 
 </Project>

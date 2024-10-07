@@ -31,8 +31,9 @@
 - [x] migrate Crash to Functional library
 - [x] migrate TreasureHunt to Functional library
 - [x] migrate MartianTrail to Functional library
-- [x] migrate Games.Common code to use Functional library.
+- [x] migrate Games.Common code to use Functional library
 - [x] remove all project references to D20Tek.Minimal.Functional and delete the project
-- [ ] add unit tests for new Fork overload.
+- [x] add unit tests for new Fork overload
+- [x] move games and apps into a samples code folder
 - [ ] refactor the TryExcept class to work with finally func too (for Crash)
 
