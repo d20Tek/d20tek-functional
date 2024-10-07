@@ -4,6 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>D20Tek Functional</Title>
+    <Company>d20Tek</Company>
+    <Description>Welcome to D20Tek.Functional code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. </Description>
+    <Copyright>Copyright (c) d20Tek.  All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/d20Tek/d20tek-functional</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/d20Tek/d20tek-functional</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce</PackageTags>
+    <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods.</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
