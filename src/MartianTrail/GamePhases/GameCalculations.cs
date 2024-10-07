@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 
 namespace MartianTrail.GamePhases;
 
@@ -60,6 +60,7 @@ internal static class GameCalculations
 
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)
+            .ToIdentity()
             .Map(isWilderness =>
                 new LocationFlags(
                     IsWilderness(rnd),
