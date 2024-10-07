@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Spectre.Console;
 
 namespace Games.Common;
@@ -22,16 +22,19 @@ internal static class AnsiConsoleExtensions
         condition.IfTrueOrElse(() => console.WriteMessage(prompt));
 
     public static void PromptAnyKey(this IAnsiConsole console, string label) =>
-        console.Apply(c => c.MarkupLine(label))
-               .Apply(c => c.Input.ReadKey(true));
+        console.ToIdentity()
+               .Iter(c => c.MarkupLine(label))
+               .Iter(c => c.Input.ReadKey(true));
 
     public static void ContinueOnAnyKey(this IAnsiConsole console, string[] labels, int offset = 0) =>
-        console.Apply(c => c.WriteMessage(offset, labels))
-               .Apply(c => c.Input.ReadKey(true));
+        console.ToIdentity()
+               .Iter(c => c.WriteMessage(offset, labels))
+               .Iter(c => c.Input.ReadKey(true));
 
     public static void DisplayHeader(this IAnsiConsole console, string title, string color = "grey") =>
-        console.Apply(x => x.WriteLine())
-               .Apply(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
+        console.ToIdentity()
+               .Iter(x => x.WriteLine())
+               .Iter(x => x.Write(new Rule(title).LeftJustified().RuleStyle(color)));
 
     public static void DisplayInstructions(
         this IAnsiConsole console,
@@ -39,6 +42,7 @@ internal static class AnsiConsoleExtensions
         string[] instructions,
         string startLabel) =>
         console.Confirm(showLabel)
-            .Apply(x => console.WriteMessageConditional(x, instructions))
-            .Apply(x => x.IfTrueOrElse(() => console.PromptAnyKey(startLabel)));
+            .ToIdentity()
+            .Iter(x => console.WriteMessageConditional(x, instructions))
+            .Iter(x => x.IfTrueOrElse(() => console.PromptAnyKey(startLabel)));
 }
