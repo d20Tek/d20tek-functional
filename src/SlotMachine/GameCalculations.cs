@@ -1,4 +1,4 @@
-﻿using D20Tek.Minimal.Functional;
+﻿using D20Tek.Functional;
 using Spectre.Console;
 
 namespace SlotMachine;
@@ -13,6 +13,7 @@ internal static class GameCalculations
     public static string[] GetRandomCombination(Func<int> rnd, string[] fruit) =>
         Enumerable.Range(1, Constants.NumColumns)
             .Select(_ => rnd() - 1)
+            .ToIdentity()
             .Map(rolls => rolls.Select(x => fruit[x]).ToArray());
 
     public static PullResult CalculatePull(int tokens, string[] combo) =>
