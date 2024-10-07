@@ -1,6 +1,8 @@
-﻿namespace TodoService.Endpoints.Todos;
+﻿using Apps.Repositories;
 
-public sealed class Todo
+namespace TodoService.Endpoints.Todos;
+
+public sealed class Todo : IEntity
 {
     public int Id { get; private set; }
 
@@ -18,9 +20,5 @@ public sealed class Todo
         IsCompleted = isCompleted;
     }
 
-    public Todo SetId(int id)
-    {
-        Id = id;
-        return this;
-    }
+    public void SetId(int id) => Id = id;
 }

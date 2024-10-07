@@ -1,5 +1,6 @@
 ﻿using D20Tek.Functional;
 using TodoService.Endpoints.Todos;
+using TodoService.Persistence;
 
 namespace TodoService;
 
@@ -9,6 +10,7 @@ internal static class DependencyInjection
         builder.Services.AddEndpointsApiExplorer()
                         .AddSwaggerGen()
                         .AddCors()
+                        .AddRepository()
                         .Pipe(_ => builder);
 
     public static WebApplication ConfigurePipeline(this WebApplication app) =>
