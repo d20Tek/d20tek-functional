@@ -19,6 +19,24 @@ public class FunctionalExtensionsTests
     }
 
     [TestMethod]
+    public void Fork_WithTwoInputFuncs_RunsAction()
+    {
+        // arrange
+        double[] grades = [4, 3.5, 3.7, 3.3, 4.3];
+        string output = string.Empty;
+        Action<double, int> changeOutput = (total, num) =>
+            output = Math.Round(total / num, 2).ToString();
+
+        // act
+        grades.Fork(
+            g => g.Sum(),
+            g => g.Count(),
+            (totalPoints, numClasses) => changeOutput(totalPoints, numClasses));
+
+        output.Should().Be("3.76");
+    }
+
+    [TestMethod]
     public void IterateUntil_RunUpdateFunction_UntilEndCondition()
     {
         // arrange
