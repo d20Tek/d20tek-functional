@@ -35,5 +35,7 @@
 - [x] remove all project references to D20Tek.Minimal.Functional and delete the project
 - [x] add unit tests for new Fork overload
 - [x] move games and apps into a samples code folder
+- [ ] write package information for D20Tek.Functional library
+- [ ] create build script for release nuget package
 - [ ] refactor the TryExcept class to work with finally func too (for Crash)
 
