@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitConverter", "src\UnitConverter\UnitConverter.csproj", "{7F4AF11A-49F1-4843-A064-50C76D21E8CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Minimal.Functional", "src\D20Tek.Minimal.Functional\D20Tek.Minimal.Functional.csproj", "{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempConverter", "src\TempConverter\TempConverter.csproj", "{F1EA0E58-B146-4A32-BCFF-40492A9690DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChutesAndLadders", "src\ChutesAndLadders\ChutesAndLadders.csproj", "{0A7BF725-1E12-4C10-9479-6B9140665A72}"
@@ -61,10 +59,6 @@ Global
 		{7F4AF11A-49F1-4843-A064-50C76D21E8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F4AF11A-49F1-4843-A064-50C76D21E8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F4AF11A-49F1-4843-A064-50C76D21E8CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90240D94-0BBA-421C-AB8C-7E1DD5F84FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1EA0E58-B146-4A32-BCFF-40492A9690DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
