@@ -34,6 +34,24 @@ public class TryExceptTests
     }
 
     [TestMethod]
+    public void Run_WithSuccessfulOperation_RunsFinally()
+    {
+        // arrange
+        bool ranFinally = false;
+
+        // act
+        var result = TryExcept.Run(
+            () => Result<int>.Success(42),
+            [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
+            () => ranFinally = true);
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+        ranFinally.Should().BeTrue();
+    }
+
+    [TestMethod]
     public void Bind_WithValidValue_ReturnsSuccess()
     {
         // arrange
@@ -91,5 +109,62 @@ public class TryExceptTests
         // assert
         result.IsFailure.Should().BeTrue();
         result.GetErrors().Should().NotBeEmpty();
+    }
+
+    [TestMethod]
+    public void RunAction_WithSuccessfulOperation_ReturnsSuccess()
+    {
+        // arrange
+        Result<int>? value = null;
+        Action op = () => value = Result<int>.Success(42);
+
+        // act
+        TryExcept.Run(
+            () => op(),
+            [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex));
+
+        // assert
+        value.Should().NotBeNull();
+        value!.IsSuccess.Should().BeTrue();
+        value.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public void RunAction_WithOperationException_ReturnsFailure()
+    {
+        // arrange
+        Result<int>? value = null;
+        Action op = () => throw new InvalidOperationException();
+
+        // act
+        TryExcept.Run(
+            [ExcludeFromCodeCoverage] () => op(),
+            ex => value = Result<int>.Failure(ex));
+
+        // assert
+        value.Should().NotBeNull();
+        value!.IsFailure.Should().BeTrue();
+        value.GetErrors().Should().NotBeEmpty();
+    }
+
+    [TestMethod]
+    public void RunAction_WithSuccessfulOperation_RunsFinally()
+    {
+        // arrange
+        bool ranFinally = false;
+        Result<int>? value = null;
+        Action op = () => value = Result<int>.Success(42);
+
+        // act
+        TryExcept.Run(
+            () => op(),
+            [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
+            () => ranFinally = true);
+
+        // assert
+        value.Should().NotBeNull();
+        value!.IsSuccess.Should().BeTrue();
+        value.GetValue().Should().Be(42);
+        ranFinally.Should().BeTrue();
     }
 }

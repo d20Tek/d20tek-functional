@@ -1,12 +1,12 @@
 ﻿using Crash;
+using D20Tek.Functional;
 using Spectre.Console;
 
-AnsiConsole.Cursor.Hide();
-try
-{
-    Game.Play(AnsiConsole.Console, RandomGenerator.Roll);
-}
-finally
-{
-    AnsiConsole.Cursor.Show();
-}
+TryExcept.Run(
+    () =>
+    {
+        AnsiConsole.Cursor.Hide();
+        Game.Play(AnsiConsole.Console, RandomGenerator.Roll);
+    },
+    ex => AnsiConsole.WriteException(ex),
+    () => AnsiConsole.Cursor.Show());

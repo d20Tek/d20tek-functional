@@ -2,7 +2,7 @@
 
 public static class TryExcept
 {
-    public static T Run<T>(Func<T> operation, Func<Exception, T> onException)
+    public static T Run<T>(Func<T> operation, Func<Exception, T> onException, Action? onFinally = null)
         where T : notnull
     {
         try
@@ -12,6 +12,26 @@ public static class TryExcept
         catch (Exception e)
         {
             return onException(e);
+        }
+        finally
+        {
+            onFinally?.Invoke();
+        }
+    }
+
+    public static void Run(Action operation, Action<Exception> onException, Action? onFinally = null)
+    {
+        try
+        {
+            operation();
+        }
+        catch (Exception e)
+        {
+            onException(e);
+        }
+        finally
+        {
+            onFinally?.Invoke();
         }
     }
 
