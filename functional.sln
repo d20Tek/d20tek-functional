@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4E9B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService", "samples\WebApi\TodoService\TodoService.csproj", "{7DF655C0-F284-4867-BC54-832B73DAA14A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.Functional.AspNetCore", "src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj", "{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{7DF655C0-F284-4867-BC54-832B73DAA14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF655C0-F284-4867-BC54-832B73DAA14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF655C0-F284-4867-BC54-832B73DAA14A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

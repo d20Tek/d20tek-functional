@@ -38,4 +38,5 @@
 - [x] write package information for D20Tek.Functional library
 - [x] create build script for release nuget package
 - [x] build a WebApi sample for Todos
-- [ ] need to move common Result<T> to IResult conversion code to a package.
+- [ ] need to move common Result<T> to IResult conversion code to a package
+- [ ] update WebApi same to use new result mapper
