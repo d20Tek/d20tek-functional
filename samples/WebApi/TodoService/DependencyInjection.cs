@@ -15,13 +15,15 @@ internal static class DependencyInjection
 
     public static WebApplication ConfigurePipeline(this WebApplication app) =>
         app.ToIdentity()
-           .Iter(app => app.Environment.IsDevelopment().IfTrueOrElse(
-                 () =>
-                 {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                 }))
-           .Iter(app => app.UseHttpsRedirection())
-           .Iter(app => app.UseCors())
+           .Iter(app => app.UseSwaggerInDev()
+                           .UseHttpsRedirection()
+                           .UseCors())
            .Iter(app => app.MapTodoEndpoints());
+
+    private static WebApplication UseSwaggerInDev(this WebApplication app) =>
+        app.Pipe(a => a.Environment.IsDevelopment()
+                       .IfTrueOrElse(
+                            () => a.UseSwagger()
+                                   .UseSwaggerUI()))
+           .Pipe(a => a);
 }
