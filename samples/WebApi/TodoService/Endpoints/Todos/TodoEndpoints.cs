@@ -30,13 +30,22 @@ public static class TodoEndpoints
 
     private static Todo GetById(int id) => new(id, "Test");
 
-    private static Created<Todo> Create(Todo model)
-    {
-        model.SetId(12);
-        return TypedResults.Created($"/api/Todos/{model.Id}", model);
-    }
+    private static IResult Create(Todo model, [FromServices] ITodoRepository repo) =>
+        model.Validate()
+             .Bind(m => repo.Create(m))
+             .Pipe<Result<Todo>, IResult>(r => r switch
+             {
+                 Success<Todo> s => TypedResults.Created($"/api/Todos/{model.Id}", s.GetValue()),
+                 _ => TypedResults.Problem("Error occurred saving Todo.", null, StatusCodes.Status400BadRequest)
+             });
 
     private static NoContent Update(int id, Todo input) => TypedResults.NoContent();
 
     private static Ok<Todo> Delete(int id) => TypedResults.Ok(new Todo(id, "deleted"));
+
+    private static Result<Todo> Validate(this Todo todo) =>
+        string.IsNullOrEmpty(todo.Title)
+            ? Result<Todo>.Failure(Error.Validation("Todo.Title.Invalid", "Todo Title is required."))
+            : todo;
+
 }
