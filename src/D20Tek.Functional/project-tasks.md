@@ -37,6 +37,5 @@
 - [x] move games and apps into a samples code folder
 - [x] write package information for D20Tek.Functional library
 - [x] create build script for release nuget package
-- [ ] build a WebApi sample for Todos
+- [x] build a WebApi sample for Todos
 - [ ] need to move common Result<T> to IResult conversion code to a package.
-

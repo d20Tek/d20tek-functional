@@ -2,7 +2,7 @@
 
 namespace TodoService.Endpoints.Todos;
 
-public sealed class Todo : IEntity
+internal sealed class Todo : IEntity
 {
     public int Id { get; private set; }
 
