@@ -7,7 +7,7 @@ public sealed class Failure<T> : Result<T>
 
     internal Failure(Error[] errors) => _errors = errors;
 
-    internal override TResult Match<TResult>(
+    public override TResult Match<TResult>(
         Func<T, TResult> onSuccess,
         Func<Error[], TResult> onFailure) =>
             onFailure(_errors);

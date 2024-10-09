@@ -29,5 +29,5 @@ public class ErrorTypeMapper : IErrorTypeMapper
 
     private static Identity<ErrorTypeConfigurator> GetConfigurator(Action<IErrorTypeConfigurator>? configure) =>
         new ErrorTypeConfigurator().ToIdentity()
-            .Iter(configurator => configure?.Invoke(configurator));
+                                   .Iter(configurator => configure?.Invoke(configurator));
 }
