@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj" />
     <ProjectReference Include="..\..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 

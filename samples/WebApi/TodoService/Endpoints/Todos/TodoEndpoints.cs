@@ -1,4 +1,5 @@
 ﻿using D20Tek.Functional;
+using D20Tek.Functional.AspNetCore.MinimalApi;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TodoService.Endpoints.Todos;
@@ -28,20 +29,18 @@ internal static class TodoEndpoints
     private static Todo[] Get([FromServices]ITodoRepository repo) => repo.GetEntities();
 
     private static IResult GetById([FromServices] ITodoRepository repo, int id) =>
-        repo.GetEntityById(id)
-            .ToTypedResult("Error occurred getting Todo by id.");
+        repo.GetEntityById(id).ToApiResult();
 
     private static IResult Create([FromServices] ITodoRepository repo, Todo model) =>
         model.Validate()
              .Bind(m => repo.Create(m))
-             .ToTypedResult("Error occurred saving Todo.");
+             .ToCreatedApiResult($"/api/Todos/{model.Id}");
 
     private static IResult Update([FromServices] ITodoRepository repo, int id, Todo input) =>
         input.Validate()
              .Bind(m => repo.Update(m))
-             .ToTypedResult("Error occurred updating Todo.");
+             .ToApiResult();
 
     private static IResult Delete([FromServices] ITodoRepository repo, int id) =>
-        repo.Delete(id)
-            .ToTypedResult("Error occurred deleting Todo.");
+        repo.Delete(id).ToApiResult();
 }

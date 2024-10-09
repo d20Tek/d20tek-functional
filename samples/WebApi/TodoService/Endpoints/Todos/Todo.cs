@@ -14,8 +14,6 @@ internal sealed class Todo : IEntity
 
     public Todo(int id, string title, string? description = null, bool isCompleted = false)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(title, nameof(title));
-
         Id = id;
         Title = title;
         Description = description;
