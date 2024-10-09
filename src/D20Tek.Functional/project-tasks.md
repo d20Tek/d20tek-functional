@@ -40,7 +40,8 @@
 - [x] build a WebApi sample for Todos
 - [x] need to move common Result<T> to IResult conversion code to a package
 - [x] update WebApi same to use new result mapper
-- [ ] add unit tests for common Result<T> to IResult conversion
+- [x] add unit tests for common Result<T> to IResult conversion
 - [ ] add ability to to result mapper to work with Controller API as well
+- [ ] add unit tests for ControllerAPI result mapping
 - [ ] add nuget package description information to the new package
 - [ ] add new nuget package to nuget-release pipeline

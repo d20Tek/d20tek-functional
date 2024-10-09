@@ -20,9 +20,7 @@ public sealed class HandleTypedResultFilterTests
         var filter = new HandleTypedResultFilter<TestResponse>();
 
         // act
-        var apiResult = await filter.InvokeAsync(
-            _mockContext.Object,
-            (context) => new ValueTask<object?>(result));
+        var apiResult = await filter.InvokeAsync(_mockContext.Object, context => new ValueTask<object?>(result));
 
         // assert
         apiResult.Should().NotBeNull();
@@ -39,9 +37,7 @@ public sealed class HandleTypedResultFilterTests
         var filter = new HandleTypedResultFilter<TestResponse>();
 
         // act
-        var apiResult = await filter.InvokeAsync(
-            _mockContext.Object,
-            (context) => new ValueTask<object?>(result));
+        var apiResult = await filter.InvokeAsync(_mockContext.Object, context => new ValueTask<object?>(result));
 
         // assert
         apiResult.Should().NotBeNull();
@@ -56,9 +52,7 @@ public sealed class HandleTypedResultFilterTests
         var filter = new HandleTypedResultFilter<TestResponse>();
 
         // act
-        var apiResult = await filter.InvokeAsync(
-            _mockContext.Object,
-            (context) => new ValueTask<object?>(new OkResult()));
+        var apiResult = await filter.InvokeAsync(_mockContext.Object, context => new ValueTask<object?>(new OkResult()));
 
         // assert
         apiResult.Should().NotBeNull();

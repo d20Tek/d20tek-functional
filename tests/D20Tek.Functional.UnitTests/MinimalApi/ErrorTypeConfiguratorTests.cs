@@ -18,10 +18,8 @@ public class ErrorTypeConfiguratorTests
         // assert
         result.Should().NotBeNull();
         result.Should().HaveCount(8);
-        result.Should().Contain(
-            new ConfigEntry(ErrorType.Unexpected, HttpStatusCode.InternalServerError));
-        result.Should().Contain(
-            new ConfigEntry(ErrorType.NotFound, HttpStatusCode.NotFound));
+        result.Should().Contain(new ConfigEntry(ErrorType.Unexpected, HttpStatusCode.InternalServerError));
+        result.Should().Contain(new ConfigEntry(ErrorType.NotFound, HttpStatusCode.NotFound));
     }
 
     [TestMethod]
@@ -37,8 +35,7 @@ public class ErrorTypeConfiguratorTests
         // assert
         result.Should().NotBeNull();
         result.Should().HaveCount(0);
-        result.Should().NotContain(
-            new ConfigEntry(ErrorType.Unexpected, HttpStatusCode.InternalServerError));
+        result.Should().NotContain(new ConfigEntry(ErrorType.Unexpected, HttpStatusCode.InternalServerError));
     }
 
     [TestMethod]
@@ -54,8 +51,7 @@ public class ErrorTypeConfiguratorTests
         // assert
         result.Should().NotBeNull();
         result.Should().HaveCount(9);
-        result.Should().Contain(
-            new ConfigEntry(100001, HttpStatusCode.MethodNotAllowed));
+        result.Should().Contain(new ConfigEntry(100001, HttpStatusCode.MethodNotAllowed));
     }
 
     [TestMethod]
@@ -91,8 +87,7 @@ public class ErrorTypeConfiguratorTests
         // assert
         result.Should().NotBeNull();
         result.Should().HaveCount(7);
-        result.Should().NotContain(
-            new ConfigEntry(ErrorType.Forbidden, HttpStatusCode.Forbidden));
+        result.Should().NotContain(new ConfigEntry(ErrorType.Forbidden, HttpStatusCode.Forbidden));
     }
 
     [TestMethod]
