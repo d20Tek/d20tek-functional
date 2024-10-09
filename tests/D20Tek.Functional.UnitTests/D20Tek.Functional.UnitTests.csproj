@@ -16,11 +16,13 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.6.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.6.0" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.6.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 

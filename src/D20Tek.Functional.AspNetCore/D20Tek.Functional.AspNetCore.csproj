@@ -11,7 +11,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\D20Tek.Functional\D20Tek.Functional.csproj" />
-  </ItemGroup>
+		<InternalsVisibleTo Include="D20Tek.Functional.UnitTests" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\D20Tek.Functional\D20Tek.Functional.csproj" />
+	</ItemGroup>
 
 </Project>
