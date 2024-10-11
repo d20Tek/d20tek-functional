@@ -2,7 +2,7 @@
 
 public interface IResultMonad
 {
-    public object GetValue();
+    public object? GetValue();
 
     public Error[] GetErrors();
 

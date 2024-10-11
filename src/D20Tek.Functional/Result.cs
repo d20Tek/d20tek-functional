@@ -48,7 +48,7 @@ public abstract class Result<T> : IResultMonad
 
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
 
-    object IResultMonad.GetValue() => GetValue();
+    object? IResultMonad.GetValue() => Match<object?>(v => v, _ => null);
 
     public Error[] GetErrors() => Match(_ => [], e => e);
 
