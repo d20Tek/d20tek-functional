@@ -34,3 +34,7 @@ jobs:
       run: dotnet nuget push D20Tek.Functional.${VERSION}.nupkg --source https://nuget.pkg.github.com/d20Tek/index.json --api-key ${GITHUB_TOKEN}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish D20Tek.Functional.AspNetCore
+      run: dotnet nuget push D20Tek.Functional.AspNetCore.${VERSION}.nupkg --source https://nuget.pkg.github.com/d20Tek/index.json --api-key ${GITHUB_TOKEN}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
