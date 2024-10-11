@@ -42,7 +42,10 @@
 - [x] update WebApi same to use new result mapper
 - [x] add unit tests for common Result<T> to IResult conversion
 - [x] add ability to to result mapper to work with Controller API as well
-- [ ] add unit tests for ControllerAPI result mapping
+- [x] add unit tests for ControllerAPI result mapping
+- [ ] add IResultMonad to expose untyped Result object
+- [ ] add result filter objects to AspNetCore package
+- [ ] add unit tests for new result filters.
 - [ ] create sample Controller WebApi that use new result mapping
 - [ ] add nuget package description information to the new package
 - [ ] add new nuget package to nuget-release pipeline

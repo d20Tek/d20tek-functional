@@ -2,7 +2,7 @@
 
 namespace D20Tek.Functional;
 
-public abstract class Result<T>
+public abstract class Result<T> : IResultMonad
     where T : notnull
 {
     public static Result<T> Success(T value) => new Success<T>(value);
@@ -47,6 +47,8 @@ public abstract class Result<T>
     public bool ForAll(Func<T, bool> predicate) => Match(v => predicate(v), _ => true);
 
     public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
+
+    object IResultMonad.GetValue() => GetValue();
 
     public Error[] GetErrors() => Match(_ => [], e => e);
 
