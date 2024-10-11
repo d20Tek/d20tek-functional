@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace D20Tek.Functional.AspNetCore.WinApi;
+namespace D20Tek.Functional.AspNetCore.WebApi;
 
 public static class ActionResultExtensions
 {

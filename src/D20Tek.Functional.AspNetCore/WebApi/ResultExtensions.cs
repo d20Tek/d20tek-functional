@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace D20Tek.Functional.AspNetCore.WinApi;
+namespace D20Tek.Functional.AspNetCore.WebApi;
 
 public static class ResultExtensions
 {
