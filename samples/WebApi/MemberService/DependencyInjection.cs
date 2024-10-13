@@ -1,4 +1,5 @@
 ﻿using D20Tek.Functional;
+using MemberService.Persistence;
 
 namespace MemberService;
 
@@ -8,8 +9,8 @@ internal static class DependencyInjection
         builder.Services.AddEndpointsApiExplorer()
                         .AddSwaggerGen()
                         .AddCors()
+                        .AddRepository()
                         .AddControllers()
-                        //.AddRepository()
                         .Pipe(_ => builder);
 
     public static WebApplication ConfigurePipeline(this WebApplication app) =>

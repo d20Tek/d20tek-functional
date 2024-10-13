@@ -1,8 +1,10 @@
-﻿namespace MemberService.Controllers.Members;
+﻿using Apps.Repositories;
 
-public sealed class MemberEntity
+namespace MemberService.Controllers.Members;
+
+public sealed class MemberEntity : IEntity
 {
-    public Guid Id { get; }
+    public int Id { get; private set; }
 
     public string FirstName { get; }
 
@@ -10,11 +12,13 @@ public sealed class MemberEntity
 
     public string Email { get; }
 
-    public MemberEntity(Guid id, string firstName, string lastName, string email)
+    public MemberEntity(int id, string firstName, string lastName, string email)
     {
         Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
     }
+
+    public void SetId(int id) => Id = id;
 }
