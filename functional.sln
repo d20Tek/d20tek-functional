@@ -53,9 +53,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{59123F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4E9B17DE-BA4D-4DA0-A723-2190101BD66C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService", "samples\WebApi\TodoService\TodoService.csproj", "{7DF655C0-F284-4867-BC54-832B73DAA14A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoService", "samples\WebApi\TodoService\TodoService.csproj", "{7DF655C0-F284-4867-BC54-832B73DAA14A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.Functional.AspNetCore", "src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj", "{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.AspNetCore", "src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj", "{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberService", "samples\WebApi\MemberService\MemberService.csproj", "{D62B966B-214E-4341-A3A1-29485568A629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,10 @@ Global
 		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D62B966B-214E-4341-A3A1-29485568A629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D62B966B-214E-4341-A3A1-29485568A629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{80AF5998-4883-4E18-9B0D-CB69C3AE023D} = {482E7CED-27CA-45A0-948E-DA0091DE44A5}
 		{59123F95-BEB7-474B-9A0B-5E2154CF3E4B} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 		{7DF655C0-F284-4867-BC54-832B73DAA14A} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
+		{D62B966B-214E-4341-A3A1-29485568A629} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
