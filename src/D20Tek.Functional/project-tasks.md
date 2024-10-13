@@ -45,7 +45,7 @@
 - [x] add unit tests for ControllerAPI result mapping
 - [x] add IResultMonad to expose untyped Result object
 - [x] add result filter objects to AspNetCore package
-- [ ] add unit tests for new result filters.
+- [x] add unit tests for new result filters.
 - [ ] create sample Controller WebApi that use new result mapping
 - [ ] add nuget package description information to the new package
-- [x] add new nuget package to nuget-release pipeline
+- [ ] add new nuget package to nuget-release pipeline
