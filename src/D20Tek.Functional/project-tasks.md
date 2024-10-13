@@ -46,6 +46,8 @@
 - [x] add IResultMonad to expose untyped Result object
 - [x] add result filter objects to AspNetCore package
 - [x] add unit tests for new result filters.
-- [ ] create sample Controller WebApi that use new result mapping
+- [x] create sample Controller WebApi that use new result mapping
+- [ ] add validation check to Create/Update MembersController
+- [ ] verify all operations for MemberService with db persistence
 - [ ] add nuget package description information to the new package
 - [ ] add new nuget package to nuget-release pipeline
