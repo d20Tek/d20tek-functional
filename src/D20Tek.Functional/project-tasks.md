@@ -48,6 +48,6 @@
 - [x] add unit tests for new result filters.
 - [x] create sample Controller WebApi that use new result mapping
 - [ ] add validation check to Create/Update MembersController
-- [ ] verify all operations for MemberService with db persistence
+- [x] verify all operations for MemberService with db persistence
 - [ ] add nuget package description information to the new package
 - [ ] add new nuget package to nuget-release pipeline
