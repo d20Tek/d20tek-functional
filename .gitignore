@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /samples/WebApi/TodoService/task-data.json
+/samples/WebApi/MemberService/member-data.json
