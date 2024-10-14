@@ -9,6 +9,12 @@ namespace MemberService.Controllers.Members;
 [ApiController]
 public sealed class MembersController : ControllerBase
 {
+    [HttpGet]
+    [ProducesResponseType(typeof(MemberResponse[]), StatusCodes.Status200OK)]
+    [ActionName("GetAllMembers")]
+    public ActionResult<MemberResponse[]> Get([FromServices] IMemberRepository repo) =>
+        repo.GetEntities().Select(x => MemberMapper.Convert(x)).ToArray();
+
     [HttpGet("email/{email}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -16,7 +22,7 @@ public sealed class MembersController : ControllerBase
     public ActionResult<MemberResponse> Get([FromRoute] string email, [FromServices] IMemberRepository repo) =>
         repo.GetByEmail(email).ToActionResult(MemberMapper.Convert, this);
 
-    [HttpGet("{id:Guid}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ActionName("GetMemberById")]
@@ -34,9 +40,9 @@ public sealed class MembersController : ControllerBase
     new MemberEntity(0, request.FirstName, request.LastName, request.Email).ToIdentity()
         .Map(entity => repo.Create(entity))
         .Map(result => result.ToCreatedActionResult(
-            MemberMapper.Convert, this, "GetMemberById", new { id = result.GetValue() }));
+            MemberMapper.Convert, this, "GetMemberById", new { id = result.GetValue().Id }));
 
-    [HttpPut("{id:Guid}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -48,7 +54,7 @@ public sealed class MembersController : ControllerBase
         repo.Update(new(id, request.FirstName, request.LastName, request.Email))
             .ToActionResult(MemberMapper.Convert, this);
 
-    [HttpDelete("{id:Guid}")]
+    [HttpDelete("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ActionName("DeleteMember")]
