@@ -21,4 +21,9 @@ public sealed class MemberEntity : IEntity
     }
 
     public void SetId(int id) => Id = id;
+
+    public static MemberEntity Create(int id, string firstName, string lastName, string email) =>
+        new(id, firstName, lastName, email);
+
+    public static MemberEntity Default => new(0, string.Empty, string.Empty, string.Empty);
 }

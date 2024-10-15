@@ -38,9 +38,10 @@ public sealed class MembersController : ControllerBase
     [FromBody] CreateMemberRequest request,
     [FromServices] IMemberRepository repo) =>
         request.Validate()
-            .Bind(r => repo.Create(new MemberEntity(0, r.FirstName, r.LastName, r.Email)))
+            .Map(r => MemberEntity.Create(0, r.FirstName, r.LastName, r.Email))
+            .Bind(entity => repo.Create(entity))
             .Pipe(result => result.ToCreatedActionResult(
-                MemberMapper.Convert, this, "GetMemberById", new { id = result.GetValue().Id }));
+                MemberMapper.Convert, this, "GetMemberById", GetRouteValuesForCreate(result)));
 
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
@@ -60,4 +61,7 @@ public sealed class MembersController : ControllerBase
     [ActionName("DeleteMember")]
     public ActionResult<MemberResponse> Delete([FromRoute] int id, [FromServices] IMemberRepository repo) =>
         repo.Delete(id).ToActionResult(MemberMapper.Convert, this);
+
+    private static object? GetRouteValuesForCreate(IResultMonad result) =>
+        (result.GetValue() is MemberEntity e) ? new { id = e.Id } : null;
 }
