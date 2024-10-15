@@ -52,7 +52,8 @@ public sealed class MembersController : ControllerBase
         [FromRoute] int id,
         [FromBody] UpdateMemberRequest request,
         [FromServices] IMemberRepository repo) =>
-        repo.Update(new(id, request.FirstName, request.LastName, request.Email))
+        request.Validate()
+            .Bind(r => repo.Update(new(id, request.FirstName, request.LastName, request.Email)))
             .ToActionResult(MemberMapper.Convert, this);
 
     [HttpDelete("{id:int}")]
