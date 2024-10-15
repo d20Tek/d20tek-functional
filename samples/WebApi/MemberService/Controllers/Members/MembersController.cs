@@ -37,10 +37,10 @@ public sealed class MembersController : ControllerBase
     public ActionResult<MemberResponse> Post(
     [FromBody] CreateMemberRequest request,
     [FromServices] IMemberRepository repo) =>
-    new MemberEntity(0, request.FirstName, request.LastName, request.Email).ToIdentity()
-        .Map(entity => repo.Create(entity))
-        .Map(result => result.ToCreatedActionResult(
-            MemberMapper.Convert, this, "GetMemberById", new { id = result.GetValue().Id }));
+        request.Validate()
+            .Bind(r => repo.Create(new MemberEntity(0, r.FirstName, r.LastName, r.Email)))
+            .Pipe(result => result.ToCreatedActionResult(
+                MemberMapper.Convert, this, "GetMemberById", new { id = result.GetValue().Id }));
 
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
