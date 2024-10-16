@@ -5,6 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>D20Tek Functional extensions for ASP.NET Core</Title>
+    <Company>d20Tek</Company>
+    <Description>Welcome to D20Tek.Functional code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. 
+The extensions for ASP.NET Core add functionality to working with controller-based webapi and minimal webapi. Making it easier to convert Result&lt;T&gt; into service endpoint responses.</Description>
+    <Copyright>Copyright (c) d20Tek.  All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/d20Tek/d20tek-functional</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/d20Tek/d20tek-functional</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce; controllers; webapi; minimal webapi</PackageTags>
+    <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods.</PackageReleaseNotes>
   </PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework) == 'net8.0'">
@@ -13,6 +24,13 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="D20Tek.Functional.UnitTests" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 	
 	<ItemGroup>

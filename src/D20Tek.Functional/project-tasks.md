@@ -49,5 +49,7 @@
 - [x] create sample Controller WebApi that use new result mapping
 - [x] add validation check to Create/Update MembersController
 - [x] verify all operations for MemberService with db persistence
-- [ ] add nuget package description information to the new package
-- [ ] add new nuget package to nuget-release pipeline
+- [x] add nuget package description information to the new package
+- [x] add new nuget package to nuget-release pipeline
+- [ ] verify build and release pipeline for nuget packages
+- [ ] create sample for Blazor app (all client-side), use WealthTracker
