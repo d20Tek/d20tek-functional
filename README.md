@@ -12,8 +12,10 @@ There is also an extensive set of sample console applications and simple games t
 ## Installation
 This library is a NuGet package so it is easy to add to your project. To install the package into your solution, you can use the NuGet Package Manager. In PM, please use the following command:
 
+```cmd
 PM > Install-Package D20Tek.Functional -Version 1.0.0
 PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.0.0
+```
 
 To install in the Visual Studio UI, go to the Tools menu > "Manage NuGet Packages". Then search for D20Tek.Functional, and install whichever packages you require from there.
 
