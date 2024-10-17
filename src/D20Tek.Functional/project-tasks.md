@@ -1,3 +1,6 @@
+- [ ] create sample for Blazor app (all client-side), use WealthTracker
+
+==  PREVIOUS RELEASES     ===============================================================
 - [x] Make all Iters return this value after conditional action (Option, Result) 
 - [x] Unit tests for Iter changes
 - [x] unit tests for BoolExtensions and TryExcept
@@ -51,5 +54,5 @@
 - [x] verify all operations for MemberService with db persistence
 - [x] add nuget package description information to the new package
 - [x] add new nuget package to nuget-release pipeline
-- [ ] verify build and release pipeline for nuget packages
-- [ ] create sample for Blazor app (all client-side), use WealthTracker
+- [x] verify build and release pipeline for nuget packages
+- [x] update nuget release script to publish to nuget.org too
