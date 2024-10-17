@@ -1,4 +1,7 @@
-- [ ] create sample for Blazor app (all client-side), use WealthTracker
+== CURRENT RELEASE TASKS     ============================================================
+- [ ] - [ ] create sample for Blazor app (all client-side), use WealthTracker
+
+
 
 ==  PREVIOUS RELEASES     ===============================================================
 - [x] Make all Iters return this value after conditional action (Option, Result) 
