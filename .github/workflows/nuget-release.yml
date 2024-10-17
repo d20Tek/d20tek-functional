@@ -52,9 +52,9 @@ jobs:
     - name: Publish D20Tek.Functional (nuget.org)
       run: dotnet nuget push D20Tek.Functional.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
       env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
     - name: Publish D20Tek.Functional.AspNetCore (nuget.org)
       run: dotnet nuget push D20Tek.Functional.AspNetCore.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API_KEY}
       env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
