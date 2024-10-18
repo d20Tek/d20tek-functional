@@ -1,7 +1,15 @@
 ﻿@page "/"
+@inject IWealthRepository _repo
 
 <PageTitle>WealthTracker - Home</PageTitle>
 
 <h1>Wealth Tracker</h1>
 
 Welcome to your new app.
+
+@code {
+    protected override void OnInitialized()
+    {
+        var entries = _repo.GetEntities();
+    }
+}
