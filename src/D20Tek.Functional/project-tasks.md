@@ -1,5 +1,5 @@
 == CURRENT RELEASE TASKS     ============================================================
-- [ ] - [ ] create sample for Blazor app (all client-side), use WealthTracker
+- [ ] create sample for Blazor app (all client-side), use WealthTracker
 
 
 

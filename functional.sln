@@ -57,7 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoService", "samples\WebA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.AspNetCore", "src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj", "{588FA76E-2F1F-40CA-B773-F3C12E8E47F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberService", "samples\WebApi\MemberService\MemberService.csproj", "{D62B966B-214E-4341-A3A1-29485568A629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemberService", "samples\WebApi\MemberService\MemberService.csproj", "{D62B966B-214E-4341-A3A1-29485568A629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{42773236-153E-451B-B70B-CAD2693B7947}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +149,10 @@ Global
 		{D62B966B-214E-4341-A3A1-29485568A629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42773236-153E-451B-B70B-CAD2693B7947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42773236-153E-451B-B70B-CAD2693B7947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42773236-153E-451B-B70B-CAD2693B7947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42773236-153E-451B-B70B-CAD2693B7947}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +182,8 @@ Global
 		{59123F95-BEB7-474B-9A0B-5E2154CF3E4B} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 		{7DF655C0-F284-4867-BC54-832B73DAA14A} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
 		{D62B966B-214E-4341-A3A1-29485568A629} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
+		{42773236-153E-451B-B70B-CAD2693B7947} = {5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}
+		{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
