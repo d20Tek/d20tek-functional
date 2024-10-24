@@ -59,9 +59,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D20Tek.Functional.AspNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemberService", "samples\WebApi\MemberService\MemberService.csproj", "{D62B966B-214E-4341-A3A1-29485568A629}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{42773236-153E-451B-B70B-CAD2693B7947}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WealthTracker-Old", "samples\Blazor\WealthTracker-Old\WealthTracker-Old.csproj", "{10DB5442-D69D-444C-A6A6-6B56757A565E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -149,10 +149,10 @@ Global
 		{D62B966B-214E-4341-A3A1-29485568A629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62B966B-214E-4341-A3A1-29485568A629}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42773236-153E-451B-B70B-CAD2693B7947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42773236-153E-451B-B70B-CAD2693B7947}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42773236-153E-451B-B70B-CAD2693B7947}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42773236-153E-451B-B70B-CAD2693B7947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DB5442-D69D-444C-A6A6-6B56757A565E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DB5442-D69D-444C-A6A6-6B56757A565E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DB5442-D69D-444C-A6A6-6B56757A565E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DB5442-D69D-444C-A6A6-6B56757A565E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,18 +182,18 @@ Global
 		{59123F95-BEB7-474B-9A0B-5E2154CF3E4B} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 		{7DF655C0-F284-4867-BC54-832B73DAA14A} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
 		{D62B966B-214E-4341-A3A1-29485568A629} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
-		{42773236-153E-451B-B70B-CAD2693B7947} = {5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}
 		{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
+		{10DB5442-D69D-444C-A6A6-6B56757A565E} = {5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		samples\Apps\Apps.Repositories\Apps.Repositories.projitems*{10db5442-d69d-444c-a6a6-6b56757a565e}*SharedItemsImports = 5
 		samples\Apps\Apps.Common\Apps.Common.projitems*{1b2bd798-9674-4b09-931a-546a46f9ff0a}*SharedItemsImports = 5
 		samples\Apps\Apps.Common\Apps.Common.projitems*{2a4f7ffa-d2ba-4b4c-b2c9-99ae11a1fb46}*SharedItemsImports = 5
 		samples\Games\Games.Common\Games.Common.projitems*{338e02b7-2af5-42b5-bcbe-d5266791b741}*SharedItemsImports = 5
 		samples\Games\Games.Common\Games.Common.projitems*{3c4a28fb-9c00-4011-a55a-49c9e23f28d6}*SharedItemsImports = 5
-		samples\Apps\Apps.Repositories\Apps.Repositories.projitems*{42773236-153e-451b-b70b-cad2693b7947}*SharedItemsImports = 5
 		samples\Apps\Apps.Common\Apps.Common.projitems*{56ca8c7c-33a8-4680-a6b3-3f8d45bdac2b}*SharedItemsImports = 5
 		samples\Apps\Apps.Repositories\Apps.Repositories.projitems*{5f1bcf33-767b-452e-8621-22a1f78ee6c2}*SharedItemsImports = 13
 		samples\Apps\Apps.Repositories\Apps.Repositories.projitems*{7df655c0-f284-4867-bc54-832b73daa14a}*SharedItemsImports = 5
