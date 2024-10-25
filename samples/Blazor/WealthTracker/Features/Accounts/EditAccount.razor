@@ -19,7 +19,7 @@
             <InputText id="accountName" class="form-control" required @bind-Value="_account.Name" placeholder="Account name" />
         </div>
 
-        <CategoriesEditor @bind-Categories=_account.Categories />
+        <CategoriesEditor Categories=_account.Categories />
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>

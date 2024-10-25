@@ -23,24 +23,16 @@
     [Parameter]
     public List<string> Categories { get; set; } = [];
 
-    [Parameter]
-    public EventCallback<List<string>> CategoriesChanged { get; set; }
-
     private void OnCategoryInputChanged(ChangeEventArgs e) => singleCategory = e.Value?.ToString() ?? string.Empty;
 
-    private async Task AddCategory()
+    private void AddCategory()
     {
         if (singleCategory.HasText())
         {
             Categories.Add(singleCategory);
-            await CategoriesChanged.InvokeAsync(Categories);
             singleCategory = string.Empty;
         }
     }
 
-    private async Task ClearCategories()
-    {
-        Categories.Clear();
-        await CategoriesChanged.InvokeAsync(Categories);
-    }
+    private void ClearCategories() => Categories.Clear();
 }
