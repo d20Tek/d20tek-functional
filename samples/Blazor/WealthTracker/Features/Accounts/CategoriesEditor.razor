@@ -1,6 +1,6 @@
 ﻿<div class="mb-3">
     <div for="accountCategories" class="form-label">Categories: @Categories.AsString("none.")</div>
-    <button id="accountCategories" type="button" class="btn btn-secondary" @onclick=ClearCategories>
+    <button id="accountCategories" type="button" class="btn btn-secondary" @onclick=Categories.Clear>
         Clear Categories
     </button>
 </div>
@@ -25,14 +25,10 @@
 
     private void OnCategoryInputChanged(ChangeEventArgs e) => singleCategory = e.Value?.ToString() ?? string.Empty;
 
-    private void AddCategory()
-    {
-        if (singleCategory.HasText())
+    private void AddCategory() =>
+        singleCategory.HasText().IfTrueOrElse(() =>
         {
             Categories.Add(singleCategory);
             singleCategory = string.Empty;
-        }
-    }
-
-    private void ClearCategories() => Categories.Clear();
+        });
 }
