@@ -1,0 +1,34 @@
+﻿@page "/account/add"
+@using WealthTracker.Domain
+@inject IWealthRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Wealth Tracker - Accounts</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>New Account</h3>
+
+    <EditForm class="mx-2" Model="@_account" OnValidSubmit="CreateAccount">
+        <div class="mb-3">
+            <label for="accountName" class="form-label">Name</label>
+            <InputText id="accountName" class="form-control" required @bind-Value="_account.Name" placeholder="New account" />
+        </div>
+
+        <div class="mb-3">
+            <div class="form-label">Categories: @_account.GetCategoriesAsString()</div>
+            <label for="accountCategory" class="form-label">Category</label>
+            <div class="input-group">
+                <InputText id="accountCategory" class="form-control" @bind-Value="_account.SingleCategory"
+                           placeholder="New category" />
+                <button class="btn btn-primary" type="button" @onclick=AddCategory
+                        disabled="@(_account.HasCategory == false)">Add</button>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create</button>
+    </EditForm>
+
+    @if (string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+</div>

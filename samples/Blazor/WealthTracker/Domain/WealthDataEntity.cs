@@ -19,7 +19,6 @@ internal sealed class WealthDataEntity : IEntity
         string[]? categories = null,
         SortedDictionary<DateTimeOffset, decimal>? dailyValues = null)
     {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         Id = id;
         Name = name;
         Categories = categories ?? [];
