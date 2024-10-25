@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemberService", "samples\We
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

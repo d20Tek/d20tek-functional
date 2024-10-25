@@ -1,0 +1,54 @@
+﻿@page "/account/delete/{Id:int}"
+@using WealthTracker.Domain
+@inject IWealthRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Wealth Tracker - Accounts</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Delete Account</h3>
+
+    @if (_account is not null)
+    {
+        <EditForm class="mx-2" Model="@_account" OnValidSubmit="DeleteHandler">
+            <div class="mb-3">
+                <label class="form-label">
+                    Are you sure that you want to delete the account with id=@_account.Id, named '@_account.Name'?
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        </EditForm>
+    }
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>
+
+@code {
+    private string _errorMessage = string.Empty;
+    private WealthDataEntity? _account;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var result = _repo.GetEntityById(Id);
+        result.Match(
+            s => { _account = s; return string.Empty; },
+            e => _errorMessage = e.First().ToString());
+    }
+
+    private void DeleteHandler()
+    {
+        var result = _repo.Delete(Id);        
+        result.Match(
+            s => { _nav.NavigateTo("/account"); return string.Empty; },
+            e => _errorMessage = e.First().ToString());
+    }
+
+    private void CancelHandler() => _nav.NavigateTo("/account");
+}

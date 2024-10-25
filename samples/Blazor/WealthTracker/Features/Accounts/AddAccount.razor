@@ -25,9 +25,10 @@
         </div>
         
         <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
     </EditForm>
 
-    @if (string.IsNullOrEmpty(_errorMessage))
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
     {
         <div>@_errorMessage</div>
     }

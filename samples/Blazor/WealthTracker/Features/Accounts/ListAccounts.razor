@@ -14,9 +14,10 @@ else
     <table class="table table-sm table-bordered table-striped">
         <thead>
             <tr>
-                <th class="col-2 text-center">Id</th>
+                <th class="col-1 text-center">Id</th>
                 <th class="col-4">Name</th>
                 <th class="col-6">Categories</th>
+                <th class="col-1"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@ else
                 <td class="text-center">@account.Id</td>
                 <td>@account.Name</td>
                 <td>@(string.Join(", ", account.Categories))</td>
+                <td><a href=@($"/account/delete/{account.Id}")>Del</a></td>
             </tr>
         }
         </tbody>

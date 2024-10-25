@@ -36,4 +36,6 @@ public partial class AddAccount
             s => { _nav.NavigateTo("/account"); return string.Empty; },
             e => _errorMessage = $"Error: {e.First().Message}");
     }
+
+    private void CancelHandler() => _nav.NavigateTo("/account");
 }
