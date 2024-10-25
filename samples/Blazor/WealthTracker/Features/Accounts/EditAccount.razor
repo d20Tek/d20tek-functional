@@ -1,0 +1,52 @@
+﻿@page "/account/edit/{Id:int}"
+@using WealthTracker.Domain
+@inject IWealthRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Wealth Tracker - Accounts</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Edit Account</h3>
+
+    @if (_account is not null)
+    {
+    <EditForm class="mx-2" Model="@_account" OnValidSubmit="UpdateHandler">
+        <div class="mb-3">
+            <label for="accountId" class="form-label">Id</label>
+            <InputNumber id="accountId" class="form-control" readonly @bind-Value="_account.Id" />
+        </div>
+
+        <div class="mb-3">
+            <label for="accountName" class="form-label">Name</label>
+            <InputText id="accountName" class="form-control" required @bind-Value="_account.Name" placeholder="Account name" />
+        </div>
+
+        <div class="mb-3">
+            <div for="accountCategories" class="form-label">Categories: @_account.GetCategoriesAsString()</div>
+            <button id="accountCategories" type="button" class="btn btn-secondary" @onclick=ClearCategories>
+                Clear Categories
+            </button>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-label">Categories: @_account.GetCategoriesAsString()</div>
+            <label for="accountCategory" class="form-label">Category</label>
+            <div class="input-group">
+                <InputText id="accountCategory" class="form-control" @bind-Value="_account.SingleCategory"
+                           placeholder="New category" />
+                <button class="btn btn-primary" type="button" @onclick=AddCategory
+                        disabled="@(_account.HasCategory == false)">
+                    Add
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+    </EditForm>
+    }
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>

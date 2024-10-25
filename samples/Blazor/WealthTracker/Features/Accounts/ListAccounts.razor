@@ -27,7 +27,7 @@ else
                 <td class="text-center">@account.Id</td>
                 <td>@account.Name</td>
                 <td>@(string.Join(", ", account.Categories))</td>
-                <td><a href=@($"/account/delete/{account.Id}")>Del</a></td>
+                <td><a href=@($"/account/edit/{account.Id}")>Ed</a> | <a href=@($"/account/delete/{account.Id}")>Del</a></td>
             </tr>
         }
         </tbody>

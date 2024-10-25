@@ -34,7 +34,7 @@ public partial class AddAccount
         var result = _repo.Create(new WealthDataEntity(0, _account.Name, [.. _account.Categories]));
         result.Match(
             s => { _nav.NavigateTo("/account"); return string.Empty; },
-            e => _errorMessage = $"Error: {e.First().Message}");
+            e => _errorMessage = e.First().ToString());
     }
 
     private void CancelHandler() => _nav.NavigateTo("/account");
