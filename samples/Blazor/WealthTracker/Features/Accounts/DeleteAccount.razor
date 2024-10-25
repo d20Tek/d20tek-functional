@@ -11,9 +11,12 @@
     {
         <EditForm class="mx-2" Model="@_account" OnValidSubmit="DeleteHandler">
             <div class="mb-3">
-                <label class="form-label">
+                <div class="form-label">
                     Are you sure that you want to delete the account with id=@_account.Id, named '@_account.Name'?
-                </label>
+                </div>
+                <div class="form-label">
+                    This will also delete all of the data associated with this account.
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Delete</button>

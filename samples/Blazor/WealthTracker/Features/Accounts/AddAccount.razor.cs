@@ -1,4 +1,5 @@
-﻿using WealthTracker.Domain;
+﻿using Microsoft.AspNetCore.Components;
+using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
 
@@ -11,12 +12,12 @@ public partial class AddAccount
         public List<string> Categories { get; } = [];
 
         public string SingleCategory { get; set; } = string.Empty;
-
-        public bool HasCategory => !string.IsNullOrEmpty(SingleCategory);
     }
 
     private string _errorMessage = string.Empty;
     private readonly ViewModel _account = new();
+
+    private void OnCategoryInputChanged(ChangeEventArgs e) => _account.SingleCategory = e.Value?.ToString() ?? string.Empty;
 
     private void AddCategory()
     {

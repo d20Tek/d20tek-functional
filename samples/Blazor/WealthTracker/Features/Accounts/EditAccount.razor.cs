@@ -14,8 +14,6 @@ public partial class EditAccount
         public List<string> Categories { get; init; } = [];
 
         public string SingleCategory { get; set; } = string.Empty;
-
-        public bool HasCategory => !string.IsNullOrEmpty(SingleCategory);
     }
 
     private string _errorMessage = string.Empty;
@@ -35,6 +33,8 @@ public partial class EditAccount
             },
             e => _errorMessage = e.First().ToString());
     }
+
+    private void OnCategoryInputChanged(ChangeEventArgs e) => _account!.SingleCategory = e.Value?.ToString() ?? string.Empty;
 
     private void AddCategory()
     {
