@@ -16,8 +16,6 @@ public partial class EditAccount
         public string SingleCategory { get; set; } = string.Empty;
 
         public bool HasCategory => !string.IsNullOrEmpty(SingleCategory);
-
-        public string GetCategoriesAsString() => Categories.Count > 0 ? string.Join(", ", Categories) : "none.";
     }
 
     private string _errorMessage = string.Empty;

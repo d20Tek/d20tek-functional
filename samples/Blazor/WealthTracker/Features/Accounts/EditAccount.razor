@@ -1,5 +1,4 @@
 ﻿@page "/account/edit/{Id:int}"
-@using WealthTracker.Domain
 @inject IWealthRepository _repo;
 @inject NavigationManager _nav;
 
@@ -21,14 +20,13 @@
         </div>
 
         <div class="mb-3">
-            <div for="accountCategories" class="form-label">Categories: @_account.GetCategoriesAsString()</div>
+            <div for="accountCategories" class="form-label">Categories: @_account.Categories.AsString("none.")</div>
             <button id="accountCategories" type="button" class="btn btn-secondary" @onclick=ClearCategories>
                 Clear Categories
             </button>
         </div>
 
         <div class="mb-3">
-            <div class="form-label">Categories: @_account.GetCategoriesAsString()</div>
             <label for="accountCategory" class="form-label">Category</label>
             <div class="input-group">
                 <InputText id="accountCategory" class="form-control" @bind-Value="_account.SingleCategory"
