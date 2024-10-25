@@ -1,0 +1,46 @@
+﻿<div class="mb-3">
+    <div for="accountCategories" class="form-label">Categories: @Categories.AsString("none.")</div>
+    <button id="accountCategories" type="button" class="btn btn-secondary" @onclick=ClearCategories>
+        Clear Categories
+    </button>
+</div>
+
+<div class="mb-3">
+    <label for="accountCategory" class="form-label">Category</label>
+    <div class="input-group">
+        <InputText id="accountCategory" class="form-control" placeholder="New Category"
+                   @bind-Value=singleCategory @oninput=OnCategoryInputChanged />
+        <button class="btn btn-primary" type="button" @onclick=AddCategory
+                disabled="@singleCategory.IsEmpty()">
+            Add
+        </button>
+    </div>
+</div>
+
+@code {
+    private string singleCategory = string.Empty;
+
+    [Parameter]
+    public List<string> Categories { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<List<string>> CategoriesChanged { get; set; }
+
+    private void OnCategoryInputChanged(ChangeEventArgs e) => singleCategory = e.Value?.ToString() ?? string.Empty;
+
+    private async Task AddCategory()
+    {
+        if (singleCategory.HasText())
+        {
+            Categories.Add(singleCategory);
+            await CategoriesChanged.InvokeAsync(Categories);
+            singleCategory = string.Empty;
+        }
+    }
+
+    private async Task ClearCategories()
+    {
+        Categories.Clear();
+        await CategoriesChanged.InvokeAsync(Categories);
+    }
+}

@@ -11,7 +11,7 @@ public partial class EditAccount
 
         public string Name { get; set; } = string.Empty;
 
-        public List<string> Categories { get; init; } = [];
+        public List<string> Categories { get; set; } = [];
 
         public string SingleCategory { get; set; } = string.Empty;
     }
@@ -33,19 +33,6 @@ public partial class EditAccount
             },
             e => _errorMessage = e.First().ToString());
     }
-
-    private void OnCategoryInputChanged(ChangeEventArgs e) => _account!.SingleCategory = e.Value?.ToString() ?? string.Empty;
-
-    private void AddCategory()
-    {
-        if (string.IsNullOrEmpty(_account?.SingleCategory) is false)
-        {
-            _account.Categories.Add(_account.SingleCategory);
-            _account.SingleCategory = string.Empty;
-        }
-    }
-
-    private void ClearCategories() => _account?.Categories.Clear();
 
     private void UpdateHandler()
     {
