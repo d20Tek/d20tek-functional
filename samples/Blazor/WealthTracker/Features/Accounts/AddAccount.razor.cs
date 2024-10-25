@@ -1,4 +1,5 @@
-﻿using WealthTracker.Domain;
+﻿using WealthTracker.Common;
+using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
 
@@ -16,13 +17,9 @@ public partial class AddAccount
     private string _errorMessage = string.Empty;
     private readonly ViewModel _account = new();
 
-    private void CreateAccount()
-    {
-        var result = _repo.Create(new WealthDataEntity(0, _account.Name, [.. _account.Categories]));
-        result.Match(
-            s => { _nav.NavigateTo("/account"); return string.Empty; },
-            e => _errorMessage = e.First().ToString());
-    }
+    private void CreateAccount() =>
+        _repo.Create(new WealthDataEntity(0, _account.Name, [.. _account.Categories]))
+             .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo("/account");
 }

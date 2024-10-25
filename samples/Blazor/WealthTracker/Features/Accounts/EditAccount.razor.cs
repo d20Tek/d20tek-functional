@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using D20Tek.Functional;
+using Microsoft.AspNetCore.Components;
+using WealthTracker.Common;
 using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
@@ -22,31 +24,18 @@ public partial class EditAccount
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized()
-    {
-        var result = _repo.GetEntityById(Id);
-        result.Match(
-            s =>
-            {
-                _account = new ViewModel { Id = s.Id, Name = s.Name, Categories = [.. s.Categories] };
-                return string.Empty;
-            },
-            e => _errorMessage = e.First().ToString());
-    }
+    protected override void OnInitialized() =>
+        _repo.GetEntityById(Id)
+             .HandleResult(
+                s => _account = new ViewModel { Id = s.Id, Name = s.Name, Categories = [.. s.Categories] },
+                e => _errorMessage = e);
 
-    private void UpdateHandler()
-    {
-        if (_account is null)
-        {
-            _errorMessage = $"Error: cannot edit an account that doesn't exist";
-            return;
-        }
-
-        var result = _repo.Update(new WealthDataEntity(_account.Id, _account.Name, [.. _account.Categories]));
-        result.Match(
-            s => { _nav.NavigateTo("/account"); return string.Empty; },
-            e => _errorMessage = e.First().ToString());
-    }
+    private void UpdateHandler() =>
+        _account.ToOption()
+                .MatchAction(
+                    a => _repo.Update(new WealthDataEntity(a.Id, a.Name, [.. a.Categories]))
+                              .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e),
+                    () => _errorMessage = $"Error: cannot edit an account that doesn't exist");
 
     private void CancelHandler() => _nav.NavigateTo("/account");
 }
