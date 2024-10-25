@@ -16,8 +16,8 @@ else
             <tr>
                 <th class="col-1 text-center">Id</th>
                 <th class="col-4">Name</th>
-                <th class="col-6">Categories</th>
-                <th class="col-1"></th>
+                <th class="col-5 col-md-6">Categories</th>
+                <th class="col-2 col-md-1"></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,10 @@ else
                 <td class="text-center">@account.Id</td>
                 <td>@account.Name</td>
                 <td>@(string.Join(", ", account.Categories))</td>
-                <td><a href=@($"/account/edit/{account.Id}")>Ed</a> | <a href=@($"/account/delete/{account.Id}")>Del</a></td>
+                <td class="text-center">
+                    <a href=@($"/account/edit/{account.Id}")><i class="bi bi-pencil"></i></a>
+                    <a href=@($"/account/delete/{account.Id}")><i class="bi bi-trash3"></i></a>
+                </td>
             </tr>
         }
         </tbody>
