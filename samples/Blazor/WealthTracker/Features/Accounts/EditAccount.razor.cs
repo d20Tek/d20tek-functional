@@ -34,8 +34,8 @@ public partial class EditAccount
         _account.ToOption()
                 .MatchAction(
                     a => _repo.Update(new WealthDataEntity(a.Id, a.Name, [.. a.Categories]))
-                              .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e),
-                    () => _errorMessage = $"Error: cannot edit an account that doesn't exist");
+                              .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
+                    () => _errorMessage = Constants.Accounts.MissingAccountError);
 
-    private void CancelHandler() => _nav.NavigateTo("/account");
+    private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);
 }

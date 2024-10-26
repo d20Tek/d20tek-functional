@@ -44,11 +44,11 @@ internal sealed class WealthDataEntity : IEntity
 
     internal decimal GetLatestValueFor(DateTimeOffset date) =>
         date.IsFutureDate()
-            ? throw Constants.FutureDateError(nameof(date))
+            ? throw DomainConstants.FutureDateError(nameof(date))
             : DailyValues.Where(x => x.Key <= date.Date).LastOrDefault().Value;
 
     private static void OnValidDate(DateTimeOffset date, Action<DateTimeOffset> action) =>
         date.IsFutureDate().IfTrueOrElse(
-            () => throw Constants.FutureDateError(nameof(date)),
+            () => throw DomainConstants.FutureDateError(nameof(date)),
             () => action(date));
 }

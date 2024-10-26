@@ -18,7 +18,7 @@ public partial class DeleteAccount
 
     private void DeleteHandler() =>
         _repo.Delete(Id)
-             .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e);
+             .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e);
 
-    private void CancelHandler() => _nav.NavigateTo("/account");
+    private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);
 }

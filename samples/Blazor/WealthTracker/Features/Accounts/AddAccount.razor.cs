@@ -19,7 +19,7 @@ public partial class AddAccount
 
     private void CreateAccount() =>
         _repo.Create(new WealthDataEntity(0, _account.Name, [.. _account.Categories]))
-             .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e);
+             .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e);
 
-    private void CancelHandler() => _nav.NavigateTo("/account");
+    private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);
 }
