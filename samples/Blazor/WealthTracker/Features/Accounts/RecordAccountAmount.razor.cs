@@ -38,11 +38,15 @@ public partial class RecordAccountAmount
     private void UpdateHandler() =>
         _vm.ToOption()
            .MatchAction(
-               vm => _repo.Update(UpdateDailyValue(vm))
-                          .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
+               vm => Validate(vm)
+                        .Bind(x => _repo.Update(UpdateDailyValue(x)))
+                        .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
                () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
+
+    private static Result<ViewModel> Validate(ViewModel vm) =>
+        (vm.Date > DateTimeOffset.Now) ? Constants.Accounts.FutureDateError : vm;
 
     private WealthDataEntity UpdateDailyValue(ViewModel model) =>
         _account!.Pipe(a => a.AddDailyValue(model.Date, model.Amount));

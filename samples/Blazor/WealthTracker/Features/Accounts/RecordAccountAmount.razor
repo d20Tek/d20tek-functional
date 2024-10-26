@@ -13,6 +13,14 @@
             <label for="accountName" class="form-label">Name</label>
             <InputText id="accountName" class="form-control" readonly @bind-Value="_vm.Name" />
         </div>
+        <div class="mb-3">
+            <label for="accountAmount" class="form-label">Amount</label>
+            <InputNumber id="accountAmount" class="form-control" @bind-Value="_vm.Amount" />
+        </div>
+        <div class="mb-3">
+            <label for="accountDate" class="form-label">Recording Date</label>
+            <InputDate id="accountDate" class="form-control" max=@_vm.Date @bind-Value="_vm.Date" />
+        </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
