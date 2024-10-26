@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using WealthTracker.Common;
 using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
@@ -11,21 +12,13 @@ public partial class DeleteAccount
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized()
-    {
-        var result = _repo.GetEntityById(Id);
-        result.Match(
-            s => { _account = s; return string.Empty; },
-            e => _errorMessage = e.First().ToString());
-    }
+    protected override void OnInitialized() =>
+        _repo.GetEntityById(Id)
+             .HandleResult(s => _account = s, e => _errorMessage = e);
 
-    private void DeleteHandler()
-    {
-        var result = _repo.Delete(Id);
-        result.Match(
-            s => { _nav.NavigateTo("/account"); return string.Empty; },
-            e => _errorMessage = e.First().ToString());
-    }
+    private void DeleteHandler() =>
+        _repo.Delete(Id)
+             .HandleResult(s => _nav.NavigateTo("/account"), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo("/account");
 }
