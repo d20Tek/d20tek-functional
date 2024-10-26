@@ -15,5 +15,7 @@ internal static class Constants
     public static class Reports
     {
         public const string CurrentUrl = "/report/current";
+        public static string RecordUrl(int id) => $"/account/record/{id}";
+        public static string UnrecordUrl(int id) => $"/account/unrecord/{id}";
     }
 }
