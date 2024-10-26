@@ -11,4 +11,9 @@ internal static class Constants
 
         public const string MissingAccountError = "Error: cannot edit an account that doesn't exist";
     }
+
+    public static class Reports
+    {
+        public const string CurrentUrl = "/report/current";
+    }
 }
