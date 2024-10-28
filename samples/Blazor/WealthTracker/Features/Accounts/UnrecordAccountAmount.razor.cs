@@ -5,7 +5,7 @@ using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
 
-public partial class RecordAccountAmount
+public partial class UnrecordAccountAmount
 {
     public class ViewModel
     {
@@ -13,9 +13,7 @@ public partial class RecordAccountAmount
 
         public string Name { get; set; } = string.Empty;
 
-        public decimal Amount { get; set; }
-
-        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
+        public SortedDictionary<DateTimeOffset, decimal> RecordedValues { get; set; } = [];
     }
 
     private string _errorMessage = string.Empty;
@@ -30,7 +28,7 @@ public partial class RecordAccountAmount
              .HandleResult(
                 s =>
                 {
-                    _vm = new ViewModel { Id = s.Id, Name = s.Name };
+                    _vm = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = s.DailyValues };
                     _account = s;
                 },
                 e => _errorMessage = e);
@@ -38,16 +36,9 @@ public partial class RecordAccountAmount
     private void UpdateHandler() =>
         _vm.ToOption()
            .MatchAction(
-               vm => Validate(vm)
-                        .Bind(x => _repo.Update(UpdateDailyValue(x)))
-                        .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
+               vm =>  _repo.Update(_account!)
+                           .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
                () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
-
-    private static Result<ViewModel> Validate(ViewModel vm) =>
-        (vm.Date > DateTimeOffset.Now) ? Constants.Accounts.FutureDateError<ViewModel>() : vm;
-
-    private WealthDataEntity UpdateDailyValue(ViewModel model) =>
-        _account!.Pipe(a => a.AddDailyValue(model.Date, model.Amount));
 }

@@ -13,8 +13,8 @@ internal static class Constants
         public static string DeleteUrl(int id) => $"/account/delete/{id}";
 
         public const string MissingAccountError = "Error: cannot edit an account that doesn't exist";
-        public static Result<RecordAccountAmount.ViewModel> FutureDateError =
-            Result<RecordAccountAmount.ViewModel>.Failure(
+        public static Result<T> FutureDateError<T>() where T : notnull =>
+            Result<T>.Failure(
                 Error.Validation("Record.DateOutOfRange", "You can only record amounts for past or current dates."));
     }
 
