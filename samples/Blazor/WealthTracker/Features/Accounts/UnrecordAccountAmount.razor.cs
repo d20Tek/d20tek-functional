@@ -23,7 +23,7 @@ public partial class UnrecordAccountAmount
     }
 
     private string _errorMessage = string.Empty;
-    private Option<ViewModel> _vm = Option<ViewModel>.None();
+    private Option<ViewModel> _optionalVM = Option<ViewModel>.None();
     private Option<WealthDataEntity> _account = Option<WealthDataEntity>.None();
 
     [Parameter]
@@ -33,16 +33,16 @@ public partial class UnrecordAccountAmount
         _repo.GetEntityById(Id)
              .HandleResult(s =>
                 {
-                    _vm = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = new(s.DailyValues) };
+                    _optionalVM = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = new(s.DailyValues) };
                     _account = s;
                 },
                 e => _errorMessage = e);
 
     private void UpdateHandler() =>
-        _vm.MatchAction(
-               vm =>  _repo.Update(_account.Iter(a => a.RemoveDailyValues(vm.EntriesRemoved)).Get())
-                           .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
-               () => _errorMessage = Constants.Accounts.MissingAccountError);
+        _optionalVM.MatchAction(
+            vm =>  _repo.Update(_account.Iter(a => a.RemoveDailyValues(vm.EntriesRemoved)).Get())
+                        .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
+            () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
 }

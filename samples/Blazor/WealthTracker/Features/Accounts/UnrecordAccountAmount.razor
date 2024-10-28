@@ -7,7 +7,7 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Remove Recorded Amount</h3>
 
-    @if (_vm.IsSome && _vm.Get() is ViewModel vm)
+    @if (_optionalVM.IsSome && _optionalVM.Get() is ViewModel vm)
     {
     <EditForm class="mx-2" Model="@vm" OnValidSubmit="UpdateHandler">
         <div class="mb-3">
