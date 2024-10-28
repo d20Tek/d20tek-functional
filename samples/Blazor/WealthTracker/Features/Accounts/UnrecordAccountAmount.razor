@@ -1,4 +1,5 @@
 ﻿@page "/account/unrecord/{Id:int}"
+@using WealthTracker.Features.Reports
 @inject IWealthRepository _repo;
 @inject NavigationManager _nav;
 
@@ -13,6 +14,29 @@
             <label for="accountName" class="form-label">Name</label>
             <InputText id="accountName" class="form-control" readonly @bind-Value="_vm.Name" />
         </div>
+
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="col-5">Date</th>
+                    <th class="col-6 text-end">Amount</th>
+                    <th class="col-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var rec in _vm.RecordedValues)
+            {
+                <tr>
+                    <td>@rec.Key</td>
+                    <td class="text-end"><CurrencyComponent Value=@rec.Value WithNegative=true /></td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm" @onclick=@(() => _vm.RemoveRecordedEntry(rec.Key))>
+                            <i class="bi bi-trash3"></i></button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
