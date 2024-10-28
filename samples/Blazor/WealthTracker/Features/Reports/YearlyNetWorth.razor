@@ -4,3 +4,27 @@
 
 <PageTitle>Wealth Tracker - Reports</PageTitle>
 <h3>Yearly Net Worth</h3>
+
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col-3">Year</th>
+            <th class="col-5 text-end">Value</th>
+            <th class="col-4 text-end">Gain/Loss</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var year in _years)
+        {
+            <tr>
+                <td>@year.Year</td>
+                <td class="text-end">
+                    <CurrencyComponent Value=@year.Value WithNegative=true />
+                </td>
+                <td class="text-end">
+                    <CurrencyComponent Value=@year.Delta WithNegative=true />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

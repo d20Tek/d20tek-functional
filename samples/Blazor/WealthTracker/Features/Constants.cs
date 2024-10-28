@@ -1,7 +1,4 @@
-﻿using D20Tek.Functional;
-using WealthTracker.Features.Accounts;
-
-namespace WealthTracker.Features;
+﻿namespace WealthTracker.Features;
 
 internal static class Constants
 {
@@ -23,5 +20,11 @@ internal static class Constants
         public const string CurrentUrl = "/report/current";
         public static string RecordUrl(int id) => $"/account/record/{id}";
         public static string UnrecordUrl(int id) => $"/account/unrecord/{id}";
+    }
+
+    public static class Yearly
+    {
+        public const int BackYears = 5;
+        public const string YtdLabel = "Year-to-date";
     }
 }
