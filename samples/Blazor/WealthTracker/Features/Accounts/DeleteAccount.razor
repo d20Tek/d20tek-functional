@@ -7,12 +7,12 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Delete Account</h3>
 
-    @if (_account is not null)
+    @if (_account.IsSome && _account.Get() is WealthDataEntity acc)
     {
-        <EditForm class="mx-2" Model="@_account" OnValidSubmit="DeleteHandler">
+        <EditForm class="mx-2" Model="@acc" OnValidSubmit="DeleteHandler">
             <div class="mb-3">
                 <div class="form-label">
-                    Are you sure that you want to delete the account with id=@_account.Id, named '@_account.Name'?
+                    Are you sure that you want to delete the account with id=@acc.Id, named '@acc.Name'?
                 </div>
                 <div class="form-label">
                     This will also delete all of the data associated with this account.

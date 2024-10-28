@@ -1,3 +1,5 @@
+global using D20Tek.Functional;
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using WealthTracker;

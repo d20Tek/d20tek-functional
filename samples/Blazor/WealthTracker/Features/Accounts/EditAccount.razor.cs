@@ -1,5 +1,4 @@
-﻿using D20Tek.Functional;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using WealthTracker.Common;
 using WealthTracker.Domain;
 
@@ -19,7 +18,7 @@ public partial class EditAccount
     }
 
     private string _errorMessage = string.Empty;
-    private ViewModel? _account;
+    private Option<ViewModel> _account = Option<ViewModel>.None();
 
     [Parameter]
     public int Id { get; set; }
@@ -31,11 +30,10 @@ public partial class EditAccount
                 e => _errorMessage = e);
 
     private void UpdateHandler() =>
-        _account.ToOption()
-                .MatchAction(
-                    a => _repo.Update(new WealthDataEntity(a.Id, a.Name, [.. a.Categories]))
-                              .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
-                    () => _errorMessage = Constants.Accounts.MissingAccountError);
+        _account.MatchAction(
+            a => _repo.Update(new WealthDataEntity(a.Id, a.Name, [.. a.Categories]))
+                        .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
+            () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);
 }

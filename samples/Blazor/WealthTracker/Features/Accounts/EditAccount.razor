@@ -6,20 +6,20 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Edit Account</h3>
 
-    @if (_account is not null)
+    @if (_account.IsSome && _account.Get() is ViewModel acc)
     {
-    <EditForm class="mx-2" Model="@_account" OnValidSubmit="UpdateHandler">
+        <EditForm class="mx-2" Model="@acc" OnValidSubmit="UpdateHandler">
         <div class="mb-3">
             <label for="accountId" class="form-label">Id</label>
-            <InputNumber id="accountId" class="form-control" readonly @bind-Value="_account.Id" />
+                <InputNumber id="accountId" class="form-control" readonly @bind-Value="acc.Id" />
         </div>
 
         <div class="mb-3">
             <label for="accountName" class="form-label">Name</label>
-            <InputText id="accountName" class="form-control" required @bind-Value="_account.Name" placeholder="Account name" />
+                <InputText id="accountName" class="form-control" required @bind-Value="acc.Name" placeholder="Account name" />
         </div>
 
-        <CategoriesEditor Categories=_account.Categories />
+        <CategoriesEditor Categories=acc.Categories />
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
