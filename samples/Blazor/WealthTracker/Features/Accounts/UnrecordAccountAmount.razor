@@ -7,12 +7,12 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Remove Recorded Amount</h3>
 
-    @if (_vm is not null)
+    @if (_vm.IsSome && _vm.Get() is ViewModel vm)
     {
-    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="UpdateHandler">
+    <EditForm class="mx-2" Model="@vm" OnValidSubmit="UpdateHandler">
         <div class="mb-3">
             <label for="accountName" class="form-label">Name</label>
-            <InputText id="accountName" class="form-control" readonly @bind-Value="_vm.Name" />
+            <InputText id="accountName" class="form-control" readonly @bind-Value="vm.Name" />
         </div>
 
         <table class="table table-sm table-bordered table-striped">
@@ -24,13 +24,21 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var rec in _vm.RecordedValues)
+            @if (vm.RecordedValues.Count <= 0)
+            {
+                <tr>
+                    <td>No date entries.</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            @foreach (var rec in vm.RecordedValues)
             {
                 <tr>
                     <td>@rec.Key</td>
                     <td class="text-end"><CurrencyComponent Value=@rec.Value WithNegative=true /></td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-sm" @onclick=@(() => _vm.RemoveRecordedEntry(rec.Key))>
+                        <button type="button" class="btn btn-sm" @onclick=@(() => vm.RemoveRecordedEntry(rec.Key))>
                             <i class="bi bi-trash3"></i></button>
                     </td>
                 </tr>

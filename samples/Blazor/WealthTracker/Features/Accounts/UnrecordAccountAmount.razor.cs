@@ -17,24 +17,21 @@ public partial class UnrecordAccountAmount
 
         public List<DateTimeOffset> EntriesRemoved { get; } = [];
 
-        public void RemoveRecordedEntry(DateTimeOffset date)
-        {
-            RecordedValues.Remove(date);
-            EntriesRemoved.Add(date);
-        }
+        public void RemoveRecordedEntry(DateTimeOffset date) =>
+            RecordedValues.Remove(date)
+                .Pipe(_ => EntriesRemoved.Add(date));
     }
 
     private string _errorMessage = string.Empty;
-    private ViewModel? _vm;
-    private WealthDataEntity? _account;
+    private Option<ViewModel> _vm = Option<ViewModel>.None();
+    private Option<WealthDataEntity> _account = Option<WealthDataEntity>.None();
 
     [Parameter]
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
         _repo.GetEntityById(Id)
-             .HandleResult(
-                s =>
+             .HandleResult(s =>
                 {
                     _vm = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = new(s.DailyValues) };
                     _account = s;
@@ -42,17 +39,10 @@ public partial class UnrecordAccountAmount
                 e => _errorMessage = e);
 
     private void UpdateHandler() =>
-        _vm.ToOption()
-           .MatchAction(
-               vm =>  _repo.Update(RemoveSelectedDates(vm.EntriesRemoved))
+        _vm.MatchAction(
+               vm =>  _repo.Update(_account.Iter(a => a.RemoveDailyValues(vm.EntriesRemoved)).Get())
                            .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
                () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
-
-    private WealthDataEntity RemoveSelectedDates(List<DateTimeOffset> dates)
-    {
-        dates.ForEach(date => _account!.RemoveDailyValue(date));
-        return _account!;
-    }
 }

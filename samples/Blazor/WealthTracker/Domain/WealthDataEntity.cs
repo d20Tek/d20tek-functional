@@ -40,6 +40,9 @@ internal sealed class WealthDataEntity : IEntity
     internal void RemoveDailyValue(DateTimeOffset date) =>
         OnValidDate(date, d => DailyValues.Remove(d.Date));
 
+    internal void RemoveDailyValues(IEnumerable<DateTimeOffset> dates) =>
+        dates.ForEach(date => RemoveDailyValue(date));
+
     internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
 
     internal decimal GetLatestValueFor(DateTimeOffset date) =>
