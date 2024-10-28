@@ -1,13 +1,29 @@
 ﻿<span class=@ValueCssClass>@DisplayValue</span>
 
 @code {
+    private const decimal _thousand = 1000M;
+    private const decimal _million = 1_000_000M;
+    private const decimal _billion = 1_000_000_000M;
+
     [Parameter]
     public decimal Value { get; set; }
 
     [Parameter]
     public bool WithNegative { get; set; }
 
-    public string DisplayValue => $"{Value:C}";
+    [Parameter]
+    public bool WithAbbreviated { get; set; }
 
-    public string ValueCssClass => (WithNegative && Value < 0) ? "text-danger" : string.Empty;
+    private string DisplayValue => WithAbbreviated ? RenderShort(Value) : $"{Value:C}";
+
+    private string ValueCssClass => (WithNegative && Value < 0) ? "text-danger" : string.Empty;
+
+    private static string RenderShort(decimal value) =>
+        Math.Abs(value) switch
+        {
+            > _billion => $"{(value / _billion):0.##}B",
+            > _million => $"{(value / _million):0.##}M",
+            > _thousand => $"{(value / _thousand):0.##}K",
+            _ => $"{value:0.##}"
+        };
 }
