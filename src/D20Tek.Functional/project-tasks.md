@@ -1,7 +1,7 @@
 == CURRENT RELEASE TASKS     ============================================================
-- [ ] create sample for Blazor app (all client-side), use WealthTracker
-- [ ] move ListExtensions from sample to functional package.
-
+- [x] create sample for Blazor app (all client-side), use WealthTracker
+- [ ] move ListExtensions from sample to functional package
+- [ ] create another Blazor sample app (BudgetTracker)
 
 
 ==  PREVIOUS RELEASES     ===============================================================
