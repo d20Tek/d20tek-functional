@@ -22,6 +22,12 @@ internal static class Constants
         public static string UnrecordUrl(int id) => $"/account/unrecord/{id}";
     }
 
+    public static class Monthly
+    {
+        public const int BackMonths = 6;
+        public const string TotalLabel = "Total:";
+    }
+
     public static class Yearly
     {
         public const int BackYears = 5;

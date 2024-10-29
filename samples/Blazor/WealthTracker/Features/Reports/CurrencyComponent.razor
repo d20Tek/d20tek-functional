@@ -14,16 +14,16 @@
     [Parameter]
     public bool WithAbbreviated { get; set; }
 
-    private string DisplayValue => WithAbbreviated ? RenderShort(Value) : $"{Value:C}";
+    private string DisplayValue => WithAbbreviated ? RenderAbbreviated(Value) : $"{Value:C}";
 
     private string ValueCssClass => (WithNegative && Value < 0) ? "text-danger" : string.Empty;
 
-    private static string RenderShort(decimal value) =>
+    private static string RenderAbbreviated(decimal value) =>
         Math.Abs(value) switch
         {
-            > _billion => $"{(value / _billion):0.##}B",
-            > _million => $"{(value / _million):0.##}M",
-            > _thousand => $"{(value / _thousand):0.##}K",
-            _ => $"{value:0.##}"
+            > _billion => $"{(value / _billion):C}B",
+            > _million => $"{(value / _million):C}M",
+            > _thousand => $"{(value / _thousand):C}K",
+            _ => $"{value:C}"
         };
 }

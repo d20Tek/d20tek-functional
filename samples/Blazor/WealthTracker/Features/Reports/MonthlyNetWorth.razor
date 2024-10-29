@@ -4,3 +4,35 @@
 
 <PageTitle>Wealth Tracker - Reports</PageTitle>
 <h3>Monthly Net Worth</h3>
+
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col text-center d-none d-md-table-cell">Id</th>
+            <th class="col">Name</th>
+            @foreach (var d in _dateRange)
+            {
+                <th class=@GetDateColumnCssClass(d)>@d.ToMonthDay()</th>
+            }
+            <th class="col text-end">Current</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in _accountRows)
+        {
+            <tr>
+                <td class="text-center d-none d-md-table-cell">@account.Id</td>
+                <td>@account.Name</td>
+                @for (int i = 0; i < _dateRange.Length; i++)
+                {
+                <td class=@GetDateColumnCssClass(_dateRange[i])>
+                    <CurrencyComponent Value=@account.Values[i] WithNegative=true WithAbbreviated=true />
+                </td>
+                }
+                <td class="text-end">
+                    <CurrencyComponent Value=@account.Current WithNegative=true WithAbbreviated=true />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
