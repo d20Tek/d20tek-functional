@@ -32,7 +32,7 @@ public partial class EditAccount
     private void UpdateHandler() =>
         _account.MatchAction(
             a => _repo.Update(new WealthDataEntity(a.Id, a.Name, [.. a.Categories]))
-                        .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
+                      .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);
