@@ -1,6 +1,4 @@
-﻿using D20Tek.Functional;
-
-namespace WealthTracker.Common;
+﻿namespace WealthTracker.Common;
 
 internal static class ResultExtensions
 {

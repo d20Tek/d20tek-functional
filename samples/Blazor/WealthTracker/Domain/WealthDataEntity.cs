@@ -1,10 +1,12 @@
 ﻿using Apps.Repositories;
-using D20Tek.Functional;
 
 namespace WealthTracker.Domain;
 
 internal sealed class WealthDataEntity : IEntity
 {
+    public static Exception FutureDateError(string propertyName) =>
+        new ArgumentOutOfRangeException(propertyName, "Date value for updates cannot be in the future.");
+
     public int Id { get; private set; }
 
     public string Name { get; private set; }
@@ -47,11 +49,11 @@ internal sealed class WealthDataEntity : IEntity
 
     internal decimal GetLatestValueFor(DateTimeOffset date) =>
         date.IsFutureDate()
-            ? throw DomainConstants.FutureDateError(nameof(date))
+            ? throw FutureDateError(nameof(date))
             : DailyValues.Where(x => x.Key <= date.Date).LastOrDefault().Value;
 
     private static void OnValidDate(DateTimeOffset date, Action<DateTimeOffset> action) =>
         date.IsFutureDate().IfTrueOrElse(
-            () => throw DomainConstants.FutureDateError(nameof(date)),
+            () => throw FutureDateError(nameof(date)),
             () => action(date));
 }
