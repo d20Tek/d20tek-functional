@@ -13,7 +13,7 @@ public partial class MonthlyNetWorth
     protected override void OnInitialized()
     {
         _dateRange = GetDateRange();
-        _trimmableDates = _dateRange.Take(2).ToArray();
+        _trimmableDates = _dateRange.Take(3).ToArray();
         _accountRows = CalculateAccountRows(_repo.GetEntities(), _dateRange);
     }
 
