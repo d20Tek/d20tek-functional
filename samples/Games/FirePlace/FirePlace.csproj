@@ -15,4 +15,6 @@
     <ProjectReference Include="..\..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 
+  <Import Project="..\Games.Common\Games.Common.projitems" Label="Shared" />
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using D20Tek.Functional;
+using Games.Common;
 using Spectre.Console;
 
 namespace FirePlace;
@@ -7,27 +8,25 @@ internal static class Game
 {
     public delegate int RndFunc(int min, int max);
 
-    public static void Play(IAnsiConsole console, RndFunc rnd)
-    {
+    public static void Play(IAnsiConsole console, RndFunc rnd) =>
         Initialize(console, rnd)
             .Map(initialFrame =>
                 initialFrame.IterateUntil(
                     x => x.NextFrame(console, rnd),
                     x => x.GameRunning is false))
-            .Iter(x => console.WriteLine("Flame off..."));
-    }
+            .Iter(x => console.WriteMessage(Constants.EndMessage));
 
     private static GameState Initialize(IAnsiConsole console, RndFunc rnd)
     {
-        var fireMatrix = new int[Constants.Height, Constants.Width];
-        for (int x = 0; x < Constants.Width; x++)
-        {
-            fireMatrix[Constants.Height - 1, x] = rnd(3, Constants.MaxHeat);
-        }
-
-        console.Clear();
-        return new(fireMatrix, console);
+        console.ShowStartMessage();
+        return new(FireMatrix.Initialize(rnd));
     }
+
+    private static void ShowStartMessage(this IAnsiConsole console) =>
+        console.ToIdentity()
+               .Iter(c => c.Clear())
+               .Iter(c => c.WriteMessage(Constants.StartMessage))
+               .Iter(c => c.PromptAnyKey(Constants.StartGameLabel));
 
     private static GameState NextFrame(this GameState state, IAnsiConsole console, RndFunc rnd) =>
         KeyboardInput.Handle(state, console)
@@ -37,23 +36,8 @@ internal static class Game
 
     private static GameState PropagateFire(GameState state, RndFunc rnd)
     {
-        for (int y = Constants.Height - 2; y >= 0; y--)
-        {
-            for (int x = 0; x < Constants.Width; x++)
-            {
-                int decay = rnd(0, 2); // Randomly reduce heat
-                int below = state.FireMatrix[y + 1, x];
-                int newHeat = Math.Max(below - decay, 0);
-
-                // Spread the heat slightly to the left and right for a more natural effect
-                int offset = rnd(-1, 2);
-                int xOffset = Math.Clamp(x + offset, 0, Constants.Width - 1);
-
-                state.FireMatrix[y, xOffset] = newHeat;
-            }
-        }
-
-        return state;
+        var matrix = state.FireMatrix.PropagateFire(rnd);
+        return state with { FireMatrix = matrix };
     }
 
     static void RenderFire(GameState state, IAnsiConsole console)
