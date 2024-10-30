@@ -1,6 +1,5 @@
 ﻿using D20Tek.Functional;
 using Spectre.Console;
-using System;
 
 namespace FirePlace;
 
@@ -13,7 +12,7 @@ internal static class Game
         Initialize(console, rnd)
             .Map(initialFrame =>
                 initialFrame.IterateUntil(
-                    x => x.NexState(console, rnd),
+                    x => x.NextFrame(console, rnd),
                     x => x.GameRunning is false))
             .Iter(x => console.WriteLine("Flame off..."));
     }
@@ -30,13 +29,13 @@ internal static class Game
         return new(fireMatrix, console);
     }
 
-    private static GameState NexState(this GameState state, IAnsiConsole console, RndFunc rnd) =>
+    private static GameState NextFrame(this GameState state, IAnsiConsole console, RndFunc rnd) =>
         KeyboardInput.Handle(state, console)
-            .Map(s => Update(s, rnd))
+            .Map(s => PropagateFire(s, rnd))
             .Iter(s => RenderFire(s, console))
             .Iter(s => Thread.Sleep(Constants.RefreshRate));
 
-    private static GameState Update(GameState state, Game.RndFunc rnd)
+    private static GameState PropagateFire(GameState state, RndFunc rnd)
     {
         for (int y = Constants.Height - 2; y >= 0; y--)
         {
