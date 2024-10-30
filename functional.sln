@@ -63,6 +63,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{5F187A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirePlace", "samples\Games\FirePlace\FirePlace.csproj", "{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,6 +190,7 @@ Global
 		{D62B966B-214E-4341-A3A1-29485568A629} = {59123F95-BEB7-474B-9A0B-5E2154CF3E4B}
 		{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 		{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A} = {5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}
+		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9} = {E62683BB-A801-4CC1-AD7F-4E73026C157D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
