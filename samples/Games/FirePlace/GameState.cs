@@ -7,5 +7,5 @@ internal sealed record GameState(
     bool GameRunning = true) : IState
 {
     public static GameState Empty() =>
-        new(new int[Constants.Width, Constants.Height]);
+        new(new int[Constants.FireConfig.Width, Constants.FireConfig.Height]);
 }

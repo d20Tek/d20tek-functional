@@ -2,11 +2,7 @@
 
 internal static class Constants
 {
-    public const int Width = 80;
-    public const int Height = 24;
-    public const int MaxHeat = 6;
-    public const int EmberStart = 3;
-    public const int BottomRow = Height - 1;
+    public static FireConfig FireConfig = new(24, 80, 23, 6, 3);
 
     public const string StartMessage = "Flame on!";
     public const string StartGameLabel = "Press any key to start...";

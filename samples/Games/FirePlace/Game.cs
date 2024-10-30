@@ -19,7 +19,7 @@ internal static class Game
     private static GameState Initialize(this IAnsiConsole console, RndFunc rnd) =>
         console.ToIdentity()
                .Iter(c => c.ShowStartMessage())
-               .Map(_ => new GameState (FireMatrix.Initialize(rnd)));
+               .Map(_ => new GameState (FireMatrix.Initialize(Constants.FireConfig, rnd)));
 
     private static void ShowStartMessage(this IAnsiConsole console) =>
         console.ToIdentity()
@@ -34,15 +34,15 @@ internal static class Game
             .Iter(s => Thread.Sleep(Constants.RefreshRate));
 
     private static GameState UpdateFire(GameState state, RndFunc rnd) =>
-        state with { FireMatrix = state.FireMatrix.PropagateFire(rnd) };
+        state with { FireMatrix = state.FireMatrix.PropagateFire(Constants.FireConfig, rnd) };
 
     static void RenderFire(this IAnsiConsole console, GameState state)
     {
         Console.SetCursorPosition(0, 0);
 
-        for (int y = 0; y < Constants.Height; y++)
+        for (int y = 0; y < Constants.FireConfig.Height; y++)
         {
-            for (int x = 0; x < Constants.Width; x++)
+            for (int x = 0; x < Constants.FireConfig.Width; x++)
             {
                 int heat = state.FireMatrix[y, x];
                 char fireChar = Constants.FireChars[heat];
