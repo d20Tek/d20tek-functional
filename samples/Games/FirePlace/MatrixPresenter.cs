@@ -22,16 +22,5 @@ internal static class MatrixPresenter
             .ToString();
 
     private static string RenderFlameChar(this int[,] fireMatrix, int x, int y) =>
-        fireMatrix[y, x].Pipe(heat => $"[{GetHeatColor(heat)}]{Constants.FireChars[heat]}[/]");
-
-    private static string GetHeatColor(int heat) =>
-        heat switch
-        {
-            5 => "maroon",
-            4 => "red",
-            3 => "olive",
-            2 => "yellow",
-            1 => "white",
-            _ => "black"
-        };
+        fireMatrix[y, x].Pipe(heat => $"[{Constants.HeatColorMap(heat)}]{Constants.FireChars[heat]}[/]");
 }
