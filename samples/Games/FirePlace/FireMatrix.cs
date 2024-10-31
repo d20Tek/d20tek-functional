@@ -10,19 +10,18 @@ internal static class FireMatrix
                 Enumerable.Range(0, config.Width)
                           .ForEach(x => matrix[config.BottomRow, x] = rnd(config.EmberStart, config.MaxHeat)));
 
-    public static int[,] PropagateFire(this int[,] matrix, FireConfig config, Game.RndFunc rnd)
-    {
-        for (int y = config.Height - 2; y >= 0; y--)
-        {
-            Enumerable.Range(0, config.Width)
-                      .ForEach(x =>
-                          CalculateSpread(x, rnd(-1, 2), config.Width)
-                            .Pipe(xOffset =>
-                                matrix[y, xOffset] = CalcNewHeat(CalculateDecay(rnd), matrix.CalculateBelow(x, y))));
-        }
+    public static int[,] PropagateFire(this int[,] matrix, FireConfig config, Game.RndFunc rnd) =>
+        matrix.ToIdentity()
+              .Iter(m => Enumerable.Range(0, config.Height - 1)
+                                   .ForEach(y => m.PropagateRow(y, config, rnd)))
+              .Map(_ => matrix);
 
-        return matrix;
-    }
+    private static void PropagateRow(this int[,] matrix, int row, FireConfig config, Game.RndFunc rnd) =>
+        Enumerable.Range(0, config.Width)
+            .ForEach(x =>
+                CalculateSpread(x, rnd(-1, 2), config.Width)
+                    .Pipe(xOffset =>
+                        matrix[row, xOffset] = CalcNewHeat(CalculateDecay(rnd), matrix.CalculateBelow(x, row))));
 
     private static int CalculateDecay(Game.RndFunc rnd) => rnd(0, 2);
 
