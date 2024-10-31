@@ -8,7 +8,7 @@ internal static class Constants
     public const string StartGameLabel = "Press any key to start...";
     public const string EndMessage = "Flame off...";
 
-    public static TimeSpan RefreshRate = TimeSpan.FromMilliseconds(33);
+    public static TimeSpan RefreshRate = TimeSpan.FromMilliseconds(50);
 
     public static readonly char[] FireChars = { ' ', '.', '*', '%', '#', '@' };
 }
