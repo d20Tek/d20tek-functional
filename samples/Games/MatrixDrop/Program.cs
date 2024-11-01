@@ -12,22 +12,26 @@ class Program
         // Set console properties
         AnsiConsole.Cursor.Hide();
 
-        int height = Console.WindowHeight - 1;
-        int width = Console.WindowWidth/2;
+        Game.Play(AnsiConsole.Console, rnd);
 
-        var matrix = Matrix.Initialize(width, height, rnd);
+        //int height = Console.WindowHeight - 1;
+        //int width = Console.WindowWidth/2;
 
-        while (true)
-        {
-            matrix = matrix.AddTopRow(width, rnd);
+        //var matrix = Matrix.Initialize(width, height, rnd);
 
-            var outputLines = AnsiConsole.Console.Render(matrix, height);
+        //while (true)
+        //{
+        //    matrix = matrix.AddTopRow(width, rnd);
 
-            matrix = matrix.RemoveBottomRow(height);
+        //    var outputLines = AnsiConsole.Console.Render(matrix, height);
 
-            AnsiConsole.Console.Cursor.SetPosition(0, 0);
-            AnsiConsole.Console.WriteMessage([.. outputLines]);
-            Thread.Sleep(Constants.RefreshRate);
-        }
+        //    matrix = matrix.RemoveBottomRow(height);
+
+        //    AnsiConsole.Console.Cursor.SetPosition(0, 0);
+        //    AnsiConsole.Console.WriteMessage([.. outputLines]);
+        //    Thread.Sleep(Constants.RefreshRate);
+        //}
+
+        AnsiConsole.Cursor.Show();
     }
 }
