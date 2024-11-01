@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WealthTracker", "samples\Bl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirePlace", "samples\Games\FirePlace\FirePlace.csproj", "{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDrop", "samples\Games\MatrixDrop\MatrixDrop.csproj", "{02207573-A91D-4C24-B138-5D2D4137E838}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,10 @@ Global
 		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02207573-A91D-4C24-B138-5D2D4137E838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02207573-A91D-4C24-B138-5D2D4137E838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02207573-A91D-4C24-B138-5D2D4137E838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02207573-A91D-4C24-B138-5D2D4137E838}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,11 +197,13 @@ Global
 		{5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9} = {4E9B17DE-BA4D-4DA0-A723-2190101BD66C}
 		{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A} = {5F187A45-56CC-4D5B-8123-9CAAD1ADE0D9}
 		{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9} = {E62683BB-A801-4CC1-AD7F-4E73026C157D}
+		{02207573-A91D-4C24-B138-5D2D4137E838} = {E62683BB-A801-4CC1-AD7F-4E73026C157D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB2FA411-F89F-4697-8EDE-9CA921F88C52}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		samples\Games\Games.Common\Games.Common.projitems*{02207573-a91d-4c24-b138-5d2d4137e838}*SharedItemsImports = 5
 		samples\Apps\Apps.Common\Apps.Common.projitems*{1b2bd798-9674-4b09-931a-546a46f9ff0a}*SharedItemsImports = 5
 		samples\Apps\Apps.Common\Apps.Common.projitems*{2a4f7ffa-d2ba-4b4c-b2c9-99ae11a1fb46}*SharedItemsImports = 5
 		samples\Games\Games.Common\Games.Common.projitems*{338e02b7-2af5-42b5-bcbe-d5266791b741}*SharedItemsImports = 5
