@@ -19,11 +19,10 @@ internal static class Matrix
                    .IfTrueOrElse(() => matrix.RemoveAt(height - 1)));
 
     private static List<MatrixCell> CreateRandomRow(int width, Random rnd) =>
-        Enumerable.Range(0, width).Select(x => GetRandomChar(rnd)).ToList();
-
-    private static MatrixCell GetRandomChar(Random rnd) => new()
-    {
-        Char = Constants.Chars[rnd.Next(Constants.Chars.Length)],
-        Color = rnd.Next(1, 20) > 1 ? Constants.Colors.DimGreen : Constants.Colors.BrightGreen
-    };
+        Enumerable.Range(0, width)
+                  .Select(x => new MatrixCell
+                  {
+                      Char = Constants.Chars[rnd.Next(Constants.Chars.Length)],
+                      Color = rnd.Next(1, 20) > 1 ? Constants.Colors.DimGreen : Constants.Colors.BrightGreen
+                  }).ToList();
 }
