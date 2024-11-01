@@ -2,7 +2,7 @@
 - [x] create sample for Blazor app (all client-side), use WealthTracker
 - [x] move ListExtensions from sample to functional package
 - [x] create fireplace in ascii art simulation game
-- [ ] create The Matrix character drop simulation
+- [x] create The Matrix character drop simulation
 - [ ] create another Blazor sample app (BudgetTracker)
 
 
