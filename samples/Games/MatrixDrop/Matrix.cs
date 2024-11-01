@@ -1,33 +1,22 @@
-﻿namespace MatrixDrop;
+﻿using D20Tek.Functional;
+
+namespace MatrixDrop;
 
 internal static class Matrix
 {
-    public static List<List<MatrixCell>> Initialize(int width,  int height, Random rnd)
-    {
-        var matrix = new List<List<MatrixCell>>();
-        for (int y = 0; y < height; y++)
-        {
-            matrix.Add(CreateRandomRow(width, rnd));
-        }
+    public static List<List<MatrixCell>> Initialize(int width,  int height, Random rnd) =>
+        Enumerable.Range(0, height)
+                  .Select(_ => CreateRandomRow(width, rnd))
+                  .ToList();
 
-        return matrix;
-    }
+    public static List<List<MatrixCell>> AddTopRow(this List<List<MatrixCell>> matrix, int width, Random rnd) =>
+        matrix.ToIdentity()
+              .Iter(m => m.Insert(0, CreateRandomRow(width, rnd)));
 
-    public static List<List<MatrixCell>> AddTopRow(this List<List<MatrixCell>> matrix, int width, Random rnd)
-    {
-        matrix.Insert(0, CreateRandomRow(width, rnd));
-        return matrix;
-    }
-
-    public static List<List<MatrixCell>> RemoveBottomRow(this List<List<MatrixCell>> matrix, int height)
-    {
-        if (matrix.Count >= height)
-        {
-            matrix.RemoveAt(height - 1);
-        }
-
-        return matrix;
-    }
+    public static List<List<MatrixCell>> RemoveBottomRow(this List<List<MatrixCell>> matrix, int height) =>
+        matrix.ToIdentity()
+              .Iter(m => (matrix.Count > height)
+                   .IfTrueOrElse(() => matrix.RemoveAt(height - 1)));
 
     private static List<MatrixCell> CreateRandomRow(int width, Random rnd) =>
         Enumerable.Range(0, width).Select(x => GetRandomChar(rnd)).ToList();
