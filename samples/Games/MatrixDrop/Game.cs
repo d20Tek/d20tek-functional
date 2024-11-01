@@ -20,7 +20,7 @@ internal static class Game
     private static GameState NextFrame(this GameState state, IAnsiConsole console, Random rnd) =>
         KeyboardInput.Handle(state, console)
             .Map(s => UpdateTopRow(s, rnd))
-            .Iter(s => console.RenderMatrix(s.Matrix, s.Height))
+            .Iter(s => console.Render(s.Matrix, s.Height))
             .Map(s => UpdateBottomRow(s))
             .Iter(s => Thread.Sleep(Constants.RefreshRate));
 
