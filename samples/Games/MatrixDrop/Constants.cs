@@ -6,4 +6,9 @@ internal static class Constants
 
     public static TimeSpan RefreshRate = TimeSpan.FromMilliseconds(150);
 
+    public class Colors
+    {
+        public const string DimGreen = "darkgreen";
+        public const string BrightGreen = "lime";
+    }
 }
