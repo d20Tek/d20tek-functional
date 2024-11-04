@@ -63,11 +63,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{5F187A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WealthTracker", "samples\Blazor\WealthTracker\WealthTracker.csproj", "{D7F2237F-9C12-4774-AD49-33BA2E4EAF1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirePlace", "samples\Games\FirePlace\FirePlace.csproj", "{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirePlace", "samples\Games\FirePlace\FirePlace.csproj", "{5E5A6732-8E48-4AF5-91F1-E39E945F5AA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDrop", "samples\Games\MatrixDrop\MatrixDrop.csproj", "{02207573-A91D-4C24-B138-5D2D4137E838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDrop", "samples\Games\MatrixDrop\MatrixDrop.csproj", "{02207573-A91D-4C24-B138-5D2D4137E838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetTracker", "samples\Blazor\BudgetTracker\BudgetTracker.csproj", "{F21F79F1-6840-4E1D-9BF8-CD8570CACC3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracker", "samples\Blazor\BudgetTracker\BudgetTracker.csproj", "{F21F79F1-6840-4E1D-9BF8-CD8570CACC3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
