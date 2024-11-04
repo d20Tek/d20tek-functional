@@ -1,0 +1,45 @@
+﻿@page "/budget-category"
+@inject ICategoryRepository _repo;
+
+<PageTitle>Budget Tracker - Categories</PageTitle>
+<h3>Budget Categories</h3>
+
+@if (_categories.Length <= 0)
+{
+    <div>No budget categories are defined... please add some.</div>
+}
+else
+{
+    <table class="table table-sm table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="col-1 text-center">Id</th>
+                <th class="col-6 col-md-5">Name</th>
+                <th class="col-3 col-md-5 text-right">Budget Amount</th>
+                <th class="col-2 col-md-1"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in _categories)
+            {
+                <tr>
+                    <td class="text-center">@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.BudgetedAmount</td>
+                    <td class="text-center">
+                        <a href=@Constants.Categories.EditUrl(category.Id)><i class="bi bi-pencil"></i></a>
+                        <a href=@Constants.Categories.DeleteUrl(category.Id)><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="mt-2"><a class="btn btn-outline-primary" href=@Constants.Categories.AddUrl>Add Account</a></div>
+
+@code {
+    BudgetCategory[] _categories = [];
+
+    protected override void OnInitialized() => _categories = _repo.GetEntities();
+}
