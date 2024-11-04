@@ -8,13 +8,13 @@
 
     <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateCategory">
         <div class="mb-3">
-            <label for="accountName" class="form-label">Name</label>
-            <InputText id="accountName" class="form-control" required @bind-Value="_vm.Name" placeholder="New budget category" />
+            <label for="categoryName" class="form-label">Name</label>
+            <InputText id="categoryName" class="form-control" required @bind-Value="_vm.Name" placeholder="New budget category" />
         </div>
 
         <div class="mb-3">
-            <label for="accountAmount" class="form-label">Amount</label>
-            <InputNumber id="accountAmount" class="form-control" min=0 @bind-Value="_vm.BudgetedAmount" />
+            <label for="categoryAmount" class="form-label">Budgeted amount</label>
+            <InputNumber id="categoryAmount" class="form-control" min=0 @bind-Value="_vm.BudgetedAmount" />
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
