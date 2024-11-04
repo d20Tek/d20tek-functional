@@ -11,5 +11,6 @@ internal static class Constants
         public const string AddUrl = "/budget-category/add";
         public static string EditUrl(int id) => $"/budget-category/edit/{id}";
         public static string DeleteUrl(int id) => $"/budget-category/delete/{id}";
+        public const string MissingCategoryError = "Error: cannot edit a budget category that doesn't exist";
     }
 }

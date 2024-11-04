@@ -1,0 +1,36 @@
+﻿@page "/budget-category/edit/{Id:int}"
+@inject ICategoryRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Categories</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Edit Budget Category</h3>
+
+    @if (_vm.IsSome && _vm.Get() is ViewModel cat)
+    {
+        <EditForm class="mx-2" Model="@cat" OnValidSubmit="UpdateHandler">
+        <div class="mb-3">
+            <label for="categoryId" class="form-label">Id</label>
+            <InputNumber id="categoryId" class="form-control" readonly @bind-Value="cat.Id" />
+        </div>
+
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Name</label>
+            <InputText id="categoryName" class="form-control" required @bind-Value="cat.Name" placeholder="Budget category name" />
+        </div>
+
+        <div class="mb-3">
+            <label for="categoryAmount" class="form-label">Budgeted amount</label>
+            <InputNumber id="categoryAmount" class="form-control" min=0 @bind-Value="cat.BudgetedAmount" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+    </EditForm>
+    }
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>
