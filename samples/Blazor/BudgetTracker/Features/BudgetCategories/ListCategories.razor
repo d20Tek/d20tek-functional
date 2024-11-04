@@ -15,7 +15,7 @@ else
             <tr>
                 <th class="col-1 text-center">Id</th>
                 <th class="col-6 col-md-5">Name</th>
-                <th class="col-3 col-md-5 text-right">Budget Amount</th>
+                <th class="col-3 col-md-5 text-end">Budget Amount</th>
                 <th class="col-2 col-md-1"></th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@ else
                 <tr>
                     <td class="text-center">@category.Id</td>
                     <td>@category.Name</td>
-                    <td>@category.BudgetedAmount</td>
+                    <td class="text-end"><CurrencyComponent Value=category.BudgetedAmount /></td>
                     <td class="text-center">
                         <a href=@Constants.Categories.EditUrl(category.Id)><i class="bi bi-pencil"></i></a>
                         <a href=@Constants.Categories.DeleteUrl(category.Id)><i class="bi bi-trash3"></i></a>
