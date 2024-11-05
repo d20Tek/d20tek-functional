@@ -26,7 +26,7 @@ else
                 <tr>
                     <td class="text-center">@inc.Id</td>
                     <td>@inc.Name</td>
-                    <td>@inc.Name</td>
+                    <td>@inc.DepositDate.ToMonthDay()</td>
                     <td class="text-end"><CurrencyComponent Value=inc.Amount /></td>
                     <td class="text-center">
                         <a href=@Constants.Income.EditUrl(inc.Id)><i class="bi bi-pencil"></i></a>

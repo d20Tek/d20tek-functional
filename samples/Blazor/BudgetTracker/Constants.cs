@@ -1,4 +1,6 @@
-﻿namespace BudgetTracker;
+﻿using D20Tek.Functional;
+
+namespace BudgetTracker;
 
 internal static class Constants
 {

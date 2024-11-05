@@ -1,0 +1,33 @@
+﻿@page "/income/add"
+@inject IIncomeRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Income</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>New Income Record</h3>
+
+    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateCategory">
+        <div class="mb-3">
+            <label for="incomeName" class="form-label">Name</label>
+            <InputText id="incomeName" class="form-control" required @bind-Value="_vm.Name" placeholder="New income" />
+        </div>
+
+        <div class="mb-3">
+            <label for="incomeDate" class="form-label">Deposit date</label>
+            <InputDate id="incomeDate" class="form-control" @bind-Value="_vm.DepositDate" />
+        </div>
+
+        <div class="mb-3">
+            <label for="incomeAmount" class="form-label">Budgeted amount</label>
+            <InputNumber id="incomeAmount" class="form-control" min=0 @bind-Value="_vm.Amount" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+    </EditForm>
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>
