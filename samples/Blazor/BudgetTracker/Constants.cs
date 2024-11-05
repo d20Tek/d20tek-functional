@@ -13,4 +13,13 @@ internal static class Constants
         public static string DeleteUrl(int id) => $"/budget-category/delete/{id}";
         public const string MissingCategoryError = "Error: cannot edit a budget category that doesn't exist";
     }
+
+    public static class Income
+    {
+        public const string ListUrl = "/income";
+        public const string AddUrl = "/income/add";
+        public static string EditUrl(int id) => $"/income/edit/{id}";
+        public static string DeleteUrl(int id) => $"/income/delete/{id}";
+        public const string MissingIncomeError = "Error: cannot edit an income record that doesn't exist";
+    }
 }
