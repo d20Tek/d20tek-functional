@@ -17,7 +17,7 @@ public partial class AddIncome
     private string _errorMessage = string.Empty;
     private readonly ViewModel _vm = new();
 
-    private void CreateCategory() =>
+    private void CreateHandler() =>
         _repo.Create(new Income(0, _vm.Name, _vm.DepositDate, _vm.Amount))
              .HandleResult(s => _nav.NavigateTo(Constants.Income.ListUrl), e => _errorMessage = e);
 
