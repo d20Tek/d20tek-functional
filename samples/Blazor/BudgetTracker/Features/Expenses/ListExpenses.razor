@@ -1,0 +1,47 @@
+﻿@page "/expense"
+@inject IExpenseRepository _repo;
+
+<PageTitle>Budget Tracker - Expenses</PageTitle>
+<h3>Unreconciled Expenses</h3>
+
+@if (expenses.Length <= 0)
+{
+    <div>No expense records have been created... please add some.</div>
+}
+else
+{
+    <table class="table table-sm table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="col-1 text-center">Id</th>
+                <th class="col-3">Name</th>
+                <th class="col-3">Committed Date</th>
+                <th class="col-3 text-end">Actual</th>
+                <th class="col-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expense in expenses)
+            {
+                <tr>
+                    <td class="text-center">@expense.Id</td>
+                    <td>@expense.Name</td>
+                    <td>@expense.CommittedDate.ToMonthDay()</td>
+                    <td class="text-end"><CurrencyComponent Value=expense.Actual /></td>
+                    <td class="text-center">
+                        <a href=@Constants.Expense.EditUrl(expense.Id)><i class="bi bi-pencil"></i></a>
+                        <a href=@Constants.Expense.DeleteUrl(expense.Id)><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="mt-2"><a class="btn btn-outline-primary" href=@Constants.Expense.AddUrl>Add Account</a></div>
+
+@code {
+    Expense[] expenses = [];
+
+    protected override void OnInitialized() => expenses = _repo.GetEntities();
+}
