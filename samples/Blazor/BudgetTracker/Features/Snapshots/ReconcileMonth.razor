@@ -1,0 +1,28 @@
+﻿@page "/reconcile"
+@inject IExpenseRepository _expRepo;
+@inject ICategoryRepository _catRepo;
+@inject IIncomeRepository _incRepo;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Reconcile</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Reconcile Month</h3>
+
+    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="ReconcileHandler">
+        <div class="mb-3">
+            <label for="expenseDate" class="form-label">Month to reconcile</label>
+            <InputDate id="expenseDate" class="form-control" @bind-Value="_vm.ReconcileDate" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Retrieve</button>
+    </EditForm>
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>
+
+@code {
+
+}
