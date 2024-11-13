@@ -28,7 +28,7 @@ else
                 <tr>
                     <td class="text-center d-none d-md-table-cell">@expense.Id</td>
                     <td>@expense.Name</td>
-                    <td>@CatIdToCategory(expense.Id)</td>
+                    <td>@CatIdToCategory(expense.CategoryId)</td>
                     <td>@expense.CommittedDate.ToMonthDay()</td>
                     <td class="text-end"><CurrencyComponent Value=expense.Actual /></td>
                     <td class="text-center">

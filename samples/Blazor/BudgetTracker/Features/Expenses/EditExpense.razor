@@ -1,0 +1,52 @@
+﻿@page "/expense/edit/{Id:int}"
+@inject IExpenseRepository _repo;
+@inject ICategoryRepository _catRepo;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Expense</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Edit Unreconciled Expense</h3>
+
+    @if (_vm.IsSome && _vm.Get() is ViewModel exp)
+    {
+        <EditForm class="mx-2" Model="@exp" OnValidSubmit="UpdateHandler">
+            <div class="mb-3">
+                <label for="incomeId" class="form-label">Id</label>
+                <InputNumber id="incomeId" class="form-control" readonly @bind-Value="exp.Id" />
+            </div>
+
+            <div class="mb-3">
+                <label for="incomeName" class="form-label">Name</label>
+                <InputText id="incomeName" class="form-control" required @bind-Value="exp.Name" placeholder="Budget category name" />
+            </div>
+
+            <div class="mb-3">
+                <label for="expenseCategory" class="form-label">Category</label>
+                <InputSelect id="exampleSelect" class="form-select" @bind-Value="exp.CategoryId">
+                @foreach (var cat in exp.Categories)
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="expenseDate" class="form-label">Committed date</label>
+                <InputDate id="expenseDate" class="form-control" @bind-Value="exp.CommittedDate" />
+            </div>
+
+            <div class="mb-3">
+                <label for="expenseAmount" class="form-label">Actual</label>
+                <InputNumber id="expenseAmount" class="form-control" min=0 @bind-Value="exp.Actual" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        </EditForm>
+    }
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>
