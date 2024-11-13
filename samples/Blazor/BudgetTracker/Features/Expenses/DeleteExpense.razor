@@ -1,0 +1,27 @@
+﻿@page "/expense/delete/{Id:int}"
+@inject IExpenseRepository _repo;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Expense</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Delete Unreconciled Expense</h3>
+
+    @if (_expense.IsSome && _expense.Get() is Expense exp)
+    {
+        <EditForm class="mx-2" Model="@exp" OnValidSubmit="DeleteHandler">
+            <div class="mb-3">
+                <div class="form-label">
+                    Are you sure that you want to delete the expense record with id=@exp.Id, named '@exp.Name'?
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        </EditForm>
+    }
+
+    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    {
+        <div>@_errorMessage</div>
+    }
+</div>

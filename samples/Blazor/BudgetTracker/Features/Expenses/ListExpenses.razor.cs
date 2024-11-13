@@ -14,5 +14,5 @@ public partial class ListExpenses
     }
 
     private string CatIdToCategory(int catId) =>
-        _categories.Any(x => x.Id == catId) ? _categories[catId].Name : "Missing category";
+        _categories.FirstOrDefault(x => x.Id == catId)?.Name ?? "Missing category";
 }
