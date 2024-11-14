@@ -18,7 +18,7 @@
     @foreach (var snap in _snapshots)
     {
         <tr>
-            <td>@snap.StartDate.ToDateString()</td>
+            <td><a href=@Constants.Reconcile.ViewUrl(snap.Id)>@snap.StartDate.ToDateString()</a></td>
             <td class="text-end"><CurrencyComponent Value=snap.TotalIncome.Amount /></td>
             <td class="text-end"><CurrencyComponent Value=snap.TotalExpenses.Budget /></td>
             <td class="text-end"><CurrencyComponent Value=snap.TotalExpenses.Actual /></td>

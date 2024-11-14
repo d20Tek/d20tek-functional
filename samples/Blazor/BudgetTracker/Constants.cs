@@ -37,6 +37,7 @@ internal static class Constants
 
     public static class Reconcile
     {
+        public static string ViewUrl(int id) => $"/snapshot/{id}";
         public static string ReconcileSucceeded = "Your monthly reconciliation completed successfully!";
 
         public static Result<ReconciledSnapshot> SnapshotEmptyError =

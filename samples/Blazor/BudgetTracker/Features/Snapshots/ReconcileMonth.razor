@@ -9,7 +9,7 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Reconcile Month</h3>
 
-    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="BuildSnapshotHandler">
+    <EditForm class="mx-2 mb-2" Model="@_vm" OnValidSubmit="BuildSnapshotHandler">
         <div class="mb-3">
             <label for="expenseDate" class="form-label">Month to reconcile</label>
             <InputDate id="expenseDate" class="form-control" @bind-Value="_vm.ReconcileDate" />
@@ -20,6 +20,7 @@
 
     @if (_vm.Snapshot.IsSome && _vm.Snapshot.Get() is ReconciledSnapshot snapshot)
     {
+    <p>The following income and actuals will be reconciled for the month of <b>@snapshot.StartDate.ToMonth()</b>:</p>
     <SnapshotComponent Snapshot=@snapshot />
     <div>All of the individual income and expense entries will be collapsed into this snapshot and deleted from the unreconciled list.</div>
     <div>If you complete this reconciliation, this action cannot be undone</div>

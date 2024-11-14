@@ -1,0 +1,18 @@
+﻿@page "/snapshot/{Id:int}"
+@inject IReconciledSnapshotRepository _snapRepo;
+
+<PageTitle>Budget Tracker - Snapshots</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>View Reconciled Month</h3>
+
+    @if (_snapshot.IsSome && _snapshot.Get() is ReconciledSnapshot snap)
+    {
+        <p>The following income and actuals were reconciled for the month of <b>@snap.StartDate.ToMonth()</b>:</p>
+        <SnapshotComponent Snapshot=@snap />
+    }
+
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+    {
+        <div class="mt-3">@error</div>
+    }
+</div>
