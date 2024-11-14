@@ -17,12 +17,13 @@
         <button type="submit" class="btn btn-primary">Retrieve</button>
     </EditForm>
 
+    @if (_vm.Snapshot.IsSome && _vm.Snapshot.Get() is ReconciledSnapshot snapshot)
+    {
+    <SnapshotComponent Snapshot=@snapshot />
+    }
+
     @if (string.IsNullOrEmpty(_errorMessage) is false)
     {
     <div>@_errorMessage</div>
     }
 </div>
-
-@code {
-
-}

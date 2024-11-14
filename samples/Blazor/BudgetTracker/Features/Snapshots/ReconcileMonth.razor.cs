@@ -15,5 +15,16 @@ public partial class ReconcileMonth
     private string _errorMessage = string.Empty;
     private readonly ViewModel _vm = new();
 
-    private void BuildSnapshotHandler() { }
+    private void BuildSnapshotHandler()
+    {
+        _vm.Snapshot = ReconciledBuilder.GenerateSnapshot(
+            GetDateRange(_vm.ReconcileDate),
+            _incRepo,
+            _catRepo,
+            _expRepo);
+    }
+
+    private static DateRange GetDateRange(DateTimeOffset date) =>
+        date.StartOfMonth()
+            .Pipe(start => new DateRange(start, start.AddMonths(1)));
 }

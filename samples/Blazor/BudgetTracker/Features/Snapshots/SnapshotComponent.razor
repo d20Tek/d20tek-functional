@@ -1,5 +1,34 @@
-﻿<h3>SnapshotComponent</h3>
+﻿@if (Snapshot.IsSome && Snapshot.Get() is ReconciledSnapshot snapshot)
+{
+<hr />
+<p>The following income and actuals will be reconciled for the month of @snapshot.StartDate.ToMonth():</p>
 
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col-3">Income</th>
+            <th class="col-3 text-end">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var inc in snapshot.Income)
+    {
+        <tr>
+            <td>@inc.Name</td>
+            <td class="text-end"><CurrencyComponent Value=inc.Amount /></td>
+        </tr>
+    }
+        <tr>
+            <td>@snapshot.TotalIncome.Name</td>
+            <td class="text-end"><CurrencyComponent Value=snapshot.TotalIncome.Amount /></td>
+        </tr>
+    </tbody>
+</table>
+}
+else
+{
+<p>There was no snapshot for the selected month.</p>
+}
 @code {
     [Parameter]
     public Option<ReconciledSnapshot> Snapshot { get; set; } = Option<ReconciledSnapshot>.None();
