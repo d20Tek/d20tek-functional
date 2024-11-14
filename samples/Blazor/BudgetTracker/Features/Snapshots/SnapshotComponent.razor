@@ -1,7 +1,7 @@
 ﻿@if (Snapshot.IsSome && Snapshot.Get() is ReconciledSnapshot snapshot)
 {
 <hr />
-<p>The following income and actuals will be reconciled for the month of @snapshot.StartDate.ToMonth():</p>
+<p>The following income and actuals will be reconciled for the month of <b>@snapshot.StartDate.ToMonth()</b>:</p>
 
 <table class="table table-sm table-bordered table-striped">
     <thead>
@@ -24,6 +24,35 @@
         </tr>
     </tbody>
 </table>
+
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col">Expenses</th>
+            <th class="col text-end">Budget</th>
+            <th class="col text-end">Actual</th>
+            <th class="col text-end">Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var expense in snapshot.CategoryExpenses)
+    {
+        <tr>
+            <td>@expense.Category</td>
+            <td class="text-end"><CurrencyComponent Value=expense.Budget /></td>
+            <td class="text-end"><CurrencyComponent Value=expense.Actual /></td>
+            <td class="text-end"><CurrencyComponent Value=expense.Remaining WithNegative=true /></td>
+        </tr>
+    }
+        <tr>
+            <td>@snapshot.TotalExpenses.Category</td>
+            <td class="text-end"><CurrencyComponent Value=snapshot.TotalExpenses.Budget /></td>
+            <td class="text-end"><CurrencyComponent Value=snapshot.TotalExpenses.Actual /></td>
+            <td class="text-end"><CurrencyComponent Value=snapshot.TotalExpenses.Remaining WithNegative=true /></td>
+        </tr>
+    </tbody>
+</table>
+
 }
 else
 {
