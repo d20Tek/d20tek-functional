@@ -1,4 +1,5 @@
-﻿using D20Tek.Functional;
+﻿using BudgetTracker.Domain;
+using D20Tek.Functional;
 
 namespace BudgetTracker;
 
@@ -32,5 +33,20 @@ internal static class Constants
         public static string EditUrl(int id) => $"/expense/edit/{id}";
         public static string DeleteUrl(int id) => $"/expense/delete/{id}";
         public const string MissingExpenseError = "Error: cannot edit an expense record that doesn't exist";
+    }
+
+    public static class Reconcile
+    {
+        public static string ReconcileSucceeded = "Your monthly reconciliation completed successfully!";
+
+        public static Result<ReconciledSnapshot> SnapshotEmptyError =
+            Result<ReconciledSnapshot>.Failure(Error.Validation(
+                "Snapshot.Empty",
+                "There are no income or expenses in the current date range. No action was performed."));
+
+        public static Result<ReconciledSnapshot> SnapshotAlreadyExistsError =
+            Result<ReconciledSnapshot>.Failure(Error.Validation(
+                "Snapshot.AlreadyExists",
+                "A snapshot already exists for that month. We cannot overwrite the one that exists."));
     }
 }

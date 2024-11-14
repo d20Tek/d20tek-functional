@@ -2,6 +2,7 @@
 @inject IExpenseRepository _expRepo;
 @inject ICategoryRepository _catRepo;
 @inject IIncomeRepository _incRepo;
+@inject IReconciledSnapshotRepository _snapRepo;
 @inject NavigationManager _nav;
 
 <PageTitle>Budget Tracker - Reconcile</PageTitle>
@@ -14,16 +15,19 @@
             <InputDate id="expenseDate" class="form-control" @bind-Value="_vm.ReconcileDate" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Retrieve</button>
+        <button type="submit" class="btn btn-outline-primary">Retrieve</button>
     </EditForm>
 
     @if (_vm.Snapshot.IsSome && _vm.Snapshot.Get() is ReconciledSnapshot snapshot)
     {
     <SnapshotComponent Snapshot=@snapshot />
+    <div>All of the individual income and expense entries will be collapsed into this snapshot and deleted from the unreconciled list.</div>
+    <div>If you complete this reconciliation, this action cannot be undone</div>
+    <button class="mt-3 btn btn-primary" @onclick=ReconcileHandler>Reconcile</button>
     }
 
     @if (string.IsNullOrEmpty(_errorMessage) is false)
     {
-    <div>@_errorMessage</div>
+    <div class="mt-3">@_errorMessage</div>
     }
 </div>
