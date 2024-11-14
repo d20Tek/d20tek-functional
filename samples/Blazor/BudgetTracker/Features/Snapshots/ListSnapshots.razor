@@ -1,0 +1,35 @@
+﻿@page "/snapshot"
+@inject IReconciledSnapshotRepository _repo;
+
+<PageTitle>Budget Tracker - Snapshots</PageTitle>
+<h3>Reconciled Monthly Snapshots</h3>
+
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col">Monthly</th>
+            <th class="col text-end">Income</th>
+            <th class="col text-end">Budget</th>
+            <th class="col text-end">Actual</th>
+            <th class="col text-end">Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var snap in _snapshots)
+    {
+        <tr>
+            <td>@snap.StartDate.ToDateString()</td>
+            <td class="text-end"><CurrencyComponent Value=snap.TotalIncome.Amount /></td>
+            <td class="text-end"><CurrencyComponent Value=snap.TotalExpenses.Budget /></td>
+            <td class="text-end"><CurrencyComponent Value=snap.TotalExpenses.Actual /></td>
+            <td class="text-end"><CurrencyComponent Value=snap.TotalExpenses.Remaining WithNegative=true /></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    ReconciledSnapshot[] _snapshots = [];
+
+    protected override void OnInitialized() => _snapshots = _repo.GetEntities();
+}
