@@ -3,7 +3,7 @@ using D20Tek.Functional;
 
 namespace BudgetTracker.Domain;
 
-internal sealed class ReconciledSnapshot : IEntity, IState
+public sealed class ReconciledSnapshot : IEntity, IState
 {
     public int Id { get; set; }
 
@@ -45,6 +45,6 @@ internal sealed class ReconciledSnapshot : IEntity, IState
     internal DateRange GetDateRange() => new(StartDate, EndDate);
 }
 
-internal sealed record ReconciledIncome(string Name, decimal Amount);
+public sealed record ReconciledIncome(string Name, decimal Amount);
 
-internal sealed record ReconciledExpenses(string Category, decimal Budget, decimal Actual, decimal Remaining);
+public sealed record ReconciledExpenses(string Category, decimal Budget, decimal Actual, decimal Remaining);

@@ -8,7 +8,7 @@
 <div class="col-12 border border-secondary p-1">
     <h3>Reconcile Month</h3>
 
-    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="ReconcileHandler">
+    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="BuildSnapshotHandler">
         <div class="mb-3">
             <label for="expenseDate" class="form-label">Month to reconcile</label>
             <InputDate id="expenseDate" class="form-control" @bind-Value="_vm.ReconcileDate" />
@@ -19,7 +19,7 @@
 
     @if (string.IsNullOrEmpty(_errorMessage) is false)
     {
-        <div>@_errorMessage</div>
+    <div>@_errorMessage</div>
     }
 </div>
 
