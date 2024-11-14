@@ -3,7 +3,8 @@
 - [x] move ListExtensions from sample to functional package
 - [x] create fireplace in ascii art simulation game
 - [x] create The Matrix character drop simulation
-- [ ] create another Blazor sample app (BudgetTracker)
+- [x] create another Blazor sample app (BudgetTracker)
+- [ ] start writing Functional C# series... chapter 1
 
 
 ==  PREVIOUS RELEASES     ===============================================================
