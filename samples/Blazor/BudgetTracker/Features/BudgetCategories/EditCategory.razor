@@ -29,8 +29,8 @@
     </EditForm>
     }
 
-    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
     {
-        <div>@_errorMessage</div>
+        <div class="mt-3">@error</div>
     }
 </div>

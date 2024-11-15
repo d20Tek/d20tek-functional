@@ -22,7 +22,7 @@ public partial class EditExpense
         public decimal Actual { get; set; }
     }
 
-    private string _errorMessage = string.Empty;
+    private Option<string> _errorMessage = Option<string>.None();
     private Option<ViewModel> _vm = Option<ViewModel>.None();
 
     [Parameter]

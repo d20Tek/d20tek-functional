@@ -27,8 +27,8 @@
     <button class="mt-3 btn btn-primary" @onclick=ReconcileHandler>Reconcile</button>
     }
 
-    @if (string.IsNullOrEmpty(_errorMessage) is false)
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
     {
-    <div class="mt-3">@_errorMessage</div>
+        <div class="mt-3">@error</div>
     }
 </div>

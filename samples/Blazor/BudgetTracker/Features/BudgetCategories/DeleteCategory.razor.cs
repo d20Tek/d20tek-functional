@@ -7,7 +7,7 @@ namespace BudgetTracker.Features.BudgetCategories;
 
 public partial class DeleteCategory
 {
-    private string _errorMessage = string.Empty;
+    private Option<string> _errorMessage = Option<string>.None();
     private Option<BudgetCategory> _category = Option<BudgetCategory>.None();
 
     [Parameter]

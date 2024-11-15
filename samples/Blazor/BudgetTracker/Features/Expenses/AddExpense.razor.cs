@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Common;
 using BudgetTracker.Domain;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Features.Expenses;
 
@@ -18,7 +19,7 @@ public partial class AddExpense
         public decimal Actual { get; set; }
     }
 
-    private string _errorMessage = string.Empty;
+    private Option<string> _errorMessage = Option<string>.None();
     private readonly ViewModel _vm = new();
 
     protected override void OnInitialized() => _vm.Categories = _catRepo.GetEntities();

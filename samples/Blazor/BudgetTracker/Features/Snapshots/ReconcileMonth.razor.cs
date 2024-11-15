@@ -14,7 +14,7 @@ public partial class ReconcileMonth
         public Option<ReconciledSnapshot> Snapshot { get; set; } = Option<ReconciledSnapshot>.None();
     }
 
-    private string _errorMessage = string.Empty;
+    private Option<string> _errorMessage = Option<string>.None();
     private readonly ViewModel _vm = new();
 
     private void BuildSnapshotHandler() =>

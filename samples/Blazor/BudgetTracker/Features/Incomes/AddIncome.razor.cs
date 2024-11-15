@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Common;
 using BudgetTracker.Domain;
+using D20Tek.Functional;
 
 namespace BudgetTracker.Features.Incomes;
 
@@ -14,7 +15,7 @@ public partial class AddIncome
         public decimal Amount { get; set; }
     }
 
-    private string _errorMessage = string.Empty;
+    private Option<string> _errorMessage = Option<string>.None();
     private readonly ViewModel _vm = new();
 
     private void CreateHandler() =>
