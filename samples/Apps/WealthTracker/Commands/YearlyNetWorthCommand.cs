@@ -45,8 +45,7 @@ internal static class YearlyNetWorthCommand
     [
         (Year: Constants.Yearly.YtdLabel,
          Value: CurrencyComponent.RenderWithNegative(ytdTotal).CapOverflow(Constants.Yearly.ColumnValueLen),
-         Delta: CurrencyComponent.RenderWithNegative(ytdTotal - prevTotal)
-                                 .CapOverflow(Constants.Yearly.ColumnDeltaLen))
+         Delta: CurrencyComponent.RenderWithNegative(ytdTotal - prevTotal))
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
