@@ -19,6 +19,26 @@ public static class TryExcept
         }
     }
 
+    public static async Task<T> RunAsync<T>(
+        Func<Task<T>> operation,
+        Func<Exception, T> onException,
+        Action? onFinally = null)
+        where T : notnull
+    {
+        try
+        {
+            return await operation();
+        }
+        catch (Exception e)
+        {
+            return onException(e);
+        }
+        finally
+        {
+            onFinally?.Invoke();
+        }
+    }
+
     public static void Run(Action operation, Action<Exception> onException, Action? onFinally = null)
     {
         try
