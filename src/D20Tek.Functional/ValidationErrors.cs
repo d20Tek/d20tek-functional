@@ -21,5 +21,8 @@ public class ValidationErrors
 
     public Result<T> Map<T>(Func<T> onSuccess) where T : notnull => HasErrors ? ToFailure<T>() : onSuccess();
 
+    public async Task<Result<T>> MapAsync<T>(Func<Task<T>> onSuccess) where T : notnull =>
+        HasErrors ? ToFailure<T>() : await onSuccess();
+
     public Result<T> ToFailure<T>() where T : notnull => Result<T>.Failure([.. _errors]);
 }
