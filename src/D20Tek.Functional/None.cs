@@ -7,6 +7,6 @@ public sealed class None<T> : Option<T>
     {
     }
 
-    internal override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
+    public override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
         onNone();
 }

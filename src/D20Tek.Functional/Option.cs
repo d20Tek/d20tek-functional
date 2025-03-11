@@ -16,7 +16,7 @@ public abstract class Option<T>
 
     public bool IsNone => this is None<T>;
 
-    internal abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
+    public abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
     public Option<TResult> Bind<TResult>(Func<T, Option<TResult>> bind) where TResult : notnull =>
         Match(v => bind(v), () => Option<TResult>.None());
