@@ -167,4 +167,52 @@ public class TryExceptTests
         value.GetValue().Should().Be(42);
         ranFinally.Should().BeTrue();
     }
+
+    [TestMethod]
+    public async Task RunAsync_WithSuccessfulOperation_ReturnsSuccess()
+    {
+        // arrange
+
+        // act
+        var result = await TryExcept.RunAsync(
+            () => Task.FromResult(Result<int>.Success(42)),
+            [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex));
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public async Task RunAsync_WithOperationException_ReturnsFailure()
+    {
+        // arrange
+
+        // act
+        var result = await TryExcept.RunAsync(
+            () => throw new InvalidOperationException(),
+            ex => Result<int>.Failure(ex));
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+        result.GetErrors().Should().NotBeEmpty();
+    }
+
+    [TestMethod]
+    public async Task RunAsync_WithSuccessfulOperation_RunsFinally()
+    {
+        // arrange
+        bool ranFinally = false;
+
+        // act
+        var result = await TryExcept.RunAsync(
+            () => Task.FromResult(Result<int>.Success(42)),
+            [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
+            () => ranFinally = true);
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+        ranFinally.Should().BeTrue();
+    }
 }
