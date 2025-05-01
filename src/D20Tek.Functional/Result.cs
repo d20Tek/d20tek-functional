@@ -61,8 +61,8 @@ public abstract class Result<T> : IResultMonad
     public Result<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
         Match(v => Result<TResult>.Success(mapper(v)), e => Result<TResult>.Failure(e));
 
-    public Result<TResult> MapErrors<TResult>(Func<Error[], Result<TResult>> mapper) where TResult : notnull =>
-        Match(_ => throw new InvalidOperationException(), e => mapper(e));
+    public Result<TResult> MapErrors<TResult>() where TResult : notnull =>
+        Match(_ => throw new InvalidOperationException(), e => Result<TResult>.Failure(e));
 
     public T[] ToArray() => Match<T[]>(v => [v], _ => []);
 

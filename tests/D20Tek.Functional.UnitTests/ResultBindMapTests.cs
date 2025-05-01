@@ -77,7 +77,7 @@ public class ResultBindMapTests
         var input = Result<int>.Failure(Error.Invalid("code", "test"));
 
         // act
-        var result = input.MapErrors(e => Result<string>.Failure(e));
+        var result = input.MapErrors<string>();
 
         // assert
         result.IsFailure.Should().BeTrue();
@@ -92,6 +92,6 @@ public class ResultBindMapTests
         var input = Result<int>.Success(1);
 
         // act
-        var result = input.MapErrors(e => Result<string>.Failure(e));
+        var result = input.MapErrors<string>();
     }
 }
