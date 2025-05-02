@@ -1,7 +1,7 @@
 ﻿namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
-public class ChoiceTests
+public class ChoiceAsyncTests
 {
     [TestMethod]
     public void IsChoice1_WithValueType1_ReturnsTrue()
