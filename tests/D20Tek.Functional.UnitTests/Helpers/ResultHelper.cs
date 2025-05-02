@@ -6,4 +6,7 @@ internal class ResultHelper
         int.TryParse(text, out int parsed)
             ? Result<int>.Success(parsed)
             : Result<int>.Failure(Error.Validation("Parse.Failed", "Couldn't parse input text."));
+
+    public static Task<Result<int>> TryParseAsync(string text) =>
+        Task.FromResult(TryParse(text));
 }

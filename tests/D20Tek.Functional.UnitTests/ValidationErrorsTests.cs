@@ -82,7 +82,7 @@ public class ValidationErrorsTests
         errors.AddIfError(() => true, err);
 
         // act
-        var result = errors.Map(() => false);
+        var result = errors.Map([ExcludeFromCodeCoverage] () => false);
 
         // assert
         result.Should().NotBeNull();
@@ -117,7 +117,7 @@ public class ValidationErrorsTests
         errors.AddIfError(() => true, err);
 
         // act
-        var result = await errors.MapAsync(() => Task.FromResult(false));
+        var result = await errors.MapAsync([ExcludeFromCodeCoverage] () => Task.FromResult(false));
 
         // assert
         result.Should().NotBeNull();
