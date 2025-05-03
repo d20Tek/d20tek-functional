@@ -1,4 +1,6 @@
-﻿namespace D20Tek.Functional.UnitTests;
+﻿using D20Tek.Functional.Async;
+
+namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
 public class TryExceptTests
@@ -174,7 +176,7 @@ public class TryExceptTests
         // arrange
 
         // act
-        var result = await TryExcept.RunAsync(
+        var result = await TryExceptAsync.RunAsync(
             () => Task.FromResult(Result<int>.Success(42)),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex));
 
@@ -189,7 +191,7 @@ public class TryExceptTests
         // arrange
 
         // act
-        var result = await TryExcept.RunAsync(
+        var result = await TryExceptAsync.RunAsync(
             () => throw new InvalidOperationException(),
             ex => Result<int>.Failure(ex));
 
@@ -205,7 +207,7 @@ public class TryExceptTests
         bool ranFinally = false;
 
         // act
-        var result = await TryExcept.RunAsync(
+        var result = await TryExceptAsync.RunAsync(
             () => Task.FromResult(Result<int>.Success(42)),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
             () => ranFinally = true);
