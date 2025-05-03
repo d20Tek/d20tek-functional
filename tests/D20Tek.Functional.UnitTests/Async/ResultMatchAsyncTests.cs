@@ -1,6 +1,6 @@
 ﻿using D20Tek.Functional.Async;
 
-namespace D20Tek.Functional.UnitTests;
+namespace D20Tek.Functional.UnitTests.Async;
 
 [TestClass]
 public class ResultMatchAsyncTests
