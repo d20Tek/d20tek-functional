@@ -1,4 +1,4 @@
-﻿namespace D20Tek.Functional;
+﻿namespace D20Tek.Functional.Async;
 
 public static class ResultAsyncExtensions
 {

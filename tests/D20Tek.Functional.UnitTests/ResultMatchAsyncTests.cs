@@ -1,4 +1,6 @@
-﻿namespace D20Tek.Functional.UnitTests;
+﻿using D20Tek.Functional.Async;
+
+namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
 public class ResultMatchAsyncTests
