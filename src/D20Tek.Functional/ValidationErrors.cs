@@ -1,6 +1,6 @@
 ﻿namespace D20Tek.Functional;
 
-public class ValidationErrors
+public sealed class ValidationErrors
 {
     private readonly IList<Error> _errors = [];
 
@@ -18,6 +18,8 @@ public class ValidationErrors
 
     public ValidationErrors AddIfError(Func<bool> check, string code, string message) =>
         AddIfError(check, Error.Validation(code, message));
+
+    internal void AddError(Error error) => _errors.Add(error);
 
     public Result<T> Map<T>(Func<T> onSuccess) where T : notnull => HasErrors ? ToFailure<T>() : onSuccess();
 
