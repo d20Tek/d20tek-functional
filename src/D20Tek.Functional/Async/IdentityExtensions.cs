@@ -3,15 +3,13 @@
 public static class IdentityExtensions
 {
     public static async Task<Identity<TResult>> BindAsync<T, TResult>(
-        this Identity<T> identity,
-        Func<T, Task<Identity<TResult>>> bind)
+        this Identity<T> identity, Func<T, Task<Identity<TResult>>> bind)
         where T: notnull
         where TResult : notnull =>
         await bind(identity.Get());
 
     public static async Task<Identity<TResult>> BindAsync<T, TResult>(
-        this Task<Identity<T>> identity,
-        Func<T, Task<Identity<TResult>>> bind)
+        this Task<Identity<T>> identity, Func<T, Task<Identity<TResult>>> bind)
         where T : notnull
         where TResult : notnull =>
         await (await identity).BindAsync(bind);
@@ -36,15 +34,13 @@ public static class IdentityExtensions
         await (await identity).IterAsync(action);
 
     public static async Task<Identity<TResult>> MapAsync<T, TResult>(
-        this Identity<T> identity,
-        Func<T, Task<TResult>> mapper)
+        this Identity<T> identity, Func<T, Task<TResult>> mapper)
         where T : notnull
         where TResult : notnull =>
         new(await mapper(identity.Get()));
 
     public static async Task<Identity<TResult>> MapAsync<T, TResult>(
-        this Task<Identity<T>> identity,
-        Func<T, Task<TResult>> mapper)
+        this Task<Identity<T>> identity, Func<T, Task<TResult>> mapper)
         where T : notnull
         where TResult : notnull =>
         await (await identity).MapAsync(mapper);

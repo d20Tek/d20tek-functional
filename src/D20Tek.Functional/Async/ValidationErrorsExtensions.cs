@@ -3,30 +3,22 @@
 public static class ValidationErrorsExtensions
 {
     public static async Task<ValidationErrors> AddIfErrorAsync(
-        this ValidationErrors errors,
-        Func<Task<bool>> check, Error error)
+        this ValidationErrors errors, Func<Task<bool>> check, Error error)
     {
         if (await check()) errors.AddError(error);
         return errors;
     }
 
     public static async Task<ValidationErrors> AddIfErrorAsync(
-        this Task<ValidationErrors> task,
-        Func<Task<bool>> check, Error error) =>
+        this Task<ValidationErrors> task, Func<Task<bool>> check, Error error) =>
         await (await task).AddIfErrorAsync(check, error);
 
     public static async Task<ValidationErrors> AddIfErrorAsync(
-        this ValidationErrors errors,
-        Func<Task<bool>> check,
-        string code,
-        string message) =>
+        this ValidationErrors errors, Func<Task<bool>> check, string code, string message) =>
         await errors.AddIfErrorAsync(check, Error.Validation(code, message));
 
     public static async Task<ValidationErrors> AddIfErrorAsync(
-        this Task<ValidationErrors> task,
-        Func<Task<bool>> check,
-        string code,
-        string message) =>
+        this Task<ValidationErrors> task, Func<Task<bool>> check, string code, string message) =>
         await (await task).AddIfErrorAsync(check, code, message);
 
     public static async Task<Result<T>> MapAsync<T>(this ValidationErrors errors, Func<Task<T>> onSuccess)
