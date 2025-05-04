@@ -39,8 +39,7 @@ public sealed class ChoiceAsync<T1, T2>
         return this;
     }
 
-    public async Task<Choice<TResult, T2>> BindAsync<TResult>(
-        Func<T1, Task<Choice<TResult, T2>>> bindFunc)
+    public async Task<Choice<TResult, T2>> BindAsync<TResult>(Func<T1, Task<Choice<TResult, T2>>> bindFunc)
         where TResult : notnull =>
         await MatchAsync(async (t1) => await bindFunc(t1), t2 => Task.FromResult(new Choice<TResult, T2>(t2)));
 
@@ -48,8 +47,7 @@ public sealed class ChoiceAsync<T1, T2>
 
     public T2 GetChoice2() => (T2)_value;
 
-    public async Task<Choice<TResult, T2>> MapAsync<TResult>(
-        Func<T1, Task<TResult>> mapFunc)
+    public async Task<Choice<TResult, T2>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
         where TResult : notnull =>
         await MatchAsync(
             async (t1) => new Choice<TResult, T2>(await mapFunc(t1)),

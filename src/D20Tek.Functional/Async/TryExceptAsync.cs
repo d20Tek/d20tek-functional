@@ -3,9 +3,7 @@
 public static class TryExceptAsync
 {
     public static async Task<T> RunAsync<T>(
-        Func<Task<T>> operation,
-        Func<Exception, T> onException,
-        Action? onFinally = null)
+        Func<Task<T>> operation, Func<Exception, T> onException, Action? onFinally = null)
         where T : notnull
     {
         try
@@ -39,8 +37,7 @@ public static class TryExceptAsync
     }
 
     public static async Task<Result<TResult>> BindAsync<T, TResult>(
-        Func<Task<T>> operation,
-        Func<T, Task<Result<TResult>>> bind)
+        Func<Task<T>> operation, Func<T, Task<Result<TResult>>> bind)
         where T : notnull
         where TResult : notnull =>
         await RunAsync(

@@ -20,9 +20,7 @@ public sealed class ChoiceAsync<T1, T2, T3>
     public bool IsChoice3 => _value is T3;
 
     public async Task<TResult> MatchAsync<TResult>(
-        Func<T1, Task<TResult>> func1, 
-        Func<T2, Task<TResult>> func2, 
-        Func<T3, Task<TResult>> func3) =>
+        Func<T1, Task<TResult>> func1, Func<T2, Task<TResult>> func2, Func<T3, Task<TResult>> func3) =>
         _value switch
         {
             T1 => await func1((T1)_value),
@@ -31,7 +29,8 @@ public sealed class ChoiceAsync<T1, T2, T3>
             _ => throw new ArgumentOutOfRangeException(nameof(_value), "Invalid Choice type")
         };
 
-    public async Task<ChoiceAsync<T1, T2, T3>> IterAsync(Func<T1, Task> action1, Func<T2, Task> action2, Func<T3, Task> action3)
+    public async Task<ChoiceAsync<T1, T2, T3>> IterAsync(
+        Func<T1, Task> action1, Func<T2, Task> action2, Func<T3, Task> action3)
     {
         switch (_value)
         {

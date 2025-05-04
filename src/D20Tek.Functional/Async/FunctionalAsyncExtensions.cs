@@ -46,9 +46,7 @@ public static class FunctionalAsyncExtensions
     }
 
     public static async Task<T> IterateUntilAsync<T>(
-        this Task<T> instance,
-        Func<T, Task<T>> updateFunction,
-        Func<T, Task<bool>> endCondition)
+        this Task<T> instance, Func<T, Task<T>> updateFunction, Func<T, Task<bool>> endCondition)
     {
         var currentThis = await instance;
 
@@ -69,9 +67,7 @@ public static class FunctionalAsyncExtensions
     }
 
     public static async Task<Result<T>> IterateUntilAsync<T>(
-        this Task<T> instance,
-        Func<T, Task<Result<T>>> updateFunction,
-        Func<T, Task<bool>> endCondition)
+        this Task<T> instance, Func<T, Task<Result<T>>> updateFunction, Func<T, Task<bool>> endCondition)
         where T : notnull
     {
         var currentThis = Result<T>.Success(await instance);
