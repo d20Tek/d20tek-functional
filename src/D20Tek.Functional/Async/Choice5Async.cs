@@ -76,15 +76,15 @@ public sealed class ChoiceAsync<T1, T2, T3, T4, T5>
         return this;
     }
 
-    public async Task<Choice<TResult, T2, T3, T4, T5>> BindAsync<TResult>(
-        Func<T1, Task<Choice<TResult, T2, T3, T4, T5>>> bindFunc)
+    public async Task<ChoiceAsync<TResult, T2, T3, T4, T5>> BindAsync<TResult>(
+        Func<T1, Task<ChoiceAsync<TResult, T2, T3, T4, T5>>> bindFunc)
         where TResult : notnull =>
         await MatchAsync(
             async (t1) => await bindFunc(t1),
-            t2 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t2)),
-            t3 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t3)),
-            t4 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t4)),
-            t5 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t5)));
+            t2 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t2)),
+            t3 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t3)),
+            t4 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t4)),
+            t5 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t5)));
 
     public T1 GetChoice1() => (T1)_value;
 
@@ -96,14 +96,14 @@ public sealed class ChoiceAsync<T1, T2, T3, T4, T5>
 
     public T5 GetChoice5() => (T5)_value;
 
-    public async Task<Choice<TResult, T2, T3, T4, T5>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
+    public async Task<ChoiceAsync<TResult, T2, T3, T4, T5>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
         where TResult : notnull => 
         await MatchAsync(
-            async (t1) => new Choice<TResult, T2, T3, T4, T5>(await mapFunc(t1)),
-            t2 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t2)),
-            t3 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t3)),
-            t4 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t4)),
-            t5 => Task.FromResult(new Choice<TResult, T2, T3, T4, T5>(t5)));
+            async (t1) => new ChoiceAsync<TResult, T2, T3, T4, T5>(await mapFunc(t1)),
+            t2 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t2)),
+            t3 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t3)),
+            t4 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t4)),
+            t5 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4, T5>(t5)));
 
     public override string ToString() => $"ChoiceAsync<{_value.GetType().Name}>(value = {_value})";
 }

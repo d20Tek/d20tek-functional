@@ -281,6 +281,6 @@ public class Choice3AsyncTests
 
     private static Task<ChoiceAsync<float, int, Guid>> TryParseOrGuidAsync(string text) =>
         Task.FromResult(float.TryParse(text, out float parsed)
-            ? new ChoiceAsync<float, int, Guid>(parsed)
-            : new ChoiceAsync<float, int, Guid>(Guid.NewGuid()));
+                            ? new ChoiceAsync<float, int, Guid>(parsed)
+                            : new ChoiceAsync<float, int, Guid>(Guid.NewGuid()));
 }

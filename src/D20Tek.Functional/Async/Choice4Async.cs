@@ -65,13 +65,14 @@ public sealed class ChoiceAsync<T1, T2, T3, T4>
         return this;
     }
 
-    public async Task<Choice<TResult, T2, T3, T4>> BindAsync<TResult>(Func<T1, Task<Choice<TResult, T2, T3, T4>>> bindFunc)
+    public async Task<ChoiceAsync<TResult, T2, T3, T4>> BindAsync<TResult>(
+        Func<T1, Task<ChoiceAsync<TResult, T2, T3, T4>>> bindFunc)
         where TResult : notnull =>
         await MatchAsync(
             async (t1) => await bindFunc(t1),
-            t2 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t2)),
-            t3 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t3)),
-            t4 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t4)));
+            t2 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t2)),
+            t3 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t3)),
+            t4 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t4)));
 
     public T1 GetChoice1() => (T1)_value;
 
@@ -81,13 +82,13 @@ public sealed class ChoiceAsync<T1, T2, T3, T4>
 
     public T4 GetChoice4() => (T4)_value;
 
-    public async Task<Choice<TResult, T2, T3, T4>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
+    public async Task<ChoiceAsync<TResult, T2, T3, T4>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
         where TResult : notnull => 
         await MatchAsync(
-            async (t1) => new Choice<TResult, T2, T3, T4>(await mapFunc(t1)),
-            t2 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t2)),
-            t3 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t3)),
-            t4 => Task.FromResult(new Choice<TResult, T2, T3, T4>(t4)));
+            async (t1) => new ChoiceAsync<TResult, T2, T3, T4>(await mapFunc(t1)),
+            t2 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t2)),
+            t3 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t3)),
+            t4 => Task.FromResult(new ChoiceAsync<TResult, T2, T3, T4>(t4)));
 
     public override string ToString() => $"ChoiceAsync<{_value.GetType().Name}>(value = {_value})";
 }
