@@ -1,6 +1,6 @@
 ﻿namespace D20Tek.Functional.Async;
 
-public static class IdentityExtensions
+public static class IdentityAsyncExtensions
 {
     public static async Task<Identity<TResult>> BindAsync<T, TResult>(
         this Identity<T> identity, Func<T, Task<Identity<TResult>>> bind)
