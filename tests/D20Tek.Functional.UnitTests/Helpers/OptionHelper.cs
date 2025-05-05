@@ -6,4 +6,9 @@ internal static class OptionHelper
         int.TryParse(text, out int parsed)
             ? Option<int>.Some(parsed)
             : Option<int>.None();
+
+    public static Task<Option<int>> TryParseAsync(string text) =>
+        Task.FromResult(int.TryParse(text, out int parsed)
+                           ? Option<int>.Some(parsed)
+                           : Option<int>.None());
 }

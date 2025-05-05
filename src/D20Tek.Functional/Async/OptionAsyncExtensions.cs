@@ -119,5 +119,5 @@ public static class OptionAsyncExtensions
 
     public static async Task<Option<T>> OrElseWithAsync<T>(this Task<Option<T>> option, Func<Task<Option<T>>> ifNone)
         where T : notnull =>
-        await (await option).OrElseWithAsync(ifNone);
+        await option.MatchAsync(v => option, async () => await ifNone());
 }
