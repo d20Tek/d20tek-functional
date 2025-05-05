@@ -1,4 +1,4 @@
-﻿namespace D20Tek.Functional;
+﻿namespace D20Tek.Functional.Async;
 
 public sealed class ChoiceAsync<T1, T2, T3>
     where T1 : notnull
@@ -64,7 +64,7 @@ public sealed class ChoiceAsync<T1, T2, T3>
 
     public T3 GetChoice3() => (T3)_value;
 
-    public async Task<ChoiceAsync<TResult, T2, T3>> Map<TResult>(Func<T1, Task<TResult>> mapFunc)
+    public async Task<ChoiceAsync<TResult, T2, T3>> MapAsync<TResult>(Func<T1, Task<TResult>> mapFunc)
         where TResult : notnull => 
         await MatchAsync(
             async (t1) => new ChoiceAsync<TResult, T2, T3>(await mapFunc(t1)),

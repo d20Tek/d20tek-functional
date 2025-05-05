@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace D20Tek.Functional;
+﻿namespace D20Tek.Functional.Async;
 
 public sealed class ChoiceAsync<T1, T2, T3, T4>
     where T1 : notnull
@@ -67,7 +65,7 @@ public sealed class ChoiceAsync<T1, T2, T3, T4>
         return this;
     }
 
-    public async Task<Choice<TResult, T2, T3, T4>> Bind<TResult>(Func<T1, Task<Choice<TResult, T2, T3, T4>>> bindFunc)
+    public async Task<Choice<TResult, T2, T3, T4>> BindAsync<TResult>(Func<T1, Task<Choice<TResult, T2, T3, T4>>> bindFunc)
         where TResult : notnull =>
         await MatchAsync(
             async (t1) => await bindFunc(t1),

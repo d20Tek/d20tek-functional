@@ -1,4 +1,4 @@
-﻿namespace D20Tek.Functional;
+﻿namespace D20Tek.Functional.Async;
 
 public sealed class ChoiceAsync<T1, T2, T3, T4, T5>
     where T1 : notnull
