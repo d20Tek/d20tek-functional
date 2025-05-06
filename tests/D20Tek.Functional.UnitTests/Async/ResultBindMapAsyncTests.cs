@@ -61,6 +61,32 @@ public class ResultBindMapAsyncTests
     }
 
     [TestMethod]
+    public async Task BindAsync_WithFailure_ReturnsFailure()
+    {
+        // arrange
+        var input = Result<string>.Failure(Error.Unexpected("Error", "Test error"));
+
+        // act
+        var result = await input.BindAsync([ExcludeFromCodeCoverage] (v) => ResultHelper.TryParseAsync(v));
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task BindAsync_WithTaskAndFailure_ReturnsFailure()
+    {
+        // arrange
+        var input = Task.FromResult(Result<string>.Failure(Error.Unexpected("Error", "Test error")));
+
+        // act
+        var result = await input.BindAsync([ExcludeFromCodeCoverage] (v) => ResultHelper.TryParseAsync(v));
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
     public async Task MapAsync_WithTask_ReturnsSuccess()
     {
         // arrange
@@ -107,6 +133,19 @@ public class ResultBindMapAsyncTests
     {
         // arrange
         var input = Result<int>.Failure(Error.Invalid("code", "test"));
+
+        // act
+        var result = await input.MapAsync([ExcludeFromCodeCoverage] (v) => Task.FromResult(v * 2));
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task TaskMapAsync_WithFailure_ReturnsFailure()
+    {
+        // arrange
+        var input = Task.FromResult(Result<int>.Failure(Error.Invalid("code", "test")));
 
         // act
         var result = await input.MapAsync([ExcludeFromCodeCoverage] (v) => Task.FromResult(v * 2));
