@@ -25,8 +25,5 @@ public sealed class ValidationErrors
 
     public Error[] ToArray() => [.. _errors];
 
-    public async Task<Result<T>> MapAsync<T>(Func<Task<T>> onSuccess) where T : notnull =>
-        HasErrors ? ToFailure<T>() : await onSuccess();
-
     public Result<T> ToFailure<T>() where T : notnull => Result<T>.Failure([.. _errors]);
 }

@@ -109,41 +109,6 @@ public class ValidationErrorsTests
     }
 
     [TestMethod]
-    public async Task MapAsync_WithError_ReturnsFailureResult()
-    {
-        // arrange
-        var err = Error.Validation("Test.Error", "Test message");
-        var errors = ValidationErrors.Create();
-        errors.AddIfError(() => true, err);
-
-        // act
-        var result = await errors.MapAsync([ExcludeFromCodeCoverage] () => Task.FromResult(false));
-
-        // assert
-        result.Should().NotBeNull();
-        result.IsFailure.Should().BeTrue();
-        result.IsSuccess.Should().BeFalse();
-    }
-
-    [TestMethod]
-    public async Task MapAsync_WithoutError_CallsOnSuccess()
-    {
-        // arrange
-        var err = Error.Validation("Test.Error", "Test message");
-        var errors = ValidationErrors.Create();
-        errors.AddIfError(() => false, err);
-
-        // act
-        var result = await errors.MapAsync(() => Task.FromResult(true));
-
-        // assert
-        result.Should().NotBeNull();
-        result.IsFailure.Should().BeFalse();
-        result.IsSuccess.Should().BeTrue();
-        result.GetValue().Should().BeTrue();
-    }
-
-    [TestMethod]
     public void ToArray_WithError_ReturnsErrors()
     {
         // arrange
