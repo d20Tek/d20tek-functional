@@ -5,19 +5,19 @@ namespace D20Tek.Functional.UnitTests.Async;
 [TestClass]
 public class ResultBindMapAsyncTests
 {
-    //[TestMethod]
-    //public async Task BindAsync_WithTask_ReturnsSuccess()
-    //{
-    //    // arrange
-    //    var task = Task.FromResult(Result<string>.Success("42"));
+    [TestMethod]
+    public async Task BindAsync_WithTask_ReturnsSuccess()
+    {
+        // arrange
+        var task = Task.FromResult(Result<string>.Success("42"));
 
-    //    // act
-    //    var result = await task.BindAsync(v => Result<int>.Success(42));
+        // act
+        var result = await task.BindAsync(v => Task.FromResult(Result<int>.Success(42)));
 
-    //    // assert
-    //    result.IsSuccess.Should().BeTrue();
-    //    result.GetValue().Should().Be(42);
-    //}
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
 
     [TestMethod]
     public async Task BindAsync_WithTaskAndBindTask_ReturnsSuccess()
@@ -60,19 +60,19 @@ public class ResultBindMapAsyncTests
         result.IsFailure.Should().BeTrue();
     }
 
-    //[TestMethod]
-    //public async Task MapAsync_WithTask_ReturnsSuccess()
-    //{
-    //    // arrange
-    //    var task = Task.FromResult(Result<int>.Success(42));
+    [TestMethod]
+    public async Task MapAsync_WithTask_ReturnsSuccess()
+    {
+        // arrange
+        var task = Task.FromResult(Result<int>.Success(42));
 
-    //    // act
-    //    var result = await task.MapAsync(v => v * 2);
+        // act
+        var result = await task.MapAsync(v => Task.FromResult(v * 2));
 
-    //    // assert
-    //    result.IsSuccess.Should().BeTrue();
-    //    result.GetValue().Should().Be(84);
-    //}
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(84);
+    }
 
     [TestMethod]
     public async Task MapAsync_WithTaskAndBindTask_ReturnsSuccess()
