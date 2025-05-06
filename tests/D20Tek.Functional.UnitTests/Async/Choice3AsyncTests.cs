@@ -126,7 +126,7 @@ public class Choice3AsyncTests
         var input = new ChoiceAsync<string, int, Guid>(101);
 
         // act
-        var result = await input.BindAsync([ExcludeFromCodeCoverage] async (v) => await TryParseAsync(v));
+        var result = await input.BindAsync(TryParseAsync);
 
         // assert
         result.IsChoice2.Should().BeTrue();
@@ -134,6 +134,7 @@ public class Choice3AsyncTests
     }
 
     [TestMethod]
+    [ExcludeFromCodeCoverage]
     public async Task BindAsync_WithT3Value_ReturnsInitialChoice3()
     {
         // arrange
@@ -141,7 +142,7 @@ public class Choice3AsyncTests
         var input = new ChoiceAsync<string, int, Guid>(guid);
 
         // act
-        var result = await input.BindAsync([ExcludeFromCodeCoverage] async (v) => await TryParseAsync(v));
+        var result = await input.BindAsync(TryParseAsync);
 
         // assert
         result.IsChoice3.Should().BeTrue();

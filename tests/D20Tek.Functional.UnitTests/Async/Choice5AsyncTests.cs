@@ -507,6 +507,7 @@ public class Choice5AsyncTests
                              ? new ChoiceAsync<float, int, Guid, decimal, DateTime>(parsed)
                              : new ChoiceAsync<float, int, Guid, decimal, DateTime>(1234M));
 
+    [ExcludeFromCodeCoverage]
     private static Task<ChoiceAsync<float, int, Guid, decimal, DateTime>> TryParseOrDateAsync(string text) =>
         Task.FromResult(float.TryParse(text, out float parsed)
                              ? new ChoiceAsync<float, int, Guid, decimal, DateTime>(parsed)

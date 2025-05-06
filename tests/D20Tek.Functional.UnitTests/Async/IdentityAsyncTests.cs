@@ -124,6 +124,7 @@ public class IdentityAsyncTests
         result.Get().Should().Be(84);
     }
 
+    [ExcludeFromCodeCoverage]
     private static Task<Identity<int>> TryParseAsync(string text) =>
         Task.FromResult((int.TryParse(text, out int parsed) ? parsed : 0).ToIdentity());
 }

@@ -106,7 +106,9 @@ public class TryExceptAsyncTests
         var input = Task.FromResult(42);
 
         // act
-        var result = await TryExceptAsync.MapAsync(() => input, v => Task.FromResult(v / 0));
+        var result = await TryExceptAsync.MapAsync(
+            () => input,
+            [ExcludeFromCodeCoverage] (v) => Task.FromResult(v / 0));
 
         // assert
         result.IsFailure.Should().BeTrue();
