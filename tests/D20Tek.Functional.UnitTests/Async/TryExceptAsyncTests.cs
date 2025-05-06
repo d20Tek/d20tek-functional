@@ -1,16 +1,18 @@
-﻿namespace D20Tek.Functional.UnitTests;
+﻿using D20Tek.Functional.Async;
+
+namespace D20Tek.Functional.UnitTests.Async;
 
 [TestClass]
-public class TryExceptTests
+public class TryExceptAsyncTests
 {
     [TestMethod]
-    public void Run_WithSuccessfulOperation_ReturnsSuccess()
+    public async Task RunAsync_WithSuccessfulOperation_ReturnsSuccess()
     {
         // arrange
 
         // act
-        var result = TryExcept.Run(
-            () => Result<int>.Success(42),
+        var result = await TryExceptAsync.RunAsync(
+            () => Task.FromResult(Result<int>.Success(42)),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex));
 
         // assert
@@ -19,12 +21,12 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Run_WithOperationException_ReturnsFailure()
+    public async Task RunAsync_WithOperationException_ReturnsFailure()
     {
         // arrange
 
         // act
-        var result = TryExcept.Run(
+        var result = await TryExceptAsync.RunAsync(
             () => throw new InvalidOperationException(),
             ex => Result<int>.Failure(ex));
 
@@ -34,14 +36,14 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Run_WithSuccessfulOperation_RunsFinally()
+    public async Task RunAsync_WithSuccessfulOperation_RunsFinally()
     {
         // arrange
         bool ranFinally = false;
 
         // act
-        var result = TryExcept.Run(
-            () => Result<int>.Success(42),
+        var result = await TryExceptAsync.RunAsync(
+            () => Task.FromResult(Result<int>.Success(42)),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
             () => ranFinally = true);
 
@@ -52,15 +54,15 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Bind_WithValidValue_ReturnsSuccess()
+    public async Task BindAsync_WithValidValue_ReturnsSuccess()
     {
         // arrange
-        var input = "42";
+        var input = Task.FromResult("42");
 
         // act
-        var result = TryExcept.Bind(
+        var result = await TryExceptAsync.BindAsync(
             () => input,
-            x => Result<int>.Success(int.Parse(x)));
+            x => Task.FromResult(Result<int>.Success(int.Parse(x))));
 
         // assert
         result.IsSuccess.Should().BeTrue();
@@ -68,15 +70,15 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Bind_WithInvalidValue_ReturnsSuccess()
+    public async Task BindAsync_WithInvalidValue_ReturnsSuccess()
     {
         // arrange
-        var input = "non-int-text";
+        var input = Task.FromResult("non-int-text");
 
         // act
-        var result = TryExcept.Bind(
+        var result = await TryExceptAsync.BindAsync(
             () => input,
-            [ExcludeFromCodeCoverage] (x) => Result<int>.Success(int.Parse(x)));
+            [ExcludeFromCodeCoverage] (x) => Task.FromResult(Result<int>.Success(int.Parse(x))));
 
         // assert
         result.IsFailure.Should().BeTrue();
@@ -84,13 +86,13 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Map_WithValidValue_ReturnsSuccess()
+    public async Task MapAsync_WithValidValue_ReturnsSuccess()
     {
         // arrange
-        var input = 42;
+        var input = Task.FromResult(42);
 
         // act
-        var result = TryExcept.Map(() => input, v => v * 2);
+        var result = await TryExceptAsync.MapAsync(() => input, v => Task.FromResult(v * 2));
 
         // assert
         result.IsSuccess.Should().BeTrue();
@@ -98,13 +100,13 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void Map_WithExceptionThrown_ReturnsFailure()
+    public async Task MapAsync_WithExceptionThrown_ReturnsFailure()
     {
         // arrange
-        var input = 42;
+        var input = Task.FromResult(42);
 
         // act
-        var result = TryExcept.Map(() => input, v => v / 0);
+        var result = await TryExceptAsync.MapAsync(() => input, v => Task.FromResult(v / 0));
 
         // assert
         result.IsFailure.Should().BeTrue();
@@ -112,14 +114,14 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void RunAction_WithSuccessfulOperation_ReturnsSuccess()
+    public async Task RunActionAsync_WithSuccessfulOperation_ReturnsSuccess()
     {
         // arrange
         Result<int>? value = null;
-        Action op = () => value = Result<int>.Success(42);
+        Func<Task> op = () => { value = Result<int>.Success(42); return Task.CompletedTask; };
 
         // act
-        TryExcept.Run(
+        await TryExceptAsync.RunAsync(
             () => op(),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex));
 
@@ -130,14 +132,14 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void RunAction_WithOperationException_ReturnsFailure()
+    public async Task RunActionAsync_WithOperationException_ReturnsFailure()
     {
         // arrange
         Result<int>? value = null;
-        Action op = () => throw new InvalidOperationException();
+        Func<Task> op = () => throw new InvalidOperationException();
 
         // act
-        TryExcept.Run(
+        await TryExceptAsync.RunAsync(
             [ExcludeFromCodeCoverage] () => op(),
             ex => value = Result<int>.Failure(ex));
 
@@ -148,15 +150,15 @@ public class TryExceptTests
     }
 
     [TestMethod]
-    public void RunAction_WithSuccessfulOperation_RunsFinally()
+    public async Task RunActionAsync_WithSuccessfulOperation_RunsFinally()
     {
         // arrange
         bool ranFinally = false;
         Result<int>? value = null;
-        Action op = () => value = Result<int>.Success(42);
+        Func<Task> op = () => { value = Result<int>.Success(42); return Task.CompletedTask; };
 
         // act
-        TryExcept.Run(
+        await TryExceptAsync.RunAsync(
             () => op(),
             [ExcludeFromCodeCoverage] (ex) => Result<int>.Failure(ex),
             () => ranFinally = true);
