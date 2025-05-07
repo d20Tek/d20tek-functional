@@ -34,6 +34,9 @@ public static class ActionResultExtensions
 
     public static IActionResult ToIActionResult(this IConvertToActionResult actionResult) => actionResult.Convert();
 
+    public static async Task<IActionResult> ToIActionResultAsync<T>(this Task<ActionResult<T>> actionResult) =>
+        (await actionResult).ToIActionResult();
+
     private static ActionResult<TResult> ProblemInternal<TResult>(ControllerBase controller, IEnumerable<Error> errors) =>
         errors.Any()
             ? errors.First().Pipe(error => controller.Problem(

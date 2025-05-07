@@ -1,71 +1,76 @@
 ﻿using D20Tek.Functional.AspNetCore.WebApi;
+using D20Tek.Functional.AspNetCore.WebApi.Async;
 using Microsoft.AspNetCore.Http;
 
-namespace D20Tek.Functional.UnitTests.WebApi;
+namespace D20Tek.Functional.UnitTests.WebApi.Async;
 
 [TestClass]
-public sealed class ResultExtensionsTests
+public sealed class ResultAsyncExtensionsTests
 {
     private readonly TestController _controller = new TestController();
 
     [TestMethod]
-    public void ToActionResult_WithMappingFunc_ReturnsOK()
+    public async Task ToActionResultAsync_WithMappingFunc_ReturnsOK()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(42, "ActionTest", DateTime.UtcNow);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(ToResponse, _controller);
+        var actionResult = await task.ToActionResultAsync(ToResponse, _controller);
 
         // assert
         actionResult.ShouldBeOkResult(42, "ActionTest");
     }
 
     [TestMethod]
-    public void ToActionResult_WithMappingFunc_ReturnsNotFound()
+    public async Task ToActionResultAsync_WithMappingFunc_ReturnsNotFound()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.NotFound);
         var modelResult = Result<TestEntity>.Failure(error);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(ToResponse, _controller);
+        var actionResult = await task.ToActionResultAsync(ToResponse, _controller);
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status404NotFound, error);
     }
 
     [TestMethod]
-    public void ToActionResult_WithResponse_ReturnsOK()
+    public async Task ToActionResult_WithResponse_ReturnsOK()
     {
         // arrange
         var entity = new TestEntity(101, "Test", DateTime.UtcNow);
         Result<TestEntity> modelResult = entity;
+        var task = Task.FromResult(modelResult);
 
         // act
         var converted = ToResponse(entity);
-        var actionResult = modelResult.ToActionResult(converted, _controller);
+        var actionResult = await task.ToActionResultAsync(converted, _controller);
 
         // assert
         actionResult.ShouldBeOkResult(101, "Test");
     }
 
     [TestMethod]
-    public void ToActionResult_WithResponse_ReturnsBadRequest()
+    public async Task ToActionResultAsync_WithResponse_ReturnsBadRequest()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.Failure);
         var modelResult = Result<TestEntity>.Failure(error);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(new TestResponse(1, "foo"), _controller);
+        var actionResult = await task.ToActionResultAsync(new TestResponse(1, "foo"), _controller);
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status400BadRequest, error);
     }
 
     [TestMethod]
-    public void ToActionResult_WithMultipleErrors_ReturnsFirstAndErrorList()
+    public async Task ToActionResultAsync_WithMultipleErrors_ReturnsFirstAndErrorList()
     {
         // arrange
         Error[] errors =
@@ -75,22 +80,24 @@ public sealed class ResultExtensionsTests
             Error.Conflict("conflict", "test")
         ];
         var modelResult = Result<TestEntity>.Failure(errors);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(ToResponse, _controller);
+        var actionResult = await task.ToActionResultAsync(ToResponse, _controller);
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status401Unauthorized, errors);
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithMappingFuncAndRouteName_ReturnsCreated()
+    public async Task ToCreatedActionResultAsync_WithMappingFuncAndRouteName_ReturnsCreated()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(201, "Test2", DateTime.UtcNow);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(
+        var actionResult = await task.ToCreatedActionResultAsync(
             ToResponse, _controller, "CreateTest", new { id = 201 });
 
         // assert
@@ -98,14 +105,15 @@ public sealed class ResultExtensionsTests
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithMappingFuncAndRouteName_ReturnsConflict()
+    public async Task ToCreatedActionResultAsync_WithMappingFuncAndRouteName_ReturnsConflict()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.Conflict);
         var modelResult = Result<TestEntity>.Failure(error);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var apiResult = modelResult.ToCreatedActionResult(
+        var apiResult = await task.ToCreatedActionResultAsync(
             ToResponse, _controller, "CreateTest", new { id = 201 });
 
         // assert
@@ -113,14 +121,15 @@ public sealed class ResultExtensionsTests
     }
 
     [TestMethod]
-    public void ToCreatedApiResult_WithResponseAndRouteName_ReturnsCreated()
+    public async Task ToCreatedApiResultAsync_WithResponseAndRouteName_ReturnsCreated()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(201, "Test2", DateTime.UtcNow);
         var converted = new TestResponse(201, "Test2");
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(
+        var actionResult = await task.ToCreatedActionResultAsync(
             converted, _controller, "CreateTest", new { id = 201 });
 
         // assert
@@ -128,15 +137,16 @@ public sealed class ResultExtensionsTests
     }
 
     [TestMethod]
-    public void ToCreatedApiResult_WithResponseAndRouteName_ReturnsUnprocessableEntity()
+    public async Task ToCreatedApiResultAsync_WithResponseAndRouteName_ReturnsUnprocessableEntity()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.Invalid);
         var modelResult = Result<TestEntity>.Failure(error);
         var converted = new TestResponse(201, "Test2");
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(
+        var actionResult = await task.ToCreatedActionResultAsync(
             converted, _controller, "CreateTest", new { id = 201 });
 
         // assert
@@ -144,83 +154,89 @@ public sealed class ResultExtensionsTests
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithMappingFuncAndRouteUri_ReturnsCreated()
+    public async Task ToCreatedActionResultAsync_WithMappingFuncAndRouteUri_ReturnsCreated()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(301, "Test3", DateTime.UtcNow);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(ToResponse, _controller, "/tests/301");
+        var actionResult = await task.ToCreatedActionResultAsync(ToResponse, _controller, "/tests/301");
 
         // assert
         actionResult.ShouldBeCreatedResult("/tests/301", 301, "Test3");
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithMappingFuncAndRouteUri_ReturnsUnexpected()
+    public async Task ToCreatedActionResultAsync_WithMappingFuncAndRouteUri_ReturnsUnexpected()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.Unexpected);
         var modelResult = Result<TestEntity>.Failure(error);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(ToResponse, _controller, "/tests/301");
+        var actionResult = await task.ToCreatedActionResultAsync(ToResponse, _controller, "/tests/301");
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status500InternalServerError, error);
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithResponseAndRouteUri_ReturnsCreated()
+    public async Task ToCreatedActionResultAsync_WithResponseAndRouteUri_ReturnsCreated()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(301, "Test3", DateTime.UtcNow);
         var converted = new TestResponse(301, "Test3");
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(converted, _controller, "/tests/301");
+        var actionResult = await task.ToCreatedActionResultAsync(converted, _controller, "/tests/301");
 
         // assert
         actionResult.ShouldBeCreatedResult("/tests/301", 301, "Test3");
     }
 
     [TestMethod]
-    public void ToCreatedActionResult_WithResponseAndRouteUri_ReturnsForbidden()
+    public async Task ToCreatedActionResultAsync_WithResponseAndRouteUri_ReturnsForbidden()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.Forbidden);
         var modelResult = Result<TestEntity>.Failure(error);
         var converted = new TestResponse(301, "Test3");
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToCreatedActionResult(converted, _controller, "/tests/301");
+        var actionResult = await task.ToCreatedActionResultAsync(converted, _controller, "/tests/301");
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status403Forbidden, error);
     }
 
     [TestMethod]
-    public void ToIActionResult_WithMappingFunc_ReturnsOK()
+    public async Task ToIActionResultAsync_WithMappingFunc_ReturnsOK()
     {
         // arrange
         Result<TestEntity> modelResult = new TestEntity(42, "ActionTest", DateTime.UtcNow);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(ToResponse, _controller).ToIActionResult();
+        var actionResult = await task.ToActionResultAsync(ToResponse, _controller).ToIActionResultAsync();
 
         // assert
         actionResult.ShouldBeOkResult(42, "ActionTest");
     }
 
     [TestMethod]
-    public void ToIActionResult_WithMappingFunc_ReturnsNotFound()
+    public async Task ToIActionResult_WithMappingFunc_ReturnsNotFound()
     {
         // arrange
         var error = Error.Create("Test.Error", "Test error message", ErrorType.NotFound);
         var modelResult = Result<TestEntity>.Failure(error);
+        var task = Task.FromResult(modelResult);
 
         // act
-        var actionResult = modelResult.ToActionResult(ToResponse, _controller).ToIActionResult();
+        var actionResult = await task.ToActionResultAsync(ToResponse, _controller).ToIActionResultAsync();
 
         // assert
         actionResult.ShouldBeProblemResult(StatusCodes.Status404NotFound, error);
