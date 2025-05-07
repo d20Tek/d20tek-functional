@@ -65,12 +65,4 @@ public static class ResultAsyncExtensions
         await result.MatchAsync(
             s => Task.FromResult<IResult>(TypedResults.Created(routeUri, responseMap(s))),
             e => Task.FromResult(Results.Extensions.Problem(e)));
-
-    public static async Task<IResult> ToCreatedApiResultAsync<TValue, TResponse>(
-        this Result<TValue> result,
-        TResponse response,
-        string routeUri) where TValue : notnull =>
-        await result.MatchAsync(
-            s => Task.FromResult<IResult>(TypedResults.Created(routeUri, response)),
-            e => Task.FromResult(Results.Extensions.Problem(e)));
 }
