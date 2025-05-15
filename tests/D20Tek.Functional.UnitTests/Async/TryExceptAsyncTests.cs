@@ -171,4 +171,30 @@ public class TryExceptAsyncTests
         value.GetValue().Should().Be(42);
         ranFinally.Should().BeTrue();
     }
+
+    [TestMethod]
+    public async Task TryRunAsync_WithSuccessfulOperation_ReturnsSuccess()
+    {
+        // arrange
+
+        // act
+        var result = await TryAsync.RunAsync(() => Task.FromResult(Result<int>.Success(42)));
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public async Task TryRunAsync_WithOperationException_ReturnsFailure()
+    {
+        // arrange
+
+        // act
+        var result = await TryAsync.RunAsync<int>(() => throw new InvalidOperationException());
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+        result.GetErrors().Should().NotBeEmpty();
+    }
 }

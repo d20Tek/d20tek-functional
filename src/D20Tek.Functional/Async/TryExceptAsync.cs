@@ -50,3 +50,18 @@ public static class TryExceptAsync
             async () => Result<T>.Success(await mapper(await operation())),
             ex => Result<T>.Failure(ex));
 }
+
+public static class TryAsync
+{
+    public static async Task<Result<T>> RunAsync<T>(Func<Task<Result<T>>> operation) where T : notnull
+    {
+        try
+        {
+            return await operation();
+        }
+        catch (Exception ex)
+        {
+            return Result<T>.Failure(Error.Exception(ex));
+        }
+    }
+}

@@ -167,4 +167,30 @@ public class TryExceptTests
         value.GetValue().Should().Be(42);
         ranFinally.Should().BeTrue();
     }
+
+    [TestMethod]
+    public void TryRun_WithSuccessfulOperation_ReturnsSuccess()
+    {
+        // arrange
+
+        // act
+        var result = Try.Run(() => Result<int>.Success(42));
+
+        // assert
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().Be(42);
+    }
+
+    [TestMethod]
+    public void TryRun_WithOperationException_ReturnsFailure()
+    {
+        // arrange
+
+        // act
+        var result = Try.Run<int>(() => throw new InvalidOperationException());
+
+        // assert
+        result.IsFailure.Should().BeTrue();
+        result.GetErrors().Should().NotBeEmpty();
+    }
 }

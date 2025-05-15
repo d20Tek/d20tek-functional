@@ -48,3 +48,18 @@ public static class TryExcept
             () => Result<T>.Success(mapper(operation())),
             ex => Result<T>.Failure(ex));
 }
+
+public static class Try
+{
+    public static Result<T> Run<T>(Func<Result<T>> operation) where T : notnull
+    {
+        try
+        {
+            return operation();
+        }
+        catch (Exception ex)
+        {
+            return Result<T>.Failure(Error.Exception(ex));
+        }
+    }
+}
