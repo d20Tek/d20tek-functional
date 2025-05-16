@@ -1,6 +1,7 @@
 ﻿using D20Tek.Functional;
 using D20Tek.Functional.AspNetCore.MinimalApi;
 using Microsoft.AspNetCore.Mvc;
+using TodoService.Common;
 
 namespace TodoService.Endpoints.Todos;
 
@@ -36,21 +37,29 @@ internal static class TodoEndpoints
                           .ProducesProblem(StatusCodes.Status404NotFound)
                           .WithOpenApi());
 
-    private static Todo[] Get([FromServices]ITodoRepository repo) => repo.GetEntities();
+    private static IResult Get([FromServices]ITodoRepository repo) =>
+        repo.GetAll().ToApiResult();
 
     private static IResult GetById([FromServices] ITodoRepository repo, int id) =>
-        repo.GetEntityById(id).ToApiResult();
+        repo.GetById(t => t.Id, id).ToApiResult();
 
     private static IResult Create([FromServices] ITodoRepository repo, Todo model) =>
         model.Validate()
-             .Bind(m => repo.Create(m))
+             .Bind(m => repo.Add(m))
+             .Iter(_ => repo.SaveChanges())
              .ToCreatedApiResult($"/api/Todos/{model.Id}");
 
     private static IResult Update([FromServices] ITodoRepository repo, int id, Todo input) =>
         input.Validate()
+             .Bind(m => repo.GetById(t => t.Id, id))
+             .Map(entity => entity.Update(input.Title, input.Description, input.IsCompleted))
              .Bind(m => repo.Update(m))
+             .Iter(m => repo.SaveChanges())
              .ToApiResult();
 
     private static IResult Delete([FromServices] ITodoRepository repo, int id) =>
-        repo.Delete(id).ToApiResult();
+        repo.GetById(t => t.Id, id)
+            .Bind(entity => repo.Remove(entity))
+            .Iter(m => repo.SaveChanges())
+            .ToApiResult();
 }
