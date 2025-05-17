@@ -1,16 +1,14 @@
-﻿using Apps.Repositories;
+﻿namespace MemberService.Controllers.Members;
 
-namespace MemberService.Controllers.Members;
-
-public sealed class MemberEntity : IEntity
+public sealed class MemberEntity
 {
     public int Id { get; private set; }
 
-    public string FirstName { get; }
+    public string FirstName { get; private set; }
 
-    public string LastName { get; }
+    public string LastName { get; private set; }
 
-    public string Email { get; }
+    public string Email { get; private set; }
 
     public MemberEntity(int id, string firstName, string lastName, string email)
     {
@@ -21,6 +19,15 @@ public sealed class MemberEntity : IEntity
     }
 
     public void SetId(int id) => Id = id;
+
+    public MemberEntity Update(string firstName, string lastName, string email)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+
+        return this;
+    }
 
     public static MemberEntity Create(int id, string firstName, string lastName, string email) =>
         new(id, firstName, lastName, email);

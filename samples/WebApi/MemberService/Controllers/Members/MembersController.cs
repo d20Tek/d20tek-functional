@@ -1,6 +1,6 @@
 ﻿using D20Tek.Functional;
 using D20Tek.Functional.AspNetCore.WebApi;
-using MemberService.Persistence;
+using MemberService.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MemberService.Controllers.Members;
@@ -13,7 +13,9 @@ public sealed class MembersController : ControllerBase
     [ProducesResponseType(typeof(MemberResponse[]), StatusCodes.Status200OK)]
     [ActionName("GetAllMembers")]
     public ActionResult<MemberResponse[]> Get([FromServices] IMemberRepository repo) =>
-        repo.GetEntities().Select(x => MemberMapper.Convert(x)).ToArray();
+        repo.GetAll()
+            .Map(m => m.Select(x => MemberMapper.Convert(x)).ToArray())
+            .Match(s => s, e => this.Problem<MemberResponse[]>(e));
 
     [HttpGet("email/{email}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
@@ -27,7 +29,7 @@ public sealed class MembersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ActionName("GetMemberById")]
     public ActionResult<MemberResponse> Get([FromRoute] int id, [FromServices] IMemberRepository repo) =>
-        repo.GetEntityById(id).ToActionResult(MemberMapper.Convert, this);
+        repo.GetById(m => m.Id, id).ToActionResult(MemberMapper.Convert, this);
 
     [HttpPost]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status201Created)]
@@ -38,10 +40,11 @@ public sealed class MembersController : ControllerBase
     [FromBody] CreateMemberRequest request,
     [FromServices] IMemberRepository repo) =>
         request.Validate()
-            .Map(r => MemberEntity.Create(0, r.FirstName, r.LastName, r.Email))
-            .Bind(entity => repo.Create(entity))
-            .Pipe(result => result.ToCreatedActionResult(
-                MemberMapper.Convert, this, "GetMemberById", GetRouteValuesForCreate(result)));
+               .Map(r => MemberEntity.Create(Guid.NewGuid().GetHashCode(), r.FirstName, r.LastName, r.Email))
+               .Bind(entity => repo.Add(entity))
+               .Iter(_ => repo.SaveChanges())
+               .Pipe(result => result.ToCreatedActionResult(
+                    MemberMapper.Convert, this, "GetMemberById", GetRouteValuesForCreate(result)));
 
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
@@ -53,15 +56,19 @@ public sealed class MembersController : ControllerBase
         [FromBody] UpdateMemberRequest request,
         [FromServices] IMemberRepository repo) =>
         request.Validate(id)
-            .Bind(r => repo.Update(new(id, request.FirstName, request.LastName, request.Email)))
-            .ToActionResult(MemberMapper.Convert, this);
+               .Bind(r => repo.GetById(m => m.Id, id))
+               .Bind(curr => repo.Update(curr.Update(request.FirstName, request.LastName, request.Email)))
+               .Iter(_ => repo.SaveChanges())
+               .ToActionResult(MemberMapper.Convert, this);
 
     [HttpDelete("{id:int}")]
     [ProducesResponseType(typeof(MemberResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ActionName("DeleteMember")]
     public ActionResult<MemberResponse> Delete([FromRoute] int id, [FromServices] IMemberRepository repo) =>
-        repo.Delete(id).ToActionResult(MemberMapper.Convert, this);
+        repo.GetById(m => m.Id, id)
+            .Bind(m => repo.Remove(m))
+            .ToActionResult(MemberMapper.Convert, this);
 
     private static object? GetRouteValuesForCreate(IResultMonad result) =>
         (result.GetValue() is MemberEntity e) ? new { id = e.Id } : null;
