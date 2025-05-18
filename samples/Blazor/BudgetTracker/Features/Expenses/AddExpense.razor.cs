@@ -22,7 +22,8 @@ public partial class AddExpense
     private Option<string> _errorMessage = Option<string>.None();
     private readonly ViewModel _vm = new();
 
-    protected override void OnInitialized() => _vm.Categories = _catRepo.GetEntities();
+    protected override void OnInitialized() =>
+        _vm.Categories = _catRepo.GetAll().Match(s => s.ToArray(), _ => []);
 
     private void CreateHandler() =>
         _repo.Create(new Expense(0, _vm.Name, _vm.CategoryId, _vm.CommittedDate, _vm.Actual))

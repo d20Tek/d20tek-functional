@@ -1,5 +1,4 @@
 ﻿using BudgetTracker.Common;
-using BudgetTracker.Domain;
 using D20Tek.Functional;
 using Microsoft.AspNetCore.Components;
 
@@ -23,14 +22,17 @@ public partial class EditCategory
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(c => c.Id, Id)
              .HandleResult(
                 s => _vm = new ViewModel { Id = s.Id, Name = s.Name, BudgetedAmount = s.BudgetedAmount },
                 e => _errorMessage = e);
 
     private void UpdateHandler() =>
         _vm.MatchAction(
-            a => _repo.Update(new BudgetCategory(a.Id, a.Name, a.BudgetedAmount))
+            a => _repo.GetById(c => c.Id, Id)
+                      .Map(prev => prev.UpdateCategory(a.Name, a.BudgetedAmount))
+                      .Map(updated => _repo.Update(updated))
+                      .Iter(_ => _repo.SaveChanges())
                       .HandleResult(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Categories.MissingCategoryError);
 

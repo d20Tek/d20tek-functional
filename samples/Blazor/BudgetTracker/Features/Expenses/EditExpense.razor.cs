@@ -36,7 +36,7 @@ public partial class EditExpense
                     Id = s.Id,
                     Name = s.Name,
                     CategoryId = s.CategoryId,
-                    Categories = _catRepo.GetEntities(),
+                    Categories = _catRepo.GetAll().GetValue().ToArray(),
                     CommittedDate = s.CommittedDate,
                     Actual = s.Actual
                 },

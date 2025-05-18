@@ -41,5 +41,6 @@ else
 @code {
     BudgetCategory[] _categories = [];
 
-    protected override void OnInitialized() => _categories = _repo.GetEntities();
+    protected override void OnInitialized() => 
+        _categories = _repo.GetAll().Match(s => s.ToArray(), _ => []);
 }

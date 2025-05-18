@@ -1,4 +1,5 @@
-﻿using BudgetTracker.Persistence;
+﻿using BudgetTracker.Common;
+using BudgetTracker.Persistence;
 using D20Tek.Functional;
 
 namespace BudgetTracker.Domain;
@@ -36,11 +37,11 @@ internal static class ReconciledBuilder
         this ReconcileState state,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
-        catRepo.GetEntities()
-            .Select(cat =>
-                expRepo.GetExpensesToReconcile(cat.Id, state.Range).Sum(e => e.Actual)
-                    .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
-            .ToArray();
+        catRepo.GetAll().GetValue()
+               .Select(cat =>
+                    expRepo.GetExpensesToReconcile(cat.Id, state.Range).Sum(e => e.Actual)
+                        .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
+               .ToArray();
 
     private static ReconciledExpenses CalcTotalExpenses(ReconciledExpenses[] exp) =>
         new(Constants.TotalExpensesLabel, exp.Sum(x => x.Budget), exp.Sum(x => x.Actual), exp.Sum(x => x.Remaining));
