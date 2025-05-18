@@ -17,6 +17,4 @@
     <ProjectReference Include="..\..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 
-  <Import Project="..\..\Apps\Apps.Repositories\Apps.Repositories.projitems" Label="Shared" />
-
 </Project>

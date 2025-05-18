@@ -1,8 +1,6 @@
-﻿using Apps.Repositories;
+﻿namespace WealthTracker.Domain;
 
-namespace WealthTracker.Domain;
-
-internal sealed class WealthDataEntity : IEntity
+internal sealed class WealthDataEntity
 {
     public static Exception FutureDateError(string propertyName) =>
         new ArgumentOutOfRangeException(propertyName, "Date value for updates cannot be in the future.");
