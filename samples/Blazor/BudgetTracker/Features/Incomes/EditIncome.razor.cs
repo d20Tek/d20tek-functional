@@ -25,14 +25,17 @@ public partial class EditIncome
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(i => i.Id, Id)
              .HandleResult(
                 s => _vm = new ViewModel { Id = s.Id, Name = s.Name, DepositDate = s.DepositDate, Amount = s.Amount },
                 e => _errorMessage = e);
 
     private void UpdateHandler() =>
         _vm.MatchAction(
-            a => _repo.Update(new Income(a.Id, a.Name, a.DepositDate, a.Amount))
+            a => _repo.GetById(i => i.Id, Id)
+                      .Map(prev => prev.UpdateIncome(a.Name, a.DepositDate, a.Amount))
+                      .Map(updated => _repo.Update(updated))
+                      .Iter(_ => _repo.SaveChanges())
                       .HandleResult(s => _nav.NavigateTo(Constants.Income.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Income.MissingIncomeError);
 

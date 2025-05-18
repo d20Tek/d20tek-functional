@@ -43,5 +43,5 @@ else
 @code {
     Income[] income = [];
 
-    protected override void OnInitialized() => income = _repo.GetEntities();
+    protected override void OnInitialized() => income = _repo.GetAll().Match(s => s.ToArray(), _ => []);
 }

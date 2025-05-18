@@ -17,13 +17,13 @@ internal static class ReconciledBuilder
                 .Map(s => s.MapToSnapshot(range));
 
     private static ReconcileState CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
-        incRepo.GetIncomeToReconcile(state.Range).ToIdentity()
+        incRepo.Find(i => state.Range.InRange(i.DepositDate))
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
             .Map(reconciled => state with
             {
                 Incomes = reconciled.ToArray(),
                 TotalIncome = new(Constants.TotalIncomeLabel, reconciled.Sum(x => x.Amount))
-            });
+            }).GetValue();
 
     private static ReconcileState CalculateGroupedExpenses(
         this ReconcileState state,

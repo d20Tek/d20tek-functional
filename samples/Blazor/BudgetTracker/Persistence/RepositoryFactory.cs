@@ -15,15 +15,16 @@ internal static class RepositoryFactory
         services.AddLocalLowDb<BudgetDataStore>(_databaseKey)
                 //.AddScoped<ICategoryRepository, FileRepository<BudgetCategory, BudgetDataStore>>(sp =>
                 //    new(sp.GetRequiredService<LowDb<BudgetDataStore>>(), store => store.Categories))
-                .AddScoped<IIncomeRepository, FileRepository<Income, BudgetDataStore>>(sp =>
-                    new(sp.GetRequiredService<LowDb<BudgetDataStore>>(), store => store.Incomes))
+                //.AddScoped<IIncomeRepository, FileRepository<Income, BudgetDataStore>>(sp =>
+                //    new(sp.GetRequiredService<LowDb<BudgetDataStore>>(), store => store.Incomes))
                 .AddScoped<IExpenseRepository, FileRepository<Expense, BudgetDataStore>>(sp =>
                     new(sp.GetRequiredService<LowDb<BudgetDataStore>>(), store => store.Expenses))
                 .AddScoped<IReconciledSnapshotRepository, FileRepository<ReconciledSnapshot, BudgetDataStore>>(sp =>
                     new(sp.GetRequiredService<LowDb<BudgetDataStore>>(), store => store.CompletedSnapshots));
 
         services.AddLocalLowDb<BudgetDbDocument>(_databaseKey)
-                .AddScoped<ICategoryRepository, CategoryRepository>();
+                .AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<IIncomeRepository, IncomeRepository>();
 
         return services;
     }

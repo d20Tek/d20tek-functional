@@ -19,7 +19,8 @@ public partial class AddIncome
     private readonly ViewModel _vm = new();
 
     private void CreateHandler() =>
-        _repo.Create(new Income(0, _vm.Name, _vm.DepositDate, _vm.Amount))
+        _repo.Add(new Income(Guid.NewGuid().GetHashCode(), _vm.Name, _vm.DepositDate, _vm.Amount))
+             .Iter(_ => _repo.SaveChanges())
              .HandleResult(s => _nav.NavigateTo(Constants.Income.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Income.ListUrl);
