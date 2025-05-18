@@ -18,7 +18,8 @@ public partial class AddAccount
     private readonly ViewModel _account = new();
 
     private void CreateAccount() =>
-        _repo.Create(new WealthDataEntity(0, _account.Name, [.. _account.Categories]))
+        _repo.Add(new WealthDataEntity(Guid.NewGuid().GetHashCode(), _account.Name, [.. _account.Categories]))
+             .Iter(_ => _repo.SaveChanges())
              .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);

@@ -29,7 +29,7 @@ public partial class UnrecordAccountAmount
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(w => w.Id, Id)
              .HandleResult(s =>
                 {
                     _optionalVM = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = new(s.DailyValues) };
@@ -39,9 +39,18 @@ public partial class UnrecordAccountAmount
 
     private void UpdateHandler() =>
         _optionalVM.MatchAction(
-            vm =>  _repo.Update(_account.Iter(a => a.RemoveDailyValues(vm.EntriesRemoved)).Get())
-                        .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
+            vm =>  ChangeDailyValues(vm)
+                      .Map(updated => _repo.Update(updated))
+                      .Iter(_ => _repo.SaveChanges())
+                      .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
+
+    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm)
+    {
+        var result = _repo.GetById(w => w.Id, Id)
+                          .Map(prev => prev.RemoveDailyValues(vm.EntriesRemoved));
+        return result; 
+    }
 }

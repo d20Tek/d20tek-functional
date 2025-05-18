@@ -25,7 +25,7 @@ public partial class RecordAccountAmount
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(w => w.Id, Id)
              .HandleResult(s =>
                 {
                     _optionalVm = new ViewModel { Id = s.Id, Name = s.Name };
@@ -36,7 +36,9 @@ public partial class RecordAccountAmount
     private void UpdateHandler() =>
         _optionalVm.MatchAction(
             vm => Validate(vm)
-                    .Bind(x => _repo.Update(_account.Iter(a => a.AddDailyValue(vm.Date, vm.Amount)).Get()))
+                    .Bind(x => ChangeDailyValues(vm))
+                    .Bind(updated => _repo.Update(updated))
+                    .Iter(_ => _repo.SaveChanges())
                     .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Accounts.MissingAccountError);
 
@@ -44,4 +46,11 @@ public partial class RecordAccountAmount
 
     private static Result<ViewModel> Validate(ViewModel vm) =>
         (vm.Date > DateTimeOffset.Now) ? Constants.Accounts.FutureDateError<ViewModel>() : vm;
+
+    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm)
+    {
+        var result = _repo.GetById(w => w.Id, Id)
+                          .Map(prev => prev.AddDailyValue(vm.Date, vm.Amount));
+        return result;
+    }
 }

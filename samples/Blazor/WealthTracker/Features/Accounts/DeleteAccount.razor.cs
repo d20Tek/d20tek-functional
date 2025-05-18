@@ -13,11 +13,13 @@ public partial class DeleteAccount
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(w => w.Id, Id)
              .HandleResult(s => _account = s, e => _errorMessage = e);
 
     private void DeleteHandler() =>
-        _repo.Delete(Id)
+        _repo.GetById(w => w.Id, Id)
+             .Bind(entity => _repo.Remove(entity))
+             .Iter(_ => _repo.SaveChanges())
              .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);

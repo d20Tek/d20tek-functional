@@ -14,7 +14,8 @@ public partial class MonthlyNetWorth
     {
         _dateRange = GetDateRange();
         _trimmableDates = _dateRange.Take(3).ToArray();
-        _accountRows = CalculateAccountRows(_repo.GetEntities(), _dateRange);
+        var accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+        _accountRows = CalculateAccountRows(accounts, _dateRange);
     }
 
     private string GetDateColumnCssClass(DateTimeOffset date) =>

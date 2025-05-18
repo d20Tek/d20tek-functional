@@ -3,7 +3,7 @@ using MemberService.Controllers.Members;
 
 namespace MemberService.Persistence;
 
-public class MemberDbDocument : DbDocument
+internal class MemberDbDocument : DbDocument
 {
     public HashSet<MemberEntity> Members { get; set; } = [];
 }

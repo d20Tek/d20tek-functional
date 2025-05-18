@@ -29,21 +29,29 @@ internal sealed class WealthDataEntity : IEntity
 
     public void SetId(int id) => Id = id;
 
-    internal void UpdateEntry(string name, string[] categories)
+    internal WealthDataEntity UpdateEntry(string name, string[] categories)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         Name = name;
         Categories = categories;
+
+        return this;
     }
 
-    internal void AddDailyValue(DateTimeOffset date, decimal value) =>
+    internal WealthDataEntity AddDailyValue(DateTimeOffset date, decimal value)
+    {
         OnValidDate(date, d => DailyValues[d.Date] = value);
+        return this;
+    }
 
     internal void RemoveDailyValue(DateTimeOffset date) =>
         OnValidDate(date, d => DailyValues.Remove(d.Date));
 
-    internal void RemoveDailyValues(IEnumerable<DateTimeOffset> dates) =>
+    internal WealthDataEntity RemoveDailyValues(IEnumerable<DateTimeOffset> dates)
+    {
         dates.ForEach(date => RemoveDailyValue(date));
+        return this;
+    }
 
     internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
 

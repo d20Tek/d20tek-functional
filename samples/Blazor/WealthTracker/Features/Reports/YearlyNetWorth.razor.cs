@@ -8,8 +8,11 @@ public partial class YearlyNetWorth
 
     private List<YearRow> _years = [];
 
-    protected override void OnInitialized() =>
-        _years = CalculateYearResults(_repo.GetEntities(), GetDateRange());
+    protected override void OnInitialized()
+    {
+        var accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+        _years = CalculateYearResults(accounts, GetDateRange());
+    }
 
     private static List<YearRow> CalculateYearResults(WealthDataEntity[] accounts, DateTimeOffset[] dateRange) =>
         dateRange.Aggregate(
