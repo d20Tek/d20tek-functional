@@ -1,4 +1,4 @@
-﻿using Apps.Repositories;
+﻿using BudgetTracker.Persistence;
 
 namespace BudgetTracker.Domain;
 

@@ -26,7 +26,8 @@ public partial class AddExpense
         _vm.Categories = _catRepo.GetAll().Match(s => s.ToArray(), _ => []);
 
     private void CreateHandler() =>
-        _repo.Create(new Expense(0, _vm.Name, _vm.CategoryId, _vm.CommittedDate, _vm.Actual))
+        _repo.Add(new Expense(Guid.NewGuid().GetHashCode(), _vm.Name, _vm.CategoryId, _vm.CommittedDate, _vm.Actual))
+             .Iter(_ => _repo.SaveChanges())
              .HandleResult(s => _nav.NavigateTo(Constants.Expense.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Expense.ListUrl);

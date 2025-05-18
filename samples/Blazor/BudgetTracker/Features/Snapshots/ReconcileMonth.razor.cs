@@ -34,7 +34,7 @@ public partial class ReconcileMonth
         Validate(snapshot, _snapRepo)
             .Map(s => _snapRepo.Create(snapshot))
             .Map(_ => _incRepo.RemoveByDateRange(snapshot.GetDateRange()))
-            .Map(_ => _expRepo.DeleteByDateRange(snapshot.GetDateRange()))
+            .Map(_ => _expRepo.RemoveByDateRange(snapshot.GetDateRange()))
             .Flatten()
             .HandleResult(s => _errorMessage = Constants.Reconcile.ReconcileSucceeded, e => _errorMessage = e);
 

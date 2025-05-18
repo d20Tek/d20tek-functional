@@ -6,7 +6,12 @@ namespace BudgetTracker.Common;
 
 internal interface ICategoryRepository : IRepository<BudgetCategory>;
 
-//internal interface IExpenseRepository : IRepository<Expense>;
+internal interface IExpenseRepository : IRepository<Expense>
+{
+    Result<IEnumerable<Expense>> GetExpensesToReconcile(int catId, DateRange range);
+
+    Result<IEnumerable<Expense>> RemoveByDateRange(DateRange range);
+}
 
 internal interface IIncomeRepository : IRepository<Income>
 {

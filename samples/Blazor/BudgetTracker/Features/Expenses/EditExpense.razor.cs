@@ -29,7 +29,7 @@ public partial class EditExpense
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(e => e.Id, Id)
              .HandleResult(
                 s => _vm = new ViewModel
                 {
@@ -44,7 +44,10 @@ public partial class EditExpense
 
     private void UpdateHandler() =>
         _vm.MatchAction(
-            a => _repo.Update(new Expense(a.Id, a.Name, a.CategoryId, a.CommittedDate, a.Actual))
+            a => _repo.GetById(e => e.Id, Id)
+                      .Map(prev => prev.UpdateExpense(a.Name, a.CategoryId, a.CommittedDate, a.Actual))
+                      .Map(updated => _repo.Update(updated))
+                      .Iter(_ => _repo.SaveChanges())
                       .HandleResult(s => _nav.NavigateTo(Constants.Expense.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Income.MissingIncomeError);
 

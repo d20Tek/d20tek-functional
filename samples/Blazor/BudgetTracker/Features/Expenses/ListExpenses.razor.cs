@@ -9,7 +9,7 @@ public partial class ListExpenses
 
     protected override void OnInitialized()
     {
-        _expenses = _repo.GetEntities();
+        _expenses = _repo.GetAll().Match(s => s.ToArray(), _ => []);
         _categories = _catRepo.GetAll().Match(s => s.ToArray(), _ => []);
     }
 

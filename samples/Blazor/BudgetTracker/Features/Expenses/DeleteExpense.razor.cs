@@ -14,11 +14,13 @@ public partial class DeleteExpense
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetEntityById(Id)
+        _repo.GetById(e => e.Id, Id)
              .HandleResult(s => _expense = s, e => _errorMessage = e);
 
     private void DeleteHandler() =>
-        _repo.Delete(Id)
+        _repo.GetById(e => e.Id, Id)
+             .Map(exp => _repo.Remove(exp))
+             .Iter(_ => _repo.SaveChanges())
              .HandleResult(s => _nav.NavigateTo(Constants.Expense.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Expense.ListUrl);

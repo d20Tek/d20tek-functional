@@ -39,7 +39,8 @@ internal static class ReconciledBuilder
         IExpenseRepository expRepo) =>
         catRepo.GetAll().GetValue()
                .Select(cat =>
-                    expRepo.GetExpensesToReconcile(cat.Id, state.Range).Sum(e => e.Actual)
+                    expRepo.GetExpensesToReconcile(cat.Id, state.Range)
+                        .Match(x => x.Sum(e => e.Actual), _ => 0)
                         .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
                .ToArray();
 

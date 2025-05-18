@@ -7,7 +7,7 @@ internal class BudgetDbDocument : DbDocument
 {
     public AutoIdEntity<BudgetCategory> Categories { get; set; } = new();
 
-    //public AutoIdEntity<Expense> Expenses { get; set; } = new();
+    public AutoIdEntity<Expense> Expenses { get; set; } = new();
 
     public AutoIdEntity<Income> Incomes { get; set; } = new();
 
