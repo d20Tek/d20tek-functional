@@ -14,6 +14,6 @@ public partial class ShowMonthSnapshot
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _snapRepo.GetEntityById(Id)
+        _snapRepo.GetById(s => s.Id, Id)
                  .HandleResult(s => _snapshot = s, e => _errorMessage = e);
 }

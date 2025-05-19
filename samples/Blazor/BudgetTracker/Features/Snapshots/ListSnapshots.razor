@@ -31,5 +31,5 @@
 @code {
     ReconciledSnapshot[] _snapshots = [];
 
-    protected override void OnInitialized() => _snapshots = _repo.GetEntities();
+    protected override void OnInitialized() => _snapshots = _repo.GetAll().Match(s => s.ToArray(), _ => []);
 }

@@ -18,4 +18,9 @@ internal interface IIncomeRepository : IRepository<Income>
     Result<IEnumerable<Income>> RemoveByDateRange(DateRange range);
 }
 
-//internal interface IReconciledSnapshotRepository : IRepository<ReconciledSnapshot>;
+internal interface IReconciledSnapshotRepository : IRepository<ReconciledSnapshot>
+{
+    Result<ReconciledSnapshot> GetSnapshotForMonth(DateTimeOffset date);
+
+    Result<IEnumerable<ReconciledSnapshot>> GetSnapshotsForDateRange(DateRange range);
+}

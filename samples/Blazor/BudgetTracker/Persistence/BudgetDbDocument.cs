@@ -11,5 +11,5 @@ internal class BudgetDbDocument : DbDocument
 
     public AutoIdEntity<Income> Incomes { get; set; } = new();
 
-    //public AutoIdEntity<ReconciledSnapshot> CompletedSnapshots { get; set; } = new();
+    public AutoIdEntity<ReconciledSnapshot> CompletedSnapshots { get; set; } = new();
 }

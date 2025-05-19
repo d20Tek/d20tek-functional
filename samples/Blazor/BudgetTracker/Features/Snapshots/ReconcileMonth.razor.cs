@@ -1,6 +1,5 @@
 ﻿using BudgetTracker.Common;
 using BudgetTracker.Domain;
-using BudgetTracker.Persistence;
 using D20Tek.Functional;
 
 namespace BudgetTracker.Features.Snapshots;
@@ -32,19 +31,28 @@ public partial class ReconcileMonth
 
     private void SaveReconciledSnapshot(ReconciledSnapshot snapshot) =>
         Validate(snapshot, _snapRepo)
-            .Map(s => _snapRepo.Create(snapshot))
-            .Map(_ => _incRepo.RemoveByDateRange(snapshot.GetDateRange()))
-            .Map(_ => _expRepo.RemoveByDateRange(snapshot.GetDateRange()))
-            .Flatten()
+            .Bind(s => _snapRepo.Add(snapshot))
+            .Bind(_ => _incRepo.RemoveByDateRange(snapshot.GetDateRange()))
+            .Bind(_ => _expRepo.RemoveByDateRange(snapshot.GetDateRange()))
+            .Iter(_ => SaveAllChanges())
             .HandleResult(s => _errorMessage = Constants.Reconcile.ReconcileSucceeded, e => _errorMessage = e);
+
+    private void SaveAllChanges()
+    {
+        _snapRepo.SaveChanges();
+        _incRepo.SaveChanges();
+        _expRepo.SaveChanges();
+    }
 
     private static Result<ReconciledSnapshot> Validate(
         ReconciledSnapshot snapshot,
         IReconciledSnapshotRepository repo) =>
         snapshot switch
         {
-            { TotalIncome.Amount: <= 0, TotalExpenses.Actual: <= 0 } => Constants.Reconcile.SnapshotEmptyError,
-            _ when repo.SnapshotExists(snapshot.StartDate) => Constants.Reconcile.SnapshotAlreadyExistsError,
+            { TotalIncome.Amount: <= 0, TotalExpenses.Actual: <= 0 } => 
+                Constants.Reconcile.SnapshotEmptyError,
+            _ when repo.Exists(s => s.StartDate == snapshot.StartDate).GetValue() =>
+                Constants.Reconcile.SnapshotAlreadyExistsError,
             _ => snapshot
         };
 }
