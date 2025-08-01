@@ -1,6 +1,7 @@
 namespace D20Tek.Functional.UnitTests;
 
 [TestClass]
+[Obsolete("Deprecated - moving to Optional<T> instead.")]
 public class OptionTests
 {
     [TestMethod]

@@ -3,6 +3,7 @@
 namespace D20Tek.Functional.UnitTests.Async;
 
 [TestClass]
+[Obsolete("Deprecated - moving to Optional<T> instead.")]
 public class OptionBindMapAsyncTests
 {
     [TestMethod]

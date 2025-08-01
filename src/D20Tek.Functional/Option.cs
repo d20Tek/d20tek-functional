@@ -2,6 +2,7 @@
 
 namespace D20Tek.Functional;
 
+[Obsolete("Use Optional<T> instead... this class will be renamed for less naming collision.")]
 public abstract class Option<T>
     where T : notnull
 {

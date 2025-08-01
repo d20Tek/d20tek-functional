@@ -3,6 +3,7 @@ using D20Tek.Functional.Async;
 namespace D20Tek.Functional.UnitTests.Async;
 
 [TestClass]
+[Obsolete("Deprecated - moving to Optional<T> instead.")]
 public class OptionAsyncTests
 {
     [TestMethod]

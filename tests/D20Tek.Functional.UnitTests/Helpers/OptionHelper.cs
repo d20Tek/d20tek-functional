@@ -1,5 +1,6 @@
 ﻿namespace D20Tek.Functional.UnitTests.Helpers;
 
+[Obsolete("Deprecated - moving to Optional<T> instead.")]
 internal static class OptionHelper
 {
     public static Option<int> TryParse(string text) =>

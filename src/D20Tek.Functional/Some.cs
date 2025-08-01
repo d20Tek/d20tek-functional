@@ -1,5 +1,6 @@
 ﻿namespace D20Tek.Functional;
 
+[Obsolete("Use Optional.Some(value) instead.")]
 public sealed class Some<T> : Option<T>
     where T : notnull
 {

@@ -1,5 +1,6 @@
 ﻿namespace D20Tek.Functional;
 
+[Obsolete("Use Optional<T> instead... this class will be renamed for less naming collision.")]
 public static class OptionExtensions
 {
     public static Option<T> ToOption<T>(this T? source) where T : notnull =>
@@ -31,6 +32,7 @@ public static class OptionExtensions
             : Option<TResult>.None();
 }
 
+[Obsolete("Use Optional.Some or Optional.None instead.")]
 public static class Option
 {
     public static Option<T> Some<T>(T value) where T : notnull => new Some<T>(value);

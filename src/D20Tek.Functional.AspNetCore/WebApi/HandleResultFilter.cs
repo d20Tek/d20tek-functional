@@ -13,14 +13,14 @@ public sealed class HandleResultFilter : IActionFilter
             .Map(result => GetController(context)
                 .Iter(controller => context.Result = ConvertToActionResult(result, controller).ToIActionResult()));
 
-    private static Option<ObjectResult> GetObjectResult(ActionExecutedContext context) => 
-        context.Result as ObjectResult ?? Option<ObjectResult>.None();
+    private static Optional<ObjectResult> GetObjectResult(ActionExecutedContext context) => 
+        context.Result as ObjectResult ?? Optional<ObjectResult>.None();
 
-    public static Option<IResultMonad> GetResultMonad(ObjectResult objRes) =>
-        objRes.Value is IResultMonad result ? Option<IResultMonad>.Some(result) : Option<IResultMonad>.None();
+    public static Optional<IResultMonad> GetResultMonad(ObjectResult objRes) =>
+        objRes.Value is IResultMonad result ? Optional<IResultMonad>.Some(result) : Optional<IResultMonad>.None();
 
-    public static Option<ControllerBase> GetController(ActionExecutedContext context) =>
-        context.Controller is ControllerBase controller ? controller : Option<ControllerBase>.None();
+    public static Optional<ControllerBase> GetController(ActionExecutedContext context) =>
+        context.Controller is ControllerBase controller ? controller : Optional<ControllerBase>.None();
 
     private static ActionResult<IResultMonad> ConvertToActionResult(IResultMonad result, ControllerBase controller) =>
         result.IsSuccess

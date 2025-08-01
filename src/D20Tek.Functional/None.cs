@@ -1,5 +1,6 @@
 ﻿namespace D20Tek.Functional;
 
+[Obsolete("Use Optional.None() instead.")]
 public sealed class None<T> : Option<T>
     where T : notnull
 {

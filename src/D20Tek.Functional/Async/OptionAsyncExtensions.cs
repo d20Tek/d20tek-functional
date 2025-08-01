@@ -1,5 +1,6 @@
 ﻿namespace D20Tek.Functional.Async;
 
+[Obsolete("Use Optional<T> instead... this class will be renamed for less naming collision.")]
 public static class OptionAsyncExtensions
 {
     public static async Task<TResult> MatchAsync<T, TResult>(

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 
 namespace D20Tek.Functional;
+
 public abstract class Optional<T>
     where T : notnull
 {
@@ -11,9 +12,9 @@ public abstract class Optional<T>
 
     public static implicit operator Optional<T>(T instance) => instance.ToOptional();
 
-    public bool IsSome => this is Some<T>;
+    public bool IsSome => this is SomeOptional<T>;
 
-    public bool IsNone => this is None<T>;
+    public bool IsNone => this is NoneOptional<T>;
 
     public abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
