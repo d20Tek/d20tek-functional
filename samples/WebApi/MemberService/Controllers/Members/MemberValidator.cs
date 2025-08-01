@@ -24,8 +24,8 @@ internal static class MemberValidator
             ValidateField(request.Email.IsValidEmailFormat(), "Member.Email.Invalid", "Member email is not the expected format (name@company.com).")
         }.ConvertToResult(request);
 
-    private static Option<Error> ValidateField(bool condition, string errorCode, string message) =>
-        condition ? Option<Error>.None() : Error.Validation(errorCode, message);
+    private static Optional<Error> ValidateField(bool condition, string errorCode, string message) =>
+        condition ? Optional<Error>.None() : Error.Validation(errorCode, message);
 
     private static readonly Regex _emailRegex =
         new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -33,7 +33,7 @@ internal static class MemberValidator
     private static bool IsValidEmailFormat(this string text) =>
         !string.IsNullOrWhiteSpace(text) && _emailRegex.IsMatch(text);
 
-    private static Result<T> ConvertToResult<T>(this IEnumerable<Option<Error>> possibleErrors, T request)
+    private static Result<T> ConvertToResult<T>(this IEnumerable<Optional<Error>> possibleErrors, T request)
         where T : notnull =>
         possibleErrors.Where(o => o.IsSome)
                       .Select(s => s.Get())

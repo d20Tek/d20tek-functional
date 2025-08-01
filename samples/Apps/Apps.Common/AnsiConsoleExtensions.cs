@@ -23,12 +23,12 @@ internal static class AnsiConsoleExtensions
     public static void DisplayAppHeader(this IAnsiConsole console, string title, Color? color = null) =>
         console.Write(new FigletText(title).Centered().Color(color ?? Color.Green));
 
-    public static void DisplayOption<T>(this IAnsiConsole console, Option<T> option, Func<T, string[]> successMessage)
+    public static void DisplayOption<T>(this IAnsiConsole console, Optional<T> option, Func<T, string[]> successMessage)
         where T : notnull =>
         console.WriteMessage(
             option switch
             {
-                Some<T> s => successMessage(s),
+                Optional<T> s when s.IsSome => successMessage(s.Get()),
                 _ => ["Option value was not set."]
             });
 
@@ -42,13 +42,13 @@ internal static class AnsiConsoleExtensions
                 _ => ["An unexpected error occurred."]
             });
 
-    public static void DisplayOption<T>(this IAnsiConsole console, Option<T> option, Action<T> successAction)
+    public static void DisplayOption<T>(this IAnsiConsole console, Optional<T> option, Action<T> successAction)
         where T : notnull
     {
         switch (option)
         {
-            case Some<T> s:
-                successAction(s);
+            case Optional<T> s when s.IsSome:
+                successAction(s.Get());
                 break;
             default:
                 console.WriteMessage(["Option value was not set."]);
