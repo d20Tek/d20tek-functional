@@ -15,7 +15,7 @@ public partial class AddIncome
         public decimal Amount { get; set; }
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
     private readonly ViewModel _vm = new();
 
     private void CreateHandler() =>

@@ -7,8 +7,8 @@ namespace BudgetTracker.Features.Incomes;
 
 public partial class DeleteIncome
 {
-    private Option<string> _errorMessage = Option<string>.None();
-    private Option<Income> _income = Option<Income>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
+    private Optional<Income> _income = Optional<Income>.None();
 
     [Parameter]
     public int Id { get; set; }

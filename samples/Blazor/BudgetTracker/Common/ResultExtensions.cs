@@ -13,7 +13,7 @@ internal static class ResultExtensions
             onFailure(result.GetErrors().First().ToString());
     }
 
-    internal static void MatchAction<T>(this Option<T> option, Action<T> onSome, Action onNone)
+    internal static void MatchAction<T>(this Optional<T> option, Action<T> onSome, Action onNone)
         where T : notnull
     {
         if (option.IsSome)

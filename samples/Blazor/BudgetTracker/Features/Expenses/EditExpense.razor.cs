@@ -22,8 +22,8 @@ public partial class EditExpense
         public decimal Actual { get; set; }
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
-    private Option<ViewModel> _vm = Option<ViewModel>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
+    private Optional<ViewModel> _vm = Optional<ViewModel>.None();
 
     [Parameter]
     public int Id { get; set; }

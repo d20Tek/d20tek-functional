@@ -7,8 +7,8 @@ namespace BudgetTracker.Features.Snapshots;
 
 public partial class ShowMonthSnapshot
 {
-    private Option<ReconciledSnapshot> _snapshot = Option<ReconciledSnapshot>.None();
-    private Option<string> _errorMessage = Option<string>.None();
+    private Optional<ReconciledSnapshot> _snapshot = Optional<ReconciledSnapshot>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
 
     [Parameter]
     public int Id { get; set; }

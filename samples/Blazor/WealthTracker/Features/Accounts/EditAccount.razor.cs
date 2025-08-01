@@ -18,7 +18,7 @@ public partial class EditAccount
     }
 
     private string _errorMessage = string.Empty;
-    private Option<ViewModel> _account = Option<ViewModel>.None();
+    private Optional<ViewModel> _account = Optional<ViewModel>.None();
 
     [Parameter]
     public int Id { get; set; }

@@ -7,7 +7,7 @@ namespace WealthTracker.Features.Accounts;
 public partial class DeleteAccount
 {
     private string _errorMessage = string.Empty;
-    private Option<WealthDataEntity> _account = Option<WealthDataEntity>.None();
+    private Optional<WealthDataEntity> _account = Optional<WealthDataEntity>.None();
 
     [Parameter]
     public int Id { get; set; }

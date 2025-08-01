@@ -7,8 +7,8 @@ namespace BudgetTracker.Features.Expenses;
 
 public partial class DeleteExpense
 {
-    private Option<string> _errorMessage = Option<string>.None();
-    private Option<Expense> _expense = Option<Expense>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
+    private Optional<Expense> _expense = Optional<Expense>.None();
 
     [Parameter]
     public int Id { get; set; }

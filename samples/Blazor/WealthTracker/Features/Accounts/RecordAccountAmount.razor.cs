@@ -18,8 +18,8 @@ public partial class RecordAccountAmount
     }
 
     private string _errorMessage = string.Empty;
-    private Option<ViewModel> _optionalVm = Option<ViewModel>.None();
-    private Option<WealthDataEntity> _account = Option<WealthDataEntity>.None();
+    private Optional<ViewModel> _optionalVm = Optional<ViewModel>.None();
+    private Optional<WealthDataEntity> _account = Optional<WealthDataEntity>.None();
 
     [Parameter]
     public int Id { get; set; }

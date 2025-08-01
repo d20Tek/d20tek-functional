@@ -19,7 +19,7 @@ public partial class AddExpense
         public decimal Actual { get; set; }
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
     private readonly ViewModel _vm = new();
 
     protected override void OnInitialized() =>

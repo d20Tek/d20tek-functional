@@ -10,10 +10,10 @@ public partial class ReconcileMonth
     {
         public DateTimeOffset ReconcileDate { get; set; } = DateTimeOffset.Now;
 
-        public Option<ReconciledSnapshot> Snapshot { get; set; } = Option<ReconciledSnapshot>.None();
+        public Optional<ReconciledSnapshot> Snapshot { get; set; } = Optional<ReconciledSnapshot>.None();
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Optional<string> _errorMessage = Optional<string>.None();
     private readonly ViewModel _vm = new();
 
     private void BuildSnapshotHandler() =>
