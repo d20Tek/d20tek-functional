@@ -8,6 +8,6 @@ internal record GameState(IEnumerable<Player> Players, int CurrentPlayer, int Nu
 
     public Player GetPlayerById(int playerId) => Players.First(x => x.Number == playerId);
 
-    public Option<Player> GetWinningPlayer() =>
-        Players.FirstOrDefault(x => x.IsWinner()).ToOption();
+    public Optional<Player> GetWinningPlayer() =>
+        Players.FirstOrDefault(x => x.IsWinner()).ToOptional();
 }

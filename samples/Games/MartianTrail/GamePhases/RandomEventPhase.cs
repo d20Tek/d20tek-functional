@@ -21,14 +21,14 @@ internal class RandomEventPhase : IGamePhase
     public GameState DoPhase(GameState oldState) =>
         oldState.Map(s => GetRandomEvent() switch
         {
-            Some<RandomEventDetails> e => e.Get().Perform(
-                new EventRequest(e.Get(), oldState, _console, _rnd)),
+            Optional<RandomEventDetails> e when e.IsSome =>
+                e.Get().Perform(new EventRequest(e.Get(), oldState, _console, _rnd)),
             _ => s
         });
 
-    private Option<RandomEventDetails> GetRandomEvent() =>
+    private Optional<RandomEventDetails> GetRandomEvent() =>
         GameCalculations.RandomEventOccurred(_rndPercentage) is false
-            ? Option<RandomEventDetails>.None()
+            ? Optional<RandomEventDetails>.None()
             : Constants.RandomEvent.Events.Pipe(e => e[_rnd(e.Length)]);
 
     internal static GameState RecoverCredits(EventRequest request) =>

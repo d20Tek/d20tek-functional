@@ -37,7 +37,7 @@ internal static class Game
     private static void DisplayWinner(IAnsiConsole console, GameState finalState) =>
         console.MarkupLine(finalState.GetWinningPlayer() switch
         {
-            Some<Player> p => $"The winner is [{p.Get().Color}]Player {p.Get().Number}[/]!!!",
+            Optional<Player> p when p.IsSome => $"The winner is [{p.Get().Color}]Player {p.Get().Number}[/]!!!",
             _ => $"[red]Error:[/] There was an unexpected error running through this game."
         });
 }
