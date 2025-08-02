@@ -6,6 +6,7 @@
 **Warning:** I am in the process of making breaking changes to the Option&lt;T&gt; class to rename it to Optional&lt;T&gt;. Option is used in many unrelated places, including the .NET runtime itself. So to reduce confusion, we will use Optional&lt;T&gt;.
 
 The current version (0.9.17) has support for both Option&lt;T&gt; and Optional&lt;T&gt; to give developers a chance to update their code to use Optional&lt;T&gt;. The next version will be a major version update and remove the Option&lt;T&gt; class altogether.
+
 ---
 
 Welcome to D20Tek.Functional code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. I took inspiration for this library (and a couple of the sample games - ChutesAndLadders and MartianTrail) from "Functional Programming in C#" by Simon J Painter (https://github.com/madSimonJ/FunctionalProgrammingWithCSharp).
