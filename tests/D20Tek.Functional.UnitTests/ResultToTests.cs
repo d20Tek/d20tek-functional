@@ -86,6 +86,32 @@ public class ResultToTests
     }
 
     [TestMethod]
+    public void ToOptional_WithSuccessValue_ReturnsSome()
+    {
+        // arrange
+        var input = Result<string>.Success("test");
+
+        // act
+        var result = input.ToOptional();
+
+        // assert
+        result.IsSome.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void ToOptional_WithFailure_ReturnsNone()
+    {
+        // arrange
+        var input = Result<string>.Failure(Error.Invalid("code", "test"));
+
+        // act
+        var result = input.ToOptional();
+
+        // assert
+        result.IsNone.Should().BeTrue();
+    }
+
+    [TestMethod]
     public void ToString_WithSuccessValue_ReturnsSuccessString()
     {
         // arrange
