@@ -1,6 +1,6 @@
 ﻿using D20Tek.Functional.Async;
 
-namespace D20Tek.Functional.UnitTests.Async;
+namespace D20Tek.Functional.UnitTests.Deprecated;
 
 [TestClass]
 [Obsolete("Deprecated - moving to Optional<T> instead.")]

@@ -1,4 +1,4 @@
-namespace D20Tek.Functional.UnitTests;
+namespace D20Tek.Functional.UnitTests.Deprecated;
 
 [TestClass]
 [Obsolete("Deprecated - moving to Optional<T> instead.")]
@@ -41,7 +41,7 @@ public class OptionTests
         var option = Option<string>.Some("foo");
 
         // act
-        bool contains = option.Contains("foo");
+        var contains = option.Contains("foo");
 
         // assert
         contains.Should().BeTrue();
@@ -55,7 +55,7 @@ public class OptionTests
         var option = Option<string>.Some("foo");
 
         // act
-        bool contains = option.Contains("bar");
+        var contains = option.Contains("bar");
 
         // assert
         contains.Should().BeFalse();
@@ -68,7 +68,7 @@ public class OptionTests
         var option = Option<int>.None();
 
         // act
-        bool contains = option.Contains(12);
+        var contains = option.Contains(12);
 
         // assert
         contains.Should().BeFalse();
@@ -81,7 +81,7 @@ public class OptionTests
         var option = Option<DateTimeOffset>.Some(DateTimeOffset.Now);
 
         // act
-        int count = option.Count();
+        var count = option.Count();
 
         // assert
         count.Should().Be(1);
@@ -94,7 +94,7 @@ public class OptionTests
         var option = Option<DateTimeOffset>.None();
 
         // act
-        int count = option.Count();
+        var count = option.Count();
 
         // assert
         count.Should().Be(0);

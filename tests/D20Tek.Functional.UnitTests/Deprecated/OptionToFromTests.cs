@@ -1,4 +1,4 @@
-﻿namespace D20Tek.Functional.UnitTests;
+﻿namespace D20Tek.Functional.UnitTests.Deprecated;
 
 [TestClass]
 [Obsolete("Deprecated - moving to Optional<T> instead.")]
@@ -8,7 +8,7 @@ public class OptionToFromTests
     public void Some_WithValue_ReturnsSome()
     {
         // arrange
-        var option = Option.Some<int>(13);
+        var option = Option.Some(13);
 
         // act
         var isSome = option.IsSome;
@@ -70,7 +70,7 @@ public class OptionToFromTests
     public void OfObj_WithValue_ReturnsSome()
     {
         // arrange
-        var option = Option.OfObj<string>("test");
+        var option = Option.OfObj("test");
 
         // act
         var isSome = option.IsSome;
@@ -210,7 +210,7 @@ public class OptionToFromTests
     public void ToString_WithSomeValue_ReturnsSomeString()
     {
         // arrange
-        var option = Option.Some<int>(13);
+        var option = Option.Some(13);
 
         // act
         var result = option.ToString();
