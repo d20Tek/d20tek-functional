@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/d20Tek/d20tek-functional</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce</PackageTags>
-    <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods.</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods. Made Option&lt;T&gt; class obsolete and replaced by Optional&lt;T&gt;.</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
