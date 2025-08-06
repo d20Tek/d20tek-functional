@@ -364,17 +364,14 @@ public class Choice5AsyncTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public async Task MatchAsync_WithInvalidType_ThrowsException()
     {
         // arrange
         var input = new ChoiceAsync<int, string, Guid, decimal, DateTime>(null!);
 
         // act
-        var result = await input.MapAsync([ExcludeFromCodeCoverage] (v) => Task.FromResult(v * 2));
-
-        // assert
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage] () =>
+            input.MapAsync([ExcludeFromCodeCoverage] (v) => Task.FromResult(v * 2)));
     }
 
     [TestMethod]
@@ -473,8 +470,6 @@ public class Choice5AsyncTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public async Task IterAsync_WithInvalidType_ThrowsException()
     {
         // arrange
@@ -482,14 +477,12 @@ public class Choice5AsyncTests
         var input = new ChoiceAsync<int, string, Guid, decimal, DateTime>(null!);
 
         // act
-        await input.IterAsync(
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage] () => input.IterAsync(
             [ExcludeFromCodeCoverage] (v1) => { output = "choice1 called"; return Task.CompletedTask; },
             [ExcludeFromCodeCoverage] (v2) => { output = "choice2 called"; return Task.CompletedTask; },
             [ExcludeFromCodeCoverage] (v3) => { output = "choice3 called"; return Task.CompletedTask; },
             [ExcludeFromCodeCoverage] (v4) => { output = "choice4 called"; return Task.CompletedTask; },
-            [ExcludeFromCodeCoverage] (v5) => { output = "choice5 called"; return Task.CompletedTask; });
-
-        // assert
+            [ExcludeFromCodeCoverage] (v5) => { output = "choice5 called"; return Task.CompletedTask; }));
     }
 
     private static Task<ChoiceAsync<float, int, Guid, decimal, DateTime>> TryParseAsync(string text) =>

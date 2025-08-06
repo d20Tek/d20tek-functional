@@ -60,8 +60,6 @@ public class FunctionalAsyncExtensionsTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(DivideByZeroException))]
     public async Task IterateUntilAsync_UpdateThrowsException_LogsError()
     {
         // arrange
@@ -69,11 +67,9 @@ public class FunctionalAsyncExtensionsTests
         var task = Task.FromResult(count);
 
         // act
-        var result = await task.IterateUntilAsync(
+        await Assert.ThrowsAsync<DivideByZeroException>([ExcludeFromCodeCoverage]() => task.IterateUntilAsync(
             [ExcludeFromCodeCoverage] (x) => Task.FromResult(x / 0),
-            x => Task.FromResult(x > 5));
-
-        // assert
+            x => Task.FromResult(x > 5)));
     }
 
     [TestMethod]
