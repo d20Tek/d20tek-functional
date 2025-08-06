@@ -364,15 +364,13 @@ public class OptionalTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Get_WithNone_ThrowsException()
     {
         // arrange
         var option = Optional<decimal>.None();
 
         // act
-        _ = option.Get();
+        Assert.Throws<ArgumentNullException>([ExcludeFromCodeCoverage]() => option.Get());
     }
 
     [TestMethod]

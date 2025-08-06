@@ -108,15 +108,13 @@ public class ChoiceAsyncTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Match_WithInvalidType_ThrowsException()
     {
         // arrange
         var input = new Choice<int, string>(null!);
 
         // act
-        var result = input.Map([ExcludeFromCodeCoverage] (v) => v * 2);
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() => input.Map([ExcludeFromCodeCoverage] (v) => v * 2));
 
         // assert
     }
@@ -150,8 +148,6 @@ public class ChoiceAsyncTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Iter_WithInvalidType_ThrowsException()
     {
         // arrange
@@ -159,9 +155,10 @@ public class ChoiceAsyncTests
         var input = new Choice<int, string>(null!);
 
         // act
-        input.Iter(
-            [ExcludeFromCodeCoverage] (v1) => output = "choice1 called",
-            [ExcludeFromCodeCoverage] (v2) => output = "choice2 called");
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() =>
+            input.Iter(
+                [ExcludeFromCodeCoverage] (v1) => output = "choice1 called",
+                [ExcludeFromCodeCoverage] (v2) => output = "choice2 called"));
 
         // assert
     }

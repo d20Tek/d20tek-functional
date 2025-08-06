@@ -52,17 +52,14 @@ public class FunctionalExtensionsTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(DivideByZeroException))]
     public void IterateUntil_UpdateThrowsException_LogsError()
     {
         // arrange
         var count = 0;
 
         // act
-        var result = count.IterateUntil(
-            x => x / 0,
-            x => x > 5);
+        Assert.Throws<DivideByZeroException>([ExcludeFromCodeCoverage]() =>
+            count.IterateUntil(x => x / 0, x => x > 5));
 
         // assert
     }

@@ -350,15 +350,13 @@ public class ResultTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetValue_WithFailure_ThrowsException()
     {
         // arrange
         var result = Result<decimal>.Failure(Error.Invalid("code", "test"));
 
         // act
-        _ = result.GetValue();
+        Assert.Throws<ArgumentNullException>([ExcludeFromCodeCoverage]() => result.GetValue());
     }
 
     [TestMethod]

@@ -273,17 +273,14 @@ public class Choice4Tests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Match_WithInvalidType_ThrowsException()
     {
         // arrange
         var input = new Choice<int, string, Guid, decimal>(null!);
 
         // act
-        var result = input.Map([ExcludeFromCodeCoverage] (v) => v * 2);
-
-        // assert
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() =>
+            input.Map([ExcludeFromCodeCoverage] (v) => v * 2));
     }
 
     [TestMethod]
@@ -359,8 +356,6 @@ public class Choice4Tests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Iter_WithInvalidType_ThrowsException()
     {
         // arrange
@@ -368,13 +363,11 @@ public class Choice4Tests
         var input = new Choice<int, string, Guid, decimal>(null!);
 
         // act
-        input.Iter(
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() => input.Iter(
             [ExcludeFromCodeCoverage] (v1) => output = "choice1 called",
             [ExcludeFromCodeCoverage] (v2) => output = "choice2 called",
             [ExcludeFromCodeCoverage] (v3) => output = "choice3 called",
-            [ExcludeFromCodeCoverage] (v4) => output = "choice4 called");
-
-        // assert
+            [ExcludeFromCodeCoverage] (v4) => output = "choice4 called"));
     }
 
     private static Choice<float, int, Guid, decimal> TryParse(string text) =>

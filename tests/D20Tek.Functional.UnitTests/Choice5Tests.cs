@@ -362,17 +362,14 @@ public class Choice5Tests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Match_WithInvalidType_ThrowsException()
     {
         // arrange
         var input = new Choice<int, string, Guid, decimal, DateTime>(null!);
 
         // act
-        var result = input.Map([ExcludeFromCodeCoverage] (v) => v * 2);
-
-        // assert
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() =>
+            input.Map([ExcludeFromCodeCoverage] (v) => v * 2));
     }
 
     [TestMethod]
@@ -471,8 +468,6 @@ public class Choice5Tests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void Iter_WithInvalidType_ThrowsException()
     {
         // arrange
@@ -480,14 +475,12 @@ public class Choice5Tests
         var input = new Choice<int, string, Guid, decimal, DateTime>(null!);
 
         // act
-        input.Iter(
+        Assert.Throws<ArgumentOutOfRangeException>([ExcludeFromCodeCoverage]() => input.Iter(
             [ExcludeFromCodeCoverage] (v1) => output = "choice1 called",
             [ExcludeFromCodeCoverage] (v2) => output = "choice2 called",
             [ExcludeFromCodeCoverage] (v3) => output = "choice3 called",
             [ExcludeFromCodeCoverage] (v4) => output = "choice4 called",
-            [ExcludeFromCodeCoverage] (v5) => output = "choice5 called");
-
-        // assert
+            [ExcludeFromCodeCoverage] (v5) => output = "choice5 called"));
     }
 
     private static Choice<float, int, Guid, decimal, DateTime> TryParse(string text) =>

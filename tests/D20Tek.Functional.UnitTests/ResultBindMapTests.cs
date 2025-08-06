@@ -84,14 +84,12 @@ public class ResultBindMapTests
     }
 
     [TestMethod]
-    [ExcludeFromCodeCoverage]
-    [ExpectedException(typeof(InvalidOperationException))]
     public void MapErrors_WithSuccess_Throws()
     {
         // arrange
         var input = Result<int>.Success(1);
 
         // act
-        var result = input.MapErrors<string>();
+        Assert.Throws<InvalidOperationException>([ExcludeFromCodeCoverage]() => input.MapErrors<string>());
     }
 }
