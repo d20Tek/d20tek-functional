@@ -35,9 +35,9 @@ public static class OptionalExtensions
 
 public static class Optional
 {
-    public static Optional<T> Some<T>(T value) where T : notnull => new SomeOptional<T>(value);
+    public static Optional<T> Some<T>(T value) where T : notnull => new Some<T>(value);
 
-    public static Optional<T> None<T>() where T : notnull => new NoneOptional<T>();
+    public static Optional<T> None<T>() where T : notnull => new None<T>();
 
     public static Optional<T> OfNullable<T>(Nullable<T> value) where T : struct =>
         value.HasValue ? Some(value.Value) : None<T>();

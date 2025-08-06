@@ -6,15 +6,15 @@ public abstract class Optional<T>
     where T : notnull
 {
     // Factory methods
-    public static Optional<T> Some(T value) => new SomeOptional<T>(value);
+    public static Optional<T> Some(T value) => new Some<T>(value);
 
-    public static Optional<T> None() => new NoneOptional<T>();
+    public static Optional<T> None() => new None<T>();
 
     public static implicit operator Optional<T>(T instance) => instance.ToOptional();
 
-    public bool IsSome => this is SomeOptional<T>;
+    public bool IsSome => this is Some<T>;
 
-    public bool IsNone => this is NoneOptional<T>;
+    public bool IsNone => this is None<T>;
 
     public abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 

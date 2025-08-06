@@ -1,9 +1,9 @@
 ﻿namespace D20Tek.Functional;
 
-internal sealed class NoneOptional<T> : Optional<T>
+public sealed class None<T> : Optional<T>
     where T : notnull
 {
-    internal NoneOptional()
+    internal None()
     {
     }
 

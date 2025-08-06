@@ -467,7 +467,7 @@ public class OptionalTests
     public void opImplicit_WithValue_ReturnsSome()
     {
         // arrange
-        SomeOptional<string> option = "test";
+        Some<string> option = "test";
 
         // act
         string value = option;
