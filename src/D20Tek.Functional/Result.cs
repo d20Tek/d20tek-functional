@@ -68,9 +68,6 @@ public abstract class Result<T> : IResultMonad
 
     public ImmutableList<T> ToList() => Match<ImmutableList<T>>(v => [v], _ => []);
 
-    [Obsolete("Use ToOptional<T> instead.")]
-    public Option<T> ToOption() => Match(v => Option<T>.Some(v), _ => Option<T>.None());
-
     public Optional<T> ToOptional() => Match(v => Optional<T>.Some(v), _ => Optional<T>.None());
 
     public override string ToString() =>

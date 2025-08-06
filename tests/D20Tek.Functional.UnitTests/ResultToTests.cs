@@ -58,34 +58,6 @@ public class ResultToTests
     }
 
     [TestMethod]
-    [Obsolete("Deprecated - moving to Optional<T> instead.")]
-    public void ToOption_WithSuccessValue_ReturnsSome()
-    {
-        // arrange
-        var input = Result<string>.Success("test");
-
-        // act
-        var result = input.ToOption();
-
-        // assert
-        result.IsSome.Should().BeTrue();
-    }
-
-    [TestMethod]
-    [Obsolete("Deprecated - moving to Optional<T> instead.")]
-    public void ToOption_WithFailure_ReturnsNone()
-    {
-        // arrange
-        var input = Result<string>.Failure(Error.Invalid("code", "test"));
-
-        // act
-        var result = input.ToOption();
-
-        // assert
-        result.IsNone.Should().BeTrue();
-    }
-
-    [TestMethod]
     public void ToOptional_WithSuccessValue_ReturnsSome()
     {
         // arrange
