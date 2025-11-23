@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace D20Tek.Functional.AspNetCore.MinimalApi;
+﻿namespace D20Tek.Functional.AspNetCore.MinimalApi;
 
 public static class TypedResultExtensions
 {
@@ -12,7 +10,10 @@ public static class TypedResultExtensions
     public static IResult Problem(this IResultExtensions _, Error error) =>
         (error.Type == ErrorType.Validation)
             ? ValidationProblem([error])
-            : Results.Problem(statusCode: MapErrorToCode(error), detail: error.Message, extensions: CreateErrorsExtension(error));
+            : Results.Problem(
+                statusCode: MapErrorToCode(error),
+                detail: error.Message,
+                extensions: CreateErrorsExtension(error));
 
     public static IResult Problem(this IResultExtensions _, int statusCode, string errorCode, string message) =>
         Results.Problem(
@@ -23,7 +24,9 @@ public static class TypedResultExtensions
     private static IResult Problem(IEnumerable<Error> errors) =>
         errors.Any()
             ? errors.First().Pipe(error => Results.Problem(
-                statusCode: MapErrorToCode(error), detail: error.Message, extensions: CreateErrorsExtension(errors)))
+                statusCode: MapErrorToCode(error),
+                detail: error.Message,
+                extensions: CreateErrorsExtension(errors)))
             : Results.Problem();
 
     private static int MapErrorToCode(Error error) => (int)ErrorTypeMapper.Instance.Convert(error.Type);

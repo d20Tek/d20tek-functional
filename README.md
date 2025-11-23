@@ -14,16 +14,16 @@ There is also an extensive set of sample console applications and simple games t
 This library is a NuGet package so it is easy to add to your project. To install the package into your solution, you can use the NuGet Package Manager. In PM, please use the following command:
 
 ```cmd
-PM > Install-Package D20Tek.Functional -Version 1.0.1
-PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.0.1
+PM > Install-Package D20Tek.Functional -Version 1.0.3
+PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.0.3
 ```
 ---
 
 The latest version introduces breaking changes around the Option&lt;T&gt; and supporting classes (replacing it with Optional&lt;T&gt;). If you are using the older Option&lt;T&gt; class, you can still install the following build that supports it. Please start migrating to the Optional&lt;T&gt; class.
 
 ```cmd
-PM > Install-Package D20Tek.Functional -Version 0.9.17
-PM > Install-Package D20Tek.Functional.AspNetCore -Version 0.9.17
+PM > Install-Package D20Tek.Functional -Version 1.0.3
+PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.0.3
 ```
 ---
 

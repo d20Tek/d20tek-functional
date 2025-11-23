@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using D20Tek.Functional.Async;
+﻿using D20Tek.Functional.Async;
 
 namespace D20Tek.Functional.AspNetCore.MinimalApi.Async;
 

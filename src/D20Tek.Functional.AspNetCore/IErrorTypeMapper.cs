@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace D20Tek.Functional.AspNetCore;
+﻿namespace D20Tek.Functional.AspNetCore;
 
 public interface IErrorTypeMapper
 {

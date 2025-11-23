@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace D20Tek.Functional.AspNetCore;
+﻿namespace D20Tek.Functional.AspNetCore;
 
 internal sealed class ErrorTypeConfigurator : IErrorTypeConfigurator
 {
@@ -21,13 +19,9 @@ internal sealed class ErrorTypeConfigurator : IErrorTypeConfigurator
 
     public IErrorTypeConfigurator Remove(int errorType) => _config.Remove(errorType).Pipe(_ =>  this);
 
-    public IErrorTypeConfigurator Clear()
-    {
-        _config.Clear();
-        return this;
-    }
+    public IErrorTypeConfigurator Clear() => _config.Pipe(c => c.Clear()).Pipe(_ => this);
 
-    internal IList<ConfigEntry> Build() => _config.Select(x => new ConfigEntry(x.Key, x.Value)).ToList();
+    internal IList<ConfigEntry> Build() => [.. _config.Select(x => new ConfigEntry(x.Key, x.Value))];
 }
 
 internal sealed record ConfigEntry(int ErrorType, HttpStatusCode StatusCode);

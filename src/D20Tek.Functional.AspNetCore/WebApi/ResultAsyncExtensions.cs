@@ -1,5 +1,4 @@
 ﻿using D20Tek.Functional.Async;
-using Microsoft.AspNetCore.Mvc;
 
 namespace D20Tek.Functional.AspNetCore.WebApi.Async;
 

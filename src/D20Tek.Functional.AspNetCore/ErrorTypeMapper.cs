@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace D20Tek.Functional.AspNetCore;
+﻿namespace D20Tek.Functional.AspNetCore;
 
 public class ErrorTypeMapper : IErrorTypeMapper
 {
@@ -23,8 +21,7 @@ public class ErrorTypeMapper : IErrorTypeMapper
     public IErrorTypeMapper Configure(Action<IErrorTypeConfigurator>? configure = null) => 
         GetConfigurator(configure)
             .Iter(_ => _map.Clear())
-            .Iter(c => c.Build()
-                        .ForEach(entry => For(entry.ErrorType, entry.StatusCode)))
+            .Iter(c => c.Build().ForEach(entry => For(entry.ErrorType, entry.StatusCode)))
             .Pipe(_ => this);
 
     private static Identity<ErrorTypeConfigurator> GetConfigurator(Action<IErrorTypeConfigurator>? configure) =>
