@@ -1,12 +1,8 @@
 ﻿namespace D20Tek.Functional;
 
-public sealed class None<T> : Optional<T>
-    where T : notnull
+public sealed class None<T> : Optional<T> where T : notnull
 {
-    internal None()
-    {
-    }
+    internal None() { }
 
-    public override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) =>
-        onNone();
+    public override TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone) => onNone();
 }

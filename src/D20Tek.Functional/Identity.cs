@@ -1,11 +1,8 @@
 ﻿namespace D20Tek.Functional;
 
-public sealed class Identity<T>
-    where T : notnull
+public sealed class Identity<T>(T value) where T : notnull
 {
-    private readonly T _value;
-
-    public Identity(T value) => _value = value;
+    private readonly T _value = value;
 
     public Identity<TResult> Bind<TResult>(Func<T, Identity<TResult>> bind) where TResult : notnull => bind(_value);
 
@@ -30,13 +27,4 @@ public sealed class Identity<T>
     public static Identity<T> Create(T value) => new(value);
     public static implicit operator Identity<T>(T instance) => new(instance);
     public static implicit operator T(Identity<T> instance) => instance._value;
-}
-
-public static class IdentityExtensions
-{
-    public static Identity<T> ToIdentity<T>(this T source) where T : notnull =>
-        Identity<T>.Create(source);
-
-    public static Identity<T> Flatten<T>(this Identity<Identity<T>> identity) where T : notnull =>
-        identity.Get();
 }

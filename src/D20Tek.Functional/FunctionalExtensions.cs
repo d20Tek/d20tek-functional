@@ -47,7 +47,10 @@ public static class FunctionalExtensions
         return currentThis;
     }
 
-    public static Result<T> IterateUntil<T>(this T instance, Func<T, Result<T>> updateFunction, Func<T, bool> endCondition)
+    public static Result<T> IterateUntil<T>(
+        this T instance,
+        Func<T, Result<T>> updateFunction,
+        Func<T, bool> endCondition)
         where T : notnull
     {
         var currentThis = Result<T>.Success(instance);

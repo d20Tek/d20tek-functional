@@ -38,15 +38,11 @@ public static class TryExcept
     public static Result<TResult> Bind<T, TResult>(Func<T> operation, Func<T, Result<TResult>> bind)
         where T : notnull
         where TResult : notnull =>
-        Run(
-            () => bind(operation()),
-            ex => Result<TResult>.Failure(ex));
+        Run(() => bind(operation()), Result<TResult>.Failure);
 
     public static Result<T> Map<T>(Func<T> operation, Func<T, T> mapper)
         where T : notnull =>
-        Run(
-            () => Result<T>.Success(mapper(operation())),
-            ex => Result<T>.Failure(ex));
+        Run(() => Result<T>.Success(mapper(operation())), Result<T>.Failure);
 }
 
 public static class Try

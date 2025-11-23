@@ -42,6 +42,5 @@ public static class Optional
     public static Optional<T> OfNullable<T>(Nullable<T> value) where T : struct =>
         value.HasValue ? Some(value.Value) : None<T>();
 
-    public static Optional<T> OfObj<T>(T? obj) where T : class =>
-        obj != null ? Some(obj) : None<T>();
+    public static Optional<T> OfObj<T>(T? obj) where T : class => obj != null ? Some(obj) : None<T>();
 }

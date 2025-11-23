@@ -35,7 +35,7 @@ public sealed class Choice<T1, T2, T3, T4>
             T2 => func2((T2)_value),
             T3 => func3((T3)_value),
             T4 => func4((T4)_value),
-            _ => throw new ArgumentOutOfRangeException("Invalid Choice type")
+            _ => throw new ArgumentOutOfRangeException("value", "Invalid Choice type")
         };
 
     public Choice<T1, T2, T3, T4> Iter(Action<T1> action1, Action<T2> action2, Action<T3> action3, Action<T4> action4)
@@ -55,7 +55,7 @@ public sealed class Choice<T1, T2, T3, T4>
                 action4((T4)_value);
                 break;
             default:
-                throw new ArgumentOutOfRangeException("Invalid Choice type");
+                throw new ArgumentOutOfRangeException("value", "Invalid Choice type");
         }
         
         return this;

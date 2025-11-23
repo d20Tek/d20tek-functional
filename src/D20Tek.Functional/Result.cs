@@ -2,8 +2,7 @@
 
 namespace D20Tek.Functional;
 
-public abstract class Result<T> : IResultMonad
-    where T : notnull
+public abstract class Result<T> : IResultMonad where T : notnull
 {
     public static Result<T> Success(T value) => new Success<T>(value);
 
@@ -59,16 +58,16 @@ public abstract class Result<T> : IResultMonad
     }
 
     public Result<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
-        Match(v => Result<TResult>.Success(mapper(v)), e => Result<TResult>.Failure(e));
+        Match(v => Result<TResult>.Success(mapper(v)), Result<TResult>.Failure);
 
     public Result<TResult> MapErrors<TResult>() where TResult : notnull =>
-        Match(_ => throw new InvalidOperationException(), e => Result<TResult>.Failure(e));
+        Match(_ => throw new InvalidOperationException(), Result<TResult>.Failure);
 
     public T[] ToArray() => Match<T[]>(v => [v], _ => []);
 
     public ImmutableList<T> ToList() => Match<ImmutableList<T>>(v => [v], _ => []);
 
-    public Optional<T> ToOptional() => Match(v => Optional<T>.Some(v), _ => Optional<T>.None());
+    public Optional<T> ToOptional() => Match(Optional<T>.Some, _ => Optional<T>.None());
 
     public override string ToString() =>
         Match(

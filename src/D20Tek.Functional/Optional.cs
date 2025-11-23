@@ -2,8 +2,7 @@
 
 namespace D20Tek.Functional;
 
-public abstract class Optional<T>
-    where T : notnull
+public abstract class Optional<T> where T : notnull
 {
     // Factory methods
     public static Optional<T> Some(T value) => new Some<T>(value);
@@ -32,9 +31,7 @@ public abstract class Optional<T>
     public bool Exists(Func<T, bool> predicate) => Match(v => predicate(v), () => false);
 
     public Optional<T> Filter(Func<T, bool> predicate) =>
-        Match(
-            v => predicate(v) ? Optional<T>.Some(v) : Optional<T>.None(),
-            () => Optional<T>.None());
+        Match(v => predicate(v) ? Optional<T>.Some(v) : Optional<T>.None(), Optional<T>.None);
 
     public TResult Fold<TResult>(TResult initial, Func<TResult, T, TResult> func) where TResult : notnull =>
         Match(v => func(initial, v), () => initial);
@@ -53,7 +50,7 @@ public abstract class Optional<T>
     }
 
     public Optional<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull =>
-        Match(v => Optional<TResult>.Some(mapper(v)), () => Optional<TResult>.None());
+        Match(v => Optional<TResult>.Some(mapper(v)), Optional<TResult>.None);
 
     public Optional<T> OrElse(Optional<T> ifNone) => Match(v => this, () => ifNone);
 

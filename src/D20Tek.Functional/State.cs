@@ -1,8 +1,6 @@
 ﻿namespace D20Tek.Functional;
 
-public interface IState
-{
-}
+public interface IState { }
 
 public static class StateExtensions
 {
@@ -12,8 +10,7 @@ public static class StateExtensions
         bind(state);
 
 
-    public static T Iter<T>(this T state, Action<T> action)
-        where T : IState
+    public static T Iter<T>(this T state, Action<T> action) where T : IState
     {
         action(state);
         return state;

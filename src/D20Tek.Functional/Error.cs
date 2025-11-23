@@ -2,48 +2,35 @@
 
 public readonly struct Error
 {
+    private const string _generalExceptionCode = "General.Exception";
+
     public int Type { get; }
 
     public string Code { get; }
 
     public string Message { get; }
 
-    private Error(string code, string message, int errorType)
-    {
-        Type = errorType;
-        Code = code;
-        Message = message;
-    }
+    private Error(string code, string message, int errorType) => (Type, Code, Message) = (errorType, code, message);
 
-    public static Error Unexpected(string code, string message) =>
-        new(code, message, ErrorType.Unexpected);
+    public static Error Unexpected(string code, string message) => new(code, message, ErrorType.Unexpected);
 
-    public static Error Failure(string code, string message) =>
-        new(code, message, ErrorType.Failure);
+    public static Error Failure(string code, string message) => new(code, message, ErrorType.Failure);
 
-    public static Error Validation(string code, string message) =>
-        new(code, message, ErrorType.Validation);
+    public static Error Validation(string code, string message) => new(code, message, ErrorType.Validation);
 
-    public static Error NotFound(string code, string message) =>
-        new(code, message, ErrorType.NotFound);
+    public static Error NotFound(string code, string message) => new(code, message, ErrorType.NotFound);
 
-    public static Error Conflict(string code, string message) =>
-        new(code, message, ErrorType.Conflict);
+    public static Error Conflict(string code, string message) => new(code, message, ErrorType.Conflict);
 
-    public static Error Unauthorized(string code, string message) =>
-        new(code, message, ErrorType.Unauthorized);
+    public static Error Unauthorized(string code, string message) => new(code, message, ErrorType.Unauthorized);
 
-    public static Error Forbidden(string code, string message) =>
-        new(code, message, ErrorType.Forbidden);
+    public static Error Forbidden(string code, string message) => new(code, message, ErrorType.Forbidden);
 
-    public static Error Invalid(string code, string message) =>
-        new(code, message, ErrorType.Invalid);
+    public static Error Invalid(string code, string message) => new(code, message, ErrorType.Invalid);
 
-    public static Error Exception(Exception ex) =>
-        new("General.Exception", ex.Message, ErrorType.Unexpected);
+    public static Error Exception(Exception ex) => new(_generalExceptionCode, ex.Message, ErrorType.Unexpected);
 
-    public static Error Create(string code, string message, int errorType) =>
-        new(code, message, errorType);
+    public static Error Create(string code, string message, int errorType) => new(code, message, errorType);
 
     public override string ToString() => $"Error ({Code} [{Type}]): {Message}";
 }
