@@ -1,5 +1,4 @@
 ﻿using D20Tek.Functional.AspNetCore.WebApi;
-using Microsoft.AspNetCore.Http;
 
 namespace D20Tek.Functional.UnitTests.WebApi;
 

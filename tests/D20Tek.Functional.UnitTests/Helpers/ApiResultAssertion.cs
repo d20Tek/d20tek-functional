@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-
-namespace D20Tek.Functional.UnitTests.Helpers;
+﻿namespace D20Tek.Functional.UnitTests.Helpers;
 
 internal static class ApiResultAssertion
 {

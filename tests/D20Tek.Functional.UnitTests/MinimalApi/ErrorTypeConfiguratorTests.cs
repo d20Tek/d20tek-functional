@@ -1,5 +1,4 @@
 ﻿using D20Tek.Functional.AspNetCore;
-using System.Net;
 
 namespace D20Tek.Functional.UnitTests.MinimalApi;
 

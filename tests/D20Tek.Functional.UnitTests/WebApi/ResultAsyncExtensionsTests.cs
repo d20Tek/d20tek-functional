@@ -1,6 +1,5 @@
 ﻿using D20Tek.Functional.AspNetCore.WebApi;
 using D20Tek.Functional.AspNetCore.WebApi.Async;
-using Microsoft.AspNetCore.Http;
 
 namespace D20Tek.Functional.UnitTests.WebApi.Async;
 

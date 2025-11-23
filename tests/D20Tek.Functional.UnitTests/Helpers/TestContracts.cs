@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace D20Tek.Functional.UnitTests.Helpers;
+﻿namespace D20Tek.Functional.UnitTests.Helpers;
 
 [ExcludeFromCodeCoverage]
 public sealed record TestRequest(int Id);

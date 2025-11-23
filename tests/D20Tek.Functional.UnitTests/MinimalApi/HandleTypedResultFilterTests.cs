@@ -1,8 +1,4 @@
 ﻿using D20Tek.Functional.AspNetCore.MinimalApi;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
 
 namespace D20Tek.Functional.UnitTests.MinimalApi;
 

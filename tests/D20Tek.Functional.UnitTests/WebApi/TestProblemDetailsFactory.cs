@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace D20Tek.Functional.UnitTests.WebApi;
+﻿namespace D20Tek.Functional.UnitTests.WebApi;
 
 internal sealed class TestProblemDetailsFactory : ProblemDetailsFactory
 {

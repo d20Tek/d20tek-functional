@@ -1,3 +1,13 @@
 ﻿global using D20Tek.Functional.UnitTests.Helpers;
 global using FluentAssertions;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Http.HttpResults;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Abstractions;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Microsoft.AspNetCore.Mvc.Infrastructure;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
+global using Microsoft.AspNetCore.Routing;
+global using Moq;
 global using System.Diagnostics.CodeAnalysis;
+global using System.Net;
