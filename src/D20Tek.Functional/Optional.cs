@@ -4,7 +4,6 @@ namespace D20Tek.Functional;
 
 public abstract class Optional<T> where T : notnull
 {
-    // Factory methods
     public static Optional<T> Some(T value) => new Some<T>(value);
 
     public static Optional<T> None() => new None<T>();
@@ -18,7 +17,7 @@ public abstract class Optional<T> where T : notnull
     public abstract TResult Match<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
     public Optional<TResult> Bind<TResult>(Func<T, Optional<TResult>> bind) where TResult : notnull =>
-        Match(v => bind(v), () => Optional<TResult>.None());
+        Match(v => bind(v), Optional<TResult>.None);
 
     public bool Contains(T value) => Match(v => v.Equals(value), () => false);
 
@@ -41,7 +40,7 @@ public abstract class Optional<T> where T : notnull
 
     public bool ForAll(Func<T, bool> predicate) => Match(v => predicate(v), () => true);
 
-    public T Get() => Match(v => v, () => throw new ArgumentNullException("Value"));
+    public T Get() => Match(v => v, () => throw Constants.ValueNullException);
 
     public Optional<T> Iter(Action<T> action)
     {
@@ -64,6 +63,6 @@ public abstract class Optional<T> where T : notnull
 
     public T? ToObj() => Match<T?>(v => v, () => default);
 
-    public override string ToString() =>
-        Match(v => $"Some<{typeof(T).Name}>(value = {v})", () => $"None<{typeof(T).Name}>");
+    public override string ToString() => 
+        Match(v => Constants.SomeFormatString(typeof(T), v), () => Constants.NoneFormatString(typeof(T)));
 }

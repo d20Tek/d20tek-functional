@@ -42,7 +42,7 @@ public sealed class Choice<T1, T2, T3, T4, T5>
             T3 => func3((T3)_value),
             T4 => func4((T4)_value),
             T5 => func5((T5)_value),
-            _ => throw new ArgumentOutOfRangeException("value", "Invalid Choice type")
+            _ => throw Constants.ChoiceValueException
         };
 
     public Choice<T1, T2, T3, T4, T5> Iter(
@@ -70,7 +70,7 @@ public sealed class Choice<T1, T2, T3, T4, T5>
                 action5((T5)_value);
                 break;
             default:
-                throw new ArgumentOutOfRangeException("value", "Invalid Choice type");
+                throw Constants.ChoiceValueException;
         }
 
         return this;
@@ -103,5 +103,5 @@ public sealed class Choice<T1, T2, T3, T4, T5>
             t4 => new Choice<TResult, T2, T3, T4, T5>(t4),
             t5 => new Choice<TResult, T2, T3, T4, T5>(t5));
 
-    public override string ToString() => $"Choice<{_value.GetType().Name}>(value = {_value})";
+    public override string ToString() => Constants.ChoiceFormatString(_value.GetType(), _value);
 }

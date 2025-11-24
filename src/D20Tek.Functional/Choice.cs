@@ -19,7 +19,7 @@ public sealed class Choice<T1, T2>
         {
             T1 => func1((T1)_value),
             T2 => func2((T2)_value),
-            _ => throw new ArgumentOutOfRangeException("value", "Invalid Choice type")
+            _ => throw Constants.ChoiceValueException
         };
 
     public Choice<T1, T2> Iter(Action<T1> action1, Action<T2> action2)
@@ -33,7 +33,7 @@ public sealed class Choice<T1, T2>
                 action2((T2)_value);
                 break;
             default:
-                throw new ArgumentOutOfRangeException("value", "Invalid Choice type");
+                throw Constants.ChoiceValueException;
         }
 
         return this;
@@ -46,8 +46,8 @@ public sealed class Choice<T1, T2>
 
     public T2 GetChoice2() => (T2)_value;
 
-    public Choice<TResult, T2> Map<TResult>(Func<T1, TResult> mapFunc) where TResult : notnull => 
+    public Choice<TResult, T2> Map<TResult>(Func<T1, TResult> mapFunc) where TResult : notnull =>
         Match(t1 => new Choice<TResult, T2>(mapFunc(t1)), t2 => new Choice<TResult, T2>(t2));
 
-    public override string ToString() => $"Choice<{_value.GetType().Name}>(value = {_value})";
+    public override string ToString() => Constants.ChoiceFormatString(_value.GetType(), _value);
 }

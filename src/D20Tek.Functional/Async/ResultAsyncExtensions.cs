@@ -45,15 +45,13 @@ public static class ResultAsyncExtensions
     public static async Task<Result<T>> FilterAsync<T>(this Result<T> result, Func<T, Task<bool>> predicate)
         where T : notnull =>
         await result.MatchAsync(
-            async (v) => await predicate(v) ? Result<T>.Success(v)
-                                            : Result<T>.Failure(Error.NotFound("Filter.Error", "No filtered items found.")),
+            async (v) => await predicate(v) ? Result<T>.Success(v) : Result<T>.Failure(Constants.ResultFilterError),
             e => Task.FromResult(Result<T>.Failure(e)));
 
     public static async Task<Result<T>> FilterAsync<T>(this Task<Result<T>> result, Func<T, Task<bool>> predicate)
         where T : notnull =>
         await result.MatchAsync(
-            async (v) => await predicate(v) ? Result<T>.Success(v)
-                                            : Result<T>.Failure(Error.NotFound("Filter.Error", "No filtered items found.")),
+            async (v) => await predicate(v) ? Result<T>.Success(v) : Result<T>.Failure(Constants.ResultFilterError),
             e => Task.FromResult(Result<T>.Failure(e)));
 
     public static async Task<TResult> FoldAsync<T, TResult>(

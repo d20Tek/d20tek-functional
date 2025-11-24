@@ -2,8 +2,6 @@
 
 public readonly struct Error
 {
-    private const string _generalExceptionCode = "General.Exception";
-
     public int Type { get; }
 
     public string Code { get; }
@@ -28,7 +26,7 @@ public readonly struct Error
 
     public static Error Invalid(string code, string message) => new(code, message, ErrorType.Invalid);
 
-    public static Error Exception(Exception ex) => new(_generalExceptionCode, ex.Message, ErrorType.Unexpected);
+    public static Error Exception(Exception ex) => new(Constants.GeneralExceptionCode, ex.Message, ErrorType.Unexpected);
 
     public static Error Create(string code, string message, int errorType) => new(code, message, errorType);
 

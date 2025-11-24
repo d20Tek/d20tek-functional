@@ -40,15 +40,11 @@ public static class TryExceptAsync
         Func<Task<T>> operation, Func<T, Task<Result<TResult>>> bind)
         where T : notnull
         where TResult : notnull =>
-        await RunAsync(
-            async () => await bind(await operation()),
-            ex => Result<TResult>.Failure(ex));
+        await RunAsync(async () => await bind(await operation()), Result<TResult>.Failure);
 
     public static async Task<Result<T>> MapAsync<T>(Func<Task<T>> operation, Func<T, Task<T>> mapper)
         where T : notnull =>
-        await RunAsync(
-            async () => Result<T>.Success(await mapper(await operation())),
-            ex => Result<T>.Failure(ex));
+        await RunAsync(async () => Result<T>.Success(await mapper(await operation())), Result<T>.Failure);
 }
 
 public static class TryAsync

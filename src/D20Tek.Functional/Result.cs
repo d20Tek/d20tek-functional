@@ -33,9 +33,8 @@ public abstract class Result<T> : IResultMonad where T : notnull
 
     public Result<T> Filter(Func<T, bool> predicate) =>
         Match(
-            v => predicate(v) ? Result<T>.Success(v)
-                              : Result<T>.Failure(Error.NotFound("Filter.Error", "No filtered items found.")),
-            e => Result<T>.Failure(e));
+            v => predicate(v) ? Result<T>.Success(v) : Result<T>.Failure(Constants.ResultFilterError),
+            Result<T>.Failure);
 
     public TResult Fold<TResult>(TResult initial, Func<TResult, T, TResult> func) where TResult : notnull =>
         Match(v => func(initial, v), _ => initial);
@@ -45,7 +44,7 @@ public abstract class Result<T> : IResultMonad where T : notnull
 
     public bool ForAll(Func<T, bool> predicate) => Match(v => predicate(v), _ => true);
 
-    public T GetValue() => Match(v => v, _ => throw new ArgumentNullException("Value"));
+    public T GetValue() => Match(v => v, _ => throw Constants.ValueNullException);
 
     object? IResultMonad.GetValue() => Match<object?>(v => v, _ => null);
 
@@ -70,7 +69,5 @@ public abstract class Result<T> : IResultMonad where T : notnull
     public Optional<T> ToOptional() => Match(Optional<T>.Some, _ => Optional<T>.None());
 
     public override string ToString() =>
-        Match(
-            v => $"Success<{typeof(T).Name}>(value = {v})",
-            e => $"Failure<{typeof(T).Name}>(errors = {string.Join(Environment.NewLine, e)})");
+        Match(v => Constants.SuccessFormatString(typeof(T), v), e => Constants.FailureFormatString(typeof(T), e));
 }

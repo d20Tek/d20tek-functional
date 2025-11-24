@@ -26,7 +26,7 @@ public sealed class ChoiceAsync<T1, T2, T3>
             T1 => await func1((T1)_value),
             T2 => await func2((T2)_value),
             T3 => await func3((T3)_value),
-            _ => throw new ArgumentOutOfRangeException(nameof(_value), "Invalid Choice type")
+            _ => throw Constants.ChoiceValueException
         };
 
     public async Task<ChoiceAsync<T1, T2, T3>> IterAsync(
@@ -44,7 +44,7 @@ public sealed class ChoiceAsync<T1, T2, T3>
                 await action3((T3)_value);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(_value), "Invalid Choice type");
+                throw Constants.ChoiceValueException;
         }
 
         return this;
@@ -71,5 +71,5 @@ public sealed class ChoiceAsync<T1, T2, T3>
             t2 => Task.FromResult(new ChoiceAsync<TResult, T2, T3>(t2)),
             t3 => Task.FromResult(new ChoiceAsync<TResult, T2, T3>(t3)));
 
-    public override string ToString() => $"ChoiceAsync<{_value.GetType().Name}>(value = {_value})";
+    public override string ToString() => Constants.ChoiceAsyncFormatString(_value.GetType(), _value);
 }

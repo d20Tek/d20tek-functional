@@ -22,7 +22,7 @@ public sealed class Identity<T>(T value) where T : notnull
 
     public Identity<TResult> Map<TResult>(Func<T, TResult> mapper) where TResult : notnull => new(mapper(_value));
 
-    public override string ToString() => $"Identity<{typeof(T).Name}>(value = {_value})";
+    public override string ToString() => Constants.IdentityFormatString(typeof(T), _value);
 
     public static Identity<T> Create(T value) => new(value);
     public static implicit operator Identity<T>(T instance) => new(instance);
