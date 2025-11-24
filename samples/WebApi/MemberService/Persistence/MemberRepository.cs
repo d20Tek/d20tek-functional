@@ -6,13 +6,9 @@ using MemberService.Controllers.Members;
 
 namespace MemberService.Persistence;
 
-internal class MemberRepository : LowDbRepository<MemberEntity, MemberDbDocument>, IMemberRepository
+internal class MemberRepository(LowDb<MemberDbDocument> db) :
+    LowDbRepository<MemberEntity, MemberDbDocument>(db, m => m.Members), IMemberRepository
 {
-    public MemberRepository(LowDb<MemberDbDocument> db)
-        : base(db, m => m.Members)
-    {
-    }
-
     public Result<MemberEntity> GetByEmail(string email) =>
         Find(p => p.Email == email)
             .Bind(m => m.FirstOrDefault() ??

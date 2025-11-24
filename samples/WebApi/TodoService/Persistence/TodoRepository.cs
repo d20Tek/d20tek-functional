@@ -5,10 +5,7 @@ using TodoService.Endpoints.Todos;
 
 namespace TodoService.Persistence;
 
-internal sealed class TodoRepository : LowDbRepository<Todo, TodoDbDocument>, ITodoRepository
+internal sealed class TodoRepository(LowDb<TodoDbDocument> db) : 
+    LowDbRepository<Todo, TodoDbDocument>(db, t => t.Todos), ITodoRepository
 {
-    public TodoRepository(LowDb<TodoDbDocument> db)
-        : base(db, t => t.Todos)
-    {
-    }
 }

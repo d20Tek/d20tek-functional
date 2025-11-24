@@ -1,22 +1,14 @@
 ﻿namespace TodoService.Endpoints.Todos;
 
-internal sealed class Todo
+internal sealed class Todo(int id, string title, string? description = null, bool isCompleted = false)
 {
-    public int Id { get; private set; }
+    public int Id { get; private set; } = id;
 
-    public string Title { get; private set; }
-    
-    public string? Description { get; private set; }
-    
-    public bool IsCompleted { get; private set; }
+    public string Title { get; private set; } = title;
 
-    public Todo(int id, string title, string? description = null, bool isCompleted = false)
-    {
-        Id = id;
-        Title = title;
-        Description = description;
-        IsCompleted = isCompleted;
-    }
+    public string? Description { get; private set; } = description;
+
+    public bool IsCompleted { get; private set; } = isCompleted;
 
     public Todo Update(string title, string? description, bool isCompleted)
     {

@@ -1,22 +1,14 @@
 ﻿namespace MemberService.Controllers.Members;
 
-public sealed class MemberEntity
+public sealed class MemberEntity(int id, string firstName, string lastName, string email)
 {
-    public int Id { get; private set; }
+    public int Id { get; private set; } = id;
 
-    public string FirstName { get; private set; }
+    public string FirstName { get; private set; } = firstName;
 
-    public string LastName { get; private set; }
+    public string LastName { get; private set; } = lastName;
 
-    public string Email { get; private set; }
-
-    public MemberEntity(int id, string firstName, string lastName, string email)
-    {
-        Id = id;
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-    }
+    public string Email { get; private set; } = email;
 
     public void SetId(int id) => Id = id;
 

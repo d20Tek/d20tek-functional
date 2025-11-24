@@ -6,6 +6,6 @@ CreateWebApplication(args)
     .Iter(app => app.ConfigurePipeline())
     .Iter(app => app.Run());
 
-Identity<WebApplicationBuilder> CreateWebApplication(string[] args) =>
+static Identity<WebApplicationBuilder> CreateWebApplication(string[] args) =>
     WebApplication.CreateBuilder(args)
                   .ConfigureServices();

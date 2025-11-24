@@ -7,13 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LowDb.Net" Version="1.2.4" />
-    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+    <PackageReference Include="LowDb.Net" Version="1.2.5" />
+    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\D20Tek.Functional.AspNetCore\D20Tek.Functional.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\..\src\D20Tek.Functional\D20Tek.Functional.csproj" />
   </ItemGroup>
 
 </Project>

@@ -37,8 +37,7 @@ internal static class TodoEndpoints
                           .ProducesProblem(StatusCodes.Status404NotFound)
                           .WithOpenApi());
 
-    private static IResult Get([FromServices]ITodoRepository repo) =>
-        repo.GetAll().ToApiResult();
+    private static IResult Get([FromServices]ITodoRepository repo) => repo.GetAll().ToApiResult();
 
     private static IResult GetById([FromServices] ITodoRepository repo, int id) =>
         repo.GetById(t => t.Id, id).ToApiResult();
