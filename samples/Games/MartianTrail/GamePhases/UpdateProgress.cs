@@ -3,16 +3,10 @@ using Games.Common;
 
 namespace MartianTrail.GamePhases;
 
-internal sealed class UpdateProgress : IGamePhase
+internal sealed class UpdateProgress(Func<int, int> rnd) : IGamePhase
 {
-    private readonly Func<int> _batteriesUsedUp;
-    private readonly Func<int> _foodUsedUp;
-
-    public UpdateProgress(Func<int, int> rnd)
-    {
-        _batteriesUsedUp = () => rnd(4);
-        _foodUsedUp = () => rnd(5) * 10;
-    }
+    private readonly Func<int> _batteriesUsedUp = () => rnd(4);
+    private readonly Func<int> _foodUsedUp = () => rnd(5) * 10;
 
     public GameState DoPhase(GameState oldState) =>
         GameCalculations.DistanceTraveled(oldState)

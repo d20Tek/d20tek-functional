@@ -9,7 +9,7 @@ namespace MartianTrail.GamePhases;
 internal static class Actions
 {
     public static GameState DoHuntingForFood(GameState state, IAnsiConsole console, MiniGameCommand miniGame) =>
-    state.PlayerCanHuntAlt(
+        state.PlayerCanHuntAlt(
             cannotHunt: x => x.Iter(y => console.WriteMessage(Constants.SelectAction.CannotHuntLabel)),
             canHunt: s =>
                 s.Iter(s => console.WriteMessage(Constants.SelectAction.HuntingFoodLabel))

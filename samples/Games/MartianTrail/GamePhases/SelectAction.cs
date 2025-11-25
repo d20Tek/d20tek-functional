@@ -5,18 +5,11 @@ using Spectre.Console;
 
 namespace MartianTrail.GamePhases;
 
-internal sealed class SelectAction : IGamePhase
+internal sealed class SelectAction(Func<int, int> rnd, IAnsiConsole console, MiniGameCommand playMiniGame) : IGamePhase
 {
-    private readonly Func<int> _rndPercentage;
-    private readonly IAnsiConsole _console;
-    private readonly MiniGameCommand _playMiniGame;
-
-    public SelectAction(Func<int, int> rnd, IAnsiConsole console, MiniGameCommand playMiniGame)
-    {
-        _rndPercentage = () => rnd(100);
-        _console = console;
-        _playMiniGame = playMiniGame;
-    }
+    private readonly Func<int> _rndPercentage = () => rnd(100);
+    private readonly IAnsiConsole _console = console;
+    private readonly MiniGameCommand _playMiniGame = playMiniGame;
 
     public GameState DoPhase(GameState oldState) =>
         GameCalculations.CalculateLocationFlags(_rndPercentage)

@@ -24,26 +24,19 @@ internal static class GameCalculations
                 i + 1))
             .ToArray();
 
-    public static int CalculateChargesUsed(decimal accuracy) =>
-        (int)(50 * (1 - accuracy));
+    public static int CalculateChargesUsed(decimal accuracy) => (int)(50 * (1 - accuracy));
 
-    public static int CalculateChargesUsed(Func<int, int> rnd) =>
-        (int)(50 * (rnd(100) / 100.0));
+    public static int CalculateChargesUsed(Func<int, int> rnd) => (int)(50 * (rnd(100) / 100.0));
 
-    public static int CalculateMediPacksUsed(Func<int, int> rnd) =>
-        (int)(10 * (rnd(100)/100.0));
+    public static int CalculateMediPacksUsed(Func<int, int> rnd) => (int)(10 * (rnd(100)/100.0));
 
-    public static int CalculateAtmosphereSuitsUsed(Func<int, int> rnd) =>
-        (int)(20 * (rnd(100) / 100.0));
+    public static int CalculateAtmosphereSuitsUsed(Func<int, int> rnd) => (int)(20 * (rnd(100) / 100.0));
 
-    public static int CalculateFoodGained(decimal accuracy) =>
-        (int)(100 * accuracy);
+    public static int CalculateFoodGained(decimal accuracy) => (int)(100 * accuracy);
 
-    public static int CalculateFursGained(decimal accuracy) =>
-        (int)(50 * accuracy);
+    public static int CalculateFursGained(decimal accuracy) => (int)(50 * accuracy);
 
-    public static int CalculateCreditsFromFurs(int furCount) =>
-        (int)(25 * furCount);
+    public static int CalculateCreditsFromFurs(int furCount) => (int)(25 * furCount);
 
     public static bool PlayerCanHunt(this GameState state) => state.Inventory.LaserCharges > 0;
 
@@ -52,11 +45,9 @@ internal static class GameCalculations
 
     public static bool RandomEventOccurred(Func<int> rnd) => rnd() > 90;
 
-    public static int CalculateCreditsGained(Func<int, int> rnd) =>
-        (int)(100 * (rnd(100) / 100.0));
+    public static int CalculateCreditsGained(Func<int, int> rnd) => (int)(100 * (rnd(100) / 100.0));
 
-    public static int CalculateExtraFoodGained(Func<int, int> rnd) =>
-        (int)(100 * (rnd(100) / 100.0));
+    public static int CalculateExtraFoodGained(Func<int, int> rnd) => (int)(100 * (rnd(100) / 100.0));
 
     public static LocationFlags CalculateLocationFlags(Func<int> rnd) =>
         GameCalculations.IsWilderness(rnd)
@@ -69,15 +60,11 @@ internal static class GameCalculations
                     IsHuntingAvailable(rnd),
                     IsHuntingAvailable(rnd)));
 
-    public static bool IsHuntingArea(Func<int> rnd, bool isWilderness) =>
-        rnd() > (isWilderness ? 10 : 20);
+    public static bool IsHuntingArea(Func<int> rnd, bool isWilderness) => rnd() > (isWilderness ? 10 : 20);
 
-    public static bool IsHuntingAvailable(Func<int> rnd) =>
-        rnd() > 33;
+    public static bool IsHuntingAvailable(Func<int> rnd) => rnd() > 33;
 
-    public static bool IsTradingPost(Func<int> rnd, bool isWilderness) =>
-        rnd() > (isWilderness ? 80 : 20);
+    public static bool IsTradingPost(Func<int> rnd, bool isWilderness) => rnd() > (isWilderness ? 80 : 20);
 
-    public static bool IsWilderness(Func<int> rnd) =>
-        rnd() > 33;
+    public static bool IsWilderness(Func<int> rnd) => rnd() > 33;
 }

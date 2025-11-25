@@ -5,18 +5,11 @@ using Spectre.Console;
 
 namespace MartianTrail.GamePhases;
 
-internal class RandomEventPhase : IGamePhase
+internal class RandomEventPhase(Func<int, int> rnd, IAnsiConsole console) : IGamePhase
 {
-    private readonly Func<int, int> _rnd;
-    private readonly Func<int> _rndPercentage;
-    private readonly IAnsiConsole _console;
-
-    public RandomEventPhase(Func<int, int> rnd, IAnsiConsole console)
-    {
-        _rnd = rnd;
-        _rndPercentage = () => rnd(100);
-        _console = console;
-    }
+    private readonly Func<int, int> _rnd = rnd;
+    private readonly Func<int> _rndPercentage = () => rnd(100);
+    private readonly IAnsiConsole _console = console;
 
     public GameState DoPhase(GameState oldState) =>
         oldState.Map(s => GetRandomEvent() switch

@@ -20,29 +20,25 @@ internal static class Game
 
     private static GameState InitializeGame(IAnsiConsole console) =>
         console.ToIdentity()
-               .Iter(x => DisplayTitle(x))
-               .Iter(x => DisplayInstructions(x))
-               .Map(x => SelectInventoryCommand.SelectInitialInventory(x))
-               .Map(i => StateMachine.InitialState(i));
+               .Iter(DisplayTitle)
+               .Iter(DisplayInstructions)
+               .Map(SelectInventoryCommand.SelectInitialInventory)
+               .Map(StateMachine.InitialState);
 
     private static void DisplayTitle(IAnsiConsole console) =>
-        new FigletText(Constants.GameTitle)
-            .Centered()
-            .Color(Color.Green)
-            .ToIdentity()
-            .Iter(x => console.Write(x));
+        new FigletText(Constants.GameTitle).Centered()
+                                           .Color(Color.Green)
+                                           .ToIdentity()
+                                           .Iter(console.Write);
 
     private static void DisplayInstructions(IAnsiConsole console) =>
         console.Confirm(Constants.ShowInstructionsLabel)
-            .ToIdentity()
-            .Iter(x => console.WriteMessageConditional(x, Constants.Instructions));
+               .ToIdentity()
+               .Iter(x => console.WriteMessageConditional(x, Constants.Instructions));
 
-    private static IGamePhase[] GetGamePhases(
-        WebApiClient webApiClient,
-        IAnsiConsole console,
-        Func<int, int> rollFunc) =>
+    private static IGamePhase[] GetGamePhases(WebApiClient client, IAnsiConsole console, Func<int, int> rollFunc) =>
     [
-        new DisplayMartianWeather(webApiClient),
+        new DisplayMartianWeather(client),
         new SelectAction(rollFunc, console, new MiniGameCommand(console, rollFunc, new TimeService())),
         new RandomEventPhase(rollFunc, console),
         new UpdateProgress(rollFunc)

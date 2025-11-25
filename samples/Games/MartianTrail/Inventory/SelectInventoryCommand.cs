@@ -18,7 +18,7 @@ internal static class SelectInventoryCommand
 
     public static InventoryState PurchaseInventory(InventoryState state, IAnsiConsole console) =>
         state.Iter(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
-             .Map(o => InventorySelectionState.From(o))
+             .Map(InventorySelectionState.From)
              .Map(s => s.IterateUntil(
                    x => Constants.Inventory.InventorySelections.Aggregate(x, (acc, y) =>
                             MakeInventorySelection(console, acc, y.Name, y.CostPerItem, y.UpdateFunc))
@@ -27,7 +27,7 @@ internal static class SelectInventoryCommand
 
     public static InventoryState YardSalePurchase(InventoryState state, IAnsiConsole console) =>
         state.Iter(x => console.DisplayHeader(Constants.Inventory.PurchaseHeading))
-             .Map(o => InventorySelectionState.From(o))
+             .Map(InventorySelectionState.From)
              .Map(s => s.IterateUntil(
                    x => Constants.Inventory.YardSaleSelections.Aggregate(x, (acc, y) =>
                             MakeInventorySelection(console, acc, y.Name, y.CostPerItem, y.UpdateFunc))
@@ -69,7 +69,7 @@ internal static class SelectInventoryCommand
                 .Map(x => console.Confirm(Constants.Inventory.ConfirmPurchaseMsg))
                 .ToIdentity()
                 .Map(r => r ? invState with { PlayerIsHappyWithSelection = true }
-                           : new(PlayerIsHappyWithSelection: false, Credits: Constants.Inventory.StartingCredits));
+                            : new(PlayerIsHappyWithSelection: false, Credits: Constants.Inventory.StartingCredits));
 
     private static InventorySelectionState UpdateUserIsHappyStatus(
         IAnsiConsole console,

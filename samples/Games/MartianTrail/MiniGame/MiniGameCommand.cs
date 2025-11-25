@@ -4,25 +4,18 @@ using Spectre.Console;
 
 namespace MartianTrail.MiniGame;
 
-internal class MiniGameCommand
+internal class MiniGameCommand(IAnsiConsole console, Func<int, int> randFunc, TimeService timeService)
 {
-    private readonly IAnsiConsole _console;
-    private readonly Func<int, int> _randFunc;
-    private readonly TimeService _timeService;
-
-    public MiniGameCommand(IAnsiConsole console, Func<int, int> randFunc, TimeService timeService)
-    {
-        _console = console;
-        _randFunc = randFunc;
-        _timeService = timeService;
-    }
+    private readonly IAnsiConsole _console = console;
+    private readonly Func<int, int> _randFunc = randFunc;
+    private readonly TimeService _timeService = timeService;
 
     public decimal Play() =>
         GenerateRandomText(_randFunc)
             .Iter(s => _console.DisplayHeader(Constants.MiniGame.Heading))
             .Iter(s => _console.PromptAnyKey(Constants.MiniGame.StartMessage))
             .Map(s => GetUserInput(_console, _timeService, s))
-            .Map(s => CalculateAccuracy(s));
+            .Map(CalculateAccuracy);
 
     private static MiniGameState GenerateRandomText(Func<int, int> randFunc) =>
         MiniGameState.Initialize(
@@ -43,9 +36,9 @@ internal class MiniGameCommand
 
     private static decimal CalculateAccuracy(MiniGameState state) =>
         state.UserInput
-                .ToIdentity()
-                .Map(i => RateTextAccuracy(state.TextToType, i))
-                .Map(textAccuracy => textAccuracy * Constants.MiniGame.RateTimeAccuracy(state.TimeTaken));
+             .ToIdentity()
+             .Map(i => RateTextAccuracy(state.TextToType, i))
+             .Map(textAccuracy => textAccuracy * Constants.MiniGame.RateTimeAccuracy(state.TimeTaken));
 
     private static decimal RateTextAccuracy(string expected, string actual) =>
         actual.Length != Constants.MiniGame.NumberRandomChars

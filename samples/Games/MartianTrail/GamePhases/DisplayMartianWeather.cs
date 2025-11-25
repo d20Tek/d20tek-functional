@@ -27,15 +27,15 @@ internal sealed class DisplayMartianWeather : IGamePhase
 
     private static Result<IEnumerable<SolData>> FetchSolData(WebApiClient webApiClient) =>
         webApiClient.Fetch<NasaMarsData>(Constants.MartianWeather.NasaMarsUrl).Result
-                .Map(x => x.soles.OrderByDescending(x => x.id).Take(Constants.MartianWeather.SolDataLimit))
-                .Map(x => x.Select(y => new SolData(
-                    Sol: int.TryParse(y.sol, out var i) ? i : Constants.MartianWeather.InvalidValue,
-                    MaxTemp: decimal.TryParse(y.max_temp, out var mt) ? mt : Constants.MartianWeather.InvalidValue,
-                    MinTemp: decimal.TryParse(y.min_temp, out var mt2) ? mt2 : Constants.MartianWeather.InvalidValue,
-                    UltraViolet: y.local_uv_irradiance_index))
-                        .Where(x => x.Sol != Constants.MartianWeather.InvalidValue &&
-                                    x.MaxTemp != Constants.MartianWeather.InvalidValue &&
-                                    x.MinTemp != Constants.MartianWeather.InvalidValue));
+            .Map(x => x.soles.OrderByDescending(x => x.id).Take(Constants.MartianWeather.SolDataLimit))
+            .Map(x => x.Select(y => new SolData(
+                Sol: int.TryParse(y.sol, out var i) ? i : Constants.MartianWeather.InvalidValue,
+                MaxTemp: decimal.TryParse(y.max_temp, out var mt) ? mt : Constants.MartianWeather.InvalidValue,
+                MinTemp: decimal.TryParse(y.min_temp, out var mt2) ? mt2 : Constants.MartianWeather.InvalidValue,
+                UltraViolet: y.local_uv_irradiance_index))
+                    .Where(x => x.Sol != Constants.MartianWeather.InvalidValue &&
+                                x.MaxTemp != Constants.MartianWeather.InvalidValue &&
+                                x.MinTemp != Constants.MartianWeather.InvalidValue));
 
     public GameState DoPhase(GameState oldState) =>
         GetCurrentSol(oldState).Map(sol => oldState with
