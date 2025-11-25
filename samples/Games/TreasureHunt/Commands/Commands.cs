@@ -20,12 +20,11 @@ internal static class Commands
 
     public static GameState ProcessCommand(GameState state, string command) =>
         command.ToUpper().ToIdentity()
-            .Map(c => _commands.TryGetValue(c, out CommandFunc? value) ? value : None).Map(f => f(state))
-            .Map(s => s with { Moves = s.Moves + 1 });
+               .Map(c => _commands.TryGetValue(c, out CommandFunc? value) ? value : None)
+               .Map(f => f(state))
+               .Map(s => s with { Moves = s.Moves + 1 });
 
-    private static GameState None(GameState state) =>
-        state with { LatestMove = Constants.Commands.CommandError };
+    private static GameState None(GameState state) => state with { LatestMove = Constants.Commands.CommandError };
 
-    private static GameState Help(GameState state) =>
-        state with { LatestMove = Constants.Instructions };
+    private static GameState Help(GameState state) => state with { LatestMove = Constants.Instructions };
 }

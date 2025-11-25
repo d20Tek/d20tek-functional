@@ -22,8 +22,7 @@ internal static class Constants
     public static string[] GameLostMessage(int rounds) =>
         [string.Empty, $"[red]You lost all your tokens[/] in {rounds} rounds."];
 
-    public static string[] GameWonMessage(int rounds) =>
-        [string.Empty, $"[green]You won![/] in {rounds} rounds."];
+    public static string[] GameWonMessage(int rounds) => [string.Empty, $"[green]You won![/] in {rounds} rounds."];
 
     public static string[] FruitRow(string[] items) =>
     [
@@ -32,6 +31,5 @@ internal static class Constants
         string.Empty
     ];
 
-    public static string[] CurrentTokensMessage(int tokens) =>
-        ["", $"You have {tokens} tokens."];
+    public static string[] CurrentTokensMessage(int tokens) => ["", $"You have {tokens} tokens."];
 }

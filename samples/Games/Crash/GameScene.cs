@@ -19,13 +19,12 @@ internal static class GameScene
           scene[1, newCarPosition] is not Constants.Scene.EmptySpace);
 
     private static char[][] CreateSceneAsArray((int Left, int Right) edges) =>
-        Enumerable.Range(0, Constants.Height)
+        [.. Enumerable.Range(0, Constants.Height)
             .Select(i => Enumerable.Range(0, Constants.Width)
                 .Select(j => (j < edges.Left || j > edges.Right)
                                 ? Constants.Scene.FilledSpace
                                 : Constants.Scene.EmptySpace)
-                .ToArray())
-            .ToArray();
+                .ToArray())];
 
     private static (int Left, int Right) CalcRoadEdges() =>
         ((Constants.Width - Constants.Scene.RoadWidth) / 2).ToIdentity()

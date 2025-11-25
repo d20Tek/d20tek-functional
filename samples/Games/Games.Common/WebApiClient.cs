@@ -3,14 +3,9 @@ using System.Net.Http.Json;
 
 namespace Games.Common;
 
-internal class WebApiClient
+internal class WebApiClient(HttpClient httpClient)
 {
-    private readonly HttpClient _httpClient;
-
-    public WebApiClient(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
+    private readonly HttpClient _httpClient = httpClient;
 
     public async Task<Result<T>> Fetch<T>(string url) where T : notnull
     {

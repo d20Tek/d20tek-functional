@@ -12,7 +12,5 @@ internal static class MatrixPresenter
                .Iter(c => c.WriteMessage(matrix.RenderAsText(height)));
 
     private static string[] RenderAsText(this List<List<MatrixCell>> matrix, int height) =>
-        matrix.Take(height)
-              .Select(row => string.Join(" ", row))
-              .ToArray();
+        [.. matrix.Take(height).Select(row => string.Join(" ", row))];
 }

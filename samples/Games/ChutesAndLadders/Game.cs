@@ -18,19 +18,18 @@ internal static class Game
 
     private static GameState InitializeGame(IAnsiConsole console) =>
         console.ToIdentity()
-               .Iter(x => DisplayTitle(x))
-               .Map(x => GetNumberOfPlayers(x))
-               .Map(x => StateMachine.InitialState(x));
+               .Iter(DisplayTitle)
+               .Map(GetNumberOfPlayers)
+               .Map(StateMachine.InitialState);
 
     private static void DisplayTitle(IAnsiConsole console) =>
-        new FigletText("Chutes & Ladders")
-            .Centered()
-            .Color(Color.Green)
-            .ToIdentity()
-            .Iter(x => console.Write(x));
+        new FigletText("Chutes & Ladders").Centered()
+                                          .Color(Color.Green)
+                                          .ToIdentity()
+                                          .Iter(console.Write);
 
     private static int GetNumberOfPlayers(IAnsiConsole console) =>
-        console.Prompt<int>(
+        console.Prompt(
             new TextPrompt<int>("Enter the number of players (2-8):")
                 .Validate(x => x >= 2 && x <= 8, "Number of players must be between 2 and 8."));
 

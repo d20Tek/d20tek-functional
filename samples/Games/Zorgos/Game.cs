@@ -16,8 +16,8 @@ internal static class Game
 
     private static GameState InitializeGame(IAnsiConsole console) =>
         console.ToIdentity()
-               .Iter(x => DisplayTitle(x))
-               .Iter(x => DisplayInstructions(x))
+               .Iter(DisplayTitle)
+               .Iter(DisplayInstructions)
                .Map(x => StateMachine.InitialState());
 
     private static void DisplayTitle(IAnsiConsole console) =>
@@ -25,7 +25,7 @@ internal static class Game
             .Centered()
             .Color(Color.Green)
             .ToIdentity()
-            .Iter(x => console.Write(x))
+            .Iter(console.Write)
             .Iter(x => console.WriteLine());
 
     private static void DisplayInstructions(IAnsiConsole console) =>
@@ -36,10 +36,10 @@ internal static class Game
 
     private static GameState NextCommand(this GameState state, Func<int> rnd, IAnsiConsole console) =>
         GatherBetCommand.Handle(console, state.Zchips)
-            .ToIdentity()
-            .Map(bet => state with { CurrentBet = bet })
-            .Map(s => StateMachine.NextState(s, rnd)
-            .Iter(s => s.DisplayRoundEnd(console)));
+                        .ToIdentity()
+                        .Map(bet => state with { CurrentBet = bet })
+                        .Map(s => StateMachine.NextState(s, rnd)
+                        .Iter(s => s.DisplayRoundEnd(console)));
 
     private static void DisplayRoundEnd(this GameState state, IAnsiConsole console) =>
         state.Iter(s => DicePresenter.RenderRow(console, s.Result.Rolls))

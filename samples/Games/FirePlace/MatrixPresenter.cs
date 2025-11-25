@@ -14,12 +14,12 @@ internal static class MatrixPresenter
 
     private static string AsString(this int[,] fireMatrix, FireConfig config) =>
         Enumerable.Range(0, config.Height)
-            .Select(y => Enumerable.Range(0, config.Width)
-                .Select(x => fireMatrix.RenderFlameChar(x, y))
-                .Aggregate(new StringBuilder(), (builder, flameChar) => builder.Append(flameChar))
-                .ToString())
-            .Aggregate(new StringBuilder(), (builder, row) => builder.AppendLine(row))
-            .ToString();
+                  .Select(y => Enumerable.Range(0, config.Width)
+                      .Select(x => fireMatrix.RenderFlameChar(x, y))
+                      .Aggregate(new StringBuilder(), (builder, flameChar) => builder.Append(flameChar))
+                      .ToString())
+                  .Aggregate(new StringBuilder(), (builder, row) => builder.AppendLine(row))
+                 .ToString();
 
     private static string RenderFlameChar(this int[,] fireMatrix, int x, int y) =>
         fireMatrix[y, x].Pipe(heat => $"[{Constants.HeatColorMap(heat)}]{Constants.FireChars[heat]}[/]");

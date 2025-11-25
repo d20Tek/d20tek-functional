@@ -16,8 +16,8 @@ internal static class StateMachine
             .Map(r => new GameState(
                 Players: state.Players.Select(x => x.Number == state.CurrentPlayer ? MovePlayer(x, r) : x).ToArray(),
                 CurrentPlayer: NextPlayer(state.CurrentPlayer, state.NumberOfPlayers, r),
-                NumberOfPlayers: state.NumberOfPlayers)
-                    .Map(s => s with
+                NumberOfPlayers: state.NumberOfPlayers).Map(s =>
+                    s with
                     {
                         LatestMove = $" - Move: P{state.CurrentPlayer} rolled {r} moved " +
                                      $"(from: {state.GetCurrentPlayer().Position}," +

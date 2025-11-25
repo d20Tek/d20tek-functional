@@ -29,12 +29,9 @@ public static class TeletypePresenter
                       ? segment.Text.Select(c => new Segment(c.ToString(), segment.Style))
                       : [segment]);
 
-    private sealed class SegmentRenderable : Renderable
+    private sealed class SegmentRenderable(Segment segment) : Renderable
     {
-        private readonly Segment _segment;
-
-        public SegmentRenderable(Segment segment) =>
-            _segment = segment ?? throw new ArgumentNullException(nameof(segment));
+        private readonly Segment _segment = segment ?? throw new ArgumentNullException(nameof(segment));
 
         protected override IEnumerable<Segment> Render(RenderOptions options, int maxWidth) => [_segment];
     }

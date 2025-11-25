@@ -34,15 +34,15 @@ internal static class GameRound
 
     private static GameState Update(GameState state, Game.RndFunc rnd) =>
         GameScene.Update(state.Scene, state.PreviousRoadUpdate, rnd)
-            .Map(response => response with { NewCarPosition = state.CarPosition + state.CarVelocity })
-            .Map(r => state with
-            {
-                Scene = r.Scene,
-                PreviousRoadUpdate = r.RoadUpdate,
-                CarPosition = r.NewCarPosition,
-                GameRunning = GameScene.ShouldContinueRunning(r.Scene, r.NewCarPosition),
-                Score = state.Score + 1
-            });
+                 .Map(response => response with { NewCarPosition = state.CarPosition + state.CarVelocity })
+                 .Map(r => state with
+                 {
+                    Scene = r.Scene,
+                    PreviousRoadUpdate = r.RoadUpdate,
+                    CarPosition = r.NewCarPosition,
+                    GameRunning = GameScene.ShouldContinueRunning(r.Scene, r.NewCarPosition),
+                    Score = state.Score + 1
+                 });
 
     private static GameState RoundOverScreen(GameState state, Identity<IAnsiConsole> console) =>
         (state.KeepPlaying is false)

@@ -42,7 +42,7 @@ internal static class AnsiConsoleExtensions
         string[] instructions,
         string startLabel) =>
         console.Confirm(showLabel)
-            .ToIdentity()
-            .Iter(x => console.WriteMessageConditional(x, instructions))
-            .Iter(x => x.IfTrueOrElse(() => console.PromptAnyKey(startLabel)));
+               .ToIdentity()
+               .Iter(x => console.WriteMessageConditional(x, instructions))
+               .Iter(x => x.IfTrueOrElse(() => console.PromptAnyKey(startLabel)));
 }

@@ -8,20 +8,20 @@ internal static class Game
 {
     public static void Play(IAnsiConsole console, Random rnd) =>
         Initialize(Console.WindowWidth / 2, Console.WindowHeight - 1, rnd)
-               .Map(initialFrame =>
-                    initialFrame.IterateUntil(
-                        x => x.NextFrame(console, rnd),
-                        x => x.GameRunning is false))
-               .Iter(x => console.WriteMessage(Constants.EndMessage));
+            .Map(initialFrame =>
+                initialFrame.IterateUntil(
+                    x => x.NextFrame(console, rnd),
+                    x => x.GameRunning is false))
+            .Iter(x => console.WriteMessage(Constants.EndMessage));
 
     private static GameState Initialize(int width, int height, Random rnd) =>
-        new (Matrix.Initialize(width, height, rnd), width, height);
+        new(Matrix.Initialize(width, height, rnd), width, height);
 
     private static GameState NextFrame(this GameState state, IAnsiConsole console, Random rnd) =>
         KeyboardInput.Handle(state, console)
             .Map(s => UpdateTopRow(s, rnd))
             .Iter(s => console.Render(s.Matrix, s.Height))
-            .Map(s => UpdateBottomRow(s))
+            .Map(UpdateBottomRow)
             .Iter(s => Thread.Sleep(Constants.RefreshRate));
 
     private static GameState UpdateTopRow(GameState state, Random rnd) =>

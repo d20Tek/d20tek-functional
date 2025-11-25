@@ -20,8 +20,8 @@ internal static class Game
 
     private static GameState InitializeGame(IAnsiConsole console, RndFunc rnd) =>
         GameState.Initialize(GameData.GetTreasureLocations(), rnd(Constants.TotalRooms))
-                .Iter(s => console.Write(Presenters.GameHeader(Constants.GameTitle)))
-                .Iter(x => console.DisplayInstructions(
+                 .Iter(s => console.Write(Presenters.GameHeader(Constants.GameTitle)))
+                 .Iter(x => console.DisplayInstructions(
                     Constants.ShowInstructionsLabel,
                     Constants.Instructions,
                     Constants.StartGameLabel));
@@ -32,8 +32,8 @@ internal static class Game
              .Iter(s => s.DisplayLatestMoves(console));
 
     private static bool IsGameComplete(this GameState state) =>
-        state.TreasureLocations.First().Room
-             .ToIdentity()
+        state.TreasureLocations.First()
+             .Room.ToIdentity()
              .Map(first => state.TreasureLocations.All(x => x.Room == first) || 
                            state.Moves > Constants.MovesAllowed);
 

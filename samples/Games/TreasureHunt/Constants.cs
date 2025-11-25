@@ -47,6 +47,6 @@ internal static partial class Constants
     ];
 
     public static string[] TreasureDescriptions(Location[] locations) =>
-        locations.Select(x => $"IT CONTAINS {GameData.GetTreasureById(x.TreasureId).Name}")
-                 .Append(string.Empty).ToArray();
+        [.. locations.Select(x => $"IT CONTAINS {GameData.GetTreasureById(x.TreasureId).Name}"),
+            string.Empty];
 }

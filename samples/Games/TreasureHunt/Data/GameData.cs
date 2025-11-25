@@ -26,8 +26,7 @@ internal static class GameData
 
     public static Room GetRoomById(int id) => _rooms.First(x => x.Id == id);
 
-    public static Location[] GetTreasureLocations() =>
-        _treasures.Select(t => new Location(t.Id, t.StartingRoom)).ToArray();
+    public static Location[] GetTreasureLocations() => [.. _treasures.Select(t => new Location(t.Id, t.StartingRoom))];
 
     public static Treasure GetTreasureById(int id) => _treasures.First(x => x.Id == id);
 }

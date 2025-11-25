@@ -34,8 +34,7 @@ internal static class InventoryCommands
                                         state.CurrentRoom)
                    });
 
-    private static bool IsAlreadyCarryingTreasure(this GameState state) =>
-        state.Carrying != Constants.NoTreasure;
+    private static bool IsAlreadyCarryingTreasure(this GameState state) => state.Carrying != Constants.NoTreasure;
 
     public static int GetTreasureInRoom(this GameState state, int room) =>
         state.TreasureLocations.First(x => x.Room == room).TreasureId;

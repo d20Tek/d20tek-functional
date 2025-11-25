@@ -5,21 +5,20 @@ namespace Zorgos;
 
 internal static class StateMachine
 {
-    public static GameState InitialState() =>
-        new(Constants.StartingChips, 0, [], RollResult.Empty);
+    public static GameState InitialState() => new(Constants.StartingChips, 0, [], RollResult.Empty);
 
     public static GameState NextState(GameState state, Func<int> rnd) =>
         Enumerable.Range(1, 2).Select(x => rnd()).ToArray()
-            .ToIdentity()
-            .Map(rolls => CalculatePayout(rolls, state.CurrentBet))
-            .Map(result => (state.Zchips + result.ChipDelta).OrZero()
-                .Pipe(total => state with
-                {
-                    Zchips = total,
-                    CurrentBet = 0,
-                    Result = result,
-                    LatestMove = [string.Empty, result.Output, Constants.RollResult.Total(total)]
-                }));
+                  .ToIdentity()
+                  .Map(rolls => CalculatePayout(rolls, state.CurrentBet))
+                  .Map(result => (state.Zchips + result.ChipDelta).OrZero()
+                      .Pipe(total => state with
+                      {
+                          Zchips = total,
+                          CurrentBet = 0,
+                          Result = result,
+                          LatestMove = [string.Empty, result.Output, Constants.RollResult.Total(total)]
+                      }));
 
     private static RollResult CalculatePayout(int[] rolls, int bet) =>
         rolls[0] == rolls[1]

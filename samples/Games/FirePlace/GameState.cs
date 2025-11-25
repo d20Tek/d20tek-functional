@@ -2,10 +2,7 @@
 
 namespace FirePlace;
 
-internal sealed record GameState(
-    int[,] FireMatrix,
-    bool GameRunning = true) : IState
+internal sealed record GameState(int[,] FireMatrix, bool GameRunning = true) : IState
 {
-    public static GameState Empty() =>
-        new(new int[Constants.FireConfig.Width, Constants.FireConfig.Height]);
+    public static GameState Empty() => new(new int[Constants.FireConfig.Width, Constants.FireConfig.Height]);
 }

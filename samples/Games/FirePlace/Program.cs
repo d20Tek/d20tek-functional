@@ -9,4 +9,4 @@ TryExcept.Run(
         Game.Play(AnsiConsole.Console, Random.Shared.Next);
     },
     ex => AnsiConsole.WriteException(ex),
-    () => AnsiConsole.Cursor.Show());
+    AnsiConsole.Cursor.Show);
