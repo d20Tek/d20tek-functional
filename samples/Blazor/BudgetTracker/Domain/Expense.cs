@@ -2,26 +2,18 @@
 
 namespace BudgetTracker.Domain;
 
-internal sealed class Expense : IEntity
+internal sealed class Expense(int id, string name, int categoryId, DateTimeOffset committedDate, decimal actual) :
+    IEntity
 {
-    public int Id { get; private set; }
+    public int Id { get; private set; } = id;
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = name;
 
-    public int CategoryId { get; private set; }
+    public int CategoryId { get; private set; } = categoryId;
 
-    public DateTimeOffset CommittedDate { get; private set; }
+    public DateTimeOffset CommittedDate { get; private set; } = committedDate;
 
-    public decimal Actual {  get; private set; }
-
-    public Expense(int id, string name, int categoryId, DateTimeOffset committedDate, decimal actual)
-    {
-        Id = id;
-        Name = name;
-        CategoryId = categoryId;
-        CommittedDate = committedDate;
-        Actual = actual;
-    }
+    public decimal Actual { get; private set; } = actual;
 
     public void SetId(int id) => Id = id;
 

@@ -3,20 +3,13 @@ using BudgetTracker.Persistence;
 
 namespace BudgetTracker.Domain;
 
-internal sealed class BudgetCategory : IEntity
+internal sealed class BudgetCategory(int id, string name, decimal budgetedAmount) : IEntity
 {
-    public int Id { get; private set; }
+    public int Id { get; private set; } = id;
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = name;
 
-    public decimal BudgetedAmount { get; private set; }
-
-    public BudgetCategory(int id, string name, decimal budgetedAmount)
-    {
-        Id = id;
-        Name = name;
-        BudgetedAmount = budgetedAmount;
-    }
+    public decimal BudgetedAmount { get; private set; } = budgetedAmount;
 
     public void SetId(int id) => Id = id;
 

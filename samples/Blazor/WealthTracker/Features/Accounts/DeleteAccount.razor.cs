@@ -13,8 +13,7 @@ public partial class DeleteAccount
     public int Id { get; set; }
 
     protected override void OnInitialized() =>
-        _repo.GetById(w => w.Id, Id)
-             .HandleResult(s => _account = s, e => _errorMessage = e);
+        _repo.GetById(w => w.Id, Id).HandleResult(s => _account = s, e => _errorMessage = e);
 
     private void DeleteHandler() =>
         _repo.GetById(w => w.Id, Id)

@@ -15,15 +15,14 @@ public partial class YearlyNetWorth
     }
 
     private static List<YearRow> CalculateYearResults(WealthDataEntity[] accounts, DateTimeOffset[] dateRange) =>
-        dateRange.Aggregate(
-                    (PrevTotal: 0M, Rows: new List<YearRow>()),
-                    (acc, date) =>
-                        accounts.Sum(x => x.GetLatestValueFor(date)).ToIdentity()
-                                .Iter(currentTotal => acc.Rows.Add(
-                                    new YearRow((date.Year - 1).ToString(), currentTotal, currentTotal - acc.PrevTotal)))
-                                .Map(currentTotal => (currentTotal, acc.Rows)),
-                    acc => acc.Rows.Concat(CreateYtdRow(accounts.Sum(x => x.GetLatestValue()), acc.PrevTotal)))
-                 .ToList();
+        [.. dateRange.Aggregate(
+            (PrevTotal: 0M, Rows: new List<YearRow>()),
+            (acc, date) =>
+                accounts.Sum(x => x.GetLatestValueFor(date)).ToIdentity()
+                        .Iter(currentTotal => acc.Rows.Add(
+                            new YearRow((date.Year - 1).ToString(), currentTotal, currentTotal - acc.PrevTotal)))
+                        .Map(currentTotal => (currentTotal, acc.Rows)),
+            acc => acc.Rows.Concat(CreateYtdRow(accounts.Sum(x => x.GetLatestValue()), acc.PrevTotal)))];
 
     private static YearRow[] CreateYtdRow(decimal ytdTotal, decimal prevTotal) =>
     [
@@ -31,7 +30,6 @@ public partial class YearlyNetWorth
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
-        Enumerable.Range(0, Constants.Yearly.BackYears)
-            .Select(i => DateTimeOffset.Now.AddYears(-(Constants.Yearly.BackYears - 1) + i).StartOfYear())
-            .ToArray();
+        [.. Enumerable.Range(0, Constants.Yearly.BackYears)
+            .Select(i => DateTimeOffset.Now.AddYears(-(Constants.Yearly.BackYears - 1) + i).StartOfYear())];
 }

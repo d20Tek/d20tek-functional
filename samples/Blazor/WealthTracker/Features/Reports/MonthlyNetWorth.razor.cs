@@ -13,7 +13,7 @@ public partial class MonthlyNetWorth
     protected override void OnInitialized()
     {
         _dateRange = GetDateRange();
-        _trimmableDates = _dateRange.Take(3).ToArray();
+        _trimmableDates = [.. _dateRange.Take(3)];
         var accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
         _accountRows = CalculateAccountRows(accounts, _dateRange);
     }
@@ -22,15 +22,13 @@ public partial class MonthlyNetWorth
         _trimmableDates.Contains(date) ? "text-center d-none d-md-table-cell" : "text-center";
 
     private static List<AccountRow> CalculateAccountRows(WealthDataEntity[] accounts, DateTimeOffset[] dateRange) =>
-        accounts.Select(entry => CreateRow(entry, dateRange))
-                .Concat(CreateTotalRow(accounts, dateRange))
-                .ToList();
+        [.. accounts.Select(entry => CreateRow(entry, dateRange)), .. CreateTotalRow(accounts, dateRange)];
 
     private static AccountRow CreateRow(WealthDataEntity account, DateTimeOffset[] dateRange) =>
         new(
             account.Id.ToString(),
             account.Name,
-            dateRange.Select(date => account.GetLatestValueFor(date)).ToArray(),
+            [.. dateRange.Select(account.GetLatestValueFor)],
             account.GetLatestValue());
 
     private static AccountRow[] CreateTotalRow(WealthDataEntity[] accounts, DateTimeOffset[] dateRange) =>
@@ -38,12 +36,11 @@ public partial class MonthlyNetWorth
         new(
             string.Empty,
             Constants.Monthly.TotalLabel,
-            dateRange.Select(d => accounts.Sum(x => x.GetLatestValueFor(d))).ToArray(),
+            [.. dateRange.Select(d => accounts.Sum(x => x.GetLatestValueFor(d)))],
             accounts.Sum(x => x.GetLatestValue()))
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
-        Enumerable.Range(0, Constants.Monthly.BackMonths)
-            .Select(i => DateTimeOffset.Now.AddMonths(-(Constants.Monthly.BackMonths - 1) + i).StartOfMonth())
-            .ToArray();
+        [.. Enumerable.Range(0, Constants.Monthly.BackMonths)
+                      .Select(i => DateTimeOffset.Now.AddMonths(-(Constants.Monthly.BackMonths - 1) + i).StartOfMonth())];
 }

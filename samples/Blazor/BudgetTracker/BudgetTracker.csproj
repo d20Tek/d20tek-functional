@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LowDb.Net.Browser" Version="1.2.4" />
-    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.9" PrivateAssets="all" />
+    <PackageReference Include="LowDb.Net.Browser" Version="1.2.5" />
+    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.11" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

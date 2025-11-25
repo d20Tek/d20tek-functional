@@ -1,5 +1,4 @@
 ﻿using BudgetTracker.Common;
-using BudgetTracker.Persistence;
 using D20Tek.Functional;
 
 namespace BudgetTracker.Domain;

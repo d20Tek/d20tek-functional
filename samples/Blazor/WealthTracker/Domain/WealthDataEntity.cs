@@ -1,29 +1,21 @@
 ﻿namespace WealthTracker.Domain;
 
-internal sealed class WealthDataEntity
+internal sealed class WealthDataEntity(
+    int id,
+    string name,
+    string[]? categories = null,
+    SortedDictionary<DateTimeOffset, decimal>? dailyValues = null)
 {
     public static Exception FutureDateError(string propertyName) =>
         new ArgumentOutOfRangeException(propertyName, "Date value for updates cannot be in the future.");
 
-    public int Id { get; private set; }
+    public int Id { get; private set; } = id;
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = name;
 
-    public string[] Categories { get; private set; }
+    public string[] Categories { get; private set; } = categories ?? [];
 
-    public SortedDictionary<DateTimeOffset, decimal> DailyValues { get; }
-
-    public WealthDataEntity(
-        int id,
-        string name,
-        string[]? categories = null,
-        SortedDictionary<DateTimeOffset, decimal>? dailyValues = null)
-    {
-        Id = id;
-        Name = name;
-        Categories = categories ?? [];
-        DailyValues = dailyValues ?? [];
-    }
+    public SortedDictionary<DateTimeOffset, decimal> DailyValues { get; } = dailyValues ?? [];
 
     public void SetId(int id) => Id = id;
 
@@ -42,8 +34,7 @@ internal sealed class WealthDataEntity
         return this;
     }
 
-    internal void RemoveDailyValue(DateTimeOffset date) =>
-        OnValidDate(date, d => DailyValues.Remove(d.Date));
+    internal void RemoveDailyValue(DateTimeOffset date) => OnValidDate(date, d => DailyValues.Remove(d.Date));
 
     internal WealthDataEntity RemoveDailyValues(IEnumerable<DateTimeOffset> dates)
     {

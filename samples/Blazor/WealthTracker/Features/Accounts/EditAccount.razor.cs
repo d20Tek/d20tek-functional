@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using WealthTracker.Common;
-using WealthTracker.Domain;
 
 namespace WealthTracker.Features.Accounts;
 

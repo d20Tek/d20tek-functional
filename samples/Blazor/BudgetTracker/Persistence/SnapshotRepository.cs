@@ -6,13 +6,10 @@ using D20Tek.LowDb.Repositories;
 
 namespace BudgetTracker.Persistence;
 
-internal class SnapshotRepository : LowDbRepository<ReconciledSnapshot, BudgetDbDocument>, IReconciledSnapshotRepository
+internal class SnapshotRepository(LowDb<BudgetDbDocument> db) : 
+    LowDbRepository<ReconciledSnapshot, BudgetDbDocument>(db, s => s.CompletedSnapshots.Entities),
+    IReconciledSnapshotRepository
 {
-    public SnapshotRepository(LowDb<BudgetDbDocument> db)
-        : base(db, s => s.CompletedSnapshots.Entities)
-    {
-    }
-
     public Result<ReconciledSnapshot> GetSnapshotForMonth(DateTimeOffset date) =>
         Find(x => x.StartDate == date)
             .Map(x => x.First());

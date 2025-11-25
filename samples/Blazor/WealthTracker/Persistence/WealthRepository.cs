@@ -5,10 +5,7 @@ using WealthTracker.Domain;
 
 namespace WealthTracker.Persistence;
 
-internal class WealthRepository : LowDbRepository<WealthDataEntity, WealthDbDocument>, IWealthRepository
+internal class WealthRepository(LowDb<WealthDbDocument> db) : 
+    LowDbRepository<WealthDataEntity, WealthDbDocument>(db, w => w.Entities), IWealthRepository
 {
-    public WealthRepository(LowDb<WealthDbDocument> db)
-        : base(db, w => w.Entities)
-    {
-    }
 }

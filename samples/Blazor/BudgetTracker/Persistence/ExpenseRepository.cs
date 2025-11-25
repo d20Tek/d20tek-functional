@@ -6,13 +6,9 @@ using D20Tek.LowDb.Repositories;
 
 namespace BudgetTracker.Persistence;
 
-internal class ExpenseRepository : LowDbRepository<Expense, BudgetDbDocument>, IExpenseRepository
+internal class ExpenseRepository(LowDb<BudgetDbDocument> db) : 
+    LowDbRepository<Expense, BudgetDbDocument>(db, e => e.Expenses.Entities), IExpenseRepository
 {
-    public ExpenseRepository(LowDb<BudgetDbDocument> db)
-        : base(db, e => e.Expenses.Entities)
-    {
-    }
-
     public Result<IEnumerable<Expense>> GetExpensesToReconcile(int catId, DateRange range) =>
         GetAll().Map(e => e.Where(x => x.CategoryId == catId)
                            .Where(x => range.InRange(x.CommittedDate)));

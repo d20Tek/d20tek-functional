@@ -17,8 +17,7 @@ public partial class UnrecordAccountAmount
         public List<DateTimeOffset> EntriesRemoved { get; } = [];
 
         public void RemoveRecordedEntry(DateTimeOffset date) =>
-            RecordedValues.Remove(date)
-                .Pipe(_ => EntriesRemoved.Add(date));
+            RecordedValues.Remove(date).Pipe(_ => EntriesRemoved.Add(date));
     }
 
     private string _errorMessage = string.Empty;
@@ -47,10 +46,6 @@ public partial class UnrecordAccountAmount
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
 
-    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm)
-    {
-        var result = _repo.GetById(w => w.Id, Id)
-                          .Map(prev => prev.RemoveDailyValues(vm.EntriesRemoved));
-        return result; 
-    }
+    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm) =>
+        _repo.GetById(w => w.Id, Id).Map(prev => prev.RemoveDailyValues(vm.EntriesRemoved));
 }

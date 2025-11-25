@@ -47,10 +47,6 @@ public partial class RecordAccountAmount
     private static Result<ViewModel> Validate(ViewModel vm) =>
         (vm.Date > DateTimeOffset.Now) ? Constants.Accounts.FutureDateError<ViewModel>() : vm;
 
-    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm)
-    {
-        var result = _repo.GetById(w => w.Id, Id)
-                          .Map(prev => prev.AddDailyValue(vm.Date, vm.Amount));
-        return result;
-    }
+    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm) =>
+        _repo.GetById(w => w.Id, Id).Map(prev => prev.AddDailyValue(vm.Date, vm.Amount));
 }

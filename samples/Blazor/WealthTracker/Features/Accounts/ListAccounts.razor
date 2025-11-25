@@ -41,6 +41,5 @@ else
 @code {
     WealthDataEntity[] accounts = [];
 
-    protected override void OnInitialized() => 
-        accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+    protected override void OnInitialized() => accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
 }
