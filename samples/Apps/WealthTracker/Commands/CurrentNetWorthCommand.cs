@@ -32,10 +32,9 @@ internal static class CurrentNetWorthCommand
 
     private static (string Id, string Name, string Value) CreateRow(WealthDataEntry entry) =>
         entry.GetLatestValue().ToIdentity()
-            .Map(v => 
-                (Id: entry.Id.ToString(),
-                 Name: entry.Name.CapOverflow(Constants.Current.ColumnNameLen),
-                 Value: CurrencyComponent.RenderWithNegative(v)));
+            .Map(v => (Id: entry.Id.ToString(),
+                       Name: entry.Name.CapOverflow(Constants.Current.ColumnNameLen),
+                       Value: CurrencyComponent.RenderWithNegative(v)));
 
     private static (string Id, string Name, string Value)[] CreateTotalRow(decimal total) =>
     [

@@ -39,8 +39,7 @@ internal sealed class WealthDataEntry : IEntity
     internal void AddDailyValue(DateTimeOffset date, decimal value) =>
         OnValidDate(date, d => DailyValues[d.Date] = value);
 
-    internal void RemoveDailyValue(DateTimeOffset date) =>
-        OnValidDate(date, d => DailyValues.Remove(d.Date));
+    internal void RemoveDailyValue(DateTimeOffset date) => OnValidDate(date, d => DailyValues.Remove(d.Date));
 
     internal decimal GetLatestValue() => DailyValues.LastOrDefault().Value;
 

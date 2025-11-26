@@ -55,7 +55,6 @@ internal static class MonthlyNetWorthCommand
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
-        Enumerable.Range(0, Constants.Monthly.BackMonths)
-            .Select(i => DateTimeOffset.Now.AddMonths(-(Constants.Monthly.BackMonths - 1) + i).StartOfMonth())
-            .ToArray();
+        [.. Enumerable.Range(0, Constants.Monthly.BackMonths)
+            .Select(i => DateTimeOffset.Now.AddMonths(-(Constants.Monthly.BackMonths - 1) + i).StartOfMonth())];
 }

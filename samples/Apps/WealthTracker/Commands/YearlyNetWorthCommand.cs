@@ -36,10 +36,10 @@ internal static class YearlyNetWorthCommand
         decimal yearlyTotal,
         decimal prevTotal,
         DateTimeOffset date) =>
-            (Year: date.ToDateString(),
-             Value: CurrencyComponent.RenderWithNegative(yearlyTotal).CapOverflow(Constants.Yearly.ColumnValueLen),
-             Delta: CurrencyComponent.RenderWithNegative(yearlyTotal - prevTotal)
-                                     .CapOverflow(Constants.Yearly.ColumnDeltaLen));
+        (Year: date.ToDateString(),
+            Value: CurrencyComponent.RenderWithNegative(yearlyTotal).CapOverflow(Constants.Yearly.ColumnValueLen),
+            Delta: CurrencyComponent.RenderWithNegative(yearlyTotal - prevTotal)
+                                    .CapOverflow(Constants.Yearly.ColumnDeltaLen));
 
     private static (string Year, string Value, string Delta)[] CreateYtdRow(decimal ytdTotal, decimal prevTotal) =>
     [
@@ -49,7 +49,6 @@ internal static class YearlyNetWorthCommand
     ];
 
     private static DateTimeOffset[] GetDateRange() =>
-        Enumerable.Range(0, Constants.Yearly.BackYears)
-            .Select(i => DateTimeOffset.Now.AddYears(-(Constants.Yearly.BackYears - 1) + i).StartOfYear())
-            .ToArray();
+        [.. Enumerable.Range(0, Constants.Yearly.BackYears)
+            .Select(i => DateTimeOffset.Now.AddYears(-(Constants.Yearly.BackYears - 1) + i).StartOfYear())];
 }

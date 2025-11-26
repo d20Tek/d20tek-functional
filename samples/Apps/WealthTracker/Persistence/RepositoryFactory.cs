@@ -11,8 +11,7 @@ internal static class RepositoryFactory
     private static readonly LowDb<WealthDataStore> _dataStore =
         LowDbFactory.CreateLowDb<WealthDataStore>(b =>
             b.UseFileDatabase(_databaseFile)
-                .WithFolder(Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData) + _appFolder));
+             .WithFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + _appFolder));
 
     public static IWealthRepository CreateWealthRepository() =>
         new FileRepository<WealthDataEntry, WealthDataStore>(_dataStore, store => store);

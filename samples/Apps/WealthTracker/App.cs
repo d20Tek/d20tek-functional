@@ -9,15 +9,13 @@ internal static class App
 {
     public static void Run(IAnsiConsole console, IWealthRepository wealthRepo) =>
         AppState.Initialize(console, wealthRepo)
-            .Iter(x => console.DisplayAppHeader(Constants.AppTitle))
-            .IterateUntil(
-                x => NextCommand(x),
-                x => x.CanContinue is false);
+                .Iter(x => console.DisplayAppHeader(Constants.AppTitle))
+                .IterateUntil(NextCommand, x => x.CanContinue is false);
 
     private static AppState NextCommand(AppState prevState) =>
         prevState.Console.GetUserCommandInput()
-            .Bind(inputCommand => FindMetadataType(inputCommand, Configuration.GetCommandTypes()))
-            .Map(m => m.TypeHandler(prevState, m));
+                 .Bind(inputCommand => FindMetadataType(inputCommand, Configuration.GetCommandTypes()))
+                 .Map(m => m.TypeHandler(prevState, m));
 
     private static Identity<string> GetUserCommandInput(this IAnsiConsole console) =>
         console.ToIdentity()
