@@ -19,16 +19,14 @@ internal static class EditCategoryCommand
         IAnsiConsole console,
         ICategoryRepository repo,
         Result<BudgetCategory> editCategory) =>
-            editCategory.Iter(v => v.UpdateCategory(console.GetName(v.Name), console.GetBudgetAmount(v.BudgetedAmount)))
-                        .Map(entry => repo.Update(entry))
-                        .Iter(result => console.DisplayResult(result, Constants.Edit.SuccessMessage));
+        editCategory.Iter(v => v.UpdateCategory(console.GetName(v.Name), console.GetBudgetAmount(v.BudgetedAmount)))
+                    .Map(repo.Update)
+                    .Iter(result => console.DisplayResult(result, Constants.Edit.SuccessMessage));
 
-    private static int GetId(this IAnsiConsole console) =>
-        console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));
+    private static int GetId(this IAnsiConsole console) => console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));
 
     private static string GetName(this IAnsiConsole console, string prevName) =>
-        console.Prompt(new TextPrompt<string>(Constants.Edit.NameLabel)
-                            .DefaultValue(prevName));
+        console.Prompt(new TextPrompt<string>(Constants.Edit.NameLabel).DefaultValue(prevName));
 
     private static decimal GetBudgetAmount(this IAnsiConsole console, decimal prevAmount) =>
         CurrencyComponent.Input(console, Constants.Edit.AmountLabel, prevAmount, false);

@@ -19,9 +19,7 @@ internal static class ShowMonthCommand
         DateTimeOffsetPrompt.GetDate(console, Constants.Month.DateLabel).StartOfMonth();
 
     private static void DisplayReconciledMonth(this IAnsiConsole console, Identity<ReconciledSnapshot> snapshot) =>
-        snapshot
-            .Iter(s => console.DisplayHeader(Constants.Month.HeaderLabel(s.StartDate)))
-            .Iter(s => console.Write(SnapshotTableHelper.CreateIncomeTable(s)))
-            .Iter(s => console.Write(SnapshotTableHelper.CreateExpenseTable(s)));
-
+        snapshot.Iter(s => console.DisplayHeader(Constants.Month.HeaderLabel(s.StartDate)))
+                .Iter(s => console.Write(SnapshotTableHelper.CreateIncomeTable(s)))
+                .Iter(s => console.Write(SnapshotTableHelper.CreateExpenseTable(s)));
 }

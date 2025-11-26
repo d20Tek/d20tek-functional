@@ -24,10 +24,10 @@ internal static class ListCategoriesCommand
 
     private static void AddRowsForEntries(this Table table, BudgetCategory[] categories) =>
         categories.ToIdentity()
-            .Map(e => (e.Length != 0)
-                ? categories.Select(entry => CreateRow(entry)).ToList()
-                : [(string.Empty, Constants.List.NoCategoriesMessage, string.Empty)])
-            .Iter(rows => rows.ForEach(x => table.AddRow(x.Id, x.Name, x.Amount)));
+                  .Map(e => (e.Length != 0)
+                       ? categories.Select(entry => CreateRow(entry)).ToList()
+                       : [(string.Empty, Constants.List.NoCategoriesMessage, string.Empty)])
+                  .Iter(rows => rows.ForEach(x => table.AddRow(x.Id, x.Name, x.Amount)));
 
     private static (string Id, string Name, string Amount) CreateRow(BudgetCategory category) =>
         (Id: category.Id.ToString(),

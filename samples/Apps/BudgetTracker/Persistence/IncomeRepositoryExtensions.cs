@@ -7,7 +7,7 @@ namespace BudgetTracker.Persistence;
 internal static class IncomeRepositoryExtensions
 {
     public static Income[] GetIncomeToReconcile(this IIncomeRepository incRepo, DateRange range) =>
-        incRepo.GetEntities().Where(x => range.InRange(x.DepositDate)).ToArray();
+        [.. incRepo.GetEntities().Where(x => range.InRange(x.DepositDate))];
 
     public static Result<Income[]> DeleteByDateRange(this IIncomeRepository incRepo, DateRange range) =>
         incRepo.DeleteMany(incRepo.GetIncomeToReconcile(range));

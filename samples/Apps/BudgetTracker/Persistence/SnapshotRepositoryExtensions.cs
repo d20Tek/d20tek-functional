@@ -18,7 +18,9 @@ internal static class SnapshotRepositoryExtensions
         this IReconciledSnapshotRepository snapRepo,
         DateTimeOffset date) =>
         snapRepo.GetEntities().FirstOrDefault(x => x.StartDate == date)
-            .Pipe(snapshot => snapshot is null ? SnapshotNotFoundError : Result<ReconciledSnapshot>.Success(snapshot));
+                .Pipe(snapshot => snapshot is null 
+                               ? SnapshotNotFoundError
+                               : Result<ReconciledSnapshot>.Success(snapshot));
 
     public static ReconciledSnapshot[] GetSnapshotsForDateRange(
         this IReconciledSnapshotRepository snapRepo,

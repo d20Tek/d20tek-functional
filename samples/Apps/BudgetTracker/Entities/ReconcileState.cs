@@ -10,6 +10,5 @@ internal sealed record ReconcileState(
     ReconciledExpenses[] Expenses,
     ReconciledExpenses? TotalExpenses) : IState
 {
-    public static ReconcileState Initialize(DateRange range) =>
-        new(range, [], null, [], null);
+    public static ReconcileState Initialize(DateRange range) => new(range, [], null, [], null);
 }

@@ -37,8 +37,7 @@ internal sealed class Configuration
         new ("exit", ["exit", "x"], CommonHandlers.Exit)
     ];
 
-    public static string[] GetCommands() =>
-        GetCommandTypes().SelectMany(x => x.AllowedCommands).ToArray();
+    public static string[] GetCommands() => [.. GetCommandTypes().SelectMany(x => x.AllowedCommands)];
 
     public static CommandTypeMetadata ErrorTypeHandler(string command) =>
         new("error", [], (x, t) => CommonHandlers.Error(x, command, t));

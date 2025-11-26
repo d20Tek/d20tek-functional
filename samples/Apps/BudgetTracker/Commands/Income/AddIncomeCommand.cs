@@ -9,9 +9,8 @@ internal static class AddIncomeCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Add.Header))
-             .Iter(s => s.IncomeRepo
-                            .Create(s.Console.GatherIncomeData())
-                            .Pipe(result => s.Console.DisplayResult(result, Constants.Add.SuccessMessage)))
+             .Iter(s => s.IncomeRepo.Create(s.Console.GatherIncomeData())
+                                    .Pipe(result => s.Console.DisplayResult(result, Constants.Add.SuccessMessage)))
              .Map(_ => state with { Command = metadata.Name });
 
     private static Income GatherIncomeData(this IAnsiConsole console) =>

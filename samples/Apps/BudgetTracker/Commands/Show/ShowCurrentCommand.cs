@@ -12,8 +12,8 @@ internal static class ShowCurrentCommand
             state.IncomeRepo,
             state.CategoryRepo,
             state.ExpenseRepo).ToIdentity()
-                .Iter(r => state.Console.DisplayHeader(Constants.Current.HeaderLabel))
-                .Iter(r => state.Console.Write(SnapshotTableHelper.CreateIncomeTable(r)))
-                .Iter(r => state.Console.Write(SnapshotTableHelper.CreateExpenseTable(r)))
-                .Map(r => state with { Command = metadata.Name });
+                 .Iter(r => state.Console.DisplayHeader(Constants.Current.HeaderLabel))
+                 .Iter(r => state.Console.Write(SnapshotTableHelper.CreateIncomeTable(r)))
+                 .Iter(r => state.Console.Write(SnapshotTableHelper.CreateExpenseTable(r)))
+                 .Map(r => state with { Command = metadata.Name });
 }

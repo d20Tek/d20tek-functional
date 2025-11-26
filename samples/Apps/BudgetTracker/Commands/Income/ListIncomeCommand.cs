@@ -25,10 +25,10 @@ internal static class ListIncomeCommand
 
     private static void AddRowsForEntries(this Table table, Income[] income) =>
         income.ToIdentity()
-            .Map(e => (e.Length != 0)
-                ? income.Select(entry => CreateRow(entry)).ToList()
-                : [[string.Empty, Constants.List.NoExpensesMessage, string.Empty, string.Empty]])
-            .Iter(rows => rows.ForEach(x => table.AddRow(x)));
+              .Map(e => (e.Length != 0)
+                   ? income.Select(entry => CreateRow(entry)).ToList()
+                   : [[string.Empty, Constants.List.NoExpensesMessage, string.Empty, string.Empty]])
+              .Iter(rows => rows.ForEach(x => table.AddRow(x)));
 
     private static string[] CreateRow(Income income) =>
     [

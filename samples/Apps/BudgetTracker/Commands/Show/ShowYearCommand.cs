@@ -15,11 +15,11 @@ internal static class ShowYearCommand
 
     private static void DisplaySnapshotTable(this AppState state) =>
         DateTimeOffset.Now.StartOfMonth().ToIdentity()
-            .Map(date => new DateRange(date.AddYears(-1), date))
-            .Map(range => state.SnapshotRepo.GetSnapshotsForDateRange(range))
-            .Iter(snapshots => state.Console.Write(
-                ListSnapshotsCommand.CreateTable(snapshots)
-                                    .Pipe(t => t.AddTotalsRow(snapshots))));
+                      .Map(date => new DateRange(date.AddYears(-1), date))
+                      .Map(range => state.SnapshotRepo.GetSnapshotsForDateRange(range))
+                      .Iter(snapshots => state.Console.Write(
+                          ListSnapshotsCommand.CreateTable(snapshots)
+                                              .Pipe(t => t.AddTotalsRow(snapshots))));
 
     private static Table AddTotalsRow(this Table table, ReconciledSnapshot[] snapshots) => 
         table.ToIdentity()

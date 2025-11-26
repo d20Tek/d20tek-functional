@@ -12,8 +12,7 @@ internal static class RepositoryFactory
     private static readonly LowDb<BudgetDataStore> _dataStore =
         LowDbFactory.CreateLowDb<BudgetDataStore>(b =>
             b.UseFileDatabase(_databaseFile)
-                .WithFolder(Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData) + _appFolder));
+             .WithFolder(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + _appFolder));
 
     public static ICategoryRepository CreateCategoryRepository() =>
         new FileRepository<BudgetCategory, BudgetDataStore>(_dataStore, store => store.Categories);

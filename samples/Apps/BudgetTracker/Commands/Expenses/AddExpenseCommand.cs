@@ -9,9 +9,9 @@ internal static class AddExpenseCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Add.Header))
-                     .Iter(s => s.ExpenseRepo
-                                 .Create(s.Console.GatherExpenseData(s.CategoryRepo))
-                                 .Pipe(result => s.Console.DisplayResult(result, Constants.Add.SuccessMessage)))
+                         .Iter(s => s.ExpenseRepo
+                                     .Create(s.Console.GatherExpenseData(s.CategoryRepo))
+                                     .Pipe(result => s.Console.DisplayResult(result, Constants.Add.SuccessMessage)))
              .Map(_ => state with { Command = metadata.Name });
 
     private static Expense GatherExpenseData(this IAnsiConsole console, ICategoryRepository catRepo) =>

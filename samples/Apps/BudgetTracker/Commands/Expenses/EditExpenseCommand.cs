@@ -16,20 +16,18 @@ internal static class EditExpenseCommand
              .Map(s => s with { Command = metadata.Name });
 
     private static void PerformEdit(this AppState state, Result<Expense> editExpense) =>
-            editExpense.Iter(v => v.UpdateExpense(
-                                        state.Console.GetName(v.Name),
-                                        state.Console.GetCategoryId(state.CategoryRepo, v.CategoryId),
-                                        state.Console.GetCommittedDate(v.CommittedDate),
-                                        state.Console.GetActual(v.Actual)))
-                      .Map(entry => state.ExpenseRepo.Update(entry))
-                      .Iter(result => state.Console.DisplayResult(result, Constants.Edit.SuccessMessage));
+        editExpense.Iter(v => v.UpdateExpense(
+                                    state.Console.GetName(v.Name),
+                                    state.Console.GetCategoryId(state.CategoryRepo, v.CategoryId),
+                                    state.Console.GetCommittedDate(v.CommittedDate),
+                                    state.Console.GetActual(v.Actual)))
+                    .Map(state.ExpenseRepo.Update)
+                    .Iter(result => state.Console.DisplayResult(result, Constants.Edit.SuccessMessage));
 
-    private static int GetId(this IAnsiConsole console) =>
-        console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));
+    private static int GetId(this IAnsiConsole console) => console.Prompt(new TextPrompt<int>(Constants.Edit.IdLabel));
 
     private static string GetName(this IAnsiConsole console, string prevName) =>
-        console.Prompt(new TextPrompt<string>(Constants.Edit.NameLabel)
-                            .DefaultValue(prevName));
+        console.Prompt(new TextPrompt<string>(Constants.Edit.NameLabel).DefaultValue(prevName));
 
     private static int GetCategoryId(this IAnsiConsole console, ICategoryRepository catRepo, int prevCatId) =>
         console.GetExistingCategoryId(Constants.Edit.CategoryIdLabel, catRepo, prevCatId);

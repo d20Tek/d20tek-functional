@@ -20,8 +20,8 @@ internal static class SnapshotTableHelper
 
     private static void AddRowsForIncome(this Table table, ReconciledSnapshot snapshot) =>
         snapshot.ToIdentity()
-            .Iter(s => s.Income.ForEach(x => table.AddRow(x.Name, CurrencyComponent.Render(x.Amount))))
-            .Iter(s => table.AddTotalIncomeRow(s.TotalIncome));
+                .Iter(s => s.Income.ForEach(x => table.AddRow(x.Name, CurrencyComponent.Render(x.Amount))))
+                .Iter(s => table.AddTotalIncomeRow(s.TotalIncome));
 
     private static void AddTotalIncomeRow(this Table table, ReconciledIncome total) =>
         table.AddRow(Constants.Tables.TotalIncomeSeparator)

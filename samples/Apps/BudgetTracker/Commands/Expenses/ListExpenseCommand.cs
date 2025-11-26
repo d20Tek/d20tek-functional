@@ -27,8 +27,8 @@ internal static class ListExpenseCommand
     private static void AddRowsForEntries(this Table table, Expense[] expenses, ICategoryRepository catRepo) =>
         expenses.ToIdentity()
                 .Map(e => (e.Length != 0)
-                    ? expenses.Select(entry => CreateRow(entry, catRepo)).ToList()
-                    : [[string.Empty, Constants.List.NoExpensesMessage, string.Empty, string.Empty, string.Empty]])
+                     ? expenses.Select(entry => CreateRow(entry, catRepo)).ToList()
+                     : [[string.Empty, Constants.List.NoExpensesMessage, string.Empty, string.Empty, string.Empty]])
                 .Iter(rows => rows.ForEach(x => table.AddRow(x)));
 
     private static string[] CreateRow(Expense expense, ICategoryRepository catRepo) =>

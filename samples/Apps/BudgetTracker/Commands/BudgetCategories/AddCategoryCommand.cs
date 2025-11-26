@@ -9,9 +9,8 @@ internal static class AddCategoryCommand
 {
     public static AppState Handle(AppState state, CommandTypeMetadata metadata) =>
         state.Iter(s => s.Console.DisplayHeader(Constants.Add.Header))
-             .Iter(s => s.CategoryRepo
-                            .Create(s.CreateEntity())
-                            .Pipe(result => s.Console.DisplayResult(result, e => Constants.Delete.SuccessMessage(e))))
+             .Iter(s => s.CategoryRepo.Create(s.CreateEntity())
+                         .Pipe(result => s.Console.DisplayResult(result, e => Constants.Delete.SuccessMessage(e))))
              .Map(_ => state with { Command = metadata.Name });
 
     private static BudgetCategory CreateEntity(this AppState state) =>
