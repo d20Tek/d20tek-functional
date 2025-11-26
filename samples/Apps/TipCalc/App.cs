@@ -11,7 +11,8 @@ internal static class App
             .Iter(_ => console.DisplayAppHeader(Constants.AppTitle))
             .Bind(_ => console.GatherTipRequest()
                 .Map(request => (Request: request, Response: CalculateTipCommand.Handle(request)))
-                .Iter(x => console.DisplayResult(x.Response, response => ShowTipResponseCommand.Handle(console, x.Request, response))))
+                .Iter(x => console.DisplayResult(
+                    x.Response, response => ShowTipResponseCommand.Handle(console, x.Request, response))))
                 .Map(x => x.Response.ToResultCode());
 
     private static Identity<TipRequest> GatherTipRequest(this IAnsiConsole console) =>

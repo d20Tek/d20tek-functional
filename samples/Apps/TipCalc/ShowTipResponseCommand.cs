@@ -8,7 +8,7 @@ internal static class ShowTipResponseCommand
     public static void Handle(IAnsiConsole console, TipRequest request, TipResponse response) =>
         CreateTableForReponse(request, response)
             .Iter(_ => console.WriteLine())
-            .Iter(table => console.Write(table));
+            .Iter(console.Write);
 
     private static Identity<Table> CreateTableForReponse(TipRequest request, TipResponse response) =>
         new Table()

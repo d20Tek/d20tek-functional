@@ -6,10 +6,8 @@ internal class WeightConverter : IUnitConverter
 {
     public Result<decimal> Convert(decimal value, string fromUnit, string toUnit) =>
         Result<decimal>.Success(value)
-            .Bind(x => UnitToKilogramFactor(fromUnit)
-                .Map(from => x * from))
-            .Bind(x => UnitToKilogramFactor(toUnit)
-                .Map(to => x / to));
+            .Bind(x => UnitToKilogramFactor(fromUnit).Map(from => x * from))
+            .Bind(x => UnitToKilogramFactor(toUnit).Map(to => x / to));
 
     private static Result<decimal> UnitToKilogramFactor(string unit) =>
         unit.ToLower() switch

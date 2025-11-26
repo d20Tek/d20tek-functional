@@ -17,8 +17,8 @@ internal static class DateTimeOffsetPrompt
 
     public static DateTimeOffset GetPastDate(IAnsiConsole console, string label, DateTimeOffset prevDate) =>
         console.Prompt(CreatePastPrompt(label)
-            .DefaultValue(prevDate)
-            .WithConverter(date => date.ToDateString()));
+               .DefaultValue(prevDate)
+               .WithConverter(date => date.ToDateString()));
 
     private static TextPrompt<DateTimeOffset> CreatePastPrompt(string label) =>
         new TextPrompt<DateTimeOffset>(label)

@@ -7,7 +7,7 @@ internal static class CalculateTipCommand
     public static Result<TipResponse> Handle(TipRequest request) =>
         TryExcept.Run(
             () => Result<TipResponse>.Success(CalcTip(request)),
-            ex => Result<TipResponse>.Failure(ex));
+            Result<TipResponse>.Failure);
 
     private static TipResponse CalcTip(TipRequest request) =>
         CalcTipAmount(request.OriginalPrice, request.TipPercentage)

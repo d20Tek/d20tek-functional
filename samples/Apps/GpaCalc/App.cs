@@ -16,10 +16,10 @@ internal static class App
             onException: console.HandleErrorMessage);
 
     private static Course[] GetCourses(this IAnsiConsole console) =>
-        CoursesExtensions.InitializeCourses().IterateUntil(
+        [.. CoursesExtensions.InitializeCourses().IterateUntil(
             c => c.Append(new(console.GetCourseName(), console.GetNumCredits(), console.GetLetterGrade())),
-            c => c.Any() && console.ConfirmGradesComplete()
-            ).ToArray();
+            c => c.Any() && console.ConfirmGradesComplete())
+        ];
 
     private static string GetCourseName(this IAnsiConsole console) =>
         console.Prompt(new TextPrompt<string>(Constants.CourseNameLabel));

@@ -8,9 +8,7 @@ internal static class App
     public static void Run(IAnsiConsole console) =>
         Identity<ConverterState>.Create(new ConverterState(console))
             .Iter(x => console.Write(GetDisplayTitle()))
-            .IterateUntil(
-                x => NextCommand(x),
-                x => x.Get().CanContinue is false);
+            .IterateUntil(NextCommand, x => x.Get().CanContinue is false);
 
     private static Identity<ConverterState> NextCommand(Identity<ConverterState> prevState) =>
         prevState.Iter(s => s.Console.WriteLine())

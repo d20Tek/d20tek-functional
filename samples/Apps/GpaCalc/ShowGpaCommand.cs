@@ -9,7 +9,7 @@ internal static class ShowGpaCommand
     public static int Handle(IAnsiConsole console, Course[] courses, double gpa) =>
         CreateTable(courses, gpa)
             .Iter(_ => console.WriteMessage(Constants.TableTitle))
-            .Iter(table => console.Write(table))
+            .Iter(console.Write)
             .Map(_ => 0);
 
     private static Identity<Table> CreateTable(Course[] courses, double gpa) =>

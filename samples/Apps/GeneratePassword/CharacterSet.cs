@@ -35,11 +35,12 @@ internal static class CharacterSet
         ]);
 
     private static HashSet<char> CalculateExclusions(Config config) =>
-        new(string.Concat(
-            [
-                config.ExcludeAmbiguous ? _ambiguous : string.Empty,
-                config.ExcludeBrackets ? _brackets : string.Empty,
-            ]));
+    [.. string.Concat(
+        [
+            config.ExcludeAmbiguous ? _ambiguous : string.Empty,
+            config.ExcludeBrackets ? _brackets : string.Empty,
+        ])
+    ];
 
     private static string GetWorkingSet(string fullCharSet, HashSet<char> excludes) =>
         new(fullCharSet.Where(x => !excludes.Contains(x)).ToArray());

@@ -24,8 +24,7 @@ internal static class PasswordGenerator
             _ => Result<PasswordState>.Success(new PasswordState(request.Length, request.Config, request.Rnd))
         };
 
-    private static PasswordState GetCharacterSet(PasswordState s) =>
-        s with { CharSet = s.Config.GetCharacterSet() };
+    private static PasswordState GetCharacterSet(PasswordState s) => s with { CharSet = s.Config.GetCharacterSet() };
 
     private static string GetRandomCharacters(PasswordState state) =>
         new (Enumerable
@@ -35,7 +34,7 @@ internal static class PasswordGenerator
                 .ToArray());
 
     private static string Shuffle(this string inputChars, Func<int, int> rnd) =>
-        new(inputChars.ToCharArray().OrderBy(_ => rnd(int.MaxValue)).ToArray());
+        new([.. inputChars.ToCharArray().OrderBy(_ => rnd(int.MaxValue))]);
 
     private static PasswordState CalculateEntropy(PasswordState state) =>
         state with { Entropy = state.Length * Math.Log2(state.CharSet.Length) };

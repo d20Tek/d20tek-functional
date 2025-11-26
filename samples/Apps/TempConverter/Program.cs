@@ -28,5 +28,4 @@ static Optional<string> HandleFtoC(IAnsiConsole console) =>
         .Map(tempF => (TempC: TemperatureConverter.FahrenheitToCelsius(tempF).Get(), TempF: tempF))
         .Map(t => $"{t.TempF}°F => {t.TempC}°C");
 
-static Optional<decimal> GetDegrees(IAnsiConsole console, string label) =>
-    console.Ask<decimal>(label);
+static Optional<decimal> GetDegrees(IAnsiConsole console, string label) => console.Ask<decimal>(label);

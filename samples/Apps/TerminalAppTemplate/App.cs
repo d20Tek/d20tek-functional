@@ -10,9 +10,7 @@ internal static class App
     public static void Run(IAnsiConsole console) =>
         AppState.Initialize(console)
             .Iter(x => console.DisplayAppHeader(Constants.AppTitle))
-            .IterateUntil(
-                x => NextCommand(x),
-                x => x.CanContinue is false);
+            .IterateUntil(NextCommand, x => x.CanContinue is false);
 
     private static AppState NextCommand(AppState prevState) =>
         prevState.Console.GetUserCommandInput()
