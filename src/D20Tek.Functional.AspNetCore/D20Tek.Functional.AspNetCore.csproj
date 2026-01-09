@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -22,7 +22,11 @@ The extensions for ASP.NET Core add functionality to working with controller-bas
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'net10.0'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
 		<InternalsVisibleTo Include="D20Tek.Functional.UnitTests" />
 	</ItemGroup>
 
