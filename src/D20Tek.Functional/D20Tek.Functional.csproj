@@ -15,6 +15,8 @@
     <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce</PackageTags>
     <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods. Replaced Option&lt;T&gt; class with Optional&lt;T&gt; for fewer naming conflicts in .NET.</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AssemblyVersion>1.0.6</AssemblyVersion>
+    <FileVersion>1.0.6</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

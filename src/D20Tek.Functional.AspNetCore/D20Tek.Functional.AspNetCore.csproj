@@ -16,6 +16,8 @@ The extensions for ASP.NET Core add functionality to working with controller-bas
     <RepositoryType>git</RepositoryType>
     <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce; controllers; webapi; minimal webapi</PackageTags>
     <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.6</AssemblyVersion>
+    <FileVersion>1.0.6</FileVersion>
   </PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework) == 'net9.0'">
