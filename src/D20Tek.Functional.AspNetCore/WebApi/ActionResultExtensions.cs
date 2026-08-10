@@ -1,14 +1,25 @@
 ﻿namespace D20Tek.Functional.AspNetCore.WebApi;
 
+/// <summary>
+/// Extension methods for <see cref="ControllerBase"/> that convert <see cref="Error"/> arrays
+/// into RFC 7807 Problem Details <see cref="ActionResult{T}"/> responses for Web API controllers.
+/// </summary>
 public static class ActionResultExtensions
 {
     private const string _errorsExtensionName = "errors";
 
+    /// <summary>
+    /// Converts a collection of <see cref="Error"/> instances into a Problem Details <see cref="ActionResult{T}"/>.
+    /// Validation errors produce a 400 ValidationProblem; other errors produce a standard Problem response.
+    /// </summary>
     public static ActionResult<TResult> Problem<TResult>(this ControllerBase controller, IEnumerable<Error> errors) =>
         errors.Any() && errors.All(e => e.Type == ErrorType.Validation) 
             ? ValidationProblem<TResult>(controller, errors)
             : ProblemInternal<TResult>(controller, errors);
 
+    /// <summary>
+    /// Converts a single <see cref="Error"/> into a Problem Details <see cref="ActionResult{T}"/>.
+    /// </summary>
     public static ActionResult<TResult> Problem<TResult>(this ControllerBase controller, Error error) =>
         (error.Type == ErrorType.Validation)
             ? ValidationProblem<TResult>(controller,[error])
@@ -17,6 +28,9 @@ public static class ActionResultExtensions
                 detail: error.Message,
                 errorsExtension: CreateErrorsExtension(error));
 
+    /// <summary>
+    /// Creates a Problem Details response with an explicit status code, error code, and message.
+    /// </summary>
     public static ActionResult<TResult> Problem<TResult>(
         this ControllerBase controller,
         int statusCode,
@@ -27,8 +41,14 @@ public static class ActionResultExtensions
             detail: message,
             errorsExtension: CreateErrorsExtension(Error.Create(errorCode, message, statusCode)));
 
+    /// <summary>
+    /// Converts an <see cref="IConvertToActionResult"/> to an <see cref="IActionResult"/>.
+    /// </summary>
     public static IActionResult ToIActionResult(this IConvertToActionResult actionResult) => actionResult.Convert();
 
+    /// <summary>
+    /// Asynchronously converts a <c>Task&lt;ActionResult&lt;T&gt;&gt;</c> to an <see cref="IActionResult"/>.
+    /// </summary>
     public static async Task<IActionResult> ToIActionResultAsync<T>(this Task<ActionResult<T>> actionResult) =>
         (await actionResult).ToIActionResult();
 

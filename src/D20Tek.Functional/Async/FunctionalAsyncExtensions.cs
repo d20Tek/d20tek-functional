@@ -1,7 +1,14 @@
 ﻿namespace D20Tek.Functional.Async;
 
+/// <summary>
+/// Async versions of the general-purpose functional extension methods (Alt, Fork, Pipe, IterateUntil).
+/// Enables async pipeline composition and iterative computations with async update functions.
+/// </summary>
 public static class FunctionalAsyncExtensions
 {
+    /// <summary>
+    /// Asynchronously applies each function in <paramref name="args"/> to the awaited value, returning the first non-null result.
+    /// </summary>
     public static async Task<TOut?> AltAsync<TIn, TOut>(this Task<TIn> instance, params Func<TIn, Task<TOut>>[] args)
     {
         var value = await instance;
@@ -15,6 +22,9 @@ public static class FunctionalAsyncExtensions
         return default;
     }
 
+    /// <summary>
+    /// Asynchronously forks the awaited value through two functions, then joins the results with <paramref name="fOut"/>.
+    /// </summary>
     public static async Task<TOut> ForkAsync<TIn, T1, T2, TOut>(
         this Task<TIn> instance,
         Func<TIn, Task<T1>> f1,
@@ -25,6 +35,9 @@ public static class FunctionalAsyncExtensions
         return await fOut(await f1(value), await f2(value));
     }
 
+    /// <summary>
+    /// Asynchronously forks the awaited value through two functions, then joins the results with a void action.
+    /// </summary>
     public static async Task ForkAsync<TIn, T1, T2>(
         this Task<TIn> instance,
         Func<TIn, Task<T1>> f1,
@@ -35,9 +48,15 @@ public static class FunctionalAsyncExtensions
         await fOut(await f1(value), await f2(value));
     }
 
+    /// <summary>
+    /// Asynchronously pipes the awaited value through <paramref name="func"/> and returns the transformed result.
+    /// </summary>
     public static async Task<TResult> PipeAsync<T, TResult>(this Task<T> instance, Func<T, Task<TResult>> func) => 
         await func(await instance);
 
+    /// <summary>
+    /// Asynchronously pipes the awaited value through <paramref name="action"/> for side effects, then returns the original value.
+    /// </summary>
     public static async Task<T> PipeAsync<T>(this Task<T> instance, Func<T, Task> action)
     {
         var value = await instance;
@@ -45,6 +64,9 @@ public static class FunctionalAsyncExtensions
         return value;
     }
 
+    /// <summary>
+    /// Asynchronously iterates by applying <paramref name="updateFunction"/> until <paramref name="endCondition"/> is satisfied.
+    /// </summary>
     public static async Task<T> IterateUntilAsync<T>(
         this Task<T> instance, Func<T, Task<T>> updateFunction, Func<T, Task<bool>> endCondition)
     {
@@ -66,6 +88,10 @@ public static class FunctionalAsyncExtensions
         return currentThis;
     }
 
+    /// <summary>
+    /// Asynchronously iterates by applying <paramref name="updateFunction"/> until <paramref name="endCondition"/> is satisfied,
+    /// returning a <see cref="Result{T}"/> that captures any exceptions as failures.
+    /// </summary>
     public static async Task<Result<T>> IterateUntilAsync<T>(
         this Task<T> instance, Func<T, Task<Result<T>>> updateFunction, Func<T, Task<bool>> endCondition)
         where T : notnull

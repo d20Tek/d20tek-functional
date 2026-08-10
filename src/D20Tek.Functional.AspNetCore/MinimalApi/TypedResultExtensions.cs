@@ -1,12 +1,23 @@
 ﻿namespace D20Tek.Functional.AspNetCore.MinimalApi;
 
+/// <summary>
+/// Extension methods on <see cref="IResultExtensions"/> for converting <see cref="Error"/> arrays
+/// into RFC 7807 Problem Details responses in Minimal APIs.
+/// </summary>
 public static class TypedResultExtensions
 {
     private const string _errorsExtensionName = "errors";
 
+    /// <summary>
+    /// Converts a collection of <see cref="Error"/> instances into an RFC 7807 Problem Details response.
+    /// Validation errors produce a 400 ValidationProblem; other errors produce a standard Problem response.
+    /// </summary>
     public static IResult Problem(this IResultExtensions _, IEnumerable<Error> errors) =>
         errors.Any() && errors.All(e => e.Type == ErrorType.Validation) ? ValidationProblem(errors) : Problem(errors);
 
+    /// <summary>
+    /// Converts a single <see cref="Error"/> into an RFC 7807 Problem Details response.
+    /// </summary>
     public static IResult Problem(this IResultExtensions _, Error error) =>
         (error.Type == ErrorType.Validation)
             ? ValidationProblem([error])
@@ -15,6 +26,9 @@ public static class TypedResultExtensions
                 detail: error.Message,
                 extensions: CreateErrorsExtension(error));
 
+    /// <summary>
+    /// Creates a Problem Details response with an explicit status code, error code, and message.
+    /// </summary>
     public static IResult Problem(this IResultExtensions _, int statusCode, string errorCode, string message) =>
         Results.Problem(
             statusCode: statusCode,

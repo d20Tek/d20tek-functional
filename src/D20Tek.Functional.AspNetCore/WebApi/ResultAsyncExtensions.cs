@@ -2,8 +2,15 @@
 
 namespace D20Tek.Functional.AspNetCore.WebApi.Async;
 
+/// <summary>
+/// Async extension methods for converting <c>Task&lt;Result&lt;T&gt;&gt;</c> into <see cref="ActionResult{T}"/>
+/// responses in Web API controllers. Supports OK, Created, and CreatedAtAction patterns in async pipelines.
+/// </summary>
 public static class ResultAsyncExtensions
 {
+    /// <summary>
+    /// Asynchronously converts a result to an <see cref="ActionResult{T}"/>, mapping the success value to a response DTO.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         Func<TValue, TResponse> responseMap,
@@ -12,6 +19,9 @@ public static class ResultAsyncExtensions
             s => Task.FromResult<ActionResult<TResponse>>(controller.Ok(responseMap(s))),
             e => Task.FromResult(controller.Problem<TResponse>(e)));
 
+    /// <summary>
+    /// Asynchronously converts a result to an <see cref="ActionResult{T}"/>, returning a fixed response on success.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         TResponse response,
@@ -20,6 +30,9 @@ public static class ResultAsyncExtensions
             s => Task.FromResult<ActionResult<TResponse>>(controller.Ok(response)), 
             e => Task.FromResult(controller.Problem<TResponse>(e)));
 
+    /// <summary>
+    /// Asynchronously converts a result to a 201 CreatedAtAction response, mapping the success value.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToCreatedActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         Func<TValue, TResponse> responseMap,
@@ -31,6 +44,9 @@ public static class ResultAsyncExtensions
                         controller.CreatedAtAction(routeName, routeValues, responseMap(s))),
             e => Task.FromResult(controller.Problem<TResponse>(e)));
 
+    /// <summary>
+    /// Asynchronously converts a result to a 201 CreatedAtAction response with a fixed response object.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToCreatedActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         TResponse response,
@@ -42,6 +58,9 @@ public static class ResultAsyncExtensions
                         controller.CreatedAtAction(routeName, routeValues, response)),
             e => Task.FromResult(controller.Problem<TResponse>(e)));
 
+    /// <summary>
+    /// Asynchronously converts a result to a 201 Created response with the specified URI, mapping the success value.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToCreatedActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         Func<TValue, TResponse> responseMap,
@@ -51,6 +70,9 @@ public static class ResultAsyncExtensions
             s => Task.FromResult<ActionResult<TResponse>>(controller.Created(routeUri, responseMap(s))),
             e => Task.FromResult(controller.Problem<TResponse>(e)));
 
+    /// <summary>
+    /// Asynchronously converts a result to a 201 Created response with a fixed response object.
+    /// </summary>
     public static async Task<ActionResult<TResponse>> ToCreatedActionResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         TResponse response,
