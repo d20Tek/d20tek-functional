@@ -184,4 +184,76 @@ public class ValidationErrorsAsyncTests
         result.IsSuccess.Should().BeTrue();
         result.GetValue().Should().BeTrue();
     }
+
+    [TestMethod]
+    public async Task BindAsync_WithError_ReturnsFailureResult()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => true, err);
+
+        // act
+        var result = await errors.BindAsync([ExcludeFromCodeCoverage] () => Task.FromResult(Result<bool>.Success(true)));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeTrue();
+        result.IsSuccess.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task BindAsync_WithoutError_CallsOnSuccess()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => false, err);
+
+        // act
+        var result = await errors.BindAsync(() => Task.FromResult(Result<bool>.Success(true)));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeFalse();
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task BindAsync_TaskWithError_ReturnsFailureResult()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => true, err);
+        var task = Task.FromResult(errors);
+
+        // act
+        var result = await task.BindAsync([ExcludeFromCodeCoverage] () => Task.FromResult(Result<bool>.Success(true)));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeTrue();
+        result.IsSuccess.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task BindAsync_TaskWithoutError_CallsOnSuccess()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => false, err);
+        var task = Task.FromResult(errors);
+
+        // act
+        var result = await task.BindAsync(() => Task.FromResult(Result<bool>.Success(true)));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeFalse();
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().BeTrue();
+    }
 }

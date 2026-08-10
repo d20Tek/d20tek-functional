@@ -123,4 +123,39 @@ public class ValidationErrorsTests
         result.Should().NotBeNull();
         result.Should().Contain(err);
     }
+
+    [TestMethod]
+    public void Bind_WithError_ReturnsFailureResult()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => true, err);
+
+        // act
+        var result = errors.Bind([ExcludeFromCodeCoverage] () => Result<bool>.Success(true));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeTrue();
+        result.IsSuccess.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void Bind_WithoutError_CallsOnSuccess()
+    {
+        // arrange
+        var err = Error.Validation("Test.Error", "Test message");
+        var errors = ValidationErrors.Create();
+        errors.AddIfError(() => false, err);
+
+        // act
+        var result = errors.Bind(() => Result<bool>.Success(true));
+
+        // assert
+        result.Should().NotBeNull();
+        result.IsFailure.Should().BeFalse();
+        result.IsSuccess.Should().BeTrue();
+        result.GetValue().Should().BeTrue();
+    }
 }

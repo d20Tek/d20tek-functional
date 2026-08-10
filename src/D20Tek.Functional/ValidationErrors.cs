@@ -23,6 +23,8 @@ public sealed class ValidationErrors
 
     public Result<T> Map<T>(Func<T> onSuccess) where T : notnull => HasErrors ? ToFailure<T>() : onSuccess();
 
+    public Result<T> Bind<T>(Func<Result<T>> onSuccess) where T : notnull => HasErrors ? ToFailure<T>() : onSuccess();
+
     public Error[] ToArray() => [.. _errors];
 
     public Result<T> ToFailure<T>() where T : notnull => Result<T>.Failure([.. _errors]);

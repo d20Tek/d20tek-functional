@@ -28,4 +28,12 @@ public static class ValidationErrorsExtensions
     public static async Task<Result<T>> MapAsync<T>(this Task<ValidationErrors> task, Func<Task<T>> onSuccess)
         where T : notnull =>
         await (await task).MapAsync(onSuccess);
+
+    public static async Task<Result<T>> BindAsync<T>(this ValidationErrors errors, Func<Task<Result<T>>> bind) 
+        where T : notnull =>
+        errors.HasErrors ? errors.ToFailure<T>() : await bind();
+
+    public static async Task<Result<T>> BindAsync<T>(this Task<ValidationErrors> task, Func<Task<Result<T>>> bind)
+        where T : notnull =>
+        await (await task).BindAsync(bind);
 }
