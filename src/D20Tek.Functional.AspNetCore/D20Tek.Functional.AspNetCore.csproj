@@ -18,6 +18,12 @@ The extensions for ASP.NET Core add functionality to working with controller-bas
     <RepositoryType>git</RepositoryType>
     <PackageTags>FP; functional programming; functional; Option pattern; Result pattern; Map, Bind, Reduce; controllers; webapi; minimal webapi</PackageTags>
     <PackageReleaseNotes>Initial version with basic functional programming helper classes and extension methods.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>package-icon.png</PackageIcon>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyVersion>1.0.6</AssemblyVersion>
     <FileVersion>1.0.6</FileVersion>
   </PropertyGroup>
@@ -35,13 +41,18 @@ The extensions for ASP.NET Core add functionality to working with controller-bas
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\package-icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
-	
+
 	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.*" PrivateAssets="All" />
 		<ProjectReference Include="..\D20Tek.Functional\D20Tek.Functional.csproj" />
 	</ItemGroup>
 
