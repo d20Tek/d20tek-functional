@@ -1,8 +1,8 @@
-# D20Tek.Functional
+# Functionally
 
 ## Introduction
 
-Welcome to D20Tek.Functional code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. I took inspiration for this library (and a couple of the sample games - ChutesAndLadders and MartianTrail) from "Functional Programming in C#" by Simon J Painter (https://github.com/madSimonJ/FunctionalProgrammingWithCSharp).
+Welcome to the Functionally code library (aka D20Tek.Functional), this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. I took inspiration for this library (and a couple of the sample games - ChutesAndLadders and MartianTrail) from "Functional Programming in C#" by Simon J Painter (https://github.com/madSimonJ/FunctionalProgrammingWithCSharp).
 
 I added the D20Tek.Functional.AspNetCore library to this project as well. It wraps some common functionality to transform Result<T> objects into appropriate service endpoint responses, or ProblemDetails for errors that occur. This library removes a lot of repetitive code for dealing with results in WebApi development. It's a separate package to minimize dependencies on the base package, and only add that overhead if you need to integrate with ASP.NET.
 
