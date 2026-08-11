@@ -7,9 +7,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>D20Tek Functional</Title>
+    <Title>Functionally</Title>
     <Company>d20Tek</Company>
-    <Description>Welcome to D20Tek.Functional code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. </Description>
+    <Description>Welcome to the Functionally code library, this package contains a set of classes that improve the functional programming experience in C#. I based many of the library classes and api on F#'s functional capabilities to ensure smooth usage between the two: classes like Option, Result, and Choice; and methods like Iter, Bind, and Map. </Description>
     <Copyright>Copyright (c) d20Tek.  All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/d20Tek/d20tek-functional</PackageProjectUrl>
     <RepositoryUrl>https://github.com/d20Tek/d20tek-functional</RepositoryUrl>
