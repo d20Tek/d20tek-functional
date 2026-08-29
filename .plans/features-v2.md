@@ -17,7 +17,7 @@
 
 ## Implementation Details
 
-### 1. `Unit` Type
+### 1. `Unit` Type [Done]
 
 A zero-size struct representing "no meaningful value" — the functional equivalent of `void`.
 

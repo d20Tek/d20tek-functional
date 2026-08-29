@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.35027.167
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12105.206 oobstable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{482E7CED-27CA-45A0-948E-DA0091DE44A5}"
 EndProject
@@ -68,6 +68,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetTracker", "samples\Blazor\BudgetTracker\BudgetTracker.csproj", "{F21F79F1-6840-4E1D-9BF8-CD8570CACC3C}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Apps.Common", "samples\Apps\Apps.Common\Apps.Common.shproj", "{C3E996B1-74DA-49B8-A5AD-73DC3F079533}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".plans", ".plans", "{E1A038F7-C88A-442C-B479-548E87B7F95B}"
+	ProjectSection(SolutionItems) = preProject
+		.plans\features-v2.md = .plans\features-v2.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
