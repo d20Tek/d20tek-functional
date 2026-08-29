@@ -1,3 +1,9 @@
+[![CI Build](https://github.com/d20Tek/d20tek-functional/actions/workflows/ci-build.yml/badge.svg)](https://github.com/d20Tek/d20tek-functional/actions/workflows/ci-build.yml)
+[![NuGet Release](https://github.com/d20Tek/d20tek-functional/actions/workflows/nuget-release.yml/badge.svg)](https://github.com/d20Tek/d20tek-functional/actions/workflows/nuget-release.yml)
+[![NuGet (D20Tek.Functional)](https://img.shields.io/nuget/v/D20Tek.Functional.svg?label=D20Tek.Functional)](https://www.nuget.org/packages/D20Tek.Functional/)
+[![NuGet (D20Tek.Functional.AspNetCore)](https://img.shields.io/nuget/v/D20Tek.Functional.AspNetCore.svg?label=D20Tek.Functional.AspNetCore)](https://www.nuget.org/packages/D20Tek.Functional.AspNetCore/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/d20Tek/d20tek-functional/blob/main/LICENSE)
+
 # Functionally
 
 ## Introduction
@@ -14,8 +20,8 @@ There is also an extensive set of sample console applications and simple games t
 This library is a NuGet package so it is easy to add to your project. To install the package into your solution, you can use the NuGet Package Manager. In PM, please use the following command:
 
 ```cmd
-PM > Install-Package D20Tek.Functional -Version 1.1.5
-PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.1.5
+PM > Install-Package D20Tek.Functional -Version 1.1.7
+PM > Install-Package D20Tek.Functional.AspNetCore -Version 1.1.7
 ```
 
 To install in the Visual Studio UI, go to the Tools menu > "Manage NuGet Packages". Then search for D20Tek.Functional, and install whichever packages you require from there.
@@ -24,6 +30,18 @@ To install in the Visual Studio UI, go to the Tools menu > "Manage NuGet Package
 Once you've installed the NuGet package, you can start using it in your .NET projects.
 
 Code examples are in the samples folder of this repository.
+
+### Unit type
+Use the `Unit` type when a `Result<T>` represents a side-effect-only operation that has no meaningful return value. Because C# generics can't use `void` as a type argument, `Result<Unit>` lets you model "succeeded with nothing to return" without inventing a dummy value:
+
+```csharp
+Result<Unit> SaveChanges()
+{
+    // ... perform the side effect ...
+    return Result.Success();          // successful Result<Unit>
+    // return Result.Failure(error);  // failed Result<Unit>
+}
+```
 
 ## Samples
 
