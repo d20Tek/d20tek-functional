@@ -1,6 +1,7 @@
 ﻿using BudgetTracker.Common;
 using BudgetTracker.Domain;
 using D20Tek.Functional;
+using D20Tek.Functional.Async;
 
 namespace BudgetTracker.Features.Snapshots;
 
@@ -16,8 +17,8 @@ public partial class ReconcileMonth
     private Optional<string> _errorMessage = Optional<string>.None();
     private readonly ViewModel _vm = new();
 
-    private void BuildSnapshotHandler() =>
-        _vm.Snapshot = ReconciledBuilder.GenerateSnapshot(
+    private async Task BuildSnapshotHandler() =>
+        _vm.Snapshot = await ReconciledBuilder.GenerateSnapshot(
             GetDateRange(_vm.ReconcileDate),
             _incRepo,
             _catRepo,
@@ -27,31 +28,31 @@ public partial class ReconcileMonth
         date.StartOfMonth()
             .Pipe(start => new DateRange(start, start.AddMonths(1)));
 
-    private void ReconcileHandler() => SaveReconciledSnapshot(_vm.Snapshot.Get());
+    private Task ReconcileHandler() => SaveReconciledSnapshot(_vm.Snapshot.Get());
 
-    private void SaveReconciledSnapshot(ReconciledSnapshot snapshot) =>
-        Validate(snapshot, _snapRepo)
-            .Bind(s => _snapRepo.Add(snapshot))
-            .Bind(_ => _incRepo.RemoveByDateRange(snapshot.GetDateRange()))
-            .Bind(_ => _expRepo.RemoveByDateRange(snapshot.GetDateRange()))
-            .Iter(_ => SaveAllChanges())
-            .HandleResult(s => _errorMessage = Constants.Reconcile.ReconcileSucceeded, e => _errorMessage = e);
+    private async Task SaveReconciledSnapshot(ReconciledSnapshot snapshot) =>
+        await (await Validate(snapshot, _snapRepo))
+            .BindAsync(s => _snapRepo.AddAsync(snapshot))
+            .BindAsync(_ => _incRepo.RemoveByDateRange(snapshot.GetDateRange()))
+            .BindAsync(_ => _expRepo.RemoveByDateRange(snapshot.GetDateRange()))
+            .IterAsync(_ => SaveAllChanges())
+            .HandleResultAsync(s => _errorMessage = Constants.Reconcile.ReconcileSucceeded, e => _errorMessage = e);
 
-    private void SaveAllChanges()
+    private async Task SaveAllChanges()
     {
-        _snapRepo.SaveChanges();
-        _incRepo.SaveChanges();
-        _expRepo.SaveChanges();
+        await _snapRepo.SaveChangesAsync();
+        await _incRepo.SaveChangesAsync();
+        await _expRepo.SaveChangesAsync();
     }
 
-    private static Result<ReconciledSnapshot> Validate(
+    private static async Task<Result<ReconciledSnapshot>> Validate(
         ReconciledSnapshot snapshot,
         IReconciledSnapshotRepository repo) =>
         snapshot switch
         {
             { TotalIncome.Amount: <= 0, TotalExpenses.Actual: <= 0 } => 
                 Constants.Reconcile.SnapshotEmptyError,
-            _ when repo.Exists(s => s.StartDate == snapshot.StartDate).GetValue() =>
+            _ when (await repo.ExistsAsync(s => s.StartDate == snapshot.StartDate)).GetValue() =>
                 Constants.Reconcile.SnapshotAlreadyExistsError,
             _ => snapshot
         };

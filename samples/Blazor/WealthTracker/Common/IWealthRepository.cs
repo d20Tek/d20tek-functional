@@ -3,4 +3,4 @@ using WealthTracker.Domain;
 
 namespace WealthTracker.Common;
 
-internal interface IWealthRepository : IRepository<WealthDataEntity>;
+internal interface IWealthRepository : IRepositoryAsync<WealthDataEntity>;

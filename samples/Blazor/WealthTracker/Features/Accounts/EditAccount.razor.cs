@@ -22,18 +22,18 @@ public partial class EditAccount
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized() =>
-        _repo.GetById(w => w.Id, Id)
-             .HandleResult(
+    protected override async Task OnInitializedAsync() =>
+        await _repo.GetByIdAsync(w => w.Id, Id)
+             .HandleResultAsync(
                 s => _account = new ViewModel { Id = s.Id, Name = s.Name, Categories = [.. s.Categories] },
                 e => _errorMessage = e);
 
-    private void UpdateHandler() =>
-        _account.MatchAction(
-            a => _repo.GetById(w => w.Id, Id)
-                      .Bind(entity => _repo.Update(entity.UpdateEntry(a.Name, [.. a.Categories])))
-                      .Iter(_ => _repo.SaveChanges())
-                      .HandleResult(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
+    private async Task UpdateHandler() =>
+        await _account.MatchActionAsync(
+            a => _repo.GetByIdAsync(w => w.Id, Id)
+                      .BindAsync(entity => _repo.UpdateAsync(entity.UpdateEntry(a.Name, [.. a.Categories])))
+                      .IterAsync(_ => _repo.SaveChangesAsync())
+                      .HandleResultAsync(s => _nav.NavigateTo(Constants.Accounts.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Accounts.ListUrl);

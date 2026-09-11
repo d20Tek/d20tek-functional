@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Common;
 using D20Tek.Functional;
+using D20Tek.Functional.Async;
 using Microsoft.AspNetCore.Components;
 
 namespace BudgetTracker.Features.BudgetCategories;
@@ -21,19 +22,19 @@ public partial class EditCategory
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized() =>
-        _repo.GetById(c => c.Id, Id)
-             .HandleResult(
+    protected override async Task OnInitializedAsync() =>
+        await _repo.GetByIdAsync(c => c.Id, Id)
+             .HandleResultAsync(
                 s => _vm = new ViewModel { Id = s.Id, Name = s.Name, BudgetedAmount = s.BudgetedAmount },
                 e => _errorMessage = e);
 
-    private void UpdateHandler() =>
-        _vm.MatchAction(
-            a => _repo.GetById(c => c.Id, Id)
-                      .Map(prev => prev.UpdateCategory(a.Name, a.BudgetedAmount))
-                      .Map(updated => _repo.Update(updated))
-                      .Iter(_ => _repo.SaveChanges())
-                      .HandleResult(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e),
+    private async Task UpdateHandler() =>
+        await _vm.MatchActionAsync(
+            a => _repo.GetByIdAsync(c => c.Id, Id)
+                      .MapAsync(prev => Task.FromResult(prev.UpdateCategory(a.Name, a.BudgetedAmount)))
+                      .BindAsync(updated => _repo.UpdateAsync(updated))
+                      .IterAsync(_ => _repo.SaveChangesAsync())
+                      .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Categories.MissingCategoryError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Categories.ListUrl);

@@ -4,23 +4,23 @@ using D20Tek.LowDb.Repositories;
 
 namespace BudgetTracker.Common;
 
-internal interface ICategoryRepository : IRepository<BudgetCategory>;
+internal interface ICategoryRepository : IRepositoryAsync<BudgetCategory>;
 
-internal interface IExpenseRepository : IRepository<Expense>
+internal interface IExpenseRepository : IRepositoryAsync<Expense>
 {
-    Result<IEnumerable<Expense>> GetExpensesToReconcile(int catId, DateRange range);
+    Task<Result<IEnumerable<Expense>>> GetExpensesToReconcile(int catId, DateRange range);
 
-    Result<IEnumerable<Expense>> RemoveByDateRange(DateRange range);
+    Task<Result<IEnumerable<Expense>>> RemoveByDateRange(DateRange range);
 }
 
-internal interface IIncomeRepository : IRepository<Income>
+internal interface IIncomeRepository : IRepositoryAsync<Income>
 {
-    Result<IEnumerable<Income>> RemoveByDateRange(DateRange range);
+    Task<Result<IEnumerable<Income>>> RemoveByDateRange(DateRange range);
 }
 
-internal interface IReconciledSnapshotRepository : IRepository<ReconciledSnapshot>
+internal interface IReconciledSnapshotRepository : IRepositoryAsync<ReconciledSnapshot>
 {
-    Result<ReconciledSnapshot> GetSnapshotForMonth(DateTimeOffset date);
+    Task<Result<ReconciledSnapshot>> GetSnapshotForMonth(DateTimeOffset date);
 
-    Result<IEnumerable<ReconciledSnapshot>> GetSnapshotsForDateRange(DateRange range);
+    Task<Result<IEnumerable<ReconciledSnapshot>>> GetSnapshotsForDateRange(DateRange range);
 }
