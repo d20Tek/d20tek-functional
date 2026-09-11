@@ -8,6 +8,6 @@ internal static class RepositoryFactory
     public const string _databaseKey = "wealth-data-key";
 
     public static IServiceCollection AddRepository(this IServiceCollection services) =>
-        services.AddLocalLowDb<WealthDbDocument>(_databaseKey)
+        services.AddLocalLowDbAsync<WealthDbDocument>(_databaseKey)
                 .AddScoped<IWealthRepository, WealthRepository>();
 }

@@ -41,5 +41,9 @@ else
 @code {
     WealthDataEntity[] accounts = [];
 
-    protected override void OnInitialized() => accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+    protected override async Task OnInitializedAsync() =>
+        accounts = await _repo.GetAllAsync()
+                              .MatchAsync(
+                                s => Task.FromResult(s.ToArray()),
+                                _ => Task.FromResult(Array.Empty<WealthDataEntity>()));
 }

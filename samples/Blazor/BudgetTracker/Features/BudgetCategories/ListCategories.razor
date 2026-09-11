@@ -41,6 +41,9 @@ else
 @code {
     BudgetCategory[] _categories = [];
 
-    protected override void OnInitialized() => 
-        _categories = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+    protected override async Task OnInitializedAsync() => 
+        _categories = await _repo.GetAllAsync()
+                                 .MatchAsync(
+                                    s => Task.FromResult(s.ToArray()),
+                                    _ => Task.FromResult(Array.Empty<BudgetCategory>()));
 }

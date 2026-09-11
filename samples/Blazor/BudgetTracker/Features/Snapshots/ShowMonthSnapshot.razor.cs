@@ -13,7 +13,7 @@ public partial class ShowMonthSnapshot
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized() =>
-        _snapRepo.GetById(s => s.Id, Id)
-                 .HandleResult(s => _snapshot = s, e => _errorMessage = e);
+    protected override async Task OnInitializedAsync() =>
+        await _snapRepo.GetByIdAsync(s => s.Id, Id)
+                       .HandleResultAsync(s => _snapshot = s, e => _errorMessage = e);
 }

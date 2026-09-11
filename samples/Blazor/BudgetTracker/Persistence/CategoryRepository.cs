@@ -5,7 +5,7 @@ using D20Tek.LowDb.Repositories;
 
 namespace BudgetTracker.Persistence;
 
-internal class CategoryRepository(LowDb<BudgetDbDocument> db) : 
-    LowDbRepository<BudgetCategory, BudgetDbDocument>(db, c => c.Categories.Entities), ICategoryRepository
+internal class CategoryRepository(LowDbAsync<BudgetDbDocument> db) : 
+    LowDbAsyncRepository<BudgetCategory, BudgetDbDocument>(db, c => c.Categories.Entities), ICategoryRepository
 {
 }

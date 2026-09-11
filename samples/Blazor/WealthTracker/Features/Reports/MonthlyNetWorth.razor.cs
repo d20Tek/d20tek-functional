@@ -10,11 +10,14 @@ public partial class MonthlyNetWorth
     private DateTimeOffset[] _trimmableDates = [];
     private List<AccountRow> _accountRows = [];
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _dateRange = GetDateRange();
         _trimmableDates = [.. _dateRange.Take(3)];
-        var accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+        var accounts = await _repo.GetAllAsync()
+                                  .MatchAsync(
+                                    s => Task.FromResult(s.ToArray()),
+                                    _ => Task.FromResult(Array.Empty<WealthDataEntity>()));
         _accountRows = CalculateAccountRows(accounts, _dateRange);
     }
 

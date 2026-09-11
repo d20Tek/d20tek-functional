@@ -8,9 +8,12 @@ public partial class YearlyNetWorth
 
     private List<YearRow> _years = [];
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        var accounts = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+        var accounts = await _repo.GetAllAsync()
+                                  .MatchAsync(
+                                    s => Task.FromResult(s.ToArray()),
+                                    _ => Task.FromResult(Array.Empty<WealthDataEntity>()));
         _years = CalculateYearResults(accounts, GetDateRange());
     }
 

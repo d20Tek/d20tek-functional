@@ -43,5 +43,9 @@ else
 @code {
     Income[] income = [];
 
-    protected override void OnInitialized() => income = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+    protected override async Task OnInitializedAsync() =>
+        income = await _repo.GetAllAsync()
+                            .MatchAsync(
+                                s => Task.FromResult(s.ToArray()),
+                                _ => Task.FromResult(Array.Empty<Income>()));
 }

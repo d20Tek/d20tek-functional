@@ -27,25 +27,25 @@ public partial class UnrecordAccountAmount
     [Parameter]
     public int Id { get; set; }
 
-    protected override void OnInitialized() =>
-        _repo.GetById(w => w.Id, Id)
-             .HandleResult(s =>
+    protected override async Task OnInitializedAsync() =>
+        await _repo.GetByIdAsync(w => w.Id, Id)
+             .HandleResultAsync(s =>
                 {
                     _optionalVM = new ViewModel { Id = s.Id, Name = s.Name, RecordedValues = new(s.DailyValues) };
                     _account = s;
                 },
                 e => _errorMessage = e);
 
-    private void UpdateHandler() =>
-        _optionalVM.MatchAction(
+    private async Task UpdateHandler() =>
+        await _optionalVM.MatchActionAsync(
             vm =>  ChangeDailyValues(vm)
-                      .Map(updated => _repo.Update(updated))
-                      .Iter(_ => _repo.SaveChanges())
-                      .HandleResult(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
+                      .BindAsync(updated => _repo.UpdateAsync(updated))
+                      .IterAsync(_ => _repo.SaveChangesAsync())
+                      .HandleResultAsync(s => _nav.NavigateTo(Constants.Reports.CurrentUrl), e => _errorMessage = e),
             () => _errorMessage = Constants.Accounts.MissingAccountError);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Reports.CurrentUrl);
 
-    private Result<WealthDataEntity> ChangeDailyValues(ViewModel vm) =>
-        _repo.GetById(w => w.Id, Id).Map(prev => prev.RemoveDailyValues(vm.EntriesRemoved));
+    private Task<Result<WealthDataEntity>> ChangeDailyValues(ViewModel vm) =>
+        _repo.GetByIdAsync(w => w.Id, Id).MapAsync(prev => Task.FromResult(prev.RemoveDailyValues(vm.EntriesRemoved)));
 }

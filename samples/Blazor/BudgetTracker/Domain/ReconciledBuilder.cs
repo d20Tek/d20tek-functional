@@ -5,18 +5,19 @@ namespace BudgetTracker.Domain;
 
 internal static class ReconciledBuilder
 {
-    public static ReconciledSnapshot GenerateSnapshot(
+    public static async Task<ReconciledSnapshot> GenerateSnapshot(
         DateRange range,
         IIncomeRepository incRepo,
         ICategoryRepository catRepo,
-        IExpenseRepository expRepo) =>
-            ReconcileState.Initialize(range)
-                .Map(s => s.CalculateIncome(incRepo))
-                .Map(s => s.CalculateGroupedExpenses(catRepo, expRepo))
-                .Map(s => s.MapToSnapshot(range));
+        IExpenseRepository expRepo)
+    {
+        var withIncome = await ReconcileState.Initialize(range).CalculateIncome(incRepo);
+        var withExpenses = await withIncome.CalculateGroupedExpenses(catRepo, expRepo);
+        return withExpenses.MapToSnapshot(range);
+    }
 
-    private static ReconcileState CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
-        incRepo.Find(i => state.Range.InRange(i.DepositDate))
+    private static async Task<ReconcileState> CalculateIncome(this ReconcileState state, IIncomeRepository incRepo) =>
+        (await incRepo.FindAsync(i => state.Range.InRange(i.DepositDate)))
             .Map(incomes => incomes.Select(x => new ReconciledIncome(x.Name, x.Amount)))
             .Map(reconciled => state with
             {
@@ -24,24 +25,24 @@ internal static class ReconciledBuilder
                 TotalIncome = new(Constants.TotalIncomeLabel, reconciled.Sum(x => x.Amount))
             }).GetValue();
 
-    private static ReconcileState CalculateGroupedExpenses(
+    private static async Task<ReconcileState> CalculateGroupedExpenses(
         this ReconcileState state,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
-        state.CalcReconciledExpenses(catRepo, expRepo)
+        (await state.CalcReconciledExpenses(catRepo, expRepo))
              .Pipe(expenses => CalcTotalExpenses(expenses)
                 .Pipe(total => state with { Expenses = [.. expenses], TotalExpenses = total }));
 
-    private static ReconciledExpenses[] CalcReconciledExpenses(
+    private static async Task<ReconciledExpenses[]> CalcReconciledExpenses(
         this ReconcileState state,
         ICategoryRepository catRepo,
         IExpenseRepository expRepo) =>
-        catRepo.GetAll().GetValue()
-               .Select(cat =>
-                    expRepo.GetExpensesToReconcile(cat.Id, state.Range)
+        [.. await Task.WhenAll(
+            (await catRepo.GetAllAsync()).GetValue()
+               .Select(async cat =>
+                    (await expRepo.GetExpensesToReconcile(cat.Id, state.Range))
                         .Match(x => x.Sum(e => e.Actual), _ => 0)
-                        .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a)))
-               .ToArray();
+                        .Pipe(a => new ReconciledExpenses(cat.Name, cat.BudgetedAmount, a, cat.BudgetedAmount - a))))];
 
     private static ReconciledExpenses CalcTotalExpenses(ReconciledExpenses[] exp) =>
         new(Constants.TotalExpensesLabel, exp.Sum(x => x.Budget), exp.Sum(x => x.Actual), exp.Sum(x => x.Remaining));

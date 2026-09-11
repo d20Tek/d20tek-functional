@@ -31,5 +31,9 @@
 @code {
     ReconciledSnapshot[] _snapshots = [];
 
-    protected override void OnInitialized() => _snapshots = _repo.GetAll().Match(s => s.ToArray(), _ => []);
+    protected override async Task OnInitializedAsync() => 
+        _snapshots = await _repo.GetAllAsync()
+                                .MatchAsync(
+                                    s => Task.FromResult(s.ToArray()), 
+                                    _ => Task.FromResult(Array.Empty<ReconciledSnapshot>()));
 }

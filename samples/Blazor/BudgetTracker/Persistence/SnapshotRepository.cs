@@ -1,20 +1,21 @@
 ﻿using BudgetTracker.Common;
 using BudgetTracker.Domain;
 using D20Tek.Functional;
+using D20Tek.Functional.Async;
 using D20Tek.LowDb;
 using D20Tek.LowDb.Repositories;
 
 namespace BudgetTracker.Persistence;
 
-internal class SnapshotRepository(LowDb<BudgetDbDocument> db) : 
-    LowDbRepository<ReconciledSnapshot, BudgetDbDocument>(db, s => s.CompletedSnapshots.Entities),
+internal class SnapshotRepository(LowDbAsync<BudgetDbDocument> db) : 
+    LowDbAsyncRepository<ReconciledSnapshot, BudgetDbDocument>(db, s => s.CompletedSnapshots.Entities),
     IReconciledSnapshotRepository
 {
-    public Result<ReconciledSnapshot> GetSnapshotForMonth(DateTimeOffset date) =>
-        Find(x => x.StartDate == date)
-            .Map(x => x.First());
+    public Task<Result<ReconciledSnapshot>> GetSnapshotForMonth(DateTimeOffset date) =>
+        FindAsync(x => x.StartDate == date)
+            .MapAsync(x => Task.FromResult(x.First()));
 
-    public Result<IEnumerable<ReconciledSnapshot>> GetSnapshotsForDateRange(DateRange range) =>
-        Find(x => range.InRange(x.StartDate))
-            .Map(x => x.OrderBy(x => x.StartDate).AsEnumerable());
+    public Task<Result<IEnumerable<ReconciledSnapshot>>> GetSnapshotsForDateRange(DateRange range) =>
+        FindAsync(x => range.InRange(x.StartDate))
+            .MapAsync(x => Task.FromResult(x.OrderBy(x => x.StartDate).AsEnumerable()));
 }

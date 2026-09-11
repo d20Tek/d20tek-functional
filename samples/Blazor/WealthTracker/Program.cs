@@ -1,4 +1,5 @@
 global using D20Tek.Functional;
+global using D20Tek.Functional.Async;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
