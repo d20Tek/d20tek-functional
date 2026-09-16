@@ -46,11 +46,15 @@ Result<Unit> DoWork() => Result<Unit>.Success(Unit.Value);
 
 ---
 
-### 2. LINQ Query Syntax Support
+### 2. LINQ Query Syntax Support [Done]
 
 Implement `Select` and `SelectMany` on `Optional<T>` and `Result<T>` to enable LINQ comprehension syntax.
 
 **Why it matters:** C# developers are deeply familiar with LINQ. Supporting query syntax makes monadic composition feel native rather than requiring method-chain fluency with `Bind`/`Map`.
+
+**Implementation notes:**
+- `Select`/`SelectMany`/`Where` live in the main `D20Tek.Functional` namespace (not a separate `Linq` namespace) so query syntax compiles with the same `using` that brings in the core types.
+- `Optional<T>.Where` delegates to `Filter`. `Result<T>.Where` takes an explicit `Error` argument (it cannot be used via the parameterless `where` clause) so a rejected value never produces a hidden/invented error.
 
 **Implementation approach:**
 - Add `Select<T, TResult>(this Optional<T>, Func<T, TResult>)` — delegates to `Map`.
