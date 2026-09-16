@@ -55,6 +55,7 @@ C# has picked up plenty of functional features over the years - LINQ, lambdas, p
 - **Discriminated unions** - `Choice<T1, T2>` (and its async variants) model a value that is legitimately one of several types, matched exhaustively rather than with type checks.
 - **Supporting monads and helpers** - `Identity<T>` lifts plain values into pipelines, the `State` extensions support immutable state transitions, `ValidationErrors` accumulates multiple validation failures, and `TryExcept` turns try/catch/finally into expressions.
 - **General combinators** - extension methods such as `Pipe`, `Fork`, `Alt`, `IterateUntil`, `IfTrueOrElse`, and `ForEach` bring a functional style to any type.
+- **LINQ query syntax** - `Optional<T>` and `Result<T>` implement `Select` and `SelectMany` (and `Where`), so you can compose them with the `from ... select ...` syntax you already know.
 - **First-class async** - the `D20Tek.Functional.Async` namespace mirrors the synchronous operators with `MatchAsync`, `BindAsync`, `MapAsync`, and `IterAsync`, plus `Task` helpers like `ThenAsync`, so asynchronous code composes just as cleanly.
 - **ASP.NET Core integration** - `D20Tek.Functional.AspNetCore` converts `Result<T>` into Minimal API `IResult` or MVC `ActionResult<T>` responses, maps `Error` values to RFC 7807 Problem Details, and provides filters that handle results automatically.
 

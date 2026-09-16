@@ -15,6 +15,8 @@ This reference documents the primary types in the `D20Tek.Functional` namespace.
 - [Identity&lt;T&gt;](#identityt)
 - [State (IState and StateExtensions)](#state-istate-and-stateextensions)
 - [TryExcept](#tryexcept)
+- [OptionalLinqExtensions](#optionallinqextensions)
+- [ResultLinqExtensions](#resultlinqextensions)
 - [FunctionalExtensions](#functionalextensions)
 - [BooleanExtensions](#booleanextensions)
 - [IEnumerableExtensions](#ienumerableextensions)
@@ -289,6 +291,47 @@ Provides functional try/catch/finally wrappers that return values or `Result<T>`
 | `Result<TResult> Bind<T, TResult>(Func<T> operation, Func<T, Result<TResult>> bind)` | Executes `operation`, passes its result to `bind`, and returns the Result. On exception, returns a failure Result. |
 
 Additional overloads that wrap operations into a success Result via a mapper are also provided.
+
+---
+
+## OptionalLinqExtensions
+
+LINQ query syntax support for `Optional<T>`. Implementing `Select`, `SelectMany`, and `Where` enables C# query comprehension syntax (`from ... select ...`) over optional values, delegating to the existing `Map`, `Bind`, and `Filter` operators. Because these methods live in the main `D20Tek.Functional` namespace, query syntax works with the same `using` that brings in `Optional<T>`.
+
+| Member | Description |
+| --- | --- |
+| `Optional<TResult> Select<T, TResult>(this Optional<T> option, Func<T, TResult> selector)` | Projects the contained value. Enables the `select` clause and is equivalent to `Map`. |
+| `Optional<TResult> SelectMany<T, TIntermediate, TResult>(this Optional<T> option, Func<T, Optional<TIntermediate>> selector, Func<T, TIntermediate, TResult> resultSelector)` | Binds to an intermediate optional and combines both values. Enables multiple `from` clauses and is equivalent to `Bind` followed by `Map`. |
+| `Optional<T> Where<T>(this Optional<T> option, Func<T, bool> predicate)` | Keeps the value only if it satisfies the predicate. Enables the `where` clause and is equivalent to `Filter`. |
+
+```csharp
+Optional<UserAccountDto> result =
+    from user in GetUser(id)
+    from account in GetAccount(user.AccountId)
+    where account.IsActive
+    select new UserAccountDto(user.Name, account.Balance);
+```
+
+---
+
+## ResultLinqExtensions
+
+LINQ query syntax support for `Result<T>`. Implementing `Select` and `SelectMany` enables C# query comprehension syntax over results, delegating to the existing `Map` and `Bind` operators. Like the optional variant, these methods live in the main `D20Tek.Functional` namespace.
+
+| Member | Description |
+| --- | --- |
+| `Result<TResult> Select<T, TResult>(this Result<T> result, Func<T, TResult> selector)` | Projects the success value. Enables the `select` clause and is equivalent to `Map`. |
+| `Result<TResult> SelectMany<T, TIntermediate, TResult>(this Result<T> result, Func<T, Result<TIntermediate>> selector, Func<T, TIntermediate, TResult> resultSelector)` | Binds to an intermediate result and combines both values. Enables multiple `from` clauses and is equivalent to `Bind` followed by `Map`. Errors from either result are propagated. |
+| `Result<T> Where<T>(this Result<T> result, Func<T, bool> predicate, Error error)` | Keeps the success value only if it satisfies the predicate; otherwise produces a failure containing `error`. Unlike `Optional<T>`, filtering a `Result<T>` requires an explicit error so nothing is hidden or invented. |
+
+```csharp
+Result<UserAccountDto> result =
+    from user in GetUser(id)
+    from account in GetAccount(user.AccountId)
+    select new UserAccountDto(user.Name, account.Balance);
+```
+
+Note that `Result<T>.Where` takes an explicit `Error` argument, so it cannot be used with the parameterless `where` clause of query syntax. Call it directly as an extension method when you need predicate-based filtering with a specific error.
 
 ---
 

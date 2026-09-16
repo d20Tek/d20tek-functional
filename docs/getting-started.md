@@ -110,6 +110,35 @@ Result<Order> Validate(string name, int quantity) =>
 		.Map(() => new Order(name, quantity));
 ```
 
+## Composing with LINQ query syntax
+
+If you prefer LINQ comprehension syntax, `Optional<T>` and `Result<T>` support `Select` and `SelectMany`, so you can compose them with `from ... select ...`. These extensions live in the main `D20Tek.Functional` namespace, so the same `using` that brings in the types also enables query syntax.
+
+```csharp
+using D20Tek.Functional;
+
+Result<UserAccountDto> LoadAccount(int id) =>
+	from user in GetUser(id)              // Result<User>
+	from account in GetAccount(user.Id)   // Result<Account>
+	select new UserAccountDto(user.Name, account.Balance);
+```
+
+If any step returns a failure (or `None` for `Optional<T>`), the query short-circuits and the failure flows through unchanged. `Optional<T>` also supports the `where` clause:
+
+```csharp
+Optional<int> firstEven =
+	from n in ParseNumber(input)
+	where n % 2 == 0
+	select n;
+```
+
+For `Result<T>`, filtering requires an explicit error to represent the rejected value, so `Result<T>.Where` takes an `Error` argument and is called directly rather than through the `where` clause:
+
+```csharp
+Result<int> positive = ParseAmount(input)
+	.Where(n => n > 0, Error.Validation("Amount.Positive", "Amount must be positive."));
+```
+
 ## Working asynchronously
 
 The `D20Tek.Functional.Async` namespace mirrors the synchronous operators for `Task`-based code:
