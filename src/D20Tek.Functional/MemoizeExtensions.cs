@@ -67,4 +67,57 @@ public static class MemoizeExtensions
                 () => func(key.Item1, key.Item2, key.Item3), LazyThreadSafetyMode.ExecutionAndPublication))
             .Value;
     }
+
+    /// <summary>
+    /// Wraps <paramref name="func"/> in a memoizing cache keyed by its four arguments.
+    /// </summary>
+    /// <typeparam name="T1">The first argument type.</typeparam>
+    /// <typeparam name="T2">The second argument type.</typeparam>
+    /// <typeparam name="T3">The third argument type.</typeparam>
+    /// <typeparam name="T4">The fourth argument type.</typeparam>
+    /// <typeparam name="TResult">The result type.</typeparam>
+    /// <param name="func">The pure function to memoize.</param>
+    public static Func<T1, T2, T3, T4, TResult> Memoize<T1, T2, T3, T4, TResult>(
+        this Func<T1, T2, T3, T4, TResult> func)
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
+    {
+        var cache = new ConcurrentDictionary<(T1, T2, T3, T4), Lazy<TResult>>();
+
+        return (arg1, arg2, arg3, arg4) => cache.GetOrAdd(
+            (arg1, arg2, arg3, arg4),
+            key => new Lazy<TResult>(
+                () => func(key.Item1, key.Item2, key.Item3, key.Item4), LazyThreadSafetyMode.ExecutionAndPublication))
+            .Value;
+    }
+
+    /// <summary>
+    /// Wraps <paramref name="func"/> in a memoizing cache keyed by its five arguments.
+    /// </summary>
+    /// <typeparam name="T1">The first argument type.</typeparam>
+    /// <typeparam name="T2">The second argument type.</typeparam>
+    /// <typeparam name="T3">The third argument type.</typeparam>
+    /// <typeparam name="T4">The fourth argument type.</typeparam>
+    /// <typeparam name="T5">The fifth argument type.</typeparam>
+    /// <typeparam name="TResult">The result type.</typeparam>
+    /// <param name="func">The pure function to memoize.</param>
+    public static Func<T1, T2, T3, T4, T5, TResult> Memoize<T1, T2, T3, T4, T5, TResult>(
+        this Func<T1, T2, T3, T4, T5, TResult> func)
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
+        where T5 : notnull
+    {
+        var cache = new ConcurrentDictionary<(T1, T2, T3, T4, T5), Lazy<TResult>>();
+
+        return (arg1, arg2, arg3, arg4, arg5) => cache.GetOrAdd(
+            (arg1, arg2, arg3, arg4, arg5),
+            key => new Lazy<TResult>(
+                () => func(key.Item1, key.Item2, key.Item3, key.Item4, key.Item5),
+                LazyThreadSafetyMode.ExecutionAndPublication))
+            .Value;
+    }
 }

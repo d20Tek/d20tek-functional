@@ -354,16 +354,20 @@ General-purpose functional programming extension methods that work on any type. 
 
 ## MemoizeExtensions
 
-Extension methods that memoize pure functions, caching results by their input arguments so repeated calls with the same inputs avoid recomputation. Caches are backed by `ConcurrentDictionary<TKey, TValue>` and `Lazy<T>` to guarantee the wrapped function runs at most once per distinct input, even under concurrent access. Synchronous overloads live in `D20Tek.Functional`; the async variant lives in `D20Tek.Functional.Async`.
+Extension methods that memoize pure functions, caching results by their input arguments so repeated calls with the same inputs avoid recomputation. Caches are backed by `ConcurrentDictionary<TKey, TValue>` and `Lazy<T>` to guarantee the wrapped function runs at most once per distinct input, even under concurrent access. Synchronous overloads live in `D20Tek.Functional`; the async variant lives in `D20Tek.Functional.Async`. Overloads are provided for functions with one through five parameters, consistent with other multi-arity types in this library (e.g. `Choice`).
 
 | Member | Description |
 | --- | --- |
 | `Func<T, TResult> Memoize<T, TResult>(this Func<T, TResult> func)` | Caches results keyed by a single argument. |
 | `Func<T1, T2, TResult> Memoize<T1, T2, TResult>(this Func<T1, T2, TResult> func)` | Caches results keyed by two arguments. |
 | `Func<T1, T2, T3, TResult> Memoize<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func)` | Caches results keyed by three arguments. |
+| `Func<T1, T2, T3, T4, TResult> Memoize<T1, T2, T3, T4, TResult>(this Func<T1, T2, T3, T4, TResult> func)` | Caches results keyed by four arguments. |
+| `Func<T1, T2, T3, T4, T5, TResult> Memoize<T1, T2, T3, T4, T5, TResult>(this Func<T1, T2, T3, T4, T5, TResult> func)` | Caches results keyed by five arguments. |
 | `Func<T, Task<TResult>> MemoizeAsync<T, TResult>(this Func<T, Task<TResult>> func)` | Async variant (`D20Tek.Functional.Async`). Caches a single in-flight/completed task per argument so concurrent calls share one evaluation; a failed task is evicted from the cache so a later call can retry. |
 | `Func<T1, T2, Task<TResult>> MemoizeAsync<T1, T2, TResult>(this Func<T1, T2, Task<TResult>> func)` | Async variant keyed by two arguments. |
 | `Func<T1, T2, T3, Task<TResult>> MemoizeAsync<T1, T2, T3, TResult>(this Func<T1, T2, T3, Task<TResult>> func)` | Async variant keyed by three arguments. |
+| `Func<T1, T2, T3, T4, Task<TResult>> MemoizeAsync<T1, T2, T3, T4, TResult>(this Func<T1, T2, T3, T4, Task<TResult>> func)` | Async variant keyed by four arguments. |
+| `Func<T1, T2, T3, T4, T5, Task<TResult>> MemoizeAsync<T1, T2, T3, T4, T5, TResult>(this Func<T1, T2, T3, T4, T5, Task<TResult>> func)` | Async variant keyed by five arguments. |
 
 ```csharp
 Func<int, int> fib = null!;

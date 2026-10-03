@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `Memoize<T, TResult>` extension methods that cache the results of pure functions keyed by their input arguments, using `ConcurrentDictionary<T, Lazy<TResult>>` internally for thread-safe, single-evaluation caching. Overloads are provided for functions with one, two, and three parameters. An async variant, `MemoizeAsync<T, TResult>`, is also provided in `D20Tek.Functional.Async`, sharing in-flight tasks across concurrent calls with the same arguments and evicting failed results so later calls can retry.
+- `Memoize<T, TResult>` extension methods that cache the results of pure functions keyed by their input arguments, using `ConcurrentDictionary<T, Lazy<TResult>>` internally for thread-safe, single-evaluation caching. Overloads are provided for functions with one through five parameters, consistent with other multi-arity types in this library (e.g. `Choice`). 
+- An async variant, `MemoizeAsync<T, TResult>`, is also provided in `D20Tek.Functional.Async`, sharing in-flight tasks across concurrent calls with the same arguments and evicting failed results so later calls can retry.
 
 ### Changed
 

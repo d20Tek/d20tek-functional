@@ -109,4 +109,83 @@ public static class MemoizeAsyncExtensions
             }
         };
     }
+
+    /// <summary>
+    /// Wraps <paramref name="func"/> in a memoizing cache keyed by its four arguments.
+    /// </summary>
+    /// <typeparam name="T1">The first argument type.</typeparam>
+    /// <typeparam name="T2">The second argument type.</typeparam>
+    /// <typeparam name="T3">The third argument type.</typeparam>
+    /// <typeparam name="T4">The fourth argument type.</typeparam>
+    /// <typeparam name="TResult">The result type.</typeparam>
+    /// <param name="func">The pure async function to memoize.</param>
+    public static Func<T1, T2, T3, T4, Task<TResult>> MemoizeAsync<T1, T2, T3, T4, TResult>(
+        this Func<T1, T2, T3, T4, Task<TResult>> func)
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
+    {
+        var cache = new ConcurrentDictionary<(T1, T2, T3, T4), Lazy<Task<TResult>>>();
+
+        return async (arg1, arg2, arg3, arg4) =>
+        {
+            var key = (arg1, arg2, arg3, arg4);
+            var lazy = cache.GetOrAdd(
+                key,
+                k => new Lazy<Task<TResult>>(
+                    () => func(k.Item1, k.Item2, k.Item3, k.Item4), LazyThreadSafetyMode.ExecutionAndPublication));
+
+            try
+            {
+                return await lazy.Value;
+            }
+            catch
+            {
+                cache.TryRemove(key, out _);
+                throw;
+            }
+        };
+    }
+
+    /// <summary>
+    /// Wraps <paramref name="func"/> in a memoizing cache keyed by its five arguments.
+    /// </summary>
+    /// <typeparam name="T1">The first argument type.</typeparam>
+    /// <typeparam name="T2">The second argument type.</typeparam>
+    /// <typeparam name="T3">The third argument type.</typeparam>
+    /// <typeparam name="T4">The fourth argument type.</typeparam>
+    /// <typeparam name="T5">The fifth argument type.</typeparam>
+    /// <typeparam name="TResult">The result type.</typeparam>
+    /// <param name="func">The pure async function to memoize.</param>
+    public static Func<T1, T2, T3, T4, T5, Task<TResult>> MemoizeAsync<T1, T2, T3, T4, T5, TResult>(
+        this Func<T1, T2, T3, T4, T5, Task<TResult>> func)
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
+        where T5 : notnull
+    {
+        var cache = new ConcurrentDictionary<(T1, T2, T3, T4, T5), Lazy<Task<TResult>>>();
+
+        return async (arg1, arg2, arg3, arg4, arg5) =>
+        {
+            var key = (arg1, arg2, arg3, arg4, arg5);
+            var lazy = cache.GetOrAdd(
+                key,
+                k => new Lazy<Task<TResult>>(
+                    () => func(k.Item1, k.Item2, k.Item3, k.Item4, k.Item5),
+                    LazyThreadSafetyMode.ExecutionAndPublication));
+
+            try
+            {
+                return await lazy.Value;
+            }
+            catch
+            {
+                cache.TryRemove(key, out _);
+                throw;
+            }
+        };
+    }
 }

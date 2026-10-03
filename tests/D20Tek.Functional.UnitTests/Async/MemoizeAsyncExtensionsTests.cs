@@ -248,4 +248,152 @@ public class MemoizeAsyncExtensionsTests
         result.Should().Be(6);
         callCount.Should().Be(2);
     }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFourArgs_CachesResultForSameInputs()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, Task<int>> func = async (w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            return w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        var result1 = await memoized(1, 2, 3, 4);
+        var result2 = await memoized(1, 2, 3, 4);
+
+        // assert
+        result1.Should().Be(10);
+        result2.Should().Be(10);
+        callCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFourArgs_RecomputesForDifferentInputs()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, Task<int>> func = async (w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            return w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        var result1 = await memoized(1, 2, 3, 4);
+        var result2 = await memoized(1, 2, 3, 5);
+
+        // assert
+        result1.Should().Be(10);
+        result2.Should().Be(11);
+        callCount.Should().Be(2);
+    }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFourArgs_EvictsFailedResultAndAllowsRetry()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, Task<int>> func = async (w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            if (callCount == 1)
+            {
+                throw new InvalidOperationException("first call fails");
+            }
+
+            return w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        Func<Task> act = async () => await memoized(1, 2, 3, 4);
+        await act.Should().ThrowExactlyAsync<InvalidOperationException>();
+        var result = await memoized(1, 2, 3, 4);
+
+        // assert
+        result.Should().Be(10);
+        callCount.Should().Be(2);
+    }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFiveArgs_CachesResultForSameInputs()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, int, Task<int>> func = async (v, w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            return v + w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        var result1 = await memoized(1, 2, 3, 4, 5);
+        var result2 = await memoized(1, 2, 3, 4, 5);
+
+        // assert
+        result1.Should().Be(15);
+        result2.Should().Be(15);
+        callCount.Should().Be(1);
+    }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFiveArgs_RecomputesForDifferentInputs()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, int, Task<int>> func = async (v, w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            return v + w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        var result1 = await memoized(1, 2, 3, 4, 5);
+        var result2 = await memoized(1, 2, 3, 4, 6);
+
+        // assert
+        result1.Should().Be(15);
+        result2.Should().Be(16);
+        callCount.Should().Be(2);
+    }
+
+    [TestMethod]
+    public async Task MemoizeAsync_WithFiveArgs_EvictsFailedResultAndAllowsRetry()
+    {
+        // arrange
+        int callCount = 0;
+        Func<int, int, int, int, int, Task<int>> func = async (v, w, x, y, z) =>
+        {
+            callCount++;
+            await Task.Delay(1, CancellationToken.None);
+            if (callCount == 1)
+            {
+                throw new InvalidOperationException("first call fails");
+            }
+
+            return v + w + x + y + z;
+        };
+        var memoized = func.MemoizeAsync();
+
+        // act
+        Func<Task> act = async () => await memoized(1, 2, 3, 4, 5);
+        await act.Should().ThrowExactlyAsync<InvalidOperationException>();
+        var result = await memoized(1, 2, 3, 4, 5);
+
+        // assert
+        result.Should().Be(15);
+        callCount.Should().Be(2);
+    }
 }

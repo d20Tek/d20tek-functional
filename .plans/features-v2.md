@@ -140,8 +140,8 @@ A utility that caches the result of a pure function based on its input arguments
 
 **Implementation approach:**
 - `Func<T, TResult> Memoize<T, TResult>(this Func<T, TResult> func)` using `ConcurrentDictionary<T, Lazy<TResult>>` internally for thread safety.
-- Overloads for `Func<T1, T2, TResult>` etc. (up to ~3 parameters).
-- Consider an async variant `Func<T, Task<TResult>> MemoizeAsync<T, TResult>(...)`.
+- Overloads for `Func<T1, T2, TResult>` etc., up to 5 parameters, consistent with other multi-arity types in this library (e.g. `Choice`).
+- Async variant `Func<T, Task<TResult>> MemoizeAsync<T, TResult>(...)` with matching overloads up to 5 parameters.
 
 **Example usage:**
 ```csharp
