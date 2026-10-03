@@ -5,6 +5,16 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.10] - Memoization
+
+### Added
+
+- `Memoize<T, TResult>` extension methods that cache the results of pure functions keyed by their input arguments, using `ConcurrentDictionary<T, Lazy<TResult>>` internally for thread-safe, single-evaluation caching. Overloads are provided for functions with one, two, and three parameters. An async variant, `MemoizeAsync<T, TResult>`, is also provided in `D20Tek.Functional.Async`, sharing in-flight tasks across concurrent calls with the same arguments and evicting failed results so later calls can retry.
+
+### Changed
+
+- Updated package references to the latest versions.
+
 ## [1.1.10] - LINQ query syntax
 
 ### Added

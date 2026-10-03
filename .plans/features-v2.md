@@ -9,8 +9,6 @@
 | **`Result.Combine` / `Traverse`** | Combine multiple Results into one (applicative). A general `Result[]` → `Result<T[]>` combinator. | Medium-High | High – common ask for applicative patterns |
 | **`Option.OfNullable<T>` / `OfObj<T>`** | Factory methods to bridge nullable reference types into `Optional<T>`. | Medium | Medium – quality-of-life |
 | **`Memoize<T>`** | Caches pure function results for referential transparency. | Medium | Medium – simple but useful utility |
-| **`Either<TLeft, TRight>`** | Unbiased two-value type (vs. Result which is biased toward success). | Low | Low – `Choice<T1,T2>` already fills this role |
-| **`Tap` / `Tee`** | Side-effect in a pipeline without altering the value. | Low | Low – `Iter` and `Pipe` with action already cover this |
 | **Reader Monad** | Dependency injection / environment threading in a functional style. | Low | Low – less common in C# FP libraries |
 
 ---
@@ -134,7 +132,7 @@ Optional<string> optName = Optional.OfObj(maybeName);
 
 ---
 
-### 5. `Memoize<T>`
+### 5. `Memoize<T>` [Done]
 
 A utility that caches the result of a pure function based on its input arguments.
 
