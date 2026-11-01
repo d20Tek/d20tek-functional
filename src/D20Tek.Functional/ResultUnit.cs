@@ -4,7 +4,7 @@ namespace D20Tek.Functional;
 /// Provides non-generic factory helpers for creating <see cref="Result{T}"/> instances,
 /// with convenience methods for side-effect-only operations that produce a <see cref="Unit"/> value.
 /// </summary>
-public static class Result
+public static partial class Result
 {
     /// <summary>
     /// Creates a successful <see cref="Result{T}"/> of <see cref="Unit"/>, representing a

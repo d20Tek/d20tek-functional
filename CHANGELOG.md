@@ -5,6 +5,19 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.13] - Result aggregation
+
+### Added
+
+- `Result.Combine` applicative-style aggregation helpers that evaluate every input and collect all errors instead of short-circuiting on the first failure. Overloads include `Combine<T>(params Result<T>[])` returning `Result<T[]>`, plus typed overloads for two through five results that project their success values through a combiner function.
+- `Result.Traverse<T, TResult>(IEnumerable<T>, Func<T, Result<TResult>>)` maps each element through a failable selector and collects the outcomes, and `Result.Sequence<T>(IEnumerable<Result<T>>)` collapses a sequence of results into a single result.
+- Async counterparts in `D20Tek.Functional.Async` on `ResultCombineAsyncExtensions`: `CombineAsync` (array and two- through five-result typed overloads), `TraverseAsync`, and `SequenceAsync`. Each awaits all supplied tasks before aggregating so errors from every input are collected.
+
+### Changed
+
+- The non-generic `Result` factory class is now declared `partial` so the aggregation helpers can be defined in a separate file.
+- Updated package references to the latest versions.
+
 ## [1.1.12] - Memoization
 
 ### Added

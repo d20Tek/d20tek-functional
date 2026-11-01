@@ -76,7 +76,7 @@ var result = from user in GetUser(id)
 
 ---
 
-### 3. `Result.Combine` / `Traverse`
+### 3. `Result.Combine` / `Traverse` [Done]
 
 Aggregate multiple `Result<T>` values into a single `Result<T[]>`, collecting all errors on failure (applicative style).
 

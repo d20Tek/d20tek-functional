@@ -134,6 +134,31 @@ Provides non-generic factory helpers for creating `Result<T>` instances, with co
 | `static Result<Unit> Failure(Error error)` | Creates a failed `Result<Unit>` containing a single error. |
 | `static Result<Unit> Failure(Exception ex)` | Creates a failed `Result<Unit>` from an exception. |
 
+### Applicative aggregation (Combine / Traverse / Sequence)
+
+The `Result` factory class also exposes applicative-style aggregation helpers. Unlike `Bind`, which short-circuits on the first failure, these methods evaluate every input and collect all errors so callers can report multiple problems at once (for example, when validating several fields).
+
+| Member | Description |
+| --- | --- |
+| `static Result<T[]> Combine<T>(params Result<T>[] results)` | Returns a success containing all values if every input succeeds, or a failure containing the errors collected from every failed input. |
+| `static Result<TResult> Combine<T1, T2, TResult>(Result<T1>, Result<T2>, Func<T1, T2, TResult> combiner)` | Combines two results of differing types and projects their success values. All errors are collected on failure. |
+| `static Result<TResult> Combine<T1, T2, T3, TResult>(..., Func<T1, T2, T3, TResult> combiner)` | Three-result typed overload. |
+| `static Result<TResult> Combine<T1, T2, T3, T4, TResult>(..., Func<T1, T2, T3, T4, TResult> combiner)` | Four-result typed overload. |
+| `static Result<TResult> Combine<T1, T2, T3, T4, T5, TResult>(..., Func<T1, T2, T3, T4, T5, TResult> combiner)` | Five-result typed overload. |
+| `static Result<TResult[]> Traverse<T, TResult>(IEnumerable<T> source, Func<T, Result<TResult>> selector)` | Maps each element through a failable selector and collects the outcomes, returning all mapped values or every collected error. |
+| `static Result<T[]> Sequence<T>(IEnumerable<Result<T>> source)` | Collapses a sequence of results into a single result containing all success values, or a failure containing every collected error. |
+
+```csharp
+var name = ValidateName(input.Name);
+var email = ValidateEmail(input.Email);
+var age = ValidateAge(input.Age);
+
+Result<User> result = Result.Combine(name, email, age, (n, e, a) => new User(n, e, a));
+// If any input fails, all errors are collected into the failure.
+```
+
+Async counterparts live in `D20Tek.Functional.Async` on the `ResultCombineAsyncExtensions` class: `CombineAsync` (array and two- through five-result typed overloads), `TraverseAsync`, and `SequenceAsync`. Each awaits all supplied tasks before aggregating, so errors from every input are collected.
+
 ---
 
 ## Unit
