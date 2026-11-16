@@ -4,3 +4,4 @@ global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.Mvc.Infrastructure;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using System.Net;
+global using System.Diagnostics.CodeAnalysis;

@@ -40,6 +40,7 @@ public static class ResultAsyncExtensions
     /// <summary>
     /// Asynchronously converts a result to a 201 CreatedAtRoute response on success.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static async Task<IResult> ToCreatedApiResultAsync<TValue>(
         this Task<Result<TValue>> result,
         string? routeName = null,
@@ -51,6 +52,7 @@ public static class ResultAsyncExtensions
     /// <summary>
     /// Asynchronously converts a result to a 201 CreatedAtRoute response, mapping the success value.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static async Task<IResult> ToCreatedApiResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         Func<TValue, TResponse> responseMap,
@@ -63,6 +65,7 @@ public static class ResultAsyncExtensions
     /// <summary>
     /// Asynchronously converts a result to a 201 CreatedAtRoute response with a fixed response object.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static async Task<IResult> ToCreatedApiResultAsync<TValue, TResponse>(
         this Task<Result<TValue>> result,
         TResponse response,

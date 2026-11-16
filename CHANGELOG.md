@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## # [1.1.14] - Enable trimming and AOT compatibility
+
+### Changed
+
+- The core library now builds with `<IsAotCompatible>true</IsAotCompatible>`, which enables the trim, AOT, and single-file analyzers.
+- `D20Tek.Functional.AspNetCore` now also builds with `<IsAotCompatible>true</IsAotCompatible>`. The minimal API `ToCreatedApiResult` and `ToCreatedApiResultAsync` overloads that take `routeName` and `routeValues` are now marked `[RequiresUnreferencedCode]`, because they call `TypedResults.CreatedAtRoute`, which reflects over the `routeValues` object. Trimmed or Native AOT apps get a warning at the call site; use the route URI overloads to avoid it.
+
+### Fixed
+
+- Fixed trim warnings (IL2091) in `MemoizeExtensions`. The `TResult` type parameter on each `Memoize` overload is now annotated with `[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]` to match the requirement on `Lazy<T>`.
+
 ## [1.1.13] - Result aggregation
 
 ### Added

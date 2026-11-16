@@ -31,6 +31,7 @@ public static class ResultExtensions
     /// <summary>
     /// Converts a <see cref="Result{T}"/> to a 201 CreatedAtRoute response on success, or Problem Details on failure.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static IResult ToCreatedApiResult<TValue>(
         this Result<TValue> result,
         string? routeName = null,
@@ -42,6 +43,7 @@ public static class ResultExtensions
     /// <summary>
     /// Converts a <see cref="Result{T}"/> to a 201 CreatedAtRoute response, mapping the success value to a response DTO.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static IResult ToCreatedApiResult<TValue, TResponse>(
         this Result<TValue> result,
         Func<TValue, TResponse> responseMap,
@@ -54,6 +56,7 @@ public static class ResultExtensions
     /// <summary>
     /// Converts a <see cref="Result{T}"/> to a 201 CreatedAtRoute response with a fixed response object.
     /// </summary>
+    [RequiresUnreferencedCode(Constants.RouteValuesTrimMessage)]
     public static IResult ToCreatedApiResult<TValue, TResponse>(
         this Result<TValue> result,
         TResponse response,

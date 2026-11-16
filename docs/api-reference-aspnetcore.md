@@ -93,6 +93,8 @@ Async counterparts that operate on `Task<Result<TValue>>`, so results produced b
 | `Task<IResult> ToCreatedApiResultAsync<TValue>(...)` | Awaits and converts to a 201 CreatedAtRoute response. |
 | `Task<IResult> ToCreatedApiResultAsync<TValue, TResponse>(...)` | Awaits and converts to a 201 CreatedAtRoute response with a mapped or fixed response. |
 
+The `ToCreatedApiResult` and `ToCreatedApiResultAsync` overloads that take `routeName` and `routeValues` are marked `[RequiresUnreferencedCode]`. They call `TypedResults.CreatedAtRoute`, which reads the public properties of the `routeValues` object through reflection, and trimming can remove those properties. In trimmed or Native AOT apps, use the overloads that take a `routeUri` string instead.
+
 ### TypedResultExtensions
 
 Extension methods on `IResultExtensions` for converting `Error` arrays into RFC 7807 Problem Details responses in Minimal APIs.

@@ -23,6 +23,7 @@ The extensions for ASP.NET Core add functionality to working with controller-bas
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyVersion>1.0.6</AssemblyVersion>
     <FileVersion>1.0.6</FileVersion>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework) == 'net9.0'">

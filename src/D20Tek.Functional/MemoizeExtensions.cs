@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.Functional;
 
@@ -17,7 +18,10 @@ public static class MemoizeExtensions
     /// <typeparam name="T">The argument type, used as the cache key.</typeparam>
     /// <typeparam name="TResult">The result type.</typeparam>
     /// <param name="func">The pure function to memoize.</param>
-    public static Func<T, TResult> Memoize<T, TResult>(this Func<T, TResult> func)
+    public static Func<T, TResult> Memoize<
+        T,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TResult>(
+        this Func<T, TResult> func)
         where T : notnull
     {
         var cache = new ConcurrentDictionary<T, Lazy<TResult>>();
@@ -34,7 +38,11 @@ public static class MemoizeExtensions
     /// <typeparam name="T2">The second argument type.</typeparam>
     /// <typeparam name="TResult">The result type.</typeparam>
     /// <param name="func">The pure function to memoize.</param>
-    public static Func<T1, T2, TResult> Memoize<T1, T2, TResult>(this Func<T1, T2, TResult> func)
+    public static Func<T1, T2, TResult> Memoize<
+        T1,
+        T2,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TResult>(
+        this Func<T1, T2, TResult> func)
         where T1 : notnull
         where T2 : notnull
     {
@@ -54,7 +62,12 @@ public static class MemoizeExtensions
     /// <typeparam name="T3">The third argument type.</typeparam>
     /// <typeparam name="TResult">The result type.</typeparam>
     /// <param name="func">The pure function to memoize.</param>
-    public static Func<T1, T2, T3, TResult> Memoize<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func)
+    public static Func<T1, T2, T3, TResult> Memoize<
+        T1,
+        T2,
+        T3,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TResult>(
+        this Func<T1, T2, T3, TResult> func)
         where T1 : notnull
         where T2 : notnull
         where T3 : notnull
@@ -77,7 +90,12 @@ public static class MemoizeExtensions
     /// <typeparam name="T4">The fourth argument type.</typeparam>
     /// <typeparam name="TResult">The result type.</typeparam>
     /// <param name="func">The pure function to memoize.</param>
-    public static Func<T1, T2, T3, T4, TResult> Memoize<T1, T2, T3, T4, TResult>(
+    public static Func<T1, T2, T3, T4, TResult> Memoize<
+        T1,
+        T2,
+        T3,
+        T4,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TResult>(
         this Func<T1, T2, T3, T4, TResult> func)
         where T1 : notnull
         where T2 : notnull
@@ -103,7 +121,13 @@ public static class MemoizeExtensions
     /// <typeparam name="T5">The fifth argument type.</typeparam>
     /// <typeparam name="TResult">The result type.</typeparam>
     /// <param name="func">The pure function to memoize.</param>
-    public static Func<T1, T2, T3, T4, T5, TResult> Memoize<T1, T2, T3, T4, T5, TResult>(
+    public static Func<T1, T2, T3, T4, T5, TResult> Memoize<
+        T1,
+        T2,
+        T3,
+        T4,
+        T5,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TResult>(
         this Func<T1, T2, T3, T4, T5, TResult> func)
         where T1 : notnull
         where T2 : notnull
